@@ -1,33 +1,56 @@
 package com.game;
 
-import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.game.objects.PlayerSpaceShip;
 
-public class RocketKrieg extends ApplicationAdapter {
-	SpriteBatch batch;
-	Texture img;
-	
-	@Override
-	public void create () {
-		batch = new SpriteBatch();
-		img = new Texture("badlogic.jpg");
+public class RocketKrieg implements Screen {
+	private final GameEntry game;
+	private PlayerSpaceShip ship;
+
+	public RocketKrieg(final GameEntry game) {
+		this.game = game;
+		ship = new PlayerSpaceShip();
 	}
 
 	@Override
-	public void render () {
-		Gdx.gl.glClearColor(1, 0, 0, 1);
+	public void show() {
+
+	}
+
+	@Override
+	public void render(float delta) {
+		Gdx.gl.glClearColor(0, 0, 0, 0);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		batch.begin();
-		batch.draw(img, 0, 0);
-		batch.end();
+		ship.update(delta);
+		game.batch.begin();
+		ship.render(game.batch);
+		game.batch.end();
 	}
-	
+
+	@Override
+	public void resize(int i, int i1) {
+
+	}
+
+	@Override
+	public void pause() {
+
+	}
+
+	@Override
+	public void resume() {
+
+	}
+
+	@Override
+	public void hide() {
+
+	}
+
 	@Override
 	public void dispose () {
-		batch.dispose();
-		img.dispose();
+		game.batch.dispose();
 	}
 }
