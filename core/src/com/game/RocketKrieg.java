@@ -14,12 +14,17 @@ public class RocketKrieg implements Screen {
 		ship = new PlayerSpaceShip();
 	}
 
-	@Override
+	/**
+	 * Called when this screen becomes current screen.
+	 */
 	public void show() {
 
 	}
 
-	@Override
+	/**
+	 * Called every frame.
+	 * @param delta time since last frame.
+	 */
 	public void render(float delta) {
 		Gdx.gl.glClearColor(0, 0, 0, 0);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -29,17 +34,25 @@ public class RocketKrieg implements Screen {
 		game.batch.end();
 	}
 
-	@Override
-	public void resize(int i, int i1) {
+	/**
+	 * Method to resize screen, objects etc.
+	 * @param width int
+	 * @param height int
+	 */
+	public void resize(int width, int height) {
 
 	}
 
-	@Override
+	/**
+	 * Actions performed when game is paused (good place to save the game).
+	 */
 	public void pause() {
 
 	}
 
-	@Override
+	/**
+	 * Only called on android.
+	 */
 	public void resume() {
 
 	}

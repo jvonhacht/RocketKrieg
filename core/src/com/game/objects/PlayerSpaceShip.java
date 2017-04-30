@@ -21,14 +21,16 @@ public class PlayerSpaceShip {
     private final float MAX_ANGULARVELOCITY = 10F;
     private final float TURNING_SPEED = 3F;
     //Textures
-    private Texture img;
+    private Sprite off, offLeft, offRight, on, onLeft, onRight;
 
     /**
      * Initialise player ship.
      */
     public PlayerSpaceShip() {
         //load images
-        img = new Texture(Gdx.files.internal("images/spaceship/SpaceShipGit.png"));
+        off = new Sprite(new Texture(Gdx.files.internal("images/spaceship/SpaceShipGit.png")));
+        off.setSize(60,60);
+        off.setOriginCenter();
 
         //set ship properties
         position = new Vector2(Gdx.graphics.getWidth()/2,Gdx.graphics.getHeight()/2);
@@ -41,12 +43,27 @@ public class PlayerSpaceShip {
      * Render the players ship.
      */
     public void render(SpriteBatch batch) {
-        Sprite sprite = new Sprite(img);
-        sprite.setRotation((float)Math.toDegrees(angle)-90);
-        sprite.setSize(60,60);
-        sprite.setOriginCenter();
-        sprite.setPosition(position.x,position.y);
-        sprite.draw(batch);
+        Sprite img = off;
+        /* <-- Commented until all textures are created. -->
+        if(Gdx.input.isKeyPressed(Input.Keys.W)) {
+            img = on;
+        }
+        if(Gdx.input.isKeyPressed(Input.Keys.A)) {
+            img = offLeft;
+            if(Gdx.input.isKeyPressed(Input.Keys.W)) {
+                img = onLeft;
+            }
+        }
+        if(Gdx.input.isKeyPressed(Input.Keys.D)) {
+            img = offRight;
+            if(Gdx.input.isKeyPressed(Input.Keys.W)) {
+                img = onRight;
+            }
+        }
+        */
+        img.setRotation((float)Math.toDegrees(angle)-90);
+        img.setPosition(position.x,position.y);
+        img.draw(batch);
     }
 
     public void update(float delta) {
@@ -120,6 +137,10 @@ public class PlayerSpaceShip {
         angle = (float)Math.toRadians(+90);
     }
 
+    /**
+     * Get position of spacecraft.
+     * @return position Vector2
+     */
     public Vector2 getPosition() {
         return position;
     }
