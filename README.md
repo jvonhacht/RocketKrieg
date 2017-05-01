@@ -15,11 +15,13 @@
 -Co-op survival: Två personer spelar tillsammans och har ansvar för varsin kontroll; en person ansvarar för gasen och den andra svänger.  
 
 **Objects:**
+
 -PlayerSpaceShip (Missiles)
 -Alien ship
 -Asteroids
 
 **Tile (512x512px):**
+
 -Planets
 -Black holes
 -Structures
