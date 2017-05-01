@@ -15,11 +15,11 @@ public class GameEntry extends Game {
     public void create() {
         batch = new SpriteBatch();
         font = new BitmapFont();
-        this.setScreen(new RocketKrieg(this));
+        this.setScreen(new MainMenu(this));
     }
 
     public void render() {
-        super.render(); //important!
+        super.render();
     }
 
     public void dispose() {

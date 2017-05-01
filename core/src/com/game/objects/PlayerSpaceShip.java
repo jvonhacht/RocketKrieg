@@ -28,7 +28,7 @@ public class PlayerSpaceShip {
      */
     public PlayerSpaceShip() {
         //load images
-        off = new Sprite(new Texture(Gdx.files.internal("images/spaceship/SpaceShipGit.png")));
+        off = new Sprite(new Texture(Gdx.files.internal("images/spaceship/Spaceship1.png")));
         off.setSize(60,60);
         off.setOriginCenter();
 
