@@ -48,7 +48,7 @@ public class MainMenu implements Screen {
         int backHeight = background.getHeight();
 
         //Draw menu
-        game.batch.draw(background, Gdx.graphics.getWidth()/2 - (backWidth / 2), Gdx.graphics.getHeight()/2 - (backHeight / 2));
+        game.batch.draw(background, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         game.batch.draw(gameLogo, Gdx.graphics.getWidth()/2 - (logoWidth / 2), Gdx.graphics.getHeight()/2 - (logoHeight / 2) + 50);
         game.batch.draw(playButton, Gdx.graphics.getWidth()/2 - (playWidth / 2), Gdx.graphics.getHeight()/2 - (playHeight / 2) - 100);
         game.batch.end();
@@ -64,7 +64,7 @@ public class MainMenu implements Screen {
             if (yPos <= Gdx.graphics.getHeight()/2 + (playHeight / 2) + 100 && yPos >= Gdx.graphics.getHeight()/2 - (playHeight / 2) + 100){
                 if (Gdx.input.isTouched()) {
                     playSound.play(1.0f);
-                    System.exit(0);
+                    game.setScreen(new RocketKrieg(game));
                     dispose();
                 }
             }
