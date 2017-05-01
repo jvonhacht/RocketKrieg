@@ -10,40 +10,30 @@ import com.badlogic.gdx.math.Vector2;
 /**
  * Created by Johan on 27/04/2017.
  */
-public class PlayerSpaceShip {
-    private Vector2 position;
-    private Vector2 velocity;
-    private Vector2 acceleration;
-    private float angularVelocity;
-    private float angle;
+public class PlayerSpaceShip extends GameEntity {
     //Multipliers
     private final float SPEED_MULTIPLIER = 5000F;
     private final float MAX_ANGULARVELOCITY = 10F;
     private final float TURNING_SPEED = 3F;
     //Textures
-    private Sprite off, offLeft, offRight, on, onLeft, onRight;
+    private Sprite sprite, offLeft, offRight, on, onLeft, onRight;
 
     /**
      * Initialise player ship.
      */
     public PlayerSpaceShip() {
+        super();
         //load images
-        off = new Sprite(new Texture(Gdx.files.internal("images/spaceship/Spaceship1.png")));
-        off.setSize(60,60);
-        off.setOriginCenter();
-
-        //set ship properties
-        position = new Vector2(Gdx.graphics.getWidth()/2,Gdx.graphics.getHeight()/2);
-        velocity = new Vector2();
-        acceleration = new Vector2();
-        angle = 0;
+        sprite = new Sprite(new Texture(Gdx.files.internal("images/spaceship/Spaceship1.png")));
+        sprite.setSize(80,80);
+        sprite.setOriginCenter();
     }
 
     /**
      * Render the players ship.
      */
     public void render(SpriteBatch batch) {
-        Sprite img = off;
+        Sprite img = sprite;
         /* <-- Commented until all textures are created. -->
         if(Gdx.input.isKeyPressed(Input.Keys.W)) {
             img = on;
@@ -61,20 +51,15 @@ public class PlayerSpaceShip {
             }
         }
         */
-        img.setRotation((float)Math.toDegrees(angle)-90);
-        img.setPosition(position.x,position.y);
-        img.draw(batch);
+        super.render(batch,img);
     }
 
+    /**
+     * Update ship values based on input.
+     * @param delta
+     */
     public void update(float delta) {
         move(delta);
-        if(Gdx.input.isKeyPressed(Input.Keys.R)) {
-            setPos(Gdx.graphics.getWidth()/2,Gdx.graphics.getHeight()/2);
-        }
-        if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
-            Gdx.app.exit();
-        }
-
         //flight controls
         if(Gdx.input.isKeyPressed(Input.Keys.W)) {
             accel(delta);
@@ -85,18 +70,10 @@ public class PlayerSpaceShip {
         if(Gdx.input.isKeyPressed(Input.Keys.A)) {
             turnRight(delta);
         }
-    }
-
-    /**
-     * Move the spaceship.
-     * @param delta time since last frame
-     */
-    public void move(float delta) {
-        velocity.add(acceleration.x*delta,acceleration.y*delta);
-        position.add(velocity.x*delta,velocity.y*delta);
-        acceleration.set(0,0);
-
-        angle = (float)Math.toRadians((Math.toDegrees(angle) + angularVelocity) % 360);
+        //reset position to center of the screen.
+        if(Gdx.input.isKeyPressed(Input.Keys.R)) {
+            setPos(Gdx.graphics.getWidth()/2,Gdx.graphics.getHeight()/2);
+        }
     }
 
     /**
@@ -122,26 +99,5 @@ public class PlayerSpaceShip {
      */
     public void accel(float delta) {
         acceleration.set((float)Math.cos(angle)*SPEED_MULTIPLIER*delta,(float)Math.sin(angle)*SPEED_MULTIPLIER*delta);
-    }
-
-    /**
-     * Set the position of the ship. Resets acceleration, velocity and angular velocity.
-     * @param x position
-     * @param y position
-     */
-    public void setPos(float x,float y) {
-        position.set(x,y);
-        velocity.set(0,0);
-        acceleration.set(0,0);
-        angularVelocity = 0;
-        angle = (float)Math.toRadians(+90);
-    }
-
-    /**
-     * Get position of spacecraft.
-     * @return position Vector2
-     */
-    public Vector2 getPosition() {
-        return position;
     }
 }
