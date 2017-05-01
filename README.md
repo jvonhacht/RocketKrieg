@@ -16,15 +16,15 @@
 
 **Objects:**
 
--PlayerSpaceShip (Missiles)
--Alien ship
--Asteroids
+* PlayerSpaceShip (Missiles)
+* Alien ship
+* Asteroids
 
 **Tile (512x512px):**
 
--Planets
--Black holes
--Structures
+* Planets
+* Black holes
+* Structures
 
 ### How-to-run
 1. Download/clone project from github.
