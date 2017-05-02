@@ -8,7 +8,7 @@ import com.badlogic.gdx.math.Vector2;
 /**
  * Created by Johan on 01/05/2017.
  */
-public class GameEntity {
+public class GameEntity implements Entity {
     Vector2 position;
     Vector2 velocity;
     Vector2 acceleration;
