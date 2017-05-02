@@ -10,7 +10,7 @@ import com.badlogic.gdx.math.Vector2;
 /**
  * Created by Johan on 27/04/2017.
  */
-public class PlayerSpaceShip extends GameEntity {
+public class PlayerSpaceShip extends GameEntity implements Entity{
     //Multipliers
     private final float SPEED_MULTIPLIER = 5000F;
     private final float MAX_ANGULARVELOCITY = 10F;
@@ -22,8 +22,7 @@ public class PlayerSpaceShip extends GameEntity {
      * Initialise player ship.
      */
     public PlayerSpaceShip() {
-        //Initialize position and velocity
-        super((Gdx.graphics.getWidth())/2, (Gdx.graphics.getHeight())/2, 0, 0);
+        super();
         //load images
         sprite = new Sprite(new Texture(Gdx.files.internal("images/spaceship/Spaceship1.png")));
         sprite.setSize(80,80);
@@ -52,6 +51,8 @@ public class PlayerSpaceShip extends GameEntity {
             }
         }
         */
+        sprite.setRotation((float)Math.toDegrees(angle)-90);
+        sprite.setPosition(position.x,position.y);
         super.render(batch,img);
     }
 

@@ -11,15 +11,14 @@ public interface Entity {
     /**
      * Render Entity
      * @param batch
-     * @param sprite to render.
      */
-    void render(SpriteBatch batch, Sprite sprite);
+    void render(SpriteBatch batch);
 
     /**
      * Move entity based on velocity etc.
      * @param delta time since last frame.
      */
-    void move(float delta);
+    void update(float delta);
 
     /**
      * Return position of entity.
