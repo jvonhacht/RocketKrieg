@@ -8,7 +8,7 @@ import com.badlogic.gdx.math.MathUtils;
 import java.util.Random;
 
 /**
- *  Asteroid class.
+ *  Asteroid class
  *  @author David Johansson 
  *  @version 1.0 (2017-05-02)
  */
