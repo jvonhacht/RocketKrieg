@@ -1,6 +1,5 @@
 package com.game.objects;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
@@ -15,10 +14,10 @@ public class GameEntity implements Entity {
     float angularVelocity;
     float angle;
 
-    protected GameEntity() {
+    protected GameEntity(float xPos, float yPos, float xVel, float yVel) {
         //set ship properties
-        position = new Vector2(Gdx.graphics.getWidth()/2,Gdx.graphics.getHeight()/2);
-        velocity = new Vector2();
+        position = new Vector2(xPos, yPos);
+        velocity = new Vector2(xVel, yVel);
         acceleration = new Vector2();
         angle = 0;
     }
