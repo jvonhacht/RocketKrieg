@@ -1,5 +1,6 @@
 package com.game.objects;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
@@ -7,19 +8,19 @@ import com.badlogic.gdx.math.Vector2;
 /**
  * Created by Johan on 01/05/2017.
  */
-public class GameEntity implements Entity {
+public class GameEntity{
     Vector2 position;
     Vector2 velocity;
     Vector2 acceleration;
     float angularVelocity;
     float angle;
 
-    protected GameEntity(float xPos, float yPos, float xVel, float yVel) {
+    protected GameEntity() {
         //set ship properties
-        position = new Vector2(xPos, yPos);
-        velocity = new Vector2(xVel, yVel);
+        position = new Vector2(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2);
+        velocity = new Vector2();
         acceleration = new Vector2();
-        angle = 0;
+        angle = (float)Math.toRadians(90);
     }
 
     /**
@@ -27,8 +28,6 @@ public class GameEntity implements Entity {
      * @param batch SpriteBatch
      */
     public void render(SpriteBatch batch, Sprite sprite) {
-        sprite.setRotation((float)Math.toDegrees(angle)-90);
-        sprite.setPosition(position.x,position.y);
         sprite.draw(batch);
     }
 
