@@ -22,7 +22,8 @@ public class PlayerSpaceShip extends GameEntity {
      * Initialise player ship.
      */
     public PlayerSpaceShip() {
-        super();
+        //Initialize position and velocity
+        super((Gdx.graphics.getWidth())/2, (Gdx.graphics.getHeight())/2, 0, 0);
         //load images
         sprite = new Sprite(new Texture(Gdx.files.internal("images/spaceship/Spaceship1.png")));
         sprite.setSize(80,80);
