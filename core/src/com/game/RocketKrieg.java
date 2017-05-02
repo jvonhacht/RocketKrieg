@@ -6,24 +6,19 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.game.objects.Asteroid;
+import com.game.objects.EntityHandler;
 import com.game.objects.PlayerSpaceShip;
 
 public class RocketKrieg implements Screen {
 	private final GameEntry game;
 	private PlayerSpaceShip ship;
-	private Asteroid asteroid1;
-	private Asteroid asteroid2;
-	private Asteroid asteroid3;
-	private Asteroid asteroid4;
+	private EntityHandler eh;
 	private OrthographicCamera camera;
 
 	public RocketKrieg(final GameEntry game) {
 		this.game = game;
 		ship = new PlayerSpaceShip();
-		asteroid1 = new Asteroid();
-		asteroid2 = new Asteroid();
-		asteroid3 = new Asteroid();
-		asteroid4 = new Asteroid();
+		eh = new EntityHandler(game.batch);
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
 	}
@@ -44,18 +39,11 @@ public class RocketKrieg implements Screen {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		camera.update();
 		game.batch.setProjectionMatrix(camera.combined);
-		ship.update(delta);
-		asteroid1.update(delta);
-		asteroid2.update(delta);
-		asteroid3.update(delta);
-		asteroid4.update(delta);
+		//batch
 		game.batch.begin();
-		ship.render(game.batch);
-		asteroid1.render(game.batch);
-		asteroid2.render(game.batch);
-		asteroid3.render(game.batch);
-		asteroid4.render(game.batch);
+		eh.render();
 		game.batch.end();
+		//input
 		if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
 			Gdx.app.exit();
 		}
@@ -84,12 +72,8 @@ public class RocketKrieg implements Screen {
 
 	}
 
-	@Override
-	public void hide() {
+	public void hide() {}
 
-	}
-
-	@Override
 	public void dispose () {
 		game.batch.dispose();
 	}
