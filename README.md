@@ -6,11 +6,11 @@
 
 ### Projektbeskrivning
 
-**RocketKrieg** är ett spel där man genom att kontrollera en raket försöker överleva så länge som möjligt i ett universum fylld av faror från alla olika håll och kanter. En blandning av varierande spellägen kommer att vara tillgängliga som erbjuder spännande utmaningar för dig och din kompis att anta. Projektet är konstruerat med hjälp av libGDX, ett spelbibliotek som erbjuder ett flertal olika användbara metoder för denna sortens spel.  
+**Rocket Krieg** är ett spel där man genom att kontrollera en raket försöker överleva så länge som möjligt i ett universum fylld av faror från alla olika håll och kanter. En blandning av varierande spellägen kommer att vara tillgängliga som erbjuder spännande utmaningar för dig och din kompis att anta. Projektet är konstruerat med hjälp av libGDX, ett spelbibliotek som erbjuder ett flertal olika användbara metoder för denna sortens spel. Rocket Krieg kommer att bestå av drygt 12 klasser där de flesta utgörs av olika spelentiteter såsom asteroider samt alienskepp. 
 
 **Gamemodes:**
 
--Singleplayer survival: Försök överleva så länge som möjligt medans asteroider samt fiendeskepp ankommer från runtom dig. Vid kollision förstörs raketen och spelet avslutas. 
+-Singleplayer survival: Försök överleva så länge som möjligt medans asteroider samt fiendeskepp spawnar runtom dig. Vid kollision förstörs raketen och spelet avslutas. 
 
 -Co-op survival: Två personer spelar tillsammans och har ansvar för varsin kontroll; en person ansvarar för gasen och den andra svänger.  
 
