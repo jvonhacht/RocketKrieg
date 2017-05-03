@@ -1,4 +1,5 @@
-#DD1349Projekt
+# DD1349Projekt
+![image](https://gits-15.sys.kth.se/storage/user/2835/files/404c70aa-3012-11e7-9f22-42d7ef0ad55e)
 
 **Studenter:** @johvh @davidjo2
 
