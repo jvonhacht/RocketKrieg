@@ -2,6 +2,7 @@ package com.game.objects;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.game.worldGeneration.ChunkManager;
 
 import java.util.ArrayList;
 
@@ -10,6 +11,7 @@ import java.util.ArrayList;
  */
 public class EntityHandler {
     private SpriteBatch batch;
+    private ChunkManager cm;
     private ArrayList<Entity> entities;
     private PlayerSpaceShip ship;
 
@@ -17,6 +19,7 @@ public class EntityHandler {
         this.batch = batch;
         entities = new ArrayList<Entity>();
         ship = new PlayerSpaceShip();
+        cm = new ChunkManager(ship);
         //add 10 asteroids
         for (int i=0; i<10 ; i++) {
             entities.add(new Asteroid());
@@ -28,6 +31,7 @@ public class EntityHandler {
      */
     public void render() {
         float delta = Gdx.graphics.getDeltaTime();
+        cm.render(batch);
         ship.update(delta);
         ship.render(batch);
 

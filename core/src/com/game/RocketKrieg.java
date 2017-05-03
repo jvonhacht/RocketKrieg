@@ -5,19 +5,19 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.game.objects.Asteroid;
 import com.game.objects.EntityHandler;
 import com.game.objects.PlayerSpaceShip;
 
 public class RocketKrieg implements Screen {
 	private final GameEntry game;
-	private PlayerSpaceShip ship;
 	private EntityHandler eh;
 	private OrthographicCamera camera;
 
 	public RocketKrieg(final GameEntry game) {
 		this.game = game;
-		ship = new PlayerSpaceShip();
 		eh = new EntityHandler(game.batch);
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
@@ -37,8 +37,14 @@ public class RocketKrieg implements Screen {
 	public void render(float delta) {
 		Gdx.gl.glClearColor(0, 0, 0, 0);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		camera.update();
 		game.batch.setProjectionMatrix(camera.combined);
+		//Camera
+		camera.update();
+		float lerp = 2f;
+		Vector3 cameraPosition = camera.position;
+		Vector2 shipPosition = eh.getShip().getPosition();
+		cameraPosition.x += (shipPosition.x - cameraPosition.x) * lerp * delta;
+		cameraPosition.y += (shipPosition.y - cameraPosition.y) * lerp * delta;
 		//batch
 		game.batch.begin();
 		eh.render();
