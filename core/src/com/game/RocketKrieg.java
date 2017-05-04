@@ -10,15 +10,18 @@ import com.badlogic.gdx.math.Vector3;
 import com.game.objects.Asteroid;
 import com.game.objects.EntityHandler;
 import com.game.objects.PlayerSpaceShip;
+import com.game.worldGeneration.ChunkManager;
 
 public class RocketKrieg implements Screen {
 	private final GameEntry game;
 	private EntityHandler eh;
+	private ChunkManager cm;
 	private OrthographicCamera camera;
 
 	public RocketKrieg(final GameEntry game) {
 		this.game = game;
 		eh = new EntityHandler(game.batch);
+		cm = new ChunkManager(game.batch);
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
 	}
@@ -47,6 +50,7 @@ public class RocketKrieg implements Screen {
 		cameraPosition.y += (shipPosition.y - cameraPosition.y) * lerp * delta;
 		//batch
 		game.batch.begin();
+		cm.render();
 		eh.render();
 		game.batch.end();
 		//input

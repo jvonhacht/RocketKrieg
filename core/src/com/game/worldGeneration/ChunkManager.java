@@ -3,6 +3,7 @@ package com.game.worldGeneration;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.game.objects.EntityHandler;
 import com.game.objects.PlayerSpaceShip;
 
 import java.util.HashMap;
@@ -13,14 +14,16 @@ import java.util.Map;
  */
 public class ChunkManager {
     private PlayerSpaceShip pship;
+    private SpriteBatch batch;
     private Map<Pair,Chunk> chunks;
 
-    public ChunkManager(PlayerSpaceShip pship) {
-        this.pship = pship;
+    public ChunkManager(SpriteBatch batch) {
+        this.batch = batch;
+        pship = EntityHandler.ship;
         chunks = new HashMap<Pair,Chunk>();
     }
 
-    public void render(SpriteBatch batch) {
+    public void render() {
         Vector2 position = pship.getPosition();
         int x = (int)position.x;
         int y = (int)position.y;
