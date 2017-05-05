@@ -2,26 +2,24 @@ package com.game.objects;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 import com.game.worldGeneration.ChunkManager;
+import com.game.worldGeneration.Pair;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
 
 /**
  * Created by Johan on 28/04/2017.
  */
 public class EntityHandler {
     private SpriteBatch batch;
-    private ArrayList<Entity> entities;
     public static PlayerSpaceShip ship;
 
     public EntityHandler(SpriteBatch batch) {
         this.batch = batch;
-        entities = new ArrayList<Entity>();
         ship = new PlayerSpaceShip();
-        //add 10 asteroids
-        for (int i=0; i<10 ; i++) {
-            entities.add(new Asteroid());
-        }
     }
 
     /**
@@ -31,13 +29,6 @@ public class EntityHandler {
         float delta = Gdx.graphics.getDeltaTime();
         ship.update(delta);
         ship.render(batch);
-
-        //render and update all entities.
-        for (int i=0; i<entities.size() ; i++) {
-            Entity entity = entities.get(i);
-            entity.update(delta);
-            entity.render(batch);
-        }
     }
 
     /**

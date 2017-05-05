@@ -1,5 +1,10 @@
 package com.game.worldGeneration;
 
+import com.badlogic.gdx.math.Vector2;
+import com.game.objects.Entity;
+
+import java.util.LinkedList;
+
 /**
  * Created by Johan on 27/04/2017.
  */
@@ -25,7 +30,20 @@ public class Chunk {
     public void generateChunk() {
         for (int i=0; i<tiles.length; i++) {
             for(int j=0; j<tiles.length; j++) {
-                tiles[i][j] = new Tile(x+i*Tile.TILE_SIZE,y+j*Tile.TILE_SIZE);
+                Tile tile = new Tile(x+i*Tile.TILE_SIZE,y+j*Tile.TILE_SIZE);
+                tiles[i][j] = tile;
+                Entity ent = tile.getEntity();
+
+                Vector2 position = ent.getPosition();
+                int anchorX =(int) (position.x - ( position.x<0 ? 512-1 : 0 )) / 512 * 512;
+                int anchorY =(int) (position.y - ( position.y<0 ? 512-1 : 0 )) / 512 * 512;
+                Pair pair = new Pair(anchorX,anchorY);
+                if(ChunkManager.hashGrid.containsKey(pair)) {
+                    ChunkManager.hashGrid.get(pair).add(ent);
+                } else {
+                    ChunkManager.hashGrid.put(pair, new LinkedList<Entity>());
+                    ChunkManager.hashGrid.get(pair).add(ent);
+                }
             }
         }
     }

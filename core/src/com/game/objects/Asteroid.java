@@ -5,6 +5,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
+import com.game.AssetStorage;
+
 import java.util.Random;
 
 /**
@@ -15,18 +17,23 @@ import java.util.Random;
 public class Asteroid extends GameEntity implements Entity{
     //Textures
     private Sprite asteroid;
+    private float sizeX;
+    private float sizeY;
     private Random random;
 
-    public Asteroid(){
+    public Asteroid(float x, float y){
         super();
         random = new Random();
+        sizeX = MathUtils.random(50, 100);
+        sizeY = MathUtils.random(50, 100);
 
         //Load texture
-        asteroid = new Sprite(new Texture("images/asteroid/Asteroid.png"));
-        asteroid.setSize(MathUtils.random(50, 100), MathUtils.random(50, 100));
-        asteroid.setOriginCenter();
+        asteroid = AssetStorage.asteroid;
+        position.set(x+MathUtils.random(-100,100),y+MathUtils.random(-100,100));
+        velocity.set(MathUtils.random(-10,10),MathUtils.random(-10,10));
 
         //Initialize starting position and direction
+        /*
         switch(random.nextInt(4)){
             //Spawn left side
             case 0:
@@ -69,10 +76,13 @@ public class Asteroid extends GameEntity implements Entity{
                 }
                 break;
         }
-        angularVelocity = MathUtils.random(-3, 3);
+        */
+        angularVelocity = MathUtils.random(-1, 1);
     }
 
     public void render(SpriteBatch batch) {
+        asteroid.setSize(sizeX,sizeY);
+        asteroid.setOriginCenter();
         asteroid.setRotation((float)Math.toDegrees(angle)-90);
         asteroid.setPosition(position.x,position.y);
         super.render(batch, asteroid);

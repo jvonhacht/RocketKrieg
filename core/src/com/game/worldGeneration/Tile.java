@@ -3,9 +3,10 @@ package com.game.worldGeneration;
 /**
  * Created by Johan on 02/05/2017.
  */
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.game.AssetStorage;
+import com.game.objects.Asteroid;
+import com.game.objects.Entity;
 
 import java.util.Random;
 
@@ -18,14 +19,16 @@ public class Tile {
     private int x;
     private int y;
     private Random rand = new Random();
+    private Entity entity;
 
     public Tile(int x, int y) {
+        entity = new Asteroid(x, y);
         this.x=x;
         this.y=y;
 
         int number = rand.nextInt(100);
         if(number<80) {
-            img=AssetStorage.tile1;
+            img= AssetStorage.tile1;
         } else if (number<90) {
             img=AssetStorage.tile2;
         } else {
@@ -39,4 +42,5 @@ public class Tile {
 
     public int getX() {return x;}
     public int getY() {return y;}
+    public Entity getEntity() {return entity;}
 }
