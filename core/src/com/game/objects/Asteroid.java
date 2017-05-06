@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.game.AssetStorage;
+import com.game.GameEntry;
 
 import java.util.Random;
 
@@ -19,18 +20,17 @@ public class Asteroid extends GameEntity implements Entity{
     private Sprite asteroid;
     private float sizeX;
     private float sizeY;
-    private Random random;
 
     public Asteroid(float x, float y){
         super();
-        random = new Random();
-        sizeX = MathUtils.random(50, 100);
-        sizeY = MathUtils.random(50, 100);
+        sizeX = MathUtils.random(15, 50);
+        sizeY = MathUtils.random(15, 50);
 
-        //Load texture
+        //set properties
         asteroid = AssetStorage.asteroid;
         position.set(x+MathUtils.random(-100,100),y+MathUtils.random(-100,100));
-        velocity.set(MathUtils.random(-10,10),MathUtils.random(-10,10));
+        velocity.set(MathUtils.random(-50,50),MathUtils.random(-50,50));
+        angularVelocity = MathUtils.random(-5, 5);
 
         //Initialize starting position and direction
         /*
@@ -77,7 +77,6 @@ public class Asteroid extends GameEntity implements Entity{
                 break;
         }
         */
-        angularVelocity = MathUtils.random(-1, 1);
     }
 
     public void render(SpriteBatch batch) {

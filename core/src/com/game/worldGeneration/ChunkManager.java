@@ -7,10 +7,7 @@ import com.game.objects.Entity;
 import com.game.objects.EntityHandler;
 import com.game.objects.PlayerSpaceShip;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by Johan on 26/04/2017.
@@ -31,7 +28,6 @@ public class ChunkManager {
     }
 
     public void render() {
-        long t1 = System.nanoTime();
         Vector2 position = pship.getPosition();
         int x = (int)position.x;
         int y = (int)position.y;
@@ -65,7 +61,7 @@ public class ChunkManager {
                         //draw background tile.
                         batch.draw(tile.getImg(),tileX,tileY);
 
-                        //try to draw and update objects.
+                        //try collect entities in the loaded chunks.
                         try {
                             Pair objectPair = new Pair(tileX, tileY);
                             LinkedList<Entity> entities = hashGrid.get(objectPair);
@@ -84,13 +80,12 @@ public class ChunkManager {
                 Chunk chunk = new Chunk(Chunkpair.getX(),Chunkpair.getY());
                 chunks.put(Chunkpair,chunk);
             }
-            for (Entity ent:entitiesToRender) {
-                ent.update(Gdx.graphics.getDeltaTime());
-                ent.render(batch);
-            }
         }
-        long t2 = System.nanoTime() - t1;
-        System.out.println(t2);
+        //render and update the entity que.
+        for (Entity ent:entitiesToRender) {
+            ent.update(Gdx.graphics.getDeltaTime());
+            ent.render(batch);
+        }
     }
 
     public void addEntity(Entity ent) {
