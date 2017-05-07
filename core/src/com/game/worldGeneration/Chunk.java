@@ -3,7 +3,7 @@ package com.game.worldGeneration;
 import com.badlogic.gdx.math.Vector2;
 import com.game.objects.Entity;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 
 /**
  * Created by Johan on 27/04/2017.
@@ -41,7 +41,7 @@ public class Chunk {
                 if(ChunkManager.hashGrid.containsKey(pair)) {
                     ChunkManager.hashGrid.get(pair).add(ent);
                 } else {
-                    ChunkManager.hashGrid.put(pair, new LinkedList<Entity>());
+                    ChunkManager.hashGrid.put(pair, new ArrayList<Entity>());
                     ChunkManager.hashGrid.get(pair).add(ent);
                 }
             }

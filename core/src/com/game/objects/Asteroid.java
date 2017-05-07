@@ -1,14 +1,11 @@
 package com.game.objects;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.MathUtils;
-import com.game.AssetStorage;
-import com.game.GameEntry;
 
-import java.util.Random;
+import com.badlogic.gdx.graphics.g2d.*;
+import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Polygon;
+import com.badlogic.gdx.math.Rectangle;
+import com.game.AssetStorage;
 
 /**
  *  Asteroid class
@@ -16,7 +13,6 @@ import java.util.Random;
  *  @version 1.0 (2017-05-02)
  */
 public class Asteroid extends GameEntity implements Entity{
-    //Textures
     private Sprite asteroid;
     private float sizeX;
     private float sizeY;
@@ -28,10 +24,14 @@ public class Asteroid extends GameEntity implements Entity{
 
         //set properties
         asteroid = AssetStorage.asteroid;
-        position.set(x+MathUtils.random(-100,100),y+MathUtils.random(-100,100));
+        position.set(x+MathUtils.random(-400,400),y+MathUtils.random(-400,400));
         velocity.set(MathUtils.random(-50,50),MathUtils.random(-50,50));
         angularVelocity = MathUtils.random(-5, 5);
 
+        //setup hitbox
+        Rectangle bounds =  new Rectangle(position.x,position.y,sizeX-10,sizeY-10);
+        hitbox = new Polygon(new float[]{0,0,bounds.width,0,bounds.width,bounds.height,0,bounds.height});
+        hitbox.setOrigin(bounds.width/2, bounds.height/2);
         //Initialize starting position and direction
         /*
         switch(random.nextInt(4)){
@@ -84,6 +84,7 @@ public class Asteroid extends GameEntity implements Entity{
         asteroid.setOriginCenter();
         asteroid.setRotation((float)Math.toDegrees(angle)-90);
         asteroid.setPosition(position.x,position.y);
+
         super.render(batch, asteroid);
     }
 

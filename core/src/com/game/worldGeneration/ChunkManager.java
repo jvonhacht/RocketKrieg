@@ -1,11 +1,10 @@
 package com.game.worldGeneration;
 
-import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
-import com.game.objects.Entity;
-import com.game.objects.EntityHandler;
-import com.game.objects.PlayerSpaceShip;
+import com.game.objects.*;
 
 import java.util.*;
 
@@ -17,14 +16,17 @@ public class ChunkManager {
     private SpriteBatch batch;
     private Map<Pair,Chunk> chunks;
     public static Pair[] renderCloseAnchor;
-    public static HashMap<Pair,LinkedList<Entity>> hashGrid;
+    public static HashMap<Pair,ArrayList<Entity>> hashGrid;
+    private CollisionHandler colHandler;
 
     public ChunkManager(SpriteBatch batch) {
         this.batch = batch;
         pship = EntityHandler.ship;
         chunks = new HashMap<Pair,Chunk>();
         renderCloseAnchor = new Pair[9];
-        hashGrid = new HashMap<Pair, LinkedList<Entity>>();
+        hashGrid = new HashMap<Pair, ArrayList<Entity>>();
+        colHandler = new CollisionHandler();
+        addEntity(pship);
     }
 
     public void render() {
@@ -64,9 +66,10 @@ public class ChunkManager {
                         //try collect entities in the loaded chunks.
                         try {
                             Pair objectPair = new Pair(tileX, tileY);
-                            LinkedList<Entity> entities = hashGrid.get(objectPair);
+                            ArrayList<Entity> entities = hashGrid.get(objectPair);
                             hashGrid.remove(objectPair);
                             //iterate all objects in a tile and add to render/update que
+                            colHandler.collides(entities);
                             for (Entity ent:entities) {
                                 entitiesToRender.add(ent);
                                 //add entities back into spatial hash.
@@ -83,7 +86,9 @@ public class ChunkManager {
         }
         //render and update the entity que.
         for (Entity ent:entitiesToRender) {
-            ent.update(Gdx.graphics.getDeltaTime());
+            if(!ent.equals(pship)) {
+                ent.update(1f/60f);
+            }
             ent.render(batch);
         }
     }
@@ -96,7 +101,7 @@ public class ChunkManager {
         if(hashGrid.containsKey(pair)) {
             hashGrid.get(pair).add(ent);
         } else {
-            hashGrid.put(pair, new LinkedList<Entity>());
+            hashGrid.put(pair, new ArrayList<Entity>());
             hashGrid.get(pair).add(ent);
         }
     }

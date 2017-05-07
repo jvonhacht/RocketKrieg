@@ -12,4 +12,6 @@ public class AssetStorage {
     public static final Sprite tile2 = new Sprite(new Texture(Gdx.files.internal("images/worldGeneration/testTile1.png")));
     public static final Sprite tile3 = new Sprite(new Texture(Gdx.files.internal("images/worldGeneration/testTile2.png")));
     public static final Sprite asteroid = new Sprite(new Texture("images/asteroid/Asteroid.png"));
+    public static final Sprite explosion = new Sprite(new Texture("images/worldGeneration/explosion.png"));
+    public static final Sprite debug = new Sprite(new Texture("images/worldGeneration/debugHitBox.png"));
 }

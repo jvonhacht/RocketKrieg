@@ -3,7 +3,11 @@ package com.game.objects;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Polygon;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.game.AssetStorage;
+import com.game.GameEntry;
 
 /**
  * Created by Johan on 01/05/2017.
@@ -14,6 +18,7 @@ public class GameEntity{
     Vector2 acceleration;
     float angularVelocity;
     float angle;
+    Polygon hitbox;
 
     protected GameEntity() {
         //set ship properties
@@ -41,6 +46,9 @@ public class GameEntity{
         acceleration.set(0,0);
 
         angle = (float)Math.toRadians((Math.toDegrees(angle) + angularVelocity) % 360);
+
+        hitbox.setPosition(position.x,position.y);
+        hitbox.setRotation((float)Math.toDegrees(angle)-90);
     }
 
     /**
@@ -62,5 +70,25 @@ public class GameEntity{
      */
     public Vector2 getPosition() {
         return position;
+    }
+
+    /**
+     * Get entity polygon.
+     * @return Polygon of entity.
+     */
+    public Polygon getHitBox() {
+        return hitbox;
+    }
+
+    /**
+     * Do ... when collision happens
+     */
+    public void collision() {
+        velocity.set(0,0);
+        acceleration.set(0,0);
+        angularVelocity = 0;
+        AssetStorage.explosion.setPosition(position.x,position.y);
+        AssetStorage.explosion.setSize(100,100);
+        AssetStorage.explosion.draw(GameEntry.batch);
     }
 }

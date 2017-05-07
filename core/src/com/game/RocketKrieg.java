@@ -51,7 +51,7 @@ public class RocketKrieg implements Screen {
 		//batch
 		game.batch.begin();
 		cm.render();
-		eh.render();
+		eh.render(game.batch);
 		game.batch.end();
 		//input
 		if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {

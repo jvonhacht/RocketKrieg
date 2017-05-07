@@ -22,13 +22,9 @@ public class EntityHandler {
         ship = new PlayerSpaceShip();
     }
 
-    /**
-     * Render all entities in the world.
-     */
-    public void render() {
-        float delta = Gdx.graphics.getDeltaTime();
-        ship.update(delta);
-        ship.render(batch);
+    public void render(SpriteBatch batch) {
+        ship.update(1f/60f);
+        //ship.render(batch);
     }
 
     /**
