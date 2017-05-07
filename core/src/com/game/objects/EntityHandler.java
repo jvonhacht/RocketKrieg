@@ -2,6 +2,7 @@ package com.game.objects;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.game.worldGeneration.ChunkManager;
 
 import java.util.ArrayList;
 
@@ -11,7 +12,7 @@ import java.util.ArrayList;
 public class EntityHandler {
     private SpriteBatch batch;
     private ArrayList<Entity> entities;
-    private PlayerSpaceShip ship;
+    public static PlayerSpaceShip ship;
 
     public EntityHandler(SpriteBatch batch) {
         this.batch = batch;
