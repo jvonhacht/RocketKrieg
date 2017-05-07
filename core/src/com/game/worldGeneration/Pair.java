@@ -7,9 +7,9 @@ public class Pair {
     private final int x;
     private final int y;
 
-    public Pair(final int x, final int y) {
-        this.x = x;
-        this.y = y;
+    public Pair(final float x, final float y) {
+        this.x = (int)x;
+        this.y = (int)y;
     }
 
     @Override

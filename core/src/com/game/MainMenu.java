@@ -13,11 +13,11 @@ import com.badlogic.gdx.graphics.Texture;
  * @version 1.0 (2017-05-01)
  */
 public class MainMenu implements Screen {
-    final GameEntry game;
+    private final GameEntry game;
     private Texture gameLogo;
     private Texture playButton;
     private Texture background;
-    OrthographicCamera camera;
+    private OrthographicCamera camera;
 
     public MainMenu(final GameEntry game) {
         this.game = game;
@@ -37,21 +37,19 @@ public class MainMenu implements Screen {
         Gdx.gl.glClearColor(0, 0, 0, 0);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         camera.update();
-        game.batch.begin();
+        GameEntry.batch.begin();
 
         //Get measurements of textures
         int logoWidth = gameLogo.getWidth();
         int logoHeight = gameLogo.getHeight();
         int playWidth = playButton.getWidth();
         int playHeight = playButton.getHeight();
-        int backWidth = background.getWidth();
-        int backHeight = background.getHeight();
 
         //Draw menu
-        game.batch.draw(background, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        game.batch.draw(gameLogo, Gdx.graphics.getWidth()/2 - (logoWidth / 2), Gdx.graphics.getHeight()/2 - (logoHeight / 2) + 50);
-        game.batch.draw(playButton, Gdx.graphics.getWidth()/2 - (playWidth / 2), Gdx.graphics.getHeight()/2 - (playHeight / 2) - 100);
-        game.batch.end();
+        GameEntry.batch.draw(background, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        GameEntry.batch.draw(gameLogo, Gdx.graphics.getWidth()/2 - (logoWidth / 2), Gdx.graphics.getHeight()/2 - (logoHeight / 2) + 50);
+        GameEntry.batch.draw(playButton, Gdx.graphics.getWidth()/2 - (playWidth / 2), Gdx.graphics.getHeight()/2 - (playHeight / 2) - 100);
+        GameEntry.batch.end();
 
         //Get mouse coordinates
         int xPos = Gdx.input.getX();

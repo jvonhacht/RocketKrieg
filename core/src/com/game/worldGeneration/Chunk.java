@@ -9,12 +9,11 @@ import java.util.ArrayList;
  * Created by Johan on 27/04/2017.
  */
 public class Chunk {
-    public static final int WIDTH = 3;
-    public static final int HEIGHT = 3;
+    static final int WIDTH = 3;
+    static final int HEIGHT = 3;
     private int x;
     private int y;
-
-    protected Tile[][] tiles;
+    private Tile[][] tiles;
 
     public Chunk(int x, int y) {
         tiles = new Tile[WIDTH][HEIGHT];
@@ -23,10 +22,17 @@ public class Chunk {
         generateChunk();
     }
 
+    /**
+     * Get tiles in chunk.
+     * @return Tile[][] tiles.
+     */
     public Tile[][] getTiles() {
         return tiles;
     }
 
+    /**
+     * Generate a new chunk and add tile entities to spatial hash.
+     */
     public void generateChunk() {
         for (int i=0; i<tiles.length; i++) {
             for(int j=0; j<tiles.length; j++) {

@@ -21,7 +21,6 @@ public class GameEntity{
     Polygon hitbox;
 
     protected GameEntity() {
-        //set ship properties
         position = new Vector2(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2);
         velocity = new Vector2();
         acceleration = new Vector2();
@@ -78,17 +77,5 @@ public class GameEntity{
      */
     public Polygon getHitBox() {
         return hitbox;
-    }
-
-    /**
-     * Do ... when collision happens
-     */
-    public void collision() {
-        velocity.set(0,0);
-        acceleration.set(0,0);
-        angularVelocity = 0;
-        AssetStorage.explosion.setPosition(position.x,position.y);
-        AssetStorage.explosion.setSize(100,100);
-        AssetStorage.explosion.draw(GameEntry.batch);
     }
 }

@@ -34,9 +34,4 @@ public interface Entity {
      * @return polygon pol
      */
     Polygon getHitBox();
-
-    /**
-     * When collision occurs do ...
-     */
-    void collision();
 }

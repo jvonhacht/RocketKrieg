@@ -32,6 +32,7 @@ public class Asteroid extends GameEntity implements Entity{
         Rectangle bounds =  new Rectangle(position.x,position.y,sizeX-10,sizeY-10);
         hitbox = new Polygon(new float[]{0,0,bounds.width,0,bounds.width,bounds.height,0,bounds.height});
         hitbox.setOrigin(bounds.width/2, bounds.height/2);
+
         //Initialize starting position and direction
         /*
         switch(random.nextInt(4)){
@@ -79,6 +80,10 @@ public class Asteroid extends GameEntity implements Entity{
         */
     }
 
+    /**
+     * Method to render asteroid.
+     * @param batch SpriteBatch batch.
+     */
     public void render(SpriteBatch batch) {
         asteroid.setSize(sizeX,sizeY);
         asteroid.setOriginCenter();
@@ -88,6 +93,10 @@ public class Asteroid extends GameEntity implements Entity{
         super.render(batch, asteroid);
     }
 
+    /**
+     * Update asteroid position.
+     * @param delta time since last frame.
+     */
     public void update(float delta){
         move(delta);
     }

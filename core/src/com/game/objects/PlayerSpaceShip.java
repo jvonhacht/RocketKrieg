@@ -67,7 +67,6 @@ public class PlayerSpaceShip extends GameEntity implements Entity{
         sprite.setOriginCenter();
         sprite.setRotation((float)Math.toDegrees(angle)-90);
         sprite.setPosition(position.x,position.y);
-
         super.render(batch,img);
     }
 
