@@ -3,6 +3,7 @@ package com.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
@@ -35,7 +36,9 @@ public class RocketKrieg implements Screen {
 	 * @param delta time since last frame.
 	 */
 	public void render(float delta) {
-		//Camera
+		//clear screen
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		//camera
 		GameEntry.batch.setProjectionMatrix(camera.combined);
 		camera.update();
 		float lerp = 2f;

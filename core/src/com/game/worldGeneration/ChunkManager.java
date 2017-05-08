@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.game.GameEntry;
 import com.game.objects.*;
+import com.game.objects.collision.CollisionManager;
 
 import java.util.*;
 
@@ -15,7 +16,7 @@ public class ChunkManager {
     private Map<Pair,Chunk> chunks;
     static HashMap<Pair,ArrayList<Entity>> hashGrid;
     private Pair[] renderCloseAnchor;
-    private CollisionHandler colHandler;
+    private CollisionManager colHandler;
     private PlayerSpaceShip ship;
 
     public ChunkManager(PlayerSpaceShip ship) {
@@ -24,7 +25,7 @@ public class ChunkManager {
         chunks = new HashMap<Pair,Chunk>();
         renderCloseAnchor = new Pair[9];
         hashGrid = new HashMap<Pair, ArrayList<Entity>>();
-        colHandler = new CollisionHandler();
+        colHandler = new CollisionManager();
         addEntity(ship);
     }
 

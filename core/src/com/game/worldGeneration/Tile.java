@@ -27,16 +27,14 @@ public class Tile {
 
         //choose random tile texture.
         int number = rand.nextInt(100);
-        if(number<80) {
+        if(number<99.8) {
             img= AssetStorage.tile1;
-        } else if (number<90) {
-            img=AssetStorage.tile2;
         } else {
-            img=AssetStorage.tile3;
-        }
-    }
+            img = AssetStorage.tile2;
+     }
+     }
 
-    /**
+     /**
      * Get Sprite of tile.
      * @return Sprite img.
      */
