@@ -28,7 +28,6 @@ public class CollisionEvent implements Entity {
         angle = MathUtils.random(360);
         sprite = AssetStorage.debris;
         hitbox = new Polygon(new float[]{0,0,0,0,0,0,0,0});
-        //do animation of explosion.
         animation = AssetStorage.explosionAnimation;
     }
 
@@ -37,7 +36,8 @@ public class CollisionEvent implements Entity {
         if (!animation.isAnimationFinished(timeElapsed)) {
             GameEntry.batch.draw(animation.getKeyFrame(timeElapsed), position.x, position.y);
         }
-        GameEntry.batch.draw(animation.getKeyFrame(timeElapsed,false),0,0);
+
+        //render debris.
         sprite.setOriginCenter();
         sprite.setRotation(angle);
         sprite.setSize(120,120);

@@ -5,6 +5,8 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.math.Interpolation;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.game.objects.PlayerSpaceShip;
@@ -43,11 +45,12 @@ public class RocketKrieg implements Screen {
 		//camera
 		GameEntry.batch.setProjectionMatrix(camera.combined);
 		camera.update();
-		float lerp = 2f;
 		Vector3 cameraPosition = camera.position;
 		Vector2 shipPosition = ship.getPosition();
-		cameraPosition.x += (shipPosition.x - cameraPosition.x) * lerp * delta;
-		cameraPosition.y += (shipPosition.y - cameraPosition.y) * lerp * delta;
+		Vector2 shipVelocity = ship.getVelocity();
+		float lerp = 2f;
+		cameraPosition.x += (shipPosition.x - cameraPosition.x) * lerp * delta + shipVelocity.x*delta/lerp;
+		cameraPosition.y += (shipPosition.y - cameraPosition.y) * lerp * delta + shipVelocity.y*delta/lerp;
 
 		//update ship
 		ship.update(1f/FPS);
