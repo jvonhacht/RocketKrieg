@@ -12,6 +12,9 @@ import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.game.AssetStorage;
+import com.game.worldGeneration.ChunkManager;
+
+import java.util.ArrayList;
 
 /**
  * Created by Johan on 27/04/2017.
@@ -23,13 +26,15 @@ public class PlayerSpaceShip extends GameEntity implements Entity{
     private final float TURNING_SPEED = 3F;
     //Textures
     private Sprite sprite, offLeft, offRight, on, onLeft, onRight;
+    //
+    private ArrayList<Missile> missiles;
+    private float timeElapsed;
 
     /**
      * Initialise player ship.
      */
     public PlayerSpaceShip() {
         super();
-
         float sizeX = 25;
         float sizeY = 70;
         //load images
@@ -40,6 +45,7 @@ public class PlayerSpaceShip extends GameEntity implements Entity{
         Rectangle bounds = new Rectangle(position.x+sizeX,position.y+sizeY,sizeX,sizeY);
         hitbox = new Polygon(new float[]{0,0,bounds.width,0,bounds.width,bounds.height,0,bounds.height});
         hitbox.setOrigin(bounds.width/2,bounds.height/2);
+        missiles = new ArrayList<Missile>();
     }
 
     /**
@@ -75,6 +81,7 @@ public class PlayerSpaceShip extends GameEntity implements Entity{
      * @param delta
      */
     public void update(float delta) {
+        timeElapsed += delta;
         move(delta);
         //flight controls
         if(Gdx.input.isKeyPressed(Input.Keys.W)) {
@@ -86,9 +93,24 @@ public class PlayerSpaceShip extends GameEntity implements Entity{
         if(Gdx.input.isKeyPressed(Input.Keys.A)) {
             turnRight(delta);
         }
+        if(Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
+            fireMissile();
+        }
         //reset position to center of the screen.
         if(Gdx.input.isKeyPressed(Input.Keys.R)) {
             setPos(Gdx.graphics.getWidth()/2,Gdx.graphics.getHeight()/2);
+        }
+    }
+
+    /**
+     * Fire a missile.
+     */
+    public void fireMissile() {
+        if(timeElapsed > 1.2) {
+            Missile missile = new Missile(position,velocity,acceleration,angle);
+            missiles.add(missile);
+            ChunkManager.addEntity(missile);
+            timeElapsed = 0;
         }
     }
 

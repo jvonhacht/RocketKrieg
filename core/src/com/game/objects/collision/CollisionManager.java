@@ -5,6 +5,8 @@ import com.badlogic.gdx.math.Vector2;
 import com.game.AssetStorage;
 import com.game.GameEntry;
 import com.game.objects.Entity;
+import com.game.objects.Missile;
+import com.game.objects.PlayerSpaceShip;
 
 import java.util.ArrayList;
 
@@ -23,9 +25,12 @@ public class CollisionManager {
                 Entity ent1 = entities.get(i);
                 Entity ent2 = entities.get(j);
                 if(Intersector.overlapConvexPolygons(ent1.getHitBox(),ent2.getHitBox())) {
-                    collisionEvent(ent1,ent2, entities);
-                    entities.remove(j);
-                    entities.remove(i);
+                    //missile should not blow up ship.
+                    if(!((ent1 instanceof PlayerSpaceShip && ent2 instanceof Missile) || (ent1 instanceof Missile && ent2 instanceof PlayerSpaceShip) || (ent1 instanceof Missile && ent2 instanceof Missile))) {
+                        collisionEvent(ent1,ent2, entities);
+                        entities.remove(j);
+                        entities.remove(i);
+                    }
                 }
             }
         }
