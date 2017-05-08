@@ -27,7 +27,6 @@ public class PlayerSpaceShip extends GameEntity implements Entity{
     //Textures
     private Sprite sprite, offLeft, offRight, on, onLeft, onRight;
     //
-    private ArrayList<Missile> missiles;
     private float timeElapsed;
 
     /**
@@ -45,7 +44,6 @@ public class PlayerSpaceShip extends GameEntity implements Entity{
         Rectangle bounds = new Rectangle(position.x+sizeX,position.y+sizeY,sizeX,sizeY);
         hitbox = new Polygon(new float[]{0,0,bounds.width,0,bounds.width,bounds.height,0,bounds.height});
         hitbox.setOrigin(bounds.width/2,bounds.height/2);
-        missiles = new ArrayList<Missile>();
     }
 
     /**
@@ -108,7 +106,6 @@ public class PlayerSpaceShip extends GameEntity implements Entity{
     public void fireMissile() {
         if(timeElapsed > 1.2) {
             Missile missile = new Missile(position,velocity,acceleration,angle);
-            missiles.add(missile);
             ChunkManager.addEntity(missile);
             timeElapsed = 0;
         }
