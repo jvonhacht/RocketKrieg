@@ -3,9 +3,15 @@ package com.game.objects;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.PolygonRegion;
+import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Polygon;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.game.AssetStorage;
 
 /**
  * Created by Johan on 27/04/2017.
@@ -23,10 +29,17 @@ public class PlayerSpaceShip extends GameEntity implements Entity{
      */
     public PlayerSpaceShip() {
         super();
+
+        float sizeX = 25;
+        float sizeY = 70;
         //load images
         sprite = new Sprite(new Texture(Gdx.files.internal("images/spaceship/Spaceship1.png")));
-        sprite.setSize(80,80);
-        sprite.setOriginCenter();
+        sprite.setSize(sizeX,sizeY);
+
+        //setup hitbox
+        Rectangle bounds = new Rectangle(position.x+sizeX,position.y+sizeY,sizeX,sizeY);
+        hitbox = new Polygon(new float[]{0,0,bounds.width,0,bounds.width,bounds.height,0,bounds.height});
+        hitbox.setOrigin(bounds.width/2,bounds.height/2);
     }
 
     /**
@@ -51,6 +64,7 @@ public class PlayerSpaceShip extends GameEntity implements Entity{
             }
         }
         */
+        sprite.setOriginCenter();
         sprite.setRotation((float)Math.toDegrees(angle)-90);
         sprite.setPosition(position.x,position.y);
         super.render(batch,img);

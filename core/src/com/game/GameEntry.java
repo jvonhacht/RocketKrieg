@@ -9,8 +9,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
  */
 public class GameEntry extends Game {
 
-    public SpriteBatch batch;
-    public BitmapFont font;
+    public static SpriteBatch batch;
+    public static BitmapFont font;
 
     public void create() {
         batch = new SpriteBatch();

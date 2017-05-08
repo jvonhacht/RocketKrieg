@@ -1,11 +1,11 @@
 package com.game.objects;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+
+import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.math.MathUtils;
-import java.util.Random;
+import com.badlogic.gdx.math.Polygon;
+import com.badlogic.gdx.math.Rectangle;
+import com.game.AssetStorage;
 
 /**
  *  Asteroid class
@@ -13,20 +13,28 @@ import java.util.Random;
  *  @version 1.0 (2017-05-02)
  */
 public class Asteroid extends GameEntity implements Entity{
-    //Textures
     private Sprite asteroid;
-    private Random random;
+    private float sizeX;
+    private float sizeY;
 
-    public Asteroid(){
+    public Asteroid(float x, float y){
         super();
-        random = new Random();
+        sizeX = MathUtils.random(15, 50);
+        sizeY = MathUtils.random(15, 50);
 
-        //Load texture
-        asteroid = new Sprite(new Texture("images/asteroid/Asteroid.png"));
-        asteroid.setSize(MathUtils.random(50, 100), MathUtils.random(50, 100));
-        asteroid.setOriginCenter();
+        //set properties
+        asteroid = AssetStorage.asteroid;
+        position.set(x+MathUtils.random(0,500),y+MathUtils.random(0,500));
+        velocity.set(MathUtils.random(-50,50),MathUtils.random(-50,50));
+        angularVelocity = MathUtils.random(-5, 5);
+
+        //setup hitbox
+        Rectangle bounds =  new Rectangle(position.x,position.y,sizeX-10,sizeY-10);
+        hitbox = new Polygon(new float[]{0,0,bounds.width,0,bounds.width,bounds.height,0,bounds.height});
+        hitbox.setOrigin(bounds.width/2, bounds.height/2);
 
         //Initialize starting position and direction
+        /*
         switch(random.nextInt(4)){
             //Spawn left side
             case 0:
@@ -69,15 +77,26 @@ public class Asteroid extends GameEntity implements Entity{
                 }
                 break;
         }
-        angularVelocity = MathUtils.random(-3, 3);
+        */
     }
 
+    /**
+     * Method to render asteroid.
+     * @param batch SpriteBatch batch.
+     */
     public void render(SpriteBatch batch) {
+        asteroid.setSize(sizeX,sizeY);
+        asteroid.setOriginCenter();
         asteroid.setRotation((float)Math.toDegrees(angle)-90);
         asteroid.setPosition(position.x,position.y);
+
         super.render(batch, asteroid);
     }
 
+    /**
+     * Update asteroid position.
+     * @param delta time since last frame.
+     */
     public void update(float delta){
         move(delta);
     }

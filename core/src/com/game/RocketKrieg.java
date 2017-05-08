@@ -7,52 +7,54 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
-import com.game.objects.Asteroid;
-import com.game.objects.EntityHandler;
 import com.game.objects.PlayerSpaceShip;
 import com.game.worldGeneration.ChunkManager;
 
 public class RocketKrieg implements Screen {
 	private final GameEntry game;
-	private EntityHandler eh;
-	private ChunkManager cm;
 	private OrthographicCamera camera;
+	private final float FPS = 60f;
+	private PlayerSpaceShip ship;
+	private ChunkManager cm;
+	private AssetStorage ass; //:-)
 
 	public RocketKrieg(final GameEntry game) {
 		this.game = game;
-		eh = new EntityHandler(game.batch);
-		cm = new ChunkManager(game.batch);
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
+
+		ship = new PlayerSpaceShip();
+		cm = new ChunkManager(ship);
+		ass = new AssetStorage();
 	}
 
 	/**
 	 * Called when this screen becomes current screen.
 	 */
-	public void show() {
-
-	}
+	public void show() {}
 
 	/**
 	 * Called every frame.
 	 * @param delta time since last frame.
 	 */
 	public void render(float delta) {
-		Gdx.gl.glClearColor(0, 0, 0, 0);
+		//clear screen
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		game.batch.setProjectionMatrix(camera.combined);
-		//Camera
+		//camera
+		GameEntry.batch.setProjectionMatrix(camera.combined);
 		camera.update();
 		float lerp = 2f;
 		Vector3 cameraPosition = camera.position;
-		Vector2 shipPosition = eh.getShip().getPosition();
+		Vector2 shipPosition = ship.getPosition();
 		cameraPosition.x += (shipPosition.x - cameraPosition.x) * lerp * delta;
 		cameraPosition.y += (shipPosition.y - cameraPosition.y) * lerp * delta;
-		//batch
-		game.batch.begin();
+
+		//update ship
+		ship.update(1f/FPS);
+		//render all entities and tiles
+		GameEntry.batch.begin();
 		cm.render();
-		eh.render();
-		game.batch.end();
+		GameEntry.batch.end();
 		//input
 		if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
 			Gdx.app.exit();
@@ -64,27 +66,19 @@ public class RocketKrieg implements Screen {
 	 * @param width int
 	 * @param height int
 	 */
-	public void resize(int width, int height) {
-
-	}
+	public void resize(int width, int height) {}
 
 	/**
 	 * Actions performed when game is paused (good place to save the game).
 	 */
-	public void pause() {
-
-	}
+	public void pause() {}
 
 	/**
 	 * Only called on android.
 	 */
-	public void resume() {
-
-	}
-
+	public void resume() {}
 	public void hide() {}
-
 	public void dispose () {
-		game.batch.dispose();
+		GameEntry.batch.dispose();
 	}
 }
