@@ -16,6 +16,7 @@ public class RocketKrieg implements Screen {
 	private final float FPS = 60f;
 	private PlayerSpaceShip ship;
 	private ChunkManager cm;
+	private AssetStorage ass; //:-)
 
 	public RocketKrieg(final GameEntry game) {
 		this.game = game;
@@ -24,6 +25,7 @@ public class RocketKrieg implements Screen {
 
 		ship = new PlayerSpaceShip();
 		cm = new ChunkManager(ship);
+		ass = new AssetStorage();
 	}
 
 	/**

@@ -41,6 +41,7 @@ public class CollisionManager {
         Vector2 pos2 = ent2.getPosition();
         float x = (pos1.x + pos2.x) / 2;
         float y = (pos1.y + pos2.y) / 2;
-        entities.add(new CollisionEvent(x,y));
+        //magic number 50 to offset explosion into the correct pos
+        entities.add(new CollisionEvent(x-50,y-50));
     }
 }

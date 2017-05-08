@@ -1,11 +1,10 @@
 package com.game.objects.collision;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Vector2;
@@ -21,7 +20,8 @@ public class CollisionEvent implements Entity {
     private Sprite sprite;
     private Vector2 position;
     private Polygon hitbox;
-    private float elapsedTime;
+    private float timeElapsed;
+    private Animation<TextureRegion> animation;
 
     public CollisionEvent(float x, float y) {
         position = new Vector2(x,y);
@@ -29,12 +29,15 @@ public class CollisionEvent implements Entity {
         sprite = AssetStorage.debris;
         hitbox = new Polygon(new float[]{0,0,0,0,0,0,0,0});
         //do animation of explosion.
-        //elapsedTime += Gdx.graphics.getDeltaTime();
-        //GameEntry.batch.draw(AssetStorage.explosionAnimation.getKeyFrame(elapsedTime,false),0,0);
+        animation = AssetStorage.explosionAnimation;
     }
 
-    @Override
     public void render(SpriteBatch batch) {
+        timeElapsed += Gdx.graphics.getDeltaTime();
+        if (!animation.isAnimationFinished(timeElapsed)) {
+            GameEntry.batch.draw(animation.getKeyFrame(timeElapsed), position.x, position.y);
+        }
+        GameEntry.batch.draw(animation.getKeyFrame(timeElapsed,false),0,0);
         sprite.setOriginCenter();
         sprite.setRotation(angle);
         sprite.setSize(120,120);

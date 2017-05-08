@@ -20,14 +20,15 @@ public class AssetStorage {
     public AssetStorage() {
         //ini explosion animation
         TextureRegion[] animationFrames = new TextureRegion[16];
-        TextureRegion[][] tmpFrames = TextureRegion.split(new Texture(Gdx.files.internal("images/collision/explosion.png")),512,512);
+        TextureRegion[][] tmpFrames = TextureRegion.split(new Texture(Gdx.files.internal("images/collision/explosion.png")),128,128);
         int index = 0;
-        for (int i = 0; i < 2; i++){
-            for(int j = 0; j < 2; j++) {
+        for (int i = 0; i < 4; i++){
+            for(int j = 0; j < 4; j++) {
                 animationFrames[index++] = tmpFrames[j][i];
             }
         }
-
-        explosionAnimation = new Animation(1f/4f,animationFrames);
+        System.out.println(explosionAnimation);
+        explosionAnimation = new Animation(1f/20f,animationFrames);
+        System.out.println(explosionAnimation);
     }
 }
