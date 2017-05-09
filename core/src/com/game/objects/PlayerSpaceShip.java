@@ -61,10 +61,13 @@ public class PlayerSpaceShip extends GameEntity implements Entity{
             GameEntry.batch.draw(animation.getKeyFrame(timeElapsed,true), position.x, position.y+60, sizeX/2, sizeY/2-60, sizeX, sizeY, 2.5f, 0.8f,(float)Math.toDegrees(angle)+90);
         }
         if(Gdx.input.isKeyPressed(Input.Keys.A)) {
-            GameEntry.batch.draw(animation.getKeyFrame(timeElapsed,true), position.x, position.y+40, sizeX/2, sizeY/2-40, sizeX, sizeY, 1f, 0.4f,(float)Math.toDegrees(angle)+180);
+            GameEntry.batch.draw(animation.getKeyFrame(timeElapsed,true), position.x-18, position.y+50, sizeX/2+18, sizeY/2-50, sizeX, sizeY, 1f, 0.3f,(float)Math.toDegrees(angle)+180);
+            GameEntry.batch.draw(animation.getKeyFrame(timeElapsed,true), position.x-18, position.y+45, sizeX/2+18, sizeY/2-45, sizeX, sizeY, 1f, 0.4f,(float)Math.toDegrees(angle));
         }
         if(Gdx.input.isKeyPressed(Input.Keys.D)) {
-            GameEntry.batch.draw(animation.getKeyFrame(timeElapsed,true), position.x, position.y+40, sizeX/2, sizeY/2-40, sizeX, sizeY, 1f, 0.4f,(float)Math.toDegrees(angle));
+            //GameEntry.batch.draw(animation.getKeyFrame(timeElapsed,true), position.x, position.y+40, sizeX/2, sizeY/2-40, sizeX, sizeY, 1f, 0.4f,(float)Math.toDegrees(angle));
+            GameEntry.batch.draw(animation.getKeyFrame(timeElapsed,true), position.x+18, position.y+50, sizeX/2-18, sizeY/2-50, sizeX, sizeY, 1f, 0.3f,(float)Math.toDegrees(angle));
+            GameEntry.batch.draw(animation.getKeyFrame(timeElapsed,true), position.x+18, position.y+45, sizeX/2-18, sizeY/2-45, sizeX, sizeY, 1f, 0.4f,(float)Math.toDegrees(angle)+180);
         }
         spaceship.setOriginCenter();
         spaceship.setRotation((float)Math.toDegrees(angle)-90);
