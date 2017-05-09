@@ -100,7 +100,7 @@ public class ChunkManager {
      * Add an entity to the spatial hashgrid.
      * @param ent Entity to be added.
      */
-    public void addEntity(Entity ent) {
+    public static void addEntity(Entity ent) {
         Vector2 position = ent.getPosition();
         int anchorX =(int) (position.x - ( position.x<0 ? 512-1 : 0 )) / 512 * 512;
         int anchorY =(int) (position.y - ( position.y<0 ? 512-1 : 0 )) / 512 * 512;

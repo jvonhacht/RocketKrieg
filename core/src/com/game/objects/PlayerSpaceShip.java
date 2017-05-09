@@ -2,19 +2,16 @@ package com.game.objects;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.PolygonRegion;
-import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector2;
 import com.game.AssetStorage;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.game.GameEntry;
+
+import com.game.worldGeneration.ChunkManager;
 
 
 /**
@@ -57,6 +54,8 @@ public class PlayerSpaceShip extends GameEntity implements Entity{
      * Render the players ship.
      */
     public void render(SpriteBatch batch) {
+        Sprite img = spaceship;
+
         if(Gdx.input.isKeyPressed(Input.Keys.W)) {
             GameEntry.batch.draw(animation.getKeyFrame(timeElapsed,true), position.x, position.y+60, sizeX/2, sizeY/2-60, sizeX, sizeY, 2.5f, 0.8f,(float)Math.toDegrees(angle)+90);
         }
@@ -93,9 +92,23 @@ public class PlayerSpaceShip extends GameEntity implements Entity{
         if(Gdx.input.isKeyPressed(Input.Keys.A)) {
             turnRight(delta);
         }
+        if(Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
+            fireMissile();
+        }
         //reset position to center of the screen.
         if(Gdx.input.isKeyPressed(Input.Keys.R)) {
             setPos(Gdx.graphics.getWidth()/2,Gdx.graphics.getHeight()/2);
+        }
+    }
+
+    /**
+     * Fire a missile.
+     */
+    public void fireMissile() {
+        if(timeElapsed > 1.2) {
+            Missile missile = new Missile(position,velocity,acceleration,angle);
+            ChunkManager.addEntity(missile);
+            timeElapsed = 0;
         }
     }
 

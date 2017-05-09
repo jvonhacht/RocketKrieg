@@ -78,4 +78,8 @@ public class GameEntity{
     public Polygon getHitBox() {
         return hitbox;
     }
+
+    public Vector2 getVelocity() {
+        return velocity;
+    }
 }
