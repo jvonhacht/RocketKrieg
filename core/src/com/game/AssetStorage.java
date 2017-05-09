@@ -17,22 +17,26 @@ public class AssetStorage {
     public static final Sprite missile = new Sprite(new Texture("images/spaceship/missile.png"));
     public static final Sprite asteroid = new Sprite(new Texture("images/asteroid/Asteroid.png"));
     public static final Sprite alienShip = new Sprite(new Texture("images/alien_ship/AlienShip.png"));
+    public static final Sprite alienShipSpecial = new Sprite(new Texture("images/alien_ship/AlienShipSpecial.png"));
 
     //tiles
     public static final Sprite tile1 = new Sprite(new Texture(Gdx.files.internal("images/worldGeneration/testTile.png")));
     public static final Sprite tile2 = new Sprite(new Texture(Gdx.files.internal("images/worldGeneration/testTile1.png")));
 
+    //animations
+    public static Animation<TextureRegion> flameAnimation;
+    public static Animation<TextureRegion> explosionAnimation;
+    public static Animation<TextureRegion> redLightAnimation;
+
     //extra
     public static final Sprite debug = new Sprite(new Texture("images/worldGeneration/debugHitBox.png"));
     public static final Sprite debris = new Sprite(new Texture("images/collision/debris.png"));
-    public static Animation<TextureRegion> flameAnimation;
-    public static Animation<TextureRegion> explosionAnimation;
 
     /**
      * Constructor creating animations
      */
     public AssetStorage() {
-        //ini flame and explosion animation
+        //create animations
         TextureRegion[] explosionFrames = new TextureRegion[16];
         TextureRegion[][] tmpFrames1 = TextureRegion.split(new Texture(Gdx.files.internal("images/collision/explosion.png")),128,128);
 
@@ -53,5 +57,15 @@ public class AssetStorage {
             }
         }
         flameAnimation = new Animation(1f/20f,flameFrames);
+
+        TextureRegion[] redFrames = new TextureRegion[9];
+        TextureRegion[][] tmpFrames3 = TextureRegion.split(new Texture(Gdx.files.internal("images/alien_ship/BlinkingRedLight.png")), 90, 90);
+        int index3 = 0;
+        for (int i = 0; i < 3; i++){
+            for(int j = 0; j < 3; j++) {
+                redFrames[index3++] = tmpFrames3[j][i];
+            }
+        }
+        redLightAnimation = new Animation(1f/20f,redFrames);
     }
 }

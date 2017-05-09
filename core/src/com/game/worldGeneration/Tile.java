@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.game.AssetStorage;
 import com.game.objects.AlienShip;
+import com.game.objects.AlienShipSpecial;
 import com.game.objects.Asteroid;
 import com.game.objects.Entity;
 import java.util.Random;
@@ -25,16 +26,14 @@ public class Tile {
         int percent = rand.nextInt(100);
 
         //choose random entity
-        if(percent <= 90){
+        if(percent <= 80){
             entity = new Asteroid(x, y);
         }
-        else if(percent > 90
-                //&& percent <= 90
-        ){
+        else if(percent > 80 && percent <= 95){
             entity = new AlienShip(x, y);
         }
         else{
-            //entity = new Planet(x, y);
+            entity = new AlienShipSpecial(x, y);
         }
 
         //choose random tile texture.

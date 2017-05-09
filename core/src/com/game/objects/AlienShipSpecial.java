@@ -6,27 +6,32 @@ import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.game.AssetStorage;
+import com.game.GameEntry;
 import com.game.RocketKrieg;
 
 /**
- *  AlienShip class
+ *  AlienShipSpecial class
  *  @author David Johansson 
  *  @version 1.0 (2017-05-09)
  */
-public class AlienShip extends GameEntity implements Entity{
+public class AlienShipSpecial extends GameEntity implements Entity{
     private Sprite alienShip;
+    private Animation<TextureRegion> animation;
+    private float timeElapsed;
     private float sizeX;
     private float sizeY;
-    private final float movingSpeed = 100F;
-    private final float acceleration = 50F;
+    private final float movingSpeed = 120F;
+    private final float acceleration = 120F;
 
-    public AlienShip(float x, float y){
+    public AlienShipSpecial(float x, float y){
         super();
         sizeX = 40;
         sizeY = 55;
+        timeElapsed = 0;
 
         //set properties
-        alienShip = AssetStorage.alienShip;
+        alienShip = AssetStorage.alienShipSpecial;
+        animation = AssetStorage.redLightAnimation;
         position.set(x+MathUtils.random(0,500),y+MathUtils.random(0,500));
 
         //setup hitbox
@@ -43,8 +48,8 @@ public class AlienShip extends GameEntity implements Entity{
         alienShip.setSize(sizeX,sizeY);
         alienShip.setOriginCenter();
         alienShip.setPosition(position.x, position.y);
-
         super.render(batch, alienShip);
+        GameEntry.batch.draw(animation.getKeyFrame(timeElapsed, true), position.x + sizeX/2 - 10, position.y + sizeY/2 - 2, 20f, 20f);
     }
 
     /**
@@ -52,6 +57,7 @@ public class AlienShip extends GameEntity implements Entity{
      * @param delta time since last frame.
      */
     public void update(float delta){
+        timeElapsed += delta;
         move(delta);
 
         //get position of playersip
@@ -72,12 +78,6 @@ public class AlienShip extends GameEntity implements Entity{
             if (shipPosition.y < position.y) {
                 moveDown(delta);
             }
-            fireLaser();
-        }
-
-        //Slow down if too near
-        if(distance < 400){
-            brake(delta);
         }
     }
 
@@ -108,7 +108,6 @@ public class AlienShip extends GameEntity implements Entity{
         }
     }
 
-
     /**
      * Move down by changing the alien ship velocity.
      */
@@ -116,30 +115,5 @@ public class AlienShip extends GameEntity implements Entity{
         if(velocity.y > -1*movingSpeed) {
             velocity.y -= acceleration * delta;
         }
-    }
-
-    /**
-     * Slow down movement if too near.
-     */
-    public void brake(float delta) {
-        if(velocity.x > 0) {
-            velocity.x -= 2 * acceleration * delta;
-        }
-        else{
-            velocity.x += 2 * acceleration * delta;
-        }
-        if(velocity.y > 0) {
-            velocity.y -= 2 * acceleration * delta;
-        }
-        else{
-            velocity.y += 2 * acceleration * delta;
-        }
-    }
-
-    /**
-     * Fire lasers.
-     */
-    public void fireLaser() {
-       //TODO
     }
 }
