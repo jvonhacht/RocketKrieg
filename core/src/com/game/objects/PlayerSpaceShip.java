@@ -12,62 +12,64 @@ import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.game.AssetStorage;
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.game.GameEntry;
+
 
 /**
  * Created by Johan on 27/04/2017.
  */
 public class PlayerSpaceShip extends GameEntity implements Entity{
+    private float timeElapsed;
+    private float sizeX;
+    private float sizeY;
     //Multipliers
     private final float SPEED_MULTIPLIER = 5000F;
     private final float MAX_ANGULARVELOCITY = 10F;
     private final float TURNING_SPEED = 3F;
     //Textures
-    private Sprite sprite, offLeft, offRight, on, onLeft, onRight;
+    private Sprite spaceship;
+    private Animation<TextureRegion> animation;
 
     /**
      * Initialise player ship.
      */
     public PlayerSpaceShip() {
         super();
+        //set size of spaceship
+        sizeX = 25;
+        sizeY = 70;
 
-        float sizeX = 25;
-        float sizeY = 70;
         //load images
-        sprite = new Sprite(new Texture(Gdx.files.internal("images/spaceship/Spaceship1.png")));
-        sprite.setSize(sizeX,sizeY);
+        spaceship = AssetStorage.spaceship;
+        spaceship.setSize(sizeX,sizeY);
+        animation = AssetStorage.flameAnimation;
 
         //setup hitbox
         Rectangle bounds = new Rectangle(position.x+sizeX,position.y+sizeY,sizeX,sizeY);
         hitbox = new Polygon(new float[]{0,0,bounds.width,0,bounds.width,bounds.height,0,bounds.height});
         hitbox.setOrigin(bounds.width/2,bounds.height/2);
+        timeElapsed = 0;
     }
 
     /**
      * Render the players ship.
      */
     public void render(SpriteBatch batch) {
-        Sprite img = sprite;
-        /* <-- Commented until all textures are created. -->
         if(Gdx.input.isKeyPressed(Input.Keys.W)) {
-            img = on;
+            GameEntry.batch.draw(animation.getKeyFrame(timeElapsed,true), position.x, position.y+60, sizeX/2, sizeY/2-60, sizeX, sizeY, 2.5f, 0.8f,(float)Math.toDegrees(angle)+90);
         }
         if(Gdx.input.isKeyPressed(Input.Keys.A)) {
-            img = offLeft;
-            if(Gdx.input.isKeyPressed(Input.Keys.W)) {
-                img = onLeft;
-            }
+            GameEntry.batch.draw(animation.getKeyFrame(timeElapsed,true), position.x, position.y+40, sizeX/2, sizeY/2-40, sizeX, sizeY, 1f, 0.4f,(float)Math.toDegrees(angle)+180);
         }
         if(Gdx.input.isKeyPressed(Input.Keys.D)) {
-            img = offRight;
-            if(Gdx.input.isKeyPressed(Input.Keys.W)) {
-                img = onRight;
-            }
+            GameEntry.batch.draw(animation.getKeyFrame(timeElapsed,true), position.x, position.y+40, sizeX/2, sizeY/2-40, sizeX, sizeY, 1f, 0.4f,(float)Math.toDegrees(angle));
         }
-        */
-        sprite.setOriginCenter();
-        sprite.setRotation((float)Math.toDegrees(angle)-90);
-        sprite.setPosition(position.x,position.y);
-        super.render(batch,img);
+        spaceship.setOriginCenter();
+        spaceship.setRotation((float)Math.toDegrees(angle)-90);
+        spaceship.setPosition(position.x,position.y);
+        super.render(batch, spaceship);
     }
 
     /**
@@ -75,7 +77,9 @@ public class PlayerSpaceShip extends GameEntity implements Entity{
      * @param delta
      */
     public void update(float delta) {
+        timeElapsed += delta;
         move(delta);
+
         //flight controls
         if(Gdx.input.isKeyPressed(Input.Keys.W)) {
             accel(delta);

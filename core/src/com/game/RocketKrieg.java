@@ -23,9 +23,9 @@ public class RocketKrieg implements Screen {
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
 
+		ass = new AssetStorage();
 		ship = new PlayerSpaceShip();
 		cm = new ChunkManager(ship);
-		ass = new AssetStorage();
 	}
 
 	/**
