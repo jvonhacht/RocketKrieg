@@ -26,7 +26,6 @@ public class MainMenu implements Screen {
         background = new Texture("images/menu/Space_Background.jpg");
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 800, 480);
-
     }
 
     public void show() {
