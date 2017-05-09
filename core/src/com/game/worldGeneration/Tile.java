@@ -1,18 +1,17 @@
 package com.game.worldGeneration;
 
-/**
- * Created by Johan on 02/05/2017.
- */
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.game.AssetStorage;
+import com.game.objects.AlienShip;
 import com.game.objects.Asteroid;
 import com.game.objects.Entity;
-
 import java.util.Random;
 
 /**
- * Created by Johan on 27/04/2017.
+ * Tile creation
+ * @author Johan von Hacht & David Johansson 
+ * @version 1.1 (2017-05-09)
  */
 public class Tile {
     private Sprite img;
@@ -22,18 +21,32 @@ public class Tile {
     private Entity entity;
 
     public Tile(int x, int y) {
-        entity = new Asteroid(x, y);
-        position = new Vector2(x,y);
+        //generate random percent
+        int percent = rand.nextInt(100);
+
+        //choose random entity
+        if(percent <= 90){
+            entity = new Asteroid(x, y);
+        }
+        else if(percent > 90
+                //&& percent <= 90
+        ){
+            entity = new AlienShip(x, y);
+        }
+        else{
+            //entity = new Planet(x, y);
+        }
 
         //choose random tile texture.
-        int number = rand.nextInt(100);
-        if(number<99.8) {
+        if(percent < 96) {
             img= AssetStorage.tile1;
         } else {
             img = AssetStorage.tile2;
-     }
-     }
+        }
 
+        //initialize starting position
+        position = new Vector2(x,y);
+    }
      /**
      * Get Sprite of tile.
      * @return Sprite img.

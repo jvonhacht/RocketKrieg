@@ -16,7 +16,7 @@ public class RocketKrieg implements Screen {
 	private final GameEntry game;
 	private OrthographicCamera camera;
 	private final float FPS = 60f;
-	private PlayerSpaceShip ship;
+	private static PlayerSpaceShip ship;
 	private ChunkManager cm;
 	private AssetStorage ass; //:-)
 
@@ -62,6 +62,15 @@ public class RocketKrieg implements Screen {
 		if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
 			Gdx.app.exit();
 		}
+	}
+
+	/**
+	 * Returns the position vector of
+	 * the spaceship
+	 * @return position vector
+	 */
+	public static Vector2 getShipPosition(){
+		return ship.getPosition();
 	}
 
 	/**
