@@ -27,6 +27,7 @@ public class AssetStorage {
     public static Animation<TextureRegion> flameAnimation;
     public static Animation<TextureRegion> explosionAnimation;
     public static Animation<TextureRegion> redLightAnimation;
+    public static Animation<TextureRegion> sparkleAnimation;
 
     //extra
     public static final Sprite debug = new Sprite(new Texture("images/worldGeneration/debugHitBox.png"));
@@ -58,12 +59,22 @@ public class AssetStorage {
         }
         flameAnimation = new Animation(1f/20f,flameFrames);
 
-        TextureRegion[] redFrames = new TextureRegion[9];
-        TextureRegion[][] tmpFrames3 = TextureRegion.split(new Texture(Gdx.files.internal("images/alien_ship/BlinkingRedLight.png")), 90, 90);
+        TextureRegion[] sparkleFrames = new TextureRegion[30];
+        TextureRegion[][] tmpFrames3 = TextureRegion.split(new Texture(Gdx.files.internal("images/worldGeneration/sparkle.png")), 47, 47);
         int index3 = 0;
+        for (int i = 0; i < 5; i++){
+            for(int j = 0; j < 6; j++) {
+                sparkleFrames[index3++] = tmpFrames3[j][i];
+            }
+        }
+        sparkleAnimation = new Animation(1f/10f,sparkleFrames);
+
+        TextureRegion[] redFrames = new TextureRegion[9];
+        TextureRegion[][] tmpFrames4 = TextureRegion.split(new Texture(Gdx.files.internal("images/alien_ship/BlinkingRedLight.png")), 90, 90);
+        int index4 = 0;
         for (int i = 0; i < 3; i++){
             for(int j = 0; j < 3; j++) {
-                redFrames[index3++] = tmpFrames3[j][i];
+                redFrames[index4++] = tmpFrames4[j][i];
             }
         }
         redLightAnimation = new Animation(1f/20f,redFrames);

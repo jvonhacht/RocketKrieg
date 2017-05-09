@@ -32,7 +32,6 @@ public class CollisionEvent implements Entity {
     }
 
     public void render(SpriteBatch batch) {
-        timeElapsed += Gdx.graphics.getDeltaTime();
         if (!animation.isAnimationFinished(timeElapsed)) {
             GameEntry.batch.draw(animation.getKeyFrame(timeElapsed), position.x, position.y);
         }
@@ -45,7 +44,9 @@ public class CollisionEvent implements Entity {
         sprite.draw(batch);
     }
 
-    public void update(float delta) {}
+    public void update(float delta) {
+        timeElapsed += delta;
+    }
 
     public Vector2 getPosition() {
         return position;
