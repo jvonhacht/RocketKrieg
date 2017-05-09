@@ -15,6 +15,7 @@ public class AssetStorage {
     public static final Sprite asteroid = new Sprite(new Texture("images/asteroid/Asteroid.png"));
     public static final Sprite debug = new Sprite(new Texture("images/worldGeneration/debugHitBox.png"));
     public static final Sprite debris = new Sprite(new Texture("images/collision/debris.png"));
+    public static final Sprite missile = new Sprite(new Texture(Gdx.files.internal("images/spaceship/missile.png")));
     public static Animation<TextureRegion> explosionAnimation;
 
     public AssetStorage() {
@@ -27,8 +28,6 @@ public class AssetStorage {
                 animationFrames[index++] = tmpFrames[j][i];
             }
         }
-        System.out.println(explosionAnimation);
         explosionAnimation = new Animation(1f/20f,animationFrames);
-        System.out.println(explosionAnimation);
     }
 }
