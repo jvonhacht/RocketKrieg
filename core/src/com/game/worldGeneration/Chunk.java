@@ -54,8 +54,6 @@ public class Chunk {
                         ChunkManager.hashGrid.put(pair, new ArrayList<Entity>());
                         ChunkManager.hashGrid.get(pair).add(ent);
                     }
-                } else {
-                    GameEntry.font.draw(GameEntry.batch,anchorX + ":" + anchorY, anchorX, anchorY);
                 }
             }
         }
