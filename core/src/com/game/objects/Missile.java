@@ -54,7 +54,7 @@ public class Missile extends GameEntity implements Entity {
     public void update(float delta) {
         move(delta);
         accel(delta);
-        if(position.dst(RocketKrieg.getShipPosition())>MAX_DISTANCE) {
+        if(position.dst(RocketKrieg.getShip().getPosition())>MAX_DISTANCE) {
             ChunkManager.removeEntity(this);
             ChunkManager.addEntity(new CollisionEvent(position.x,position.y));
         }
