@@ -18,6 +18,7 @@ public class AssetStorage {
     public static final Sprite asteroid = new Sprite(new Texture("images/asteroid/Asteroid.png"));
     public static final Sprite alienShip = new Sprite(new Texture("images/alien_ship/AlienShip.png"));
     public static final Sprite alienShipSpecial = new Sprite(new Texture("images/alien_ship/AlienShipSpecial.png"));
+    public static final Sprite planet = new Sprite(new Texture("images/planet/planet.png"));
 
     //tiles
     public static final Sprite tile1 = new Sprite(new Texture(Gdx.files.internal("images/worldGeneration/testTile.png")));
@@ -27,6 +28,7 @@ public class AssetStorage {
     public static Animation<TextureRegion> flameAnimation;
     public static Animation<TextureRegion> explosionAnimation;
     public static Animation<TextureRegion> redLightAnimation;
+    public static Animation<TextureRegion> atmosphereAnimation;
     public static Animation<TextureRegion> sparkleAnimation;
 
     //extra
@@ -77,6 +79,16 @@ public class AssetStorage {
                 redFrames[index4++] = tmpFrames4[j][i];
             }
         }
-        redLightAnimation = new Animation(1f/20f,redFrames);
+        redLightAnimation = new Animation(1f/10f,redFrames);
+
+        TextureRegion[] atmoFrames = new TextureRegion[9];
+        TextureRegion[][] tmpFrames5 = TextureRegion.split(new Texture(Gdx.files.internal("images/planet/Atmosphere.png")), 81, 81);
+        int index5 = 0;
+        for (int i = 0; i < 3; i++){
+            for(int j = 0; j < 3; j++) {
+                atmoFrames[index5++] = tmpFrames5[i][j];
+            }
+        }
+        atmosphereAnimation = new Animation(1f/3f, atmoFrames);
     }
 }

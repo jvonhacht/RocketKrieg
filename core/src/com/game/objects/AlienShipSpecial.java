@@ -10,16 +10,17 @@ import com.game.GameEntry;
 import com.game.RocketKrieg;
 
 /**
- *  AlienShipSpecial class
+ *  AlienShipSpecial entity class
  *  @author David Johansson 
  *  @version 1.0 (2017-05-09)
  */
 public class AlienShipSpecial extends GameEntity implements Entity{
-    private Sprite alienShip;
+    private Sprite alienShipSpecial;
     private Animation<TextureRegion> animation;
     private float timeElapsed;
     private float sizeX;
     private float sizeY;
+    private PlayerSpaceShip ship;
     private final float movingSpeed = 120F;
     private final float acceleration = 120F;
 
@@ -30,7 +31,7 @@ public class AlienShipSpecial extends GameEntity implements Entity{
         timeElapsed = 0;
 
         //set properties
-        alienShip = AssetStorage.alienShipSpecial;
+        alienShipSpecial = AssetStorage.alienShipSpecial;
         animation = AssetStorage.redLightAnimation;
         position.set(x+MathUtils.random(0,500),y+MathUtils.random(0,500));
 
@@ -38,6 +39,9 @@ public class AlienShipSpecial extends GameEntity implements Entity{
         Rectangle bounds =  new Rectangle(position.x, position.y, sizeX, sizeY);
         hitbox = new Polygon(new float[]{0, 0, bounds.width, 0, bounds.width, bounds.height, 0, bounds.height});
         hitbox.setOrigin(bounds.width/2, bounds.height/2);
+
+        //get ship
+        ship = RocketKrieg.getShip();
     }
 
     /**
@@ -45,10 +49,11 @@ public class AlienShipSpecial extends GameEntity implements Entity{
      * @param batch SpriteBatch batch.
      */
     public void render(SpriteBatch batch){
-        alienShip.setSize(sizeX,sizeY);
-        alienShip.setOriginCenter();
-        alienShip.setPosition(position.x, position.y);
-        super.render(batch, alienShip);
+        alienShipSpecial.setSize(sizeX,sizeY);
+        alienShipSpecial.setOriginCenter();
+        alienShipSpecial.setPosition(position.x, position.y);
+        alienShipSpecial.setRotation((float)Math.toDegrees(angle)-90);
+        super.render(batch, alienShipSpecial);
         GameEntry.batch.draw(animation.getKeyFrame(timeElapsed, true), position.x + sizeX/2 - 10, position.y + sizeY/2 - 2, 20f, 20f);
     }
 
@@ -61,11 +66,12 @@ public class AlienShipSpecial extends GameEntity implements Entity{
         move(delta);
 
         //get position of playersip
-        Vector2 shipPosition = RocketKrieg.getShipPosition();
+        Vector2 shipPosition = ship.position;
         float distance = shipPosition.dst(position);
 
         //move alien ship if near
         if(distance < 800) {
+
             if (shipPosition.x > position.x) {
                 moveRight(delta);
             }
