@@ -35,6 +35,10 @@ public class Missile extends GameEntity implements Entity {
         hitbox.setOrigin(bounds.width/2,bounds.height/2);
     }
 
+    /**
+     * Render Missile.
+     * @param batch
+     */
     public void render(SpriteBatch batch) {
         missile.setOriginCenter();
         missile.setRotation((float)Math.toDegrees(angle)+180);
@@ -43,7 +47,10 @@ public class Missile extends GameEntity implements Entity {
         super.render(batch, missile);
     }
 
-
+    /**
+     * Update missile.
+     * @param delta time since last frame.
+     */
     public void update(float delta) {
         move(delta);
         accel(delta);
@@ -54,7 +61,7 @@ public class Missile extends GameEntity implements Entity {
     }
 
     /**
-     * Accelerate forward.
+     * Accelerate forward. 
      */
     public void accel(float delta) {
         acceleration.set((float)Math.cos(angle)*SPEED_MULTIPLIER*delta,(float)Math.sin(angle)*SPEED_MULTIPLIER*delta);

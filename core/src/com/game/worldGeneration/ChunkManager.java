@@ -38,8 +38,10 @@ public class ChunkManager {
         int y = (int)position.y;
         int chunkSize = Chunk.WIDTH*Tile.TILE_SIZE;
         //anchor points is where chunk starts e.g. 0.0,
-        int anchorX = (x - ( x<0 ? chunkSize-1 : 0 )) / chunkSize * chunkSize;
-        int anchorY = (y - ( y<0 ? chunkSize-1 : 0 )) / chunkSize * chunkSize;
+        //int anchorX = (x - ( x<0 ? chunkSize-1 : 0 )) / chunkSize * chunkSize;
+        Vector2 anchor = getAnchor(position, chunkSize);
+        int anchorX = (int)anchor.x;
+        int anchorY = (int)anchor.y;
         //add nearby neighbour chunks to render que.
         renderCloseAnchor[0] = new Pair(anchorX,anchorY);
         renderCloseAnchor[1] = new Pair(anchorX+chunkSize,anchorY);
@@ -102,8 +104,9 @@ public class ChunkManager {
      */
     public static void addEntity(Entity ent) {
         Vector2 position = ent.getPosition();
-        int anchorX =(int) (position.x - ( position.x<0 ? 512-1 : 0 )) / 512 * 512;
-        int anchorY =(int) (position.y - ( position.y<0 ? 512-1 : 0 )) / 512 * 512;
+        Vector2 anchor = getAnchor(position, Tile.TILE_SIZE);
+        int anchorX = (int)anchor.x;
+        int anchorY = (int)anchor.y;
         Pair pair = new Pair(anchorX,anchorY);
         if(hashGrid.containsKey(pair)) {
             hashGrid.get(pair).add(ent);
@@ -113,13 +116,42 @@ public class ChunkManager {
         }
     }
 
+    /**
+     * Remove an entity to the spatial hashgrid.
+     * @param ent Entity to be removed.
+     */
     public static void removeEntity(Entity ent) {
         Vector2 position = ent.getPosition();
-        int anchorX =(int) (position.x - ( position.x<0 ? 512-1 : 0 )) / 512 * 512;
-        int anchorY =(int) (position.y - ( position.y<0 ? 512-1 : 0 )) / 512 * 512;
+        Vector2 anchor = getAnchor(position, Tile.TILE_SIZE);
+        int anchorX = (int)anchor.x;
+        int anchorY = (int)anchor.y;
         Pair pair = new Pair(anchorX,anchorY);
         ArrayList<Entity> gridTile = hashGrid.get(pair);
         gridTile.remove(ent);
+    }
+
+    /**
+     * Method to get anchor point from a position and size.
+     * @param position of object.
+     * @param size distance between anchor points.
+     * @return Vector2 anchor.
+     */
+    private static Vector2 getAnchor(Vector2 position, int size) {
+        Vector2 anchor = new Vector2();
+        int anchorX;
+        int anchorY;
+        if(position.x<0) {
+            anchorX = size - 1;
+        } else {
+            anchorX = 0;
+        }
+        if(position.y<0) {
+            anchorY = size - 1;
+        } else {
+            anchorY = 0;
+        }
+        anchor.set((int)(position.x - anchorX) / size * size,(int)(position.y - anchorY) / size * size);
+        return anchor;
     }
 }
 
