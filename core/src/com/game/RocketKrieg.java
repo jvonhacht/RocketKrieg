@@ -1,5 +1,6 @@
 package com.game;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
@@ -9,6 +10,7 @@ import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import com.game.objects.GameEntity;
 import com.game.objects.PlayerSpaceShip;
 import com.game.worldGeneration.ChunkManager;
 
@@ -19,6 +21,8 @@ public class RocketKrieg implements Screen {
 	private static PlayerSpaceShip ship;
 	private ChunkManager cm;
 	private AssetStorage ass; //:-)
+	private static int score;
+	private static float timeElapsed;
 
 	public RocketKrieg(final GameEntry game) {
 		this.game = game;
@@ -28,6 +32,8 @@ public class RocketKrieg implements Screen {
 		ass = new AssetStorage();
 		ship = new PlayerSpaceShip();
 		cm = new ChunkManager(ship);
+		score = 0;
+		timeElapsed = 5;
 	}
 
 	/**
@@ -57,11 +63,17 @@ public class RocketKrieg implements Screen {
 		//render all entities and tiles
 		GameEntry.batch.begin();
 		cm.render();
+		GameEntry.font.draw(GameEntry.batch,"Score: " + score,cameraPosition.x, cameraPosition.y + Gdx.graphics.getHeight()/2 -50);
+		if(timeElapsed<2) {
+			GameEntry.font.draw(GameEntry.batch,"+1",ship.getPosition().x,ship.getPosition().y);
+		}
 		GameEntry.batch.end();
 		//input
 		if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
 			Gdx.app.exit();
 		}
+
+		timeElapsed += delta;
 	}
 
 	/**
@@ -71,6 +83,11 @@ public class RocketKrieg implements Screen {
 	 */
 	public static Vector2 getShipPosition(){
 		return ship.getPosition();
+	}
+
+	public static void inscreaseScore(int amount) {
+		score += amount;
+		timeElapsed = 0;
 	}
 
 	/**

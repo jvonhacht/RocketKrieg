@@ -3,10 +3,8 @@ package com.game.worldGeneration;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.game.AssetStorage;
-import com.game.objects.AlienShip;
-import com.game.objects.AlienShipSpecial;
-import com.game.objects.Asteroid;
-import com.game.objects.Entity;
+import com.game.objects.*;
+
 import java.util.Random;
 
 /**
@@ -26,18 +24,20 @@ public class Tile {
         int percent = rand.nextInt(100);
 
         //choose random entity
-        if(percent <= 80){
+        if(percent < 80){
             entity = new Asteroid(x, y);
         }
-        else if(percent > 80 && percent <= 95){
+        else if(percent < 90){
             entity = new AlienShip(x, y);
         }
-        else{
+        else if(percent < 95){
+            entity = new ScorePoint(x,y);
+        } else {
             entity = new AlienShipSpecial(x, y);
         }
 
         //choose random tile texture.
-        if(percent < 96) {
+        if(percent < 98) {
             img= AssetStorage.tile1;
         } else {
             img = AssetStorage.tile2;
