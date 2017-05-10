@@ -136,7 +136,7 @@ public class ChunkManager {
      * @param size distance between anchor points.
      * @return Vector2 anchor.
      */
-    private static Vector2 getAnchor(Vector2 position, int size) {
+    public static Vector2 getAnchor(Vector2 position, int size) {
         Vector2 anchor = new Vector2();
         int anchorX;
         int anchorY;
