@@ -21,7 +21,7 @@ public class GameEntity{
     Polygon hitbox;
 
     protected GameEntity() {
-        position = new Vector2(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2);
+        position = new Vector2();
         velocity = new Vector2();
         acceleration = new Vector2();
         angle = (float)Math.toRadians(90);

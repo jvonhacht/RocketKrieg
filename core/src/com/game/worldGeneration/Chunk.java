@@ -1,6 +1,7 @@
 package com.game.worldGeneration;
 
 import com.badlogic.gdx.math.Vector2;
+import com.game.GameEntry;
 import com.game.objects.Entity;
 
 import java.util.ArrayList;
@@ -9,6 +10,7 @@ import java.util.ArrayList;
  * Created by Johan on 27/04/2017.
  */
 public class Chunk {
+    private final int SAFEZONE = 1024;
     static final int WIDTH = 3;
     static final int HEIGHT = 3;
     private int x;
@@ -41,14 +43,19 @@ public class Chunk {
                 Entity ent = tile.getEntity();
 
                 Vector2 position = ent.getPosition();
-                int anchorX =(int) (position.x - ( position.x<0 ? 512-1 : 0 )) / 512 * 512;
-                int anchorY =(int) (position.y - ( position.y<0 ? 512-1 : 0 )) / 512 * 512;
+                Vector2 anchor = ChunkManager.getAnchor(position, Tile.TILE_SIZE);
+                int anchorX = (int)anchor.x;
+                int anchorY = (int)anchor.y;
                 Pair pair = new Pair(anchorX,anchorY);
-                if(ChunkManager.hashGrid.containsKey(pair)) {
-                    ChunkManager.hashGrid.get(pair).add(ent);
+                if(!(Math.abs(anchorX)<SAFEZONE && Math.abs(anchorY)<SAFEZONE)) { //don't spawn stuff where the player spawns.
+                    if(ChunkManager.hashGrid.containsKey(pair)) {
+                        ChunkManager.hashGrid.get(pair).add(ent);
+                    } else {
+                        ChunkManager.hashGrid.put(pair, new ArrayList<Entity>());
+                        ChunkManager.hashGrid.get(pair).add(ent);
+                    }
                 } else {
-                    ChunkManager.hashGrid.put(pair, new ArrayList<Entity>());
-                    ChunkManager.hashGrid.get(pair).add(ent);
+                    GameEntry.font.draw(GameEntry.batch,anchorX + ":" + anchorY, anchorX, anchorY);
                 }
             }
         }

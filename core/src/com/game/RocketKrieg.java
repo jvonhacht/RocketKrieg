@@ -28,6 +28,8 @@ public class RocketKrieg implements Screen {
 		this.game = game;
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
+		camera.position.x = 0;
+		camera.position.y = 0;
 
 		ass = new AssetStorage();
 		ship = new PlayerSpaceShip();
