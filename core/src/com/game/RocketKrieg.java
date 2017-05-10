@@ -69,8 +69,8 @@ public class RocketKrieg implements Screen {
 	 * the spaceship
 	 * @return position vector
 	 */
-	public static Vector2 getShipPosition(){
-		return ship.getPosition();
+	public static PlayerSpaceShip getShip(){
+		return ship;
 	}
 
 	/**
