@@ -112,5 +112,14 @@ public class ChunkManager {
             hashGrid.get(pair).add(ent);
         }
     }
+
+    public static void removeEntity(Entity ent) {
+        Vector2 position = ent.getPosition();
+        int anchorX =(int) (position.x - ( position.x<0 ? 512-1 : 0 )) / 512 * 512;
+        int anchorY =(int) (position.y - ( position.y<0 ? 512-1 : 0 )) / 512 * 512;
+        Pair pair = new Pair(anchorX,anchorY);
+        ArrayList<Entity> gridTile = hashGrid.get(pair);
+        gridTile.remove(ent);
+    }
 }
 

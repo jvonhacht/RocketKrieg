@@ -1,12 +1,12 @@
 package com.game.objects.collision;
 
 import com.badlogic.gdx.math.Intersector;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.game.AssetStorage;
 import com.game.GameEntry;
-import com.game.objects.Entity;
-import com.game.objects.Missile;
-import com.game.objects.PlayerSpaceShip;
+import com.game.RocketKrieg;
+import com.game.objects.*;
 
 import java.util.ArrayList;
 
@@ -27,9 +27,26 @@ public class CollisionManager {
                 if(Intersector.overlapConvexPolygons(ent1.getHitBox(),ent2.getHitBox())) {
                     //missile should not blow up ship.
                     if(!((ent1 instanceof PlayerSpaceShip && ent2 instanceof Missile) || (ent1 instanceof Missile && ent2 instanceof PlayerSpaceShip) || (ent1 instanceof Missile && ent2 instanceof Missile))) {
-                        collisionEvent(ent1,ent2, entities);
-                        entities.remove(j);
-                        entities.remove(i);
+                        //collision between player and scorepoint.
+                        if(ent1 instanceof PlayerSpaceShip && ent2 instanceof ScorePoint) {
+                            RocketKrieg.inscreaseScore(1);
+                            entities.remove(j);
+                        } else if (ent1 instanceof ScorePoint && ent2 instanceof PlayerSpaceShip){
+                            RocketKrieg.inscreaseScore(1);
+                            entities.remove(i);
+
+                            //collision between missile and alien ship.
+                        } else if ((ent1 instanceof  Missile && (ent2 instanceof AlienShip || ent2 instanceof AlienShipSpecial)) || (ent2 instanceof Missile && (ent1 instanceof AlienShip || ent1 instanceof AlienShipSpecial))){
+                            entities.remove(j);
+                            entities.remove(i);
+                            RocketKrieg.inscreaseScore(1);
+                            collisionEvent(ent1,ent2, entities);
+                            //all other collisions.
+                        } else {
+                            entities.remove(j);
+                            entities.remove(i);
+                            collisionEvent(ent1,ent2, entities);
+                        }
                     }
                 }
             }

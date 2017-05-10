@@ -24,21 +24,24 @@ public class Tile {
         int percent = rand.nextInt(100);
 
         //choose random entity
-        if(percent <= 80){
+        if(percent <= 75){
             entity = new Asteroid(x, y);
         }
-        else if(percent <= 90){
+        else if(percent <= 85){
             entity = new AlienShip(x, y);
         }
-        else if(percent <= 95){
+        else if(percent <= 90){
             entity = new AlienShipSpecial(x, y);
+        }
+        else if(percent <= 95){
+            entity = new ScorePoint(x,y);
         }
         else{
             entity = new Planet(x, y);
         }
 
         //choose random tile texture.
-        if(percent < 96) {
+        if(percent < 98) {
             img= AssetStorage.tile1;
         } else {
             img = AssetStorage.tile2;

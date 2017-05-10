@@ -22,9 +22,10 @@ public class PlayerSpaceShip extends GameEntity implements Entity{
     private float sizeX;
     private float sizeY;
     //Multipliers
-    private final float SPEED_MULTIPLIER = 5000F;
-    private final float MAX_ANGULARVELOCITY = 10F;
-    private final float TURNING_SPEED = 3F;
+    private final float SPEED_MULTIPLIER = 5000f;
+    private final float MAX_ANGULARVELOCITY = 10f;
+    private final float TURNING_SPEED = 3f;
+    private final float RELOAD_TIME = 0.5f;
     //Textures
     private Sprite spaceship;
     private Animation<TextureRegion> animation;
@@ -57,16 +58,16 @@ public class PlayerSpaceShip extends GameEntity implements Entity{
         Sprite img = spaceship;
 
         if(Gdx.input.isKeyPressed(Input.Keys.W)) {
-            GameEntry.batch.draw(animation.getKeyFrame(timeElapsed,true), position.x, position.y+60, sizeX/2, sizeY/2-60, sizeX, sizeY, 2.5f, 0.8f,(float)Math.toDegrees(angle)+90);
+            GameEntry.batch.draw(animation.getKeyFrame(timeElapsed,true), position.x, position.y+70, sizeX/2, sizeY/2-70, sizeX, sizeY, 2f, 0.5f,(float)Math.toDegrees(angle)+90);
         }
         if(Gdx.input.isKeyPressed(Input.Keys.A)) {
-            GameEntry.batch.draw(animation.getKeyFrame(timeElapsed,true), position.x-18, position.y+50, sizeX/2+18, sizeY/2-50, sizeX, sizeY, 1f, 0.3f,(float)Math.toDegrees(angle)+180);
-            GameEntry.batch.draw(animation.getKeyFrame(timeElapsed,true), position.x-18, position.y+45, sizeX/2+18, sizeY/2-45, sizeX, sizeY, 1f, 0.4f,(float)Math.toDegrees(angle));
+            GameEntry.batch.draw(animation.getKeyFrame(timeElapsed,true), position.x-18, position.y+50, sizeX/2+18, sizeY/2-50, sizeX, sizeY, 1f, 0.2f,(float)Math.toDegrees(angle)+180);
+            GameEntry.batch.draw(animation.getKeyFrame(timeElapsed,true), position.x-18, position.y+45, sizeX/2+18, sizeY/2-45, sizeX, sizeY, 1f, 0.28f,(float)Math.toDegrees(angle));
         }
         if(Gdx.input.isKeyPressed(Input.Keys.D)) {
             //GameEntry.batch.draw(animation.getKeyFrame(timeElapsed,true), position.x, position.y+40, sizeX/2, sizeY/2-40, sizeX, sizeY, 1f, 0.4f,(float)Math.toDegrees(angle));
-            GameEntry.batch.draw(animation.getKeyFrame(timeElapsed,true), position.x+18, position.y+50, sizeX/2-18, sizeY/2-50, sizeX, sizeY, 1f, 0.3f,(float)Math.toDegrees(angle));
-            GameEntry.batch.draw(animation.getKeyFrame(timeElapsed,true), position.x+18, position.y+45, sizeX/2-18, sizeY/2-45, sizeX, sizeY, 1f, 0.4f,(float)Math.toDegrees(angle)+180);
+            GameEntry.batch.draw(animation.getKeyFrame(timeElapsed,true), position.x+18, position.y+50, sizeX/2-18, sizeY/2-50, sizeX, sizeY, 1f, 0.2f,(float)Math.toDegrees(angle));
+            GameEntry.batch.draw(animation.getKeyFrame(timeElapsed,true), position.x+18, position.y+45, sizeX/2-18, sizeY/2-45, sizeX, sizeY, 1f, 0.28f,(float)Math.toDegrees(angle)+180);
         }
         spaceship.setOriginCenter();
         spaceship.setRotation((float)Math.toDegrees(angle)-90);
@@ -105,7 +106,7 @@ public class PlayerSpaceShip extends GameEntity implements Entity{
      * Fire a missile.
      */
     public void fireMissile() {
-        if(timeElapsed > 1.2) {
+        if(timeElapsed > RELOAD_TIME) {
             Missile missile = new Missile(position,velocity,acceleration,angle);
             ChunkManager.addEntity(missile);
             timeElapsed = 0;
