@@ -6,6 +6,8 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
@@ -19,18 +21,23 @@ public class RocketKrieg implements Screen {
 	private OrthographicCamera camera;
 	private final float FPS = 60f;
 	private static PlayerSpaceShip ship;
+	private Sprite gameOver;
 	private ChunkManager cm;
 	private AssetStorage ass; //:-)
 	private static int score;
 	private static float timeElapsed;
+	private static boolean playerState;
+
 
 	public RocketKrieg(final GameEntry game) {
 		this.game = game;
+		playerState = false;
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
 		camera.position.x = 0;
 		camera.position.y = 0;
 
+		gameOver = AssetStorage.gameOver2;
 		ass = new AssetStorage();
 		ship = new PlayerSpaceShip();
 		cm = new ChunkManager(ship);
@@ -64,10 +71,14 @@ public class RocketKrieg implements Screen {
 		ship.update(1f/FPS);
 		//render all entities and tiles
 		GameEntry.batch.begin();
+
 		cm.render();
 		GameEntry.font.draw(GameEntry.batch,"Score: " + score,cameraPosition.x, cameraPosition.y + Gdx.graphics.getHeight()/2 -50);
-		if(timeElapsed<2) {
+		if(timeElapsed < 2) {
 			GameEntry.font.draw(GameEntry.batch,"+1",ship.getPosition().x,ship.getPosition().y);
+		}
+		if(playerState){
+			GameEntry.batch.draw(gameOver, ship.getPosition().x - (gameOver.getWidth()/2), ship.getPosition().y - (gameOver.getHeight()/2) + 40);
 		}
 		GameEntry.batch.end();
 		//input
@@ -76,6 +87,12 @@ public class RocketKrieg implements Screen {
 		}
 
 		timeElapsed += delta;
+
+		if(playerState){
+			if(timeElapsed > 2){
+				game.setScreen(new GameOver(game, score));
+			}
+		}
 	}
 
 	/**
@@ -87,9 +104,21 @@ public class RocketKrieg implements Screen {
 		return ship;
 	}
 
+	/**
+	 * Increases the player's score
+	 * @param amount to increase
+	 */
 	public static void inscreaseScore(int amount) {
 		score += amount;
 		timeElapsed = 0;
+	}
+
+	/**
+	 * Indicate that player is dead
+	 */
+	public static void playerDead(){
+		timeElapsed = 0;
+		playerState = true;
 	}
 
 	/**

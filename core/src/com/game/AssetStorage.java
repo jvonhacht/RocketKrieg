@@ -22,6 +22,7 @@ public class AssetStorage {
     public static final Sprite planet1 = new Sprite(new Texture("images/planet/plutoPlanet.png"));
     public static final Sprite planet2 = new Sprite(new Texture("images/planet/greyPlanet.png"));
     public static final Sprite planet3 = new Sprite(new Texture("images/planet/jupiterPlanet.png"));
+    public static final Sprite laser = new Sprite(new Texture("images/alien_ship/Laser.png"));
 
     //tiles
     public static final Sprite tile1 = new Sprite(new Texture(Gdx.files.internal("images/worldGeneration/testTile.png")));
@@ -37,6 +38,11 @@ public class AssetStorage {
     //extra
     public static final Sprite debug = new Sprite(new Texture("images/worldGeneration/debugHitBox.png"));
     public static final Sprite debris = new Sprite(new Texture("images/collision/debris.png"));
+    public static final Sprite background2 = new Sprite(new Texture("images/menu/Space_Background2.png"));
+    public static final Sprite replayButton = new Sprite(new Texture("images/menu/Replay_Button.png"));
+    public static final Sprite exitButton = new Sprite(new Texture("images/menu/Exit_Button.png"));
+    public static final Sprite gameOver = new Sprite(new Texture("images/menu/Game_Over.png"));
+    public static final Sprite gameOver2 = new Sprite(new Texture("images/menu/Game_Over2.png"));
 
     /**
      * Constructor creating animations

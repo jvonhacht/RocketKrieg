@@ -21,6 +21,7 @@ public class PlayerSpaceShip extends GameEntity implements Entity{
     private float timeElapsed;
     private float sizeX;
     private float sizeY;
+    private boolean playerState;
     //Multipliers
     private final float SPEED_MULTIPLIER = 5000f;
     private final float MAX_ANGULARVELOCITY = 10f;
@@ -38,6 +39,7 @@ public class PlayerSpaceShip extends GameEntity implements Entity{
         //set size of spaceship
         sizeX = 25;
         sizeY = 70;
+        playerState = false;
 
         //load images
         spaceship = AssetStorage.spaceship;
