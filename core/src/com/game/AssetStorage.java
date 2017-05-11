@@ -38,11 +38,13 @@ public class AssetStorage {
     //extra
     public static final Sprite debug = new Sprite(new Texture("images/worldGeneration/debugHitBox.png"));
     public static final Sprite debris = new Sprite(new Texture("images/collision/debris.png"));
+    public static final Sprite instructions = new Sprite(new Texture("images/menu/Instructions.png"));
     public static final Sprite background2 = new Sprite(new Texture("images/menu/Space_Background2.png"));
     public static final Sprite replayButton = new Sprite(new Texture("images/menu/Replay_Button.png"));
     public static final Sprite exitButton = new Sprite(new Texture("images/menu/Exit_Button.png"));
     public static final Sprite gameOver = new Sprite(new Texture("images/menu/Game_Over.png"));
     public static final Sprite gameOver2 = new Sprite(new Texture("images/menu/Game_Over2.png"));
+    public static final Sprite singleSparkle = new Sprite(new Texture("images/worldGeneration/singleSparkle.png"));
 
     /**
      * Constructor creating animations
