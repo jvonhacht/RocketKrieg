@@ -1,5 +1,6 @@
 package com.game;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
@@ -63,7 +64,6 @@ public class MainMenu implements Screen {
                 if (Gdx.input.isTouched()) {
                     playSound.play(1.0f);
                     game.setScreen(new RocketKrieg(game));
-                    dispose();
                 }
             }
         }
@@ -91,7 +91,7 @@ public class MainMenu implements Screen {
     }
 
     public void dispose() {
-
+        GameEntry.batch.dispose();
     }
 
 }

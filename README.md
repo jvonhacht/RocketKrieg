@@ -3,6 +3,8 @@
 
 **Studenter:** @johvh @davidjo2
 
+**Nedladdning:** [vSync on](https://goo.gl/VmToDk) | [vSync off](https://goo.gl/Ke1ltL) LibGDX vsync laggar för vissa konfigurationer, använd då versionen utan.
+
 **Programmeringspråk:** java
 
 ### Projektbeskrivning
