@@ -8,10 +8,12 @@ import com.badlogic.gdx.math.Vector2;
 import com.game.AssetStorage;
 
 /**
- * Created by David on 2017-05-10.
+ *  Laser class
+ *  @author David Johansson 
+ *  @version 1.0 (2017-05-10)
  */
 public class Laser extends GameEntity implements Entity {
-    private final float SPEED_MULTIPLIER = 15000;
+    private final float SPEED_MULTIPLIER = 10000;
     private Sprite laser;
 
     public Laser(Vector2 position, Vector2 velocity, Vector2 acceleration, float angle) {
@@ -21,7 +23,7 @@ public class Laser extends GameEntity implements Entity {
         this.velocity = new Vector2(velocity.x, velocity.y);
         this.acceleration = new Vector2(acceleration.x, acceleration.y);
         this.angle = angle;
-        laser = AssetStorage.missile;
+        laser = AssetStorage.laser;
         laser.setRotation((float) Math.toDegrees(angle));
         laser.setSize(width, height);
 

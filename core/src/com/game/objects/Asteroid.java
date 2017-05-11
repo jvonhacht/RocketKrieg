@@ -8,7 +8,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.game.AssetStorage;
 
 /**
- *  Asteroid class
+ *  Asteroid entity class
  *  @author David Johansson 
  *  @version 1.0 (2017-05-02)
  */

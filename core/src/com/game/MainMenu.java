@@ -1,6 +1,7 @@
 package com.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
@@ -65,6 +66,11 @@ public class MainMenu implements Screen {
                     dispose();
                 }
             }
+        }
+
+        //Exit game by pressing esc
+        if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
+            Gdx.app.exit();
         }
     }
 

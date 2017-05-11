@@ -15,6 +15,8 @@ import java.util.ArrayList;
  * Created by Johan on 06/05/2017.
  */
 public class CollisionManager {
+    private boolean playerDead = false;
+
     /**
      * Check if entities in an arraylist collides.
      * @param entities Entities to test for collision.
@@ -52,6 +54,12 @@ public class CollisionManager {
                         collisionEvent(ent1, ent2, entities);
                     } else if((ent1 instanceof  Laser && (ent2 instanceof AlienShip || ent2 instanceof AlienShipSpecial)) || (ent2 instanceof Laser && (ent1 instanceof AlienShip || ent1 instanceof AlienShipSpecial))) {
                         //do not let alien laser blow up alien.
+                    } else if((ent1 instanceof PlayerSpaceShip || ent2 instanceof PlayerSpaceShip) && !playerDead){
+                        entities.remove(j);
+                        entities.remove(i);
+                        collisionEvent(ent1,ent2, entities);
+                        RocketKrieg.playerDead();
+                        entities.clear();
                     } else {
                         //all other collisions.
                         entities.remove(j);
