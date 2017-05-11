@@ -74,7 +74,7 @@ public class RocketKrieg implements Screen {
 
 		cm.render();
 		GameEntry.font.draw(GameEntry.batch,"Score: " + score,cameraPosition.x, cameraPosition.y + Gdx.graphics.getHeight()/2 -50);
-		if(timeElapsed < 2) {
+		if(8 < timeElapsed  && timeElapsed < 10) {
 			GameEntry.font.draw(GameEntry.batch,"+1",ship.getPosition().x,ship.getPosition().y);
 		}
 		if(playerState){
@@ -110,7 +110,7 @@ public class RocketKrieg implements Screen {
 	 */
 	public static void inscreaseScore(int amount) {
 		score += amount;
-		timeElapsed = 0;
+		timeElapsed = 8;
 	}
 
 	/**
