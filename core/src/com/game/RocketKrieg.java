@@ -42,7 +42,7 @@ public class RocketKrieg implements Screen {
 		ship = new PlayerSpaceShip();
 		cm = new ChunkManager(ship);
 		score = 0;
-		timeElapsed = 5;
+		timeElapsed = 10;
 	}
 
 	/**
