@@ -18,7 +18,7 @@ public class AssetStorage {
     public static final Sprite asteroid = new Sprite(new Texture("images/asteroid/Asteroid.png"));
     public static final Sprite alienShip = new Sprite(new Texture("images/alien_ship/AlienShip.png"));
     public static final Sprite alienShipSpecial = new Sprite(new Texture("images/alien_ship/AlienShipSpecial.png"));
-    public static final Sprite planet = new Sprite(new Texture("images/planet/planet.png"));
+    public static final Sprite planet = new Sprite(new Texture("images/planet/Planet.png"));
     public static final Sprite planet1 = new Sprite(new Texture("images/planet/plutoPlanet.png"));
     public static final Sprite planet2 = new Sprite(new Texture("images/planet/greyPlanet.png"));
     public static final Sprite planet3 = new Sprite(new Texture("images/planet/jupiterPlanet.png"));
@@ -38,6 +38,7 @@ public class AssetStorage {
     //extra
     public static final Sprite debug = new Sprite(new Texture("images/worldGeneration/debugHitBox.png"));
     public static final Sprite debris = new Sprite(new Texture("images/collision/debris.png"));
+    public static final Sprite background = new Sprite(new Texture("images/menu/Space_Background2.png"));
     public static final Sprite background2 = new Sprite(new Texture("images/menu/Space_Background2.png"));
     public static final Sprite replayButton = new Sprite(new Texture("images/menu/Replay_Button.png"));
     public static final Sprite exitButton = new Sprite(new Texture("images/menu/Exit_Button.png"));
