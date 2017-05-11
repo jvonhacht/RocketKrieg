@@ -27,7 +27,16 @@ public class Planet extends GameEntity implements Entity{
         timeElapsed = 0;
 
         //set properties
-        planet = AssetStorage.planet;
+        int rand = MathUtils.random(100);
+        if(rand<25) {
+            planet = AssetStorage.planet;
+        } else if(rand<50) {
+            planet = AssetStorage.planet1;
+        } else if(rand<75){
+            planet = AssetStorage.planet2;
+        } else {
+            planet = AssetStorage.planet3;
+        }
         animation = AssetStorage.atmosphereAnimation;
         position.set(x + 250, y + 250);
 

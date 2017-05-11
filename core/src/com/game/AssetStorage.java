@@ -19,6 +19,9 @@ public class AssetStorage {
     public static final Sprite alienShip = new Sprite(new Texture("images/alien_ship/AlienShip.png"));
     public static final Sprite alienShipSpecial = new Sprite(new Texture("images/alien_ship/AlienShipSpecial.png"));
     public static final Sprite planet = new Sprite(new Texture("images/planet/planet.png"));
+    public static final Sprite planet1 = new Sprite(new Texture("images/planet/plutoPlanet.png"));
+    public static final Sprite planet2 = new Sprite(new Texture("images/planet/greyPlanet.png"));
+    public static final Sprite planet3 = new Sprite(new Texture("images/planet/jupiterPlanet.png"));
     public static final Sprite laser = new Sprite(new Texture("images/alien_ship/Laser.png"));
 
     //tiles
