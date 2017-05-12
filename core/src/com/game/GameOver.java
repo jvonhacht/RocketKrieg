@@ -38,7 +38,7 @@ public class GameOver implements Screen {
         soundEffect = Gdx.audio.newSound(Gdx.files.internal("sounds/Play_Sound.mp3"));
 
         //Initialize font
-        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/TW_Cen_MT.ttf"));
+        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/Tw_Cen_MT.ttf"));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
         parameter.size = 30;
         font = generator.generateFont(parameter);
