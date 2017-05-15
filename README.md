@@ -18,7 +18,7 @@
 -Co-op survival: Två personer spelar tillsammans och har ansvar för varsin kontroll; en person ansvarar för gasen och den andra svänger.  
 
 **Tillfälligt klassdiagram**
-![image](https://gits-15.sys.kth.se/storage/user/2798/files/78036ae0-300c-11e7-8599-5ccb28db4e2d)
+![image](http://image.prntscr.com/image/ce2182cd518c4584a94ece1210e91a29.png)
 
 ### How-to-run
 1. Download/clone project from github.
