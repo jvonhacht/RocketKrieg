@@ -126,8 +126,10 @@ public class ChunkManager {
         int anchorX = (int)anchor.x;
         int anchorY = (int)anchor.y;
         Pair pair = new Pair(anchorX,anchorY);
-        ArrayList<Entity> gridTile = hashGrid.get(pair);
-        gridTile.remove(ent);
+        if(hashGrid.containsKey(pair)) {
+            ArrayList<Entity> gridTile = hashGrid.get(pair);
+            gridTile.remove(ent);
+        }
     }
 
     /**
