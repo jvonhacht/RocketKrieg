@@ -8,7 +8,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.game.AssetStorage;
 
 /**
- *  Laser class
+ *  Laser projectile entity class.
  *  @author David Johansson 
  *  @version 1.0 (2017-05-10)
  */
@@ -16,6 +16,13 @@ public class Laser extends GameEntity implements Entity {
     private final float SPEED_MULTIPLIER = 10000;
     private Sprite laser;
 
+    /**
+     * Constructor for Laser entity.
+     * @param position spawn position
+     * @param velocity starting velocity
+     * @param acceleration acceleration
+     * @param angle starting angle
+     */
     public Laser(Vector2 position, Vector2 velocity, Vector2 acceleration, float angle) {
         float height = 5;
         float width = 15;
@@ -33,12 +40,19 @@ public class Laser extends GameEntity implements Entity {
         hitbox.setOrigin(bounds.width / 2, bounds.height / 2);
     }
 
+    /**
+     * Render textures of laser.
+     * @param batch SpriteBatch
+     */
     public void render(SpriteBatch batch) {
         laser.setRotation((float)Math.toDegrees(angle)+180);
         super.render(batch, laser);
     }
 
-
+    /**
+     * Update movement and acceleration.
+     * @param delta time since last frame.
+     */
     public void update(float delta) {
         move(delta);
         accel(delta);

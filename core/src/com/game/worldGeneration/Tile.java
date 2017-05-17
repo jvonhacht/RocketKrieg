@@ -8,7 +8,7 @@ import com.game.objects.*;
 import java.util.Random;
 
 /**
- * Tile creation
+ * Tile creation class.
  * @author Johan von Hacht & David Johansson 
  * @version 1.1 (2017-05-09)
  */
@@ -19,6 +19,11 @@ public class Tile {
     private Random rand = new Random();
     private Entity entity;
 
+    /**
+     * Constructor for Tile.
+     * @param x tile spawn coordinate
+     * @param y tile spawn coordinate
+     */
     public Tile(int x, int y) {
         //generate random percent
         int percent = rand.nextInt(100);
@@ -60,9 +65,19 @@ public class Tile {
 
     /**
      * Get x position of tile.
-     * @return
+     * @return x coordinate
      */
     public float getX() {return position.x;}
+
+    /**
+     * Get y position of tile.
+     * @return y coordinate
+     */
     public float getY() {return position.y;}
+
+    /**
+     * Get tile entity.
+     * @return entity
+     */
     public Entity getEntity() {return entity;}
 }

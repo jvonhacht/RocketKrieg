@@ -5,11 +5,13 @@ import com.badlogic.gdx.math.Vector2;
 import com.game.GameEntry;
 import com.game.objects.*;
 import com.game.objects.collision.CollisionManager;
-
 import java.util.*;
 
 /**
- * Created by Johan on 26/04/2017.
+ *  ChunkManager class handling the
+ *  procedural generation of the world.
+ *  @author Johan von Hacht
+ *  @version 1.0 (2017-04-26)
  */
 public class ChunkManager {
     private SpriteBatch batch;
@@ -19,6 +21,10 @@ public class ChunkManager {
     private CollisionManager colHandler;
     private PlayerSpaceShip ship;
 
+    /**
+     * Constructor for ChunkManager.
+     * @param ship PlayerSpaceShip
+     */
     public ChunkManager(PlayerSpaceShip ship) {
         batch = GameEntry.batch;
         this.ship = ship;

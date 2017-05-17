@@ -19,6 +19,11 @@ public class Planet extends GameEntity implements Entity{
     private float sizeX;
     private float sizeY;
 
+    /**
+     * Constructor for Planet entity.
+     * @param x spawn coordinate
+     * @param y spawn coordinate
+     */
     public Planet(float x, float y){
         super();
         sizeX = 300;

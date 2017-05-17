@@ -2,11 +2,12 @@ package com.game.worldGeneration;
 
 import com.badlogic.gdx.math.Vector2;
 import com.game.objects.Entity;
-
 import java.util.ArrayList;
 
 /**
- * Created by Johan on 27/04/2017.
+ *  Chunk class.
+ *  @author Johan von Hacht
+ *  @version 1.0 (2017-04-27)
  */
 public class Chunk {
     private final int SAFEZONE = 1024;

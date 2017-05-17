@@ -26,6 +26,11 @@ public class GameOver implements Screen {
     private BitmapFont font;
     private OrthographicCamera camera;
 
+    /**
+     * Constructor for GameOver screen.
+     * @param game SpriteBatch
+     * @param score player score
+     */
     public GameOver(final GameEntry game, int score) {
         this.game = game;
         this.score = score;
@@ -38,13 +43,18 @@ public class GameOver implements Screen {
         soundEffect = Gdx.audio.newSound(Gdx.files.internal("sounds/Play_Sound.mp3"));
 
         //Initialize font
-        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/Tw_Cen_MT.ttf"));
+        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/TW_Cen_MT_Bold.ttf"));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
         parameter.size = 30;
         font = generator.generateFont(parameter);
         generator.dispose();
     }
 
+    /**
+     * Renders all the textures
+     * and checks for player input.
+     * @param delta time since last frame
+     */
     public void render(float delta) {
         Gdx.gl.glClearColor(0, 0, 0, 0);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -65,7 +75,7 @@ public class GameOver implements Screen {
         GameEntry.batch.draw(gameOver, Gdx.graphics.getWidth()/2 - (gameOver.getWidth()/2), Gdx.graphics.getHeight()/2 - (gameOver.getHeight()/2) + 40);
         GameEntry.batch.draw(replayButton, Gdx.graphics.getWidth()/2 - (replayWidth / 2), Gdx.graphics.getHeight()/2 - (replayHeight / 2) - 120);
         GameEntry.batch.draw(exitButton, Gdx.graphics.getWidth()/2 - (exitWidth / 2), Gdx.graphics.getHeight()/2 - (exitHeight / 2) - 200);
-        font.draw(GameEntry.batch, "" + score ,Gdx.graphics.getWidth()/2 + 40, Gdx.graphics.getHeight()/2 + 15);
+        font.draw(GameEntry.batch, "Your score: " + "" + score ,Gdx.graphics.getWidth()/2 - 80, Gdx.graphics.getHeight()/2 + 20);
         GameEntry.batch.end();
 
         //Get mouse coordinates
@@ -99,28 +109,32 @@ public class GameOver implements Screen {
         }
     }
 
-    public void show() {
+    /**
+     * Called when GameOver becomes current screen.
+     */
+    public void show() {}
 
-    }
+    /**
+     * Method to resize screen.
+     * @param width int
+     * @param height int
+     */
+    public void resize(int width, int height) {}
 
-    public void resize(int width, int height) {
+    /**
+     * Actions performed when game is paused.
+     */
+    public void pause() {}
 
-    }
+    /**
+     * Dispose the GameOver screen.
+     */
+    public void dispose() {}
 
-    public void pause() {
-
-    }
-
-    public void resume() {
-
-    }
-
-    public void hide() {
-
-    }
-
-    public void dispose() {
-
-    }
+    /**
+     * Only called on android.
+     */
+    public void resume() {}
+    public void hide() {}
 
 }

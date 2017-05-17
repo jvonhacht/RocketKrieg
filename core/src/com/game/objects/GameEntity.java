@@ -6,7 +6,9 @@ import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Vector2;
 
 /**
- * Created by Johan on 01/05/2017.
+ * GameEntity superclass.
+ * @author Johan von Hacht
+ * @version 1.0 (2017-05-01)
  */
 public class GameEntity{
     Vector2 position;
@@ -17,6 +19,9 @@ public class GameEntity{
     Polygon hitbox;
     float timeElapsed;
 
+    /**
+     * Constructor for GameEntity.
+     */
     protected GameEntity() {
         position = new Vector2();
         velocity = new Vector2();
@@ -81,6 +86,10 @@ public class GameEntity{
         return hitbox;
     }
 
+    /**
+     * Get velocity of object.
+     * @return velocity Vector2
+     */
     public Vector2 getVelocity() {
         return velocity;
     }

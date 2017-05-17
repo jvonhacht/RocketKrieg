@@ -16,6 +16,11 @@ public class Asteroid extends GameEntity implements Entity{
     private float sizeX;
     private float sizeY;
 
+    /**
+     * Constructor for Asteroid entity.
+     * @param x spawn coordinate
+     * @param y spawn coordinate
+     */
     public Asteroid(float x, float y){
         super();
         sizeX = MathUtils.random(15, 50);

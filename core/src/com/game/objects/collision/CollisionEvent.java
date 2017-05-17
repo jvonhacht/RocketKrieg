@@ -12,7 +12,10 @@ import com.game.GameEntry;
 import com.game.objects.Entity;
 
 /**
- * Created by Johan on 08/05/2017.
+ * CollisionEvent class handling
+ * a collsion event
+ * @author Johan von Hacht
+ * @version 1.0 (2017-05-08)
  */
 public class CollisionEvent implements Entity {
     private float angle;
@@ -22,6 +25,11 @@ public class CollisionEvent implements Entity {
     private float timeElapsed;
     private Animation<TextureRegion> animation;
 
+    /**
+     * Constructor for CollisionEvent class.
+     * @param x coordinate for collision
+     * @param y coordinate for collision
+     */
     public CollisionEvent(float x, float y) {
         position = new Vector2(x,y);
         angle = MathUtils.random(360);
@@ -30,6 +38,10 @@ public class CollisionEvent implements Entity {
         animation = AssetStorage.explosionAnimation;
     }
 
+    /**
+     * Renders the collision graphics.
+     * @param batch SpriteBatch
+     */
     public void render(SpriteBatch batch) {
         if (!animation.isAnimationFinished(timeElapsed)) {
             GameEntry.batch.draw(animation.getKeyFrame(timeElapsed), position.x, position.y);
@@ -43,14 +55,26 @@ public class CollisionEvent implements Entity {
         sprite.draw(batch);
     }
 
+    /**
+     * Getting the time elapsed.
+     * @param delta time since last frame.
+     */
     public void update(float delta) {
         timeElapsed += delta;
     }
 
+    /**
+     * Get position of collision
+     * @return position
+     */
     public Vector2 getPosition() {
         return position;
     }
 
+    /**
+     * Method for getting the hitbox
+     * @return hitbox
+     */
     public Polygon getHitBox() {
         return hitbox;
     }
