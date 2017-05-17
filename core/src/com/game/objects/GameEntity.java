@@ -1,13 +1,9 @@
 package com.game.objects;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Polygon;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.game.AssetStorage;
-import com.game.GameEntry;
 
 /**
  * Created by Johan on 01/05/2017.
@@ -19,12 +15,14 @@ public class GameEntity{
     float angularVelocity;
     float angle;
     Polygon hitbox;
+    float timeElapsed;
 
     protected GameEntity() {
         position = new Vector2();
         velocity = new Vector2();
         acceleration = new Vector2();
         angle = (float)Math.toRadians(90);
+        timeElapsed = 0;
     }
 
     /**
@@ -32,6 +30,8 @@ public class GameEntity{
      * @param batch SpriteBatch
      */
     public void render(SpriteBatch batch, Sprite sprite) {
+        sprite.setOriginCenter();
+        sprite.setPosition(position.x,position.y);
         sprite.draw(batch);
     }
 
@@ -48,6 +48,8 @@ public class GameEntity{
 
         hitbox.setPosition(position.x,position.y);
         hitbox.setRotation((float)Math.toDegrees(angle)-90);
+
+        timeElapsed += delta;
     }
 
     /**

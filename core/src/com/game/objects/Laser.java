@@ -34,10 +34,7 @@ public class Laser extends GameEntity implements Entity {
     }
 
     public void render(SpriteBatch batch) {
-        laser.setOriginCenter();
         laser.setRotation((float)Math.toDegrees(angle)+180);
-        laser.setPosition(position.x,position.y);
-
         super.render(batch, laser);
     }
 

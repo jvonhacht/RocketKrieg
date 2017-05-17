@@ -13,7 +13,6 @@ import com.game.GameEntry;
  * Created by Johan on 09/05/2017.
  */
 public class ScorePoint extends GameEntity implements Entity {
-    private float timeElapsed;
     private Animation<TextureRegion> animation;
 
     public ScorePoint(float x, float y) {
@@ -25,7 +24,6 @@ public class ScorePoint extends GameEntity implements Entity {
         Rectangle bounds =  new Rectangle(position.x,position.y,40,40);
         hitbox = new Polygon(new float[]{0,0,bounds.width,0,bounds.width,bounds.height,0,bounds.height});
         hitbox.setOrigin(bounds.width/2, bounds.height/2);
-        timeElapsed = 0;
     }
 
     @Override
@@ -35,7 +33,6 @@ public class ScorePoint extends GameEntity implements Entity {
 
     @Override
     public void update(float delta) {
-        timeElapsed += delta;
         move(delta);
     }
 }

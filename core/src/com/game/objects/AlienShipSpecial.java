@@ -17,7 +17,6 @@ import com.game.RocketKrieg;
 public class AlienShipSpecial extends GameEntity implements Entity{
     private Sprite alienShipSpecial;
     private Animation<TextureRegion> animation;
-    private float timeElapsed;
     private float sizeX;
     private float sizeY;
     private PlayerSpaceShip ship;
@@ -28,7 +27,6 @@ public class AlienShipSpecial extends GameEntity implements Entity{
         super();
         sizeX = 40;
         sizeY = 55;
-        timeElapsed = 0;
 
         //set properties
         alienShipSpecial = AssetStorage.alienShipSpecial;
@@ -50,8 +48,6 @@ public class AlienShipSpecial extends GameEntity implements Entity{
      */
     public void render(SpriteBatch batch){
         alienShipSpecial.setSize(sizeX,sizeY);
-        alienShipSpecial.setOriginCenter();
-        alienShipSpecial.setPosition(position.x, position.y);
         alienShipSpecial.setRotation((float)Math.toDegrees(angle)-90);
         super.render(batch, alienShipSpecial);
         GameEntry.batch.draw(animation.getKeyFrame(timeElapsed, true), position.x + sizeX/2 - 10, position.y + sizeY/2 - 2, 20f, 20f);
@@ -62,7 +58,6 @@ public class AlienShipSpecial extends GameEntity implements Entity{
      * @param delta time since last frame.
      */
     public void update(float delta){
-        timeElapsed += delta;
         move(delta);
 
         //get position of playersip
