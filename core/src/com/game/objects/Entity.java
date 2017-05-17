@@ -5,7 +5,9 @@ import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Vector2;
 
 /**
- * Created by Johan on 02/05/2017.
+ * Entity interface.
+ * @author Johan von Hacht
+ * @version 1.0 (2017-05-02)
  */
 public interface Entity {
     /**

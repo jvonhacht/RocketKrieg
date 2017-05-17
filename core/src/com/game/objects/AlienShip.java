@@ -10,7 +10,7 @@ import com.game.RocketKrieg;
 import com.game.worldGeneration.ChunkManager;
 
 /**
- *  AlienShip entity class
+ *  AlienShip entity class.
  *  @author David Johansson 
  *  @version 1.0 (2017-05-09)
  */
@@ -24,6 +24,11 @@ public class AlienShip extends GameEntity implements Entity{
     private final float RELOAD_TIME = 2F;
 
 
+    /**
+     * Constructor of AlienShip entity.
+     * @param x spawn coordinate
+     * @param y spawn coordinate
+     */
     public AlienShip(float x, float y){
         super();
         sizeX = 40;

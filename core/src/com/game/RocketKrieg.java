@@ -31,6 +31,10 @@ public class RocketKrieg implements Screen {
 	private boolean startPhase;
 	private static boolean playerState;
 
+	/**
+	 * Constructor for RocketKrieg screen.
+	 * @param game GameEntry with SpriteBatch
+	 */
 	public RocketKrieg(final GameEntry game) {
 		this.game = game;
 		startPhase = true;
@@ -41,7 +45,7 @@ public class RocketKrieg implements Screen {
 		camera.position.y = 0;
 
 		instructions = AssetStorage.instructions;
-		gameOver = AssetStorage.gameOver2;
+		gameOver = AssetStorage.gameOver;
 		singleSparkle = AssetStorage.singleSparkle;
 		ass = new AssetStorage();
 		ship = new PlayerSpaceShip();
@@ -51,8 +55,9 @@ public class RocketKrieg implements Screen {
 	}
 
 	/**
-	 * Called every frame.
-	 * @param delta time since last frame.
+	 * Render method for rendering the graphics.
+	 * Also checks for player input
+	 * @param delta time since last frame
 	 */
 	public void render(float delta) {
 		//clear screen
@@ -76,7 +81,7 @@ public class RocketKrieg implements Screen {
 		GameEntry.font.draw(GameEntry.batch, "Score: " + score,cameraPosition.x, cameraPosition.y + Gdx.graphics.getHeight()/2 -50);
 
 		//draw instructions
-		if(startPhase) {
+		if(startPhase && !playerState) {
 			GameEntry.batch.draw(instructions, ship.getPosition().x, ship.getPosition().y - instructions.getHeight() / 2);
 			GameEntry.batch.draw(singleSparkle, ship.getPosition().x + 331, ship.getPosition().y - 115, 25f, 25f);
 			if(timeElapsed > 17){

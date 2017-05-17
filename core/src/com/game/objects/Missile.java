@@ -11,13 +11,22 @@ import com.game.objects.collision.CollisionEvent;
 import com.game.worldGeneration.ChunkManager;
 
 /**
- * Created by Johan on 08/05/2017.
+ *  Missile entity class.
+ *  @author Johan von Hacht
+ *  @version 1.0 (2017-05-08)
  */
 public class Missile extends GameEntity implements Entity {
     private final float SPEED_MULTIPLIER = 15000;
     private final float MAX_DISTANCE = 1200;
     private Sprite missile;
 
+    /**
+     * Constructor for Missile entity.
+     * @param position starting position
+     * @param velocity starting velocity
+     * @param acceleration acceleration
+     * @param angle starting angle
+     */
     public Missile(Vector2 position, Vector2 velocity, Vector2 acceleration, float angle) {
         float height = 5;
         float width = 15;

@@ -4,10 +4,13 @@ import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector2;
 import com.game.RocketKrieg;
 import com.game.objects.*;
-
 import java.util.ArrayList;
 
 /**
+ * CollisionManager class handling the
+ * collisions of entities.
+ * @author Johan von Hacht
+ * @version 1.0 (2017-05-08)
  * Created by Johan on 06/05/2017.
  */
 public class CollisionManager {
@@ -70,7 +73,7 @@ public class CollisionManager {
     }
 
     /**
-     * When a collision occurs do ... draw explosion.
+     * When a collision occurs, draw explosion.
      * @param ent1 Entity 1 in collision event.
      * @param ent2 Entity 2 in collision event.
      */

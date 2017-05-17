@@ -10,11 +10,18 @@ import com.game.AssetStorage;
 import com.game.GameEntry;
 
 /**
- * Created by Johan on 09/05/2017.
+ *  ScorePoint entity class.
+ *  @author Johan von Hacht
+ *  @version 1.0 (2017-05-09)
  */
 public class ScorePoint extends GameEntity implements Entity {
     private Animation<TextureRegion> animation;
 
+    /**
+     * Constructor for ScorePoint entity.
+     * @param x spawn coordinate
+     * @param y spawn coordinate
+     */
     public ScorePoint(float x, float y) {
         super();
         position.set(x+MathUtils.random(0,500),y+MathUtils.random(0,500));
@@ -26,12 +33,18 @@ public class ScorePoint extends GameEntity implements Entity {
         hitbox.setOrigin(bounds.width/2, bounds.height/2);
     }
 
-    @Override
+    /**
+     * Render the ScorePoint
+     * @param batch SpriteBatch
+     */
     public void render(SpriteBatch batch) {
         GameEntry.batch.draw(animation.getKeyFrame(timeElapsed,true), position.x, position.y);
     }
 
-    @Override
+    /**
+     * Update the ScorePoint.
+     * @param delta time since last frame.
+     */
     public void update(float delta) {
         move(delta);
     }

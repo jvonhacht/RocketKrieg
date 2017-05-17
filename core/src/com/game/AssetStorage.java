@@ -7,11 +7,22 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 /**
- * Asset storage
+ * Asset storage class for storing
+ * all textures and animations
  * @author Johan von Hacht & David Johansson 
- * @version 1.2 (2017-05-09)
+ * @version 1.3 (2017-05-17)
  */
 public class AssetStorage {
+    //menus
+    public static final Sprite gameLogo = new Sprite(new Texture("images/menu/Rocket_Krieg_Logo.png"));
+    public static final Sprite playButton = new Sprite(new Texture("images/menu/Play_Button.png"));
+    public static final Sprite background = new Sprite(new Texture("images/menu/Space_Background.jpg"));
+    public static final Sprite background2 = new Sprite(new Texture("images/menu/Space_Background2.png"));
+    public static final Sprite instructions = new Sprite(new Texture("images/menu/Instructions.png"));
+    public static final Sprite replayButton = new Sprite(new Texture("images/menu/Replay_Button.png"));
+    public static final Sprite exitButton = new Sprite(new Texture("images/menu/Exit_Button.png"));
+    public static final Sprite gameOver = new Sprite(new Texture("images/menu/Game_Over.png"));
+
     //game entities
     public static final Sprite spaceship = new Sprite(new Texture(Gdx.files.internal("images/spaceship/Spaceship.png")));
     public static final Sprite missile = new Sprite(new Texture("images/spaceship/missile.png"));
@@ -38,19 +49,13 @@ public class AssetStorage {
     //extra
     public static final Sprite debug = new Sprite(new Texture("images/worldGeneration/debugHitBox.png"));
     public static final Sprite debris = new Sprite(new Texture("images/collision/debris.png"));
-    public static final Sprite instructions = new Sprite(new Texture("images/menu/Instructions.png"));
-    public static final Sprite background2 = new Sprite(new Texture("images/menu/Space_Background2.png"));
-    public static final Sprite replayButton = new Sprite(new Texture("images/menu/Replay_Button.png"));
-    public static final Sprite exitButton = new Sprite(new Texture("images/menu/Exit_Button.png"));
-    public static final Sprite gameOver = new Sprite(new Texture("images/menu/Game_Over.png"));
-    public static final Sprite gameOver2 = new Sprite(new Texture("images/menu/Game_Over2.png"));
     public static final Sprite singleSparkle = new Sprite(new Texture("images/worldGeneration/singleSparkle.png"));
 
     /**
      * Constructor creating animations
      */
     public AssetStorage() {
-        //create animations
+        //explosion animation
         TextureRegion[] explosionFrames = new TextureRegion[16];
         TextureRegion[][] tmpFrames1 = TextureRegion.split(new Texture(Gdx.files.internal("images/collision/explosion.png")),128,128);
 
@@ -62,6 +67,7 @@ public class AssetStorage {
         }
         explosionAnimation = new Animation(1f/20f,explosionFrames);
 
+        //rocket flame animation
         TextureRegion[] flameFrames = new TextureRegion[9];
         TextureRegion[][] tmpFrames2 = TextureRegion.split(new Texture(Gdx.files.internal("images/spaceship/flame.png")), 90, 90);
         int index2 = 0;
@@ -72,6 +78,7 @@ public class AssetStorage {
         }
         flameAnimation = new Animation(1f/20f,flameFrames);
 
+        //sparkle animation
         TextureRegion[] sparkleFrames = new TextureRegion[30];
         TextureRegion[][] tmpFrames3 = TextureRegion.split(new Texture(Gdx.files.internal("images/worldGeneration/sparkle.png")), 47, 47);
         int index3 = 0;
@@ -82,6 +89,7 @@ public class AssetStorage {
         }
         sparkleAnimation = new Animation(1f/10f,sparkleFrames);
 
+        //blinking red light animation
         TextureRegion[] redFrames = new TextureRegion[9];
         TextureRegion[][] tmpFrames4 = TextureRegion.split(new Texture(Gdx.files.internal("images/alien_ship/BlinkingRedLight.png")), 90, 90);
         int index4 = 0;
@@ -92,6 +100,7 @@ public class AssetStorage {
         }
         redLightAnimation = new Animation(1f/10f,redFrames);
 
+        //atmosphere animation
         TextureRegion[] atmoFrames = new TextureRegion[9];
         TextureRegion[][] tmpFrames5 = TextureRegion.split(new Texture(Gdx.files.internal("images/planet/Atmosphere.png")), 81, 81);
         int index5 = 0;

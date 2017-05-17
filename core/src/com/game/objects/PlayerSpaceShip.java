@@ -15,7 +15,9 @@ import com.game.worldGeneration.ChunkManager;
 
 
 /**
- * Created by Johan on 27/04/2017.
+ *  PlayerSpaceShip entity class.
+ *  @author Johan von Hacht
+ *  @version 1.0 (2017-04-27)
  */
 public class PlayerSpaceShip extends GameEntity implements Entity{
     private float sizeX;
@@ -75,7 +77,7 @@ public class PlayerSpaceShip extends GameEntity implements Entity{
 
     /**
      * Update ship values based on input.
-     * @param delta
+     * @param delta time since last frame
      */
     public void update(float delta) {
         move(delta);

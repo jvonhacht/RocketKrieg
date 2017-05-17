@@ -6,7 +6,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 
 /**
  * The main menu of the Rocket Krieg program.
@@ -15,24 +15,29 @@ import com.badlogic.gdx.graphics.Texture;
  */
 public class MainMenu implements Screen {
     private final GameEntry game;
-    private Texture gameLogo;
-    private Texture playButton;
-    private Texture background;
     private OrthographicCamera camera;
+    private Sprite gameLogo;
+    private Sprite playButton;
+    private Sprite background;
 
+    /**
+     * Constructor for MainMenu screen.
+     * @param game GameEntry with SpriteBatch
+     */
     public MainMenu(final GameEntry game) {
         this.game = game;
-        gameLogo = new Texture("images/menu/Rocket_Krieg_Logo.png");
-        playButton = new Texture("images/menu/Play_Button.png");
-        background = new Texture("images/menu/Space_Background.jpg");
+        gameLogo = AssetStorage.gameLogo;
+        playButton = AssetStorage.playButton;
+        background = AssetStorage.background;
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 800, 480);
     }
 
-    public void show() {
-
-    }
-
+    /**
+     * Renders all the textures
+     * and checks for player input.
+     * @param delta time since last frame
+     */
     public void render(float delta) {
         Gdx.gl.glClearColor(0, 0, 0, 0);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -40,10 +45,10 @@ public class MainMenu implements Screen {
         GameEntry.batch.begin();
 
         //Get measurements of textures
-        int logoWidth = gameLogo.getWidth();
-        int logoHeight = gameLogo.getHeight();
-        int playWidth = playButton.getWidth();
-        int playHeight = playButton.getHeight();
+        float logoWidth = gameLogo.getWidth();
+        float logoHeight = gameLogo.getHeight();
+        float playWidth = playButton.getWidth();
+        float playHeight = playButton.getHeight();
 
         //Draw menu
         GameEntry.batch.draw(background, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
@@ -73,24 +78,34 @@ public class MainMenu implements Screen {
         }
     }
 
-    public void resize(int width, int height) {
+    /**
+     * Called when MainMenu becomes current screen.
+     */
+    public void show() {}
 
-    }
+    /**
+     * Method to resize screen.
+     * @param width int
+     * @param height int
+     */
+    public void resize(int width, int height) {}
 
-    public void pause() {
+    /**
+     * Actions performed when game is paused.
+     */
+    public void pause() {}
 
-    }
-
-    public void resume() {
-
-    }
-
-    public void hide() {
-
-    }
-
+    /**
+     * Dispose the MainMenu screen.
+     */
     public void dispose() {
         GameEntry.batch.dispose();
     }
+
+    /**
+     * Only called on android.
+     */
+    public void resume() {}
+    public void hide() {}
 
 }

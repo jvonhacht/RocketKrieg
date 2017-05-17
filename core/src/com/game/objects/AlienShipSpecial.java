@@ -23,6 +23,11 @@ public class AlienShipSpecial extends GameEntity implements Entity{
     private final float movingSpeed = 120F;
     private final float acceleration = 120F;
 
+    /**
+     * Constructor of AlienShipSpecial entity.
+     * @param x spawn coordinate
+     * @param y spawn coordinate
+     */
     public AlienShipSpecial(float x, float y){
         super();
         sizeX = 40;
