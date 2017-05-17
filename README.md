@@ -3,7 +3,7 @@
 
 **Studenter:** @johvh @davidjo2
 
-**Nedladdning:** [vSync on](https://goo.gl/VmToDk) | [vSync off](https://goo.gl/Ke1ltL) LibGDX vsync laggar för vissa konfigurationer, använd då versionen utan.
+**Nedladdning:** [vSync off](https://goo.gl/x1ptkp)
 
 **Programmeringspråk:** java
 
@@ -21,6 +21,9 @@
 ![image](http://image.prntscr.com/image/ce2182cd518c4584a94ece1210e91a29.png)
 
 ### How-to-run
+
+**Intellij**
+
 1. Download/clone project from github.
 2. Open in intellij på importing the build.gradle file.
 3. Edit configurations: 
@@ -31,6 +34,12 @@
 - select desktopLauncher as main class.
 - Change working directory to assets folder in core.
 - Select desktop_main as classpath of module.
+ 
+**jar**
+
+I windows och OSX är det bara att ladda ner jarfilen och dubbelklicka om man har java intallerat på datorn.
+
+I linux verkar det som att man måste markera jar filen som executable m.h.a. chmod +x filenamn.jar
 
 ### Testningsstrategi
 
