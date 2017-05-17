@@ -1,9 +1,11 @@
 package com.game.objects.collision;
 
 import com.badlogic.gdx.math.Intersector;
+import com.badlogic.gdx.math.Plane;
 import com.badlogic.gdx.math.Vector2;
 import com.game.RocketKrieg;
 import com.game.objects.*;
+import javafx.print.PageLayout;
 import java.util.ArrayList;
 
 /**
@@ -14,7 +16,6 @@ import java.util.ArrayList;
  * Created by Johan on 06/05/2017.
  */
 public class CollisionManager {
-    private boolean playerDead = false;
 
     /**
      * Check if entities in an arraylist collides.
@@ -30,12 +31,12 @@ public class CollisionManager {
                     //Fruktansvärd if sats men funkar..
                     if(((ent1 instanceof PlayerSpaceShip && ent2 instanceof Missile) || (ent1 instanceof Missile && ent2 instanceof PlayerSpaceShip) || (ent1 instanceof Missile && ent2 instanceof Missile))) {
                         //missile should not blow up ship or each other, do nothing.
-                    } else if(ent1 instanceof PlayerSpaceShip && !(ent2 instanceof ScorePoint) || (ent2 instanceof PlayerSpaceShip && !(ent1 instanceof ScorePoint))) {
+                    } else if(ent1 instanceof PlayerSpaceShip && !(ent2 instanceof ScorePoint || ent2 instanceof Planet) || (ent2 instanceof PlayerSpaceShip && !(ent1 instanceof ScorePoint || ent1 instanceof Planet))) {
                         entities.remove(j);
                         entities.remove(i);
                         collisionEvent(ent1,ent2, entities);
                         RocketKrieg.playerDead();
-                    } else if(ent1 instanceof Planet) {
+                    } else if((ent1 instanceof Planet && !(ent2 instanceof PlayerSpaceShip)) || (ent2 instanceof Planet && !(ent1 instanceof PlayerSpaceShip))) {
                         //do not explode planets.
                         entities.remove(j);
                         entities.add(new CollisionEvent(ent2.getPosition().x,ent2.getPosition().y));
@@ -61,6 +62,15 @@ public class CollisionManager {
                         collisionEvent(ent1, ent2, entities);
                     } else if((ent1 instanceof  Laser && (ent2 instanceof AlienShip || ent2 instanceof AlienShipSpecial)) || (ent2 instanceof Laser && (ent1 instanceof AlienShip || ent1 instanceof AlienShipSpecial))) {
                         //do not let alien laser blow up alien.
+                    } else if((ent1 instanceof Planet && ent2 instanceof PlayerSpaceShip) || (ent1 instanceof PlayerSpaceShip && ent2 instanceof Planet)) {
+                        RocketKrieg.playerDead();
+                        if(ent1 instanceof PlayerSpaceShip){
+                            entities.remove(i);
+                            entities.add(new CollisionEvent(ent1.getPosition().x,ent1.getPosition().y));
+                        } else {
+                            entities.remove(j);
+                            entities.add(new CollisionEvent(ent2.getPosition().x,ent2.getPosition().y));
+                        }
                     } else {
                         //all other collisions.
                         entities.remove(j);
