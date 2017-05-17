@@ -1,11 +1,7 @@
 package com.game.objects.collision;
 
 import com.badlogic.gdx.math.Intersector;
-import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.math.Plane;
 import com.badlogic.gdx.math.Vector2;
-import com.game.AssetStorage;
-import com.game.GameEntry;
 import com.game.RocketKrieg;
 import com.game.objects.*;
 
@@ -22,13 +18,13 @@ public class CollisionManager {
      * @param entities Entities to test for collision.
      */
     public void collides(ArrayList<Entity> entities) {
-        //check all
+        //check all entities in array for collisions.
         for (int i=0; i<entities.size()-1; i++){
             for (int j=i+1; j<entities.size(); j++){
                 Entity ent1 = entities.get(i);
                 Entity ent2 = entities.get(j);
                 if(Intersector.overlapConvexPolygons(ent1.getHitBox(),ent2.getHitBox())) {
-                    //FRUKTANSVÄRD IF SATS!!!!!!!!!!!!!!! men funkar.
+                    //Fruktansvärd if sats men funkar..
                     if(((ent1 instanceof PlayerSpaceShip && ent2 instanceof Missile) || (ent1 instanceof Missile && ent2 instanceof PlayerSpaceShip) || (ent1 instanceof Missile && ent2 instanceof Missile))) {
                         //missile should not blow up ship or each other, do nothing.
                     } else if(ent1 instanceof PlayerSpaceShip && !(ent2 instanceof ScorePoint) || (ent2 instanceof PlayerSpaceShip && !(ent1 instanceof ScorePoint))) {

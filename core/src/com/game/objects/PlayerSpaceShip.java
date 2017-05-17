@@ -18,7 +18,6 @@ import com.game.worldGeneration.ChunkManager;
  * Created by Johan on 27/04/2017.
  */
 public class PlayerSpaceShip extends GameEntity implements Entity{
-    private float timeElapsed;
     private float sizeX;
     private float sizeY;
     private boolean playerState;
@@ -50,7 +49,6 @@ public class PlayerSpaceShip extends GameEntity implements Entity{
         Rectangle bounds = new Rectangle(position.x+sizeX,position.y+sizeY,sizeX,sizeY);
         hitbox = new Polygon(new float[]{0,0,bounds.width,0,bounds.width,bounds.height,0,bounds.height});
         hitbox.setOrigin(bounds.width/2,bounds.height/2);
-        timeElapsed = 0;
     }
 
     /**
@@ -71,9 +69,7 @@ public class PlayerSpaceShip extends GameEntity implements Entity{
             GameEntry.batch.draw(animation.getKeyFrame(timeElapsed,true), position.x+18, position.y+50, sizeX/2-18, sizeY/2-50, sizeX, sizeY, 1f, 0.2f,(float)Math.toDegrees(angle));
             GameEntry.batch.draw(animation.getKeyFrame(timeElapsed,true), position.x+18, position.y+45, sizeX/2-18, sizeY/2-45, sizeX, sizeY, 1f, 0.28f,(float)Math.toDegrees(angle)+180);
         }
-        spaceship.setOriginCenter();
         spaceship.setRotation((float)Math.toDegrees(angle)-90);
-        spaceship.setPosition(position.x,position.y);
         super.render(batch, spaceship);
     }
 
@@ -82,7 +78,6 @@ public class PlayerSpaceShip extends GameEntity implements Entity{
      * @param delta
      */
     public void update(float delta) {
-        timeElapsed += delta;
         move(delta);
 
         //flight controls

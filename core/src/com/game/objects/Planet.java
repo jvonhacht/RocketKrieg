@@ -16,7 +16,6 @@ import com.game.GameEntry;
 public class Planet extends GameEntity implements Entity{
     private Sprite planet;
     private Animation<TextureRegion> animation;
-    private float timeElapsed;
     private float sizeX;
     private float sizeY;
 
@@ -24,7 +23,6 @@ public class Planet extends GameEntity implements Entity{
         super();
         sizeX = 300;
         sizeY = 300;
-        timeElapsed = 0;
 
         //set properties
         int rand = MathUtils.random(100);
@@ -61,9 +59,6 @@ public class Planet extends GameEntity implements Entity{
      */
     public void render(SpriteBatch batch){
         planet.setSize(sizeX,sizeY);
-        planet.setOriginCenter();
-        planet.setPosition(position.x, position.y);
-
         super.render(batch, planet);
         GameEntry.batch.draw(animation.getKeyFrame(timeElapsed, true), position.x + sizeX/2 - 135, position.y + sizeY/2 - 135, sizeX - 29, sizeY - 29);
     }
@@ -73,7 +68,6 @@ public class Planet extends GameEntity implements Entity{
      * @param delta time since last frame.
      */
     public void update(float delta){
-        timeElapsed += delta;
         move(delta);
     }
 }

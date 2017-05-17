@@ -1,7 +1,6 @@
 package com.game.worldGeneration;
 
 import com.badlogic.gdx.math.Vector2;
-import com.game.GameEntry;
 import com.game.objects.Entity;
 
 import java.util.ArrayList;
@@ -47,7 +46,8 @@ public class Chunk {
                 int anchorX = (int)anchor.x;
                 int anchorY = (int)anchor.y;
                 Pair pair = new Pair(anchorX,anchorY);
-                if(!(Math.abs(anchorX)<SAFEZONE && Math.abs(anchorY)<SAFEZONE)) { //don't spawn stuff where the player spawns.
+                //don't spawn stuff where the player spawns.
+                if(!(Math.abs(anchorX)<SAFEZONE && Math.abs(anchorY)<SAFEZONE)) {
                     if(ChunkManager.hashGrid.containsKey(pair)) {
                         ChunkManager.hashGrid.get(pair).add(ent);
                     } else {

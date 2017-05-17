@@ -38,7 +38,6 @@ public class ChunkManager {
         int y = (int)position.y;
         int chunkSize = Chunk.WIDTH*Tile.TILE_SIZE;
         //anchor points is where chunk starts e.g. 0.0,
-        //int anchorX = (x - ( x<0 ? chunkSize-1 : 0 )) / chunkSize * chunkSize;
         Vector2 anchor = getAnchor(position, chunkSize);
         int anchorX = (int)anchor.x;
         int anchorY = (int)anchor.y;

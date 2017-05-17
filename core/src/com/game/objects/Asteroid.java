@@ -1,6 +1,5 @@
 package com.game.objects;
 
-
 import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Polygon;
@@ -32,52 +31,6 @@ public class Asteroid extends GameEntity implements Entity{
         Rectangle bounds =  new Rectangle(position.x,position.y,sizeX-10,sizeY-10);
         hitbox = new Polygon(new float[]{0,0,bounds.width,0,bounds.width,bounds.height,0,bounds.height});
         hitbox.setOrigin(bounds.width/2, bounds.height/2);
-
-        //Initialize starting position and direction
-        /*
-        switch(random.nextInt(4)){
-            //Spawn left side
-            case 0:
-                position.set(-asteroid.getWidth(), (MathUtils.random(0, Gdx.graphics.getHeight())) - asteroid.getHeight());
-                if(position.y > (Gdx.graphics.getHeight()/2 - asteroid.getHeight())){
-                    velocity.set(100, -100);
-                }
-                else{
-                    velocity.set(100, 100);
-                }
-                break;
-            //Spawn bottom side
-            case 1:
-                position.set((MathUtils.random(0, Gdx.graphics.getWidth())) - asteroid.getWidth(), -asteroid.getHeight());
-                if(position.x > (Gdx.graphics.getWidth()/2 - asteroid.getWidth())){
-                    velocity.set(-MathUtils.random(100, 200), MathUtils.random(100, 200));
-                }
-                else{
-                    velocity.set(MathUtils.random(100, 200), MathUtils.random(100, 200));
-                }
-                break;
-            //Spawn right side
-            case 2:
-                position.set(Gdx.graphics.getWidth(), (MathUtils.random(0, Gdx.graphics.getHeight())) - asteroid.getHeight());
-                if(position.y > (Gdx.graphics.getHeight()/2 - asteroid.getHeight())){
-                    velocity.set(-MathUtils.random(100, 200), -MathUtils.random(100, 200));
-                }
-                else{
-                    velocity.set(-MathUtils.random(100, 200), MathUtils.random(100, 200));
-                }
-                break;
-            //Spawn top side
-            case 3:
-                position.set((MathUtils.random(0, Gdx.graphics.getWidth())) - asteroid.getWidth(), Gdx.graphics.getHeight());
-                if(position.x > (Gdx.graphics.getWidth()/2 - asteroid.getWidth())){
-                    velocity.set(-MathUtils.random(100, 200), -MathUtils.random(100, 200));
-                }
-                else{
-                    velocity.set(MathUtils.random(100, 200), -MathUtils.random(100, 200));
-                }
-                break;
-        }
-        */
     }
 
     /**
@@ -86,10 +39,6 @@ public class Asteroid extends GameEntity implements Entity{
      */
     public void render(SpriteBatch batch) {
         asteroid.setSize(sizeX,sizeY);
-        asteroid.setOriginCenter();
-        asteroid.setRotation((float)Math.toDegrees(angle)-90);
-        asteroid.setPosition(position.x,position.y);
-
         super.render(batch, asteroid);
     }
 

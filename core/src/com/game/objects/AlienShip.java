@@ -8,7 +8,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.game.AssetStorage;
 import com.game.RocketKrieg;
 import com.game.worldGeneration.ChunkManager;
-import com.sun.net.httpserver.Filter;
 
 /**
  *  AlienShip entity class
@@ -19,7 +18,6 @@ public class AlienShip extends GameEntity implements Entity{
     private Sprite alienShip;
     private float sizeX;
     private float sizeY;
-    private float timeElapsed;
     private PlayerSpaceShip ship;
     private final float MOVING_SPEED = 100F;
     private final float ACCELERATION = 50F;
@@ -30,7 +28,6 @@ public class AlienShip extends GameEntity implements Entity{
         super();
         sizeX = 40;
         sizeY = 55;
-        timeElapsed = 0;
 
         //set properties
         alienShip = AssetStorage.alienShip;
@@ -51,10 +48,7 @@ public class AlienShip extends GameEntity implements Entity{
      */
     public void render(SpriteBatch batch){
         alienShip.setSize(sizeX,sizeY);
-        alienShip.setOriginCenter();
         alienShip.setRotation((float)Math.toDegrees(angle) - 90);
-        alienShip.setPosition(position.x, position.y);
-
         super.render(batch, alienShip);
     }
 
@@ -63,7 +57,6 @@ public class AlienShip extends GameEntity implements Entity{
      * @param delta time since last frame.
      */
     public void update(float delta){
-        timeElapsed += delta;
         move(delta);
 
         //get position of playersip
