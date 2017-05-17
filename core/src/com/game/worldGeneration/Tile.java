@@ -10,7 +10,7 @@ import java.util.Random;
 /**
  * Tile creation class.
  * @author Johan von Hacht & David Johansson 
- * @version 1.1 (2017-05-09)
+ * @version 1.2 (2017-05-17)
  */
 public class Tile {
     private Sprite img;
@@ -45,11 +45,20 @@ public class Tile {
             entity = new Planet(x, y);
         }
 
+        int percent2 = rand.nextInt(100);
+
         //choose random tile texture.
-        if(percent < 98) {
-            img= AssetStorage.tile1;
-        } else {
+        if(percent2 <= 94) {
+            img = AssetStorage.tile1;
+        }
+        else if(percent2 <= 96){
             img = AssetStorage.tile2;
+        }
+        else if(percent2 <= 98){
+            img = AssetStorage.tile4;
+        }
+        else {
+            img = AssetStorage.tile3;
         }
 
         //initialize starting position

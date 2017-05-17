@@ -98,9 +98,7 @@ public class MainMenu implements Screen {
     /**
      * Dispose the MainMenu screen.
      */
-    public void dispose() {
-        GameEntry.batch.dispose();
-    }
+    public void dispose() { GameEntry.batch.dispose();}
 
     /**
      * Only called on android.
