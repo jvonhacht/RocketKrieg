@@ -38,6 +38,8 @@ public class AssetStorage {
     //tiles
     public static final Sprite tile1 = new Sprite(new Texture(Gdx.files.internal("images/worldGeneration/testTile.png")));
     public static final Sprite tile2 = new Sprite(new Texture(Gdx.files.internal("images/worldGeneration/testTile1.png")));
+    public static final Sprite tile3 = new Sprite(new Texture(Gdx.files.internal("images/worldGeneration/tile3.png")));
+    public static final Sprite tile4 = new Sprite(new Texture(Gdx.files.internal("images/worldGeneration/tile4.png")));
 
     //animations
     public static Animation<TextureRegion> flameAnimation;
