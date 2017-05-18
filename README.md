@@ -3,7 +3,7 @@
 
 **Studenter:** @johvh @davidjo2
 
-**Nedladdning:** [vSync off](https://goo.gl/x1ptkp)
+**Nedladdning:** [Nedladdning](https://goo.gl/x1ptkp)
 
 **Programmeringspråk:** java
 
@@ -15,8 +15,8 @@
 
 -Singleplayer survival: Försök samla på dig så många poäng som möjligt genom att förstöra fiendeskepp som spawnar runtom dig. Vid kollision förstörs raketen och spelet avslutas. Poäng kan även fås genom att åka över energiringar.
 
-**Tillfälligt klassdiagram**
-![image](http://image.prntscr.com/image/ce2182cd518c4584a94ece1210e91a29.png)
+**Klassdiagram**
+![image](http://i.imgur.com/FSxctq7.png)
 
 ### How-to-run
 
