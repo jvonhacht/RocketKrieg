@@ -9,13 +9,11 @@
 
 ### Projektbeskrivning
 
-**Rocket Krieg** är ett spel där man genom att kontrollera en raket försöker överleva så länge som möjligt i ett universum fylld av faror från alla olika håll och kanter. En blandning av varierande spellägen kommer att vara tillgängliga som erbjuder spännande utmaningar för dig och din kompis att anta. Projektet är konstruerat med hjälp av libGDX, ett spelbibliotek som erbjuder ett flertal olika användbara metoder för denna sortens spel. Rocket Krieg kommer att bestå av drygt 12 klasser där de flesta utgörs av olika spelentiteter såsom asteroider samt alienskepp. 
+**Rocket Krieg** är ett spel där man genom att kontrollera en raket försöker överleva så länge som möjligt i ett universum fylld av faror från alla olika håll och kanter. En blandning av varierande spellägen kommer att vara tillgängliga som erbjuder spännande utmaningar för dig och din kompis att anta. Projektet är konstruerat med hjälp av libGDX, ett spelbibliotek som erbjuder ett flertal olika användbara metoder för denna sorts spel. Rocket Krieg består av 22 klasser där de flesta utgörs av olika spelentiteter såsom asteroider samt alienskepp. 
 
-**Spellägen:**
+**Tillgängliga spellägen:**
 
--Singleplayer survival: Försök överleva så länge som möjligt medans asteroider samt fiendeskepp spawnar runtom dig. Vid kollision förstörs raketen och spelet avslutas. 
-
--Co-op survival: Två personer spelar tillsammans och har ansvar för varsin kontroll; en person ansvarar för gasen och den andra svänger.  
+-Singleplayer survival: Försök samla på dig så många poäng som möjligt genom att förstöra fiendeskepp som spawnar runtom dig. Vid kollision förstörs raketen och spelet avslutas. Poäng kan även fås genom att åka över energiringar.
 
 **Tillfälligt klassdiagram**
 ![image](http://image.prntscr.com/image/ce2182cd518c4584a94ece1210e91a29.png)
@@ -43,4 +41,4 @@ I linux verkar det som att man måste markera jar filen som executable m.h.a. ch
 
 ### Testningsstrategi
 
-Projektets klasser som inte har med grafiken att göra kommer vi att testa med JUnit eller liknande test-bibliotek. De grafiska klasserna kommer att testas genom att spela spelet och se om objekten interagerar med varandra på korrekt sätt.
+Vi har genom projektets gång testat Rocket Krieg själva efter varje förändring för att försäkra oss om att allt funkar som det ska. I samband med stora förändringar lät vi en grupp av speltestare testa på spelet för att kolla huruvida objekten interagerade med varandra på rätt sätt.
