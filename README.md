@@ -3,7 +3,7 @@
 
 **Studenter:** @johvh @davidjo2
 
-**Nedladdning:** [Nedladdning](https://goo.gl/x1ptkp)
+**Nedladdning:** [Nedladdning](https://mega.nz/#!QDJx2KzL!x9HSHss7i66qG0hh0bRD9c3ZrTZadtByEXWxfqrGmcc)
 
 **Programmeringspråk:** java
 
