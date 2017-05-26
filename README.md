@@ -2,7 +2,7 @@
 
 **Authors:** @JohanKJIP @davidjo2
 
-**Download:** [Nedladdning](https://mega.nz/#!QDJx2KzL!x9HSHss7i66qG0hh0bRD9c3ZrTZadtByEXWxfqrGmcc)
+**Download:** [Download](https://mega.nz/#!QDJx2KzL!x9HSHss7i66qG0hh0bRD9c3ZrTZadtByEXWxfqrGmcc)
 
 ### How-to-run
 
@@ -21,6 +21,6 @@
  
 **jar**
 
-I windows och OSX är det bara att ladda ner jarfilen och dubbelklicka om man har java intallerat på datorn.
+Download the jar and double click to launch with java installed.
 
-I linux verkar det som att man måste markera jar filen som executable m.h.a. chmod +x filenamn.jar
+
