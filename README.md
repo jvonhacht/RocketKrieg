@@ -1,6 +1,9 @@
 ![image](https://gits-15.sys.kth.se/storage/user/2835/files/404c70aa-3012-11e7-9f22-42d7ef0ad55e)
 
-**Authors:** @JohanKJIP @davidjo2
+**Authors:** @JohanKJIP @SoFoDa
+
+**Info**
+RocketKrieg is a fun space singleplayer located in an endless universe. The goal of the game is to collect points by flying over energy orbs and killing hostile alien ships.
 
 **Download:** [Download](https://mega.nz/#!QDJx2KzL!x9HSHss7i66qG0hh0bRD9c3ZrTZadtByEXWxfqrGmcc)
 
