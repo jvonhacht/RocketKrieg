@@ -1,11 +1,15 @@
 package com.game.objects.collision;
 
 import com.badlogic.gdx.math.Intersector;
-import com.badlogic.gdx.math.Plane;
 import com.badlogic.gdx.math.Vector2;
 import com.game.RocketKrieg;
 import com.game.objects.*;
-import javafx.print.PageLayout;
+import com.game.objects.alien.AlienShip;
+import com.game.objects.alien.AlienShipSpecial;
+import com.game.objects.alien.Laser;
+import com.game.objects.ship.shipComponent.Missile;
+import com.game.objects.ship.PlayerSpaceShip;
+
 import java.util.ArrayList;
 
 /**
@@ -60,7 +64,7 @@ public class CollisionManager {
                         entities.remove(i);
                         RocketKrieg.inscreaseScore(1);
                         collisionEvent(ent1, ent2, entities);
-                    } else if((ent1 instanceof  Laser && (ent2 instanceof AlienShip || ent2 instanceof AlienShipSpecial)) || (ent2 instanceof Laser && (ent1 instanceof AlienShip || ent1 instanceof AlienShipSpecial))) {
+                    } else if((ent1 instanceof Laser && (ent2 instanceof AlienShip || ent2 instanceof AlienShipSpecial)) || (ent2 instanceof Laser && (ent1 instanceof AlienShip || ent1 instanceof AlienShipSpecial))) {
                         //do not let alien laser blow up alien.
                     } else if((ent1 instanceof Planet && ent2 instanceof PlayerSpaceShip) || (ent1 instanceof PlayerSpaceShip && ent2 instanceof Planet)) {
                         RocketKrieg.playerDead();

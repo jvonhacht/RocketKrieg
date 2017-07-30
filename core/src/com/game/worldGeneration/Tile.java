@@ -4,6 +4,8 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.game.AssetStorage;
 import com.game.objects.*;
+import com.game.objects.alien.AlienShip;
+import com.game.objects.alien.AlienShipSpecial;
 
 import java.util.Random;
 

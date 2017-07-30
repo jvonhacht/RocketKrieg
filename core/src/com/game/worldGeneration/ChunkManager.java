@@ -5,6 +5,8 @@ import com.badlogic.gdx.math.Vector2;
 import com.game.GameEntry;
 import com.game.objects.*;
 import com.game.objects.collision.CollisionManager;
+import com.game.objects.ship.PlayerSpaceShip;
+
 import java.util.*;
 
 /**
