@@ -93,7 +93,7 @@ public class PlayerSpaceShip extends GameEntity implements Entity{
             turnRight(delta);
         }
         if(Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
-            fireMissile();
+            fireMissile(delta);
         }
         //reset position to center of the screen.
         if(Gdx.input.isKeyPressed(Input.Keys.R)) {
@@ -104,9 +104,9 @@ public class PlayerSpaceShip extends GameEntity implements Entity{
     /**
      * Fire a missile.
      */
-    public void fireMissile() {
+    public void fireMissile(float delta) {
         if(timeElapsed > RELOAD_TIME) {
-            Missile missile = new Missile(position,velocity,acceleration,angle);
+            Missile missile = new Missile(position,velocity,acceleration,angle,angularVelocity, delta);
             ChunkManager.addEntity(missile);
             timeElapsed = 0;
         }
