@@ -9,7 +9,7 @@ import com.game.worldGeneration.ChunkManager;
 public class DoubleMissileComp extends ShipComponent implements Component {
     public DoubleMissileComp() {
         //reload time
-        stats[0] = 0.5f;
+        stats[0] = 1f;
         name = "Double missile upgrade";
     }
 
