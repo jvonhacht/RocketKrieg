@@ -1,4 +1,4 @@
-package com.game.objects;
+package com.game.objects.alien;
 
 import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.math.MathUtils;
@@ -6,36 +6,39 @@ import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.game.AssetStorage;
+import com.game.GameEntry;
 import com.game.RocketKrieg;
-import com.game.worldGeneration.ChunkManager;
+import com.game.objects.Entity;
+import com.game.objects.GameEntity;
+import com.game.objects.ship.PlayerSpaceShip;
 
 /**
- *  AlienShip entity class.
+ *  AlienShipSpecial entity class
  *  @author David Johansson 
  *  @version 1.0 (2017-05-09)
  */
-public class AlienShip extends GameEntity implements Entity{
-    private Sprite alienShip;
+public class AlienShipSpecial extends GameEntity implements Entity {
+    private Sprite alienShipSpecial;
+    private Animation<TextureRegion> animation;
     private float sizeX;
     private float sizeY;
     private PlayerSpaceShip ship;
-    private final float MOVING_SPEED = 100F;
-    private final float ACCELERATION = 50F;
-    private final float RELOAD_TIME = 2F;
-
+    private final float movingSpeed = 120F;
+    private final float acceleration = 120F;
 
     /**
-     * Constructor of AlienShip entity.
+     * Constructor of AlienShipSpecial entity.
      * @param x spawn coordinate
      * @param y spawn coordinate
      */
-    public AlienShip(float x, float y){
+    public AlienShipSpecial(float x, float y){
         super();
         sizeX = 40;
         sizeY = 55;
 
         //set properties
-        alienShip = AssetStorage.alienShip;
+        alienShipSpecial = AssetStorage.alienShipSpecial;
+        animation = AssetStorage.redLightAnimation;
         position.set(x+MathUtils.random(0,500),y+MathUtils.random(0,500));
 
         //setup hitbox
@@ -52,9 +55,10 @@ public class AlienShip extends GameEntity implements Entity{
      * @param batch SpriteBatch batch.
      */
     public void render(SpriteBatch batch){
-        alienShip.setSize(sizeX,sizeY);
-        alienShip.setRotation((float)Math.toDegrees(angle) - 90);
-        super.render(batch, alienShip);
+        alienShipSpecial.setSize(sizeX,sizeY);
+        alienShipSpecial.setRotation((float)Math.toDegrees(angle)-90);
+        super.render(batch, alienShipSpecial);
+        GameEntry.batch.draw(animation.getKeyFrame(timeElapsed, true), position.x + sizeX/2 - 10, position.y + sizeY/2 - 2, 20f, 20f);
     }
 
     /**
@@ -67,9 +71,6 @@ public class AlienShip extends GameEntity implements Entity{
         //get position of playersip
         Vector2 shipPosition = ship.position;
         float distance = shipPosition.dst(position);
-
-        //calculate angle
-        float angle = (float) Math.atan2(shipPosition.y - position.y, shipPosition.x - position.x);
 
         //move alien ship if near
         if(distance < 800) {
@@ -87,23 +88,14 @@ public class AlienShip extends GameEntity implements Entity{
                 moveDown(delta);
             }
         }
-
-        //Slow down if too near
-        if(distance < 400){
-            brake(delta);
-            if(timeElapsed > RELOAD_TIME) {
-                fireLaser(angle);
-                timeElapsed = 0;
-            }
-        }
     }
 
     /**
      * Move right by changing the alien ship velocity.
      */
     public void moveRight(float delta) {
-        if(velocity.x < MOVING_SPEED) {
-            velocity.x += ACCELERATION * delta;
+        if(velocity.x < movingSpeed) {
+            velocity.x += acceleration * delta;
         }
     }
 
@@ -111,8 +103,8 @@ public class AlienShip extends GameEntity implements Entity{
      * Move left by changing the alien ship velocity.
      */
     public void moveLeft(float delta) {
-        if(velocity.x > -1*MOVING_SPEED) {
-            velocity.x -= ACCELERATION * delta;
+        if(velocity.x > -1*movingSpeed) {
+            velocity.x -= acceleration * delta;
         }
     }
 
@@ -120,43 +112,17 @@ public class AlienShip extends GameEntity implements Entity{
      * Move up by changing the alien ship velocity.
      */
     public void moveUp(float delta) {
-        if(velocity.y < MOVING_SPEED) {
-            velocity.y += ACCELERATION * delta;
+        if(velocity.y < movingSpeed) {
+            velocity.y += acceleration * delta;
         }
     }
-
 
     /**
      * Move down by changing the alien ship velocity.
      */
     public void moveDown(float delta) {
-        if(velocity.y > -1*MOVING_SPEED) {
-            velocity.y -= ACCELERATION * delta;
+        if(velocity.y > -1*movingSpeed) {
+            velocity.y -= acceleration * delta;
         }
-    }
-
-    /**
-     * Slow down movement if too near.
-     */
-    public void brake(float delta) {
-        if(velocity.x > 0) {
-            velocity.x -= 2 * ACCELERATION * delta;
-        }
-        else{
-            velocity.x += 2 * ACCELERATION * delta;
-        }
-        if(velocity.y > 0) {
-            velocity.y -= 2 * ACCELERATION * delta;
-        }
-        else{
-            velocity.y += 2 * ACCELERATION * delta;
-        }
-    }
-
-    /**
-     * Fire lasers.
-     */
-    public void fireLaser(float angle){
-        ChunkManager.addEntity(new Laser(position, velocity, acceleration, angle));
     }
 }

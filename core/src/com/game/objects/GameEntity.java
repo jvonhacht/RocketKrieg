@@ -11,18 +11,18 @@ import com.badlogic.gdx.math.Vector2;
  * @version 1.0 (2017-05-01)
  */
 public class GameEntity{
-    Vector2 position;
-    Vector2 velocity;
-    Vector2 acceleration;
-    float angularVelocity;
-    float angle;
-    Polygon hitbox;
-    float timeElapsed;
+    public Vector2 position;
+    protected Vector2 velocity;
+    protected Vector2 acceleration;
+    protected float angularVelocity;
+    protected float angle;
+    protected Polygon hitbox;
+    protected float timeElapsed;
 
     /**
      * Constructor for GameEntity.
      */
-    protected GameEntity() {
+    public GameEntity() {
         position = new Vector2();
         velocity = new Vector2();
         acceleration = new Vector2();
