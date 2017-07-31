@@ -49,7 +49,7 @@ public class GameEntity{
         position.add(velocity.x*Gdx.graphics.getDeltaTime(),velocity.y*Gdx.graphics.getDeltaTime());
         acceleration.set(0,0);
 
-        angle = (float)Math.toRadians((Math.toDegrees(angle) + angularVelocity) % 360);
+        angle = (float)Math.toRadians((Math.toDegrees(angle) + angularVelocity*Gdx.graphics.getDeltaTime()) % 360);
 
         hitbox.setPosition(position.x,position.y);
         hitbox.setRotation((float)Math.toDegrees(angle)-90);

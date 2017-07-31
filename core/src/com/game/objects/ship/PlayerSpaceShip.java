@@ -28,7 +28,7 @@ public class PlayerSpaceShip extends GameEntity implements Entity {
     private Component weaponComponent;
     private Component speedComponent;
     private Component turningComponent;
-    private float MAX_ANGULARVELOCITY = 10f;
+    private float MAX_ANGULARVELOCITY = 1000f;
     //Textures
     private Sprite spaceship;
     private Animation<TextureRegion> animation;
@@ -101,7 +101,7 @@ public class PlayerSpaceShip extends GameEntity implements Entity {
         }
         //reset position to center of the screen.
         if(Gdx.input.isKeyPressed(Input.Keys.R)) {
-            setPos(Gdx.graphics.getWidth()/2,Gdx.graphics.getHeight()/2);
+            setPos(0,0);
         }
     }
 
