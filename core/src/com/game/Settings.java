@@ -68,12 +68,13 @@ public class Settings implements Screen {
         GameEntry.batch.draw(background, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         GameEntry.batch.draw(settingsBox, Gdx.graphics.getWidth()/2 - settingsBox.getWidth()/2, Gdx.graphics.getHeight()/2 - settingsBox.getHeight()/2);
 
+        //Checkmarks
         if(musicEnabled){
-            GameEntry.batch.draw(checkmark, 858, 590, 40, 40);
+            GameEntry.batch.draw(checkmark, (Gdx.graphics.getWidth()/2 - settingsBox.getWidth()/2) + 493, (Gdx.graphics.getHeight()/2 - settingsBox.getHeight()/2) + 489, 40, 40);
         }
 
         if(sfxEnabled){
-            GameEntry.batch.draw(checkmark, 858, 528, 40, 40);
+            GameEntry.batch.draw(checkmark, (Gdx.graphics.getWidth()/2 - settingsBox.getWidth()/2) + 493, (Gdx.graphics.getHeight()/2 - settingsBox.getHeight()/2) + 428, 40, 40);
         }
 
         //Get mouse coordinates
@@ -82,11 +83,13 @@ public class Settings implements Screen {
 
         //font.draw(GameEntry.batch, "" + xPos, Gdx.graphics.getWidth()/2 - 80, Gdx.graphics.getHeight()/2 + 20);
         //font.draw(GameEntry.batch, "" + yPos, Gdx.graphics.getWidth()/2 - 80, Gdx.graphics.getHeight()/2 + 40);
-        font.draw(GameEntry.batch, "more options to be added", Gdx.graphics.getWidth()/2 - 80, Gdx.graphics.getHeight()/2 + 40);
+        //font.draw(GameEntry.batch, "" + (Gdx.graphics.getWidth()/2 - settingsBox.getWidth()/2), Gdx.graphics.getWidth()/2 - 80, Gdx.graphics.getHeight()/2 + 80);
+        //font.draw(GameEntry.batch, "" + (Gdx.graphics.getHeight()/2 - settingsBox.getHeight()/2), Gdx.graphics.getWidth()/2 - 80, Gdx.graphics.getHeight()/2 + 100);
+        font.draw(GameEntry.batch, "more options to be added", Gdx.graphics.getWidth()/2 - 80, Gdx.graphics.getHeight()/2 + 60);
 
         //Enabling/disabling music
-        if (xPos >= 860  && xPos <= 895){
-            if (yPos >= 175 && yPos <= 210){
+        if (xPos >= (Gdx.graphics.getWidth()/2 - settingsBox.getWidth()/2) + 495  && xPos <= (Gdx.graphics.getWidth()/2 - settingsBox.getWidth()/2) + 530){
+            if (yPos >= (Gdx.graphics.getHeight()/2 - settingsBox.getHeight()/2) + 75 && yPos <= (Gdx.graphics.getHeight()/2 - settingsBox.getHeight()/2) + 110){
                 if (Gdx.input.isTouched() && timeElapsed > 0.2f){
                     timeElapsed = 0;
                     if(musicEnabled){
@@ -103,8 +106,8 @@ public class Settings implements Screen {
         }
 
         //Enabling/disabling sfx
-        if (xPos >= 860  && xPos <= 895){
-            if (yPos >= 236 && yPos <= 271){
+        if (xPos >= (Gdx.graphics.getWidth()/2 - settingsBox.getWidth()/2) + 495  && xPos <= (Gdx.graphics.getWidth()/2 - settingsBox.getWidth()/2) + 530){
+            if (yPos >= (Gdx.graphics.getHeight()/2 - settingsBox.getHeight()/2) + 136 && yPos <= (Gdx.graphics.getHeight()/2 - settingsBox.getHeight()/2) + 171){
                 if (Gdx.input.isTouched() && timeElapsed > 0.2f){
                     timeElapsed = 0;
                     if(sfxEnabled){
@@ -121,8 +124,8 @@ public class Settings implements Screen {
         }
 
         //Pressing back button
-        if (xPos >= 772  && xPos <= 893){
-            if (yPos <= 682 && yPos >= 660){
+        if (xPos >= (Gdx.graphics.getWidth()/2 - settingsBox.getWidth()/2) + 305  && xPos <= (Gdx.graphics.getWidth()/2 - settingsBox.getWidth()/2) + 530){
+            if (yPos >= (Gdx.graphics.getHeight()/2 - settingsBox.getHeight()/2) + 560 && yPos <= (Gdx.graphics.getHeight()/2 - settingsBox.getHeight()/2) + 584){
                 if (Gdx.input.isTouched()){
                     if(sfxEnabled){
                         soundEffect1.play(1.0f);
