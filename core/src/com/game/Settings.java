@@ -27,6 +27,8 @@ public class Settings implements Screen {
     private float timeElapsed;
     public static boolean musicEnabled = true;
     public static boolean sfxEnabled = true;
+    private boolean vSyncEnabled = true;
+    private boolean fullScreenEnabled = true;
 
     /**
      * Constructor for Settings screen.
@@ -69,12 +71,23 @@ public class Settings implements Screen {
         GameEntry.batch.draw(settingsBox, Gdx.graphics.getWidth()/2 - settingsBox.getWidth()/2, Gdx.graphics.getHeight()/2 - settingsBox.getHeight()/2);
 
         //Checkmarks
+        if(fullScreenEnabled){
+            font.draw(GameEntry.batch, "Full Screen", Gdx.graphics.getWidth()/2 - settingsBox.getWidth()/2 + 383, Gdx.graphics.getHeight()/2 + settingsBox.getHeight()/2 - 81);
+        }
+        else{
+            font.draw(GameEntry.batch, "Windowed", Gdx.graphics.getWidth()/2 - settingsBox.getWidth()/2 + 384, Gdx.graphics.getHeight()/2 + settingsBox.getHeight()/2 - 81);
+        }
+
+        if(vSyncEnabled){
+            GameEntry.batch.draw(checkmark, (Gdx.graphics.getWidth()/2 - settingsBox.getWidth()/2) + 493, (Gdx.graphics.getHeight()/2 - settingsBox.getHeight()/2) + 428, 40, 40);
+        }
+
         if(musicEnabled){
-            GameEntry.batch.draw(checkmark, (Gdx.graphics.getWidth()/2 - settingsBox.getWidth()/2) + 493, (Gdx.graphics.getHeight()/2 - settingsBox.getHeight()/2) + 489, 40, 40);
+            GameEntry.batch.draw(checkmark, (Gdx.graphics.getWidth()/2 - settingsBox.getWidth()/2) + 493, (Gdx.graphics.getHeight()/2 - settingsBox.getHeight()/2) + 367, 40, 40);
         }
 
         if(sfxEnabled){
-            GameEntry.batch.draw(checkmark, (Gdx.graphics.getWidth()/2 - settingsBox.getWidth()/2) + 493, (Gdx.graphics.getHeight()/2 - settingsBox.getHeight()/2) + 428, 40, 40);
+            GameEntry.batch.draw(checkmark, (Gdx.graphics.getWidth()/2 - settingsBox.getWidth()/2) + 493, (Gdx.graphics.getHeight()/2 - settingsBox.getHeight()/2) + 306, 40, 40);
         }
 
         //Get mouse coordinates
@@ -83,13 +96,51 @@ public class Settings implements Screen {
 
         //font.draw(GameEntry.batch, "" + xPos, Gdx.graphics.getWidth()/2 - 80, Gdx.graphics.getHeight()/2 + 20);
         //font.draw(GameEntry.batch, "" + yPos, Gdx.graphics.getWidth()/2 - 80, Gdx.graphics.getHeight()/2 + 40);
-        //font.draw(GameEntry.batch, "" + (Gdx.graphics.getWidth()/2 - settingsBox.getWidth()/2), Gdx.graphics.getWidth()/2 - 80, Gdx.graphics.getHeight()/2 + 80);
-        //font.draw(GameEntry.batch, "" + (Gdx.graphics.getHeight()/2 - settingsBox.getHeight()/2), Gdx.graphics.getWidth()/2 - 80, Gdx.graphics.getHeight()/2 + 100);
-        font.draw(GameEntry.batch, "more options to be added", Gdx.graphics.getWidth()/2 - 80, Gdx.graphics.getHeight()/2 + 60);
+        font.draw(GameEntry.batch, "more options to be added. button hitboxes gets shifted upwards in windowed mode", Gdx.graphics.getWidth()/2 - 500, Gdx.graphics.getHeight()/2 - 150);
+
+        //Full screen/windowed mode
+        if (xPos >= (Gdx.graphics.getWidth()/2 - settingsBox.getWidth()/2) + 375  && xPos <= (Gdx.graphics.getWidth()/2 - settingsBox.getWidth()/2) + 530){
+            if (yPos >= (Gdx.graphics.getHeight()/2 - settingsBox.getHeight()/2) + 75 && yPos <= (Gdx.graphics.getHeight()/2 - settingsBox.getHeight()/2) + 110){
+                if (Gdx.input.isTouched() && timeElapsed > 0.2f){
+                    timeElapsed = 0;
+                    if(fullScreenEnabled){
+                        Gdx.graphics.setWindowedMode(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+                        fullScreenEnabled = false;
+                    }
+                    else{
+                        Gdx.graphics.setFullscreenMode(Gdx.graphics.getDisplayMode());
+                        fullScreenEnabled = true;
+                    }
+                    if(sfxEnabled){
+                        soundEffect2.play(1.0f);
+                    }
+                }
+            }
+        }
+
+        //Enabling/disabling V-sync
+        if (xPos >= (Gdx.graphics.getWidth()/2 - settingsBox.getWidth()/2) + 495  && xPos <= (Gdx.graphics.getWidth()/2 - settingsBox.getWidth()/2) + 530){
+            if (yPos >= (Gdx.graphics.getHeight()/2 - settingsBox.getHeight()/2) + 136 && yPos <= (Gdx.graphics.getHeight()/2 - settingsBox.getHeight()/2) + 171){
+                if (Gdx.input.isTouched() && timeElapsed > 0.2f){
+                    timeElapsed = 0;
+                    if(vSyncEnabled){
+                        Gdx.graphics.setVSync(false);
+                        vSyncEnabled = false;
+                    }
+                    else{
+                        Gdx.graphics.setVSync(true);
+                        vSyncEnabled = true;
+                    }
+                    if(sfxEnabled){
+                        soundEffect2.play(1.0f);
+                    }
+                }
+            }
+        }
 
         //Enabling/disabling music
         if (xPos >= (Gdx.graphics.getWidth()/2 - settingsBox.getWidth()/2) + 495  && xPos <= (Gdx.graphics.getWidth()/2 - settingsBox.getWidth()/2) + 530){
-            if (yPos >= (Gdx.graphics.getHeight()/2 - settingsBox.getHeight()/2) + 75 && yPos <= (Gdx.graphics.getHeight()/2 - settingsBox.getHeight()/2) + 110){
+            if (yPos >= (Gdx.graphics.getHeight()/2 - settingsBox.getHeight()/2) + 197 && yPos <= (Gdx.graphics.getHeight()/2 - settingsBox.getHeight()/2) + 232){
                 if (Gdx.input.isTouched() && timeElapsed > 0.2f){
                     timeElapsed = 0;
                     if(musicEnabled){
@@ -107,7 +158,7 @@ public class Settings implements Screen {
 
         //Enabling/disabling sfx
         if (xPos >= (Gdx.graphics.getWidth()/2 - settingsBox.getWidth()/2) + 495  && xPos <= (Gdx.graphics.getWidth()/2 - settingsBox.getWidth()/2) + 530){
-            if (yPos >= (Gdx.graphics.getHeight()/2 - settingsBox.getHeight()/2) + 136 && yPos <= (Gdx.graphics.getHeight()/2 - settingsBox.getHeight()/2) + 171){
+            if (yPos >= (Gdx.graphics.getHeight()/2 - settingsBox.getHeight()/2) + 258 && yPos <= (Gdx.graphics.getHeight()/2 - settingsBox.getHeight()/2) + 293){
                 if (Gdx.input.isTouched() && timeElapsed > 0.2f){
                     timeElapsed = 0;
                     if(sfxEnabled){
