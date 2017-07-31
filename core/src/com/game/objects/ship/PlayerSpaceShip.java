@@ -15,9 +15,14 @@ import com.game.GameEntry;
 import com.game.objects.Entity;
 import com.game.objects.GameEntity;
 import com.game.objects.ship.shipComponent.*;
+import com.game.objects.ship.shipComponent.reloadComponent.ReloadComponentMk1;
+import com.game.objects.ship.shipComponent.reloadComponent.ReloadComponentMk5;
 import com.game.objects.ship.shipComponent.shieldComponent.StandardShieldComp;
-import com.game.objects.ship.shipComponent.speedComponent.StandardSpeedComp;
-import com.game.objects.ship.shipComponent.turningComponent.StandardTurningSpeedComp;
+import com.game.objects.ship.shipComponent.speedComponent.SpeedComponentMk1;
+import com.game.objects.ship.shipComponent.speedComponent.SpeedComponentMk5;
+import com.game.objects.ship.shipComponent.turningComponent.TurningComponentMk1;
+import com.game.objects.ship.shipComponent.turningComponent.TurningComponentMk5;
+import com.game.objects.ship.shipComponent.weaponComponent.DoubleMissileComp;
 import com.game.objects.ship.shipComponent.weaponComponent.SingleMissileComp;
 
 /**
@@ -34,6 +39,7 @@ public class PlayerSpaceShip extends GameEntity implements Entity {
     private Component speedComponent;
     private Component turningComponent;
     private Component shieldComponent;
+    private Component reloadComponent;
     private float MAX_ANGULARVELOCITY = 1000f;
     //Textures
     private Sprite spaceship;
@@ -44,10 +50,11 @@ public class PlayerSpaceShip extends GameEntity implements Entity {
      */
     public PlayerSpaceShip() {
         super();
-        weaponComponent = new SingleMissileComp();
-        speedComponent = new StandardSpeedComp();
-        turningComponent = new StandardTurningSpeedComp();
+        weaponComponent = new DoubleMissileComp();
+        speedComponent = new SpeedComponentMk5();
+        turningComponent = new TurningComponentMk5();
         shieldComponent = new StandardShieldComp();
+        reloadComponent = new ReloadComponentMk5();
 
         //set size of spaceship
         sizeX = 25;
@@ -119,7 +126,7 @@ public class PlayerSpaceShip extends GameEntity implements Entity {
      * Fire a missile.
      */
     public void fireMissile() {
-        if(timeElapsed > weaponComponent.getStats()) {
+        if(timeElapsed > reloadComponent.getStats()) {
             weaponComponent.fireMissile(position,velocity,acceleration,angle,angularVelocity);
             timeElapsed = 0;
         }
