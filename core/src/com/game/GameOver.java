@@ -9,6 +9,9 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.sun.tools.javac.util.Assert;
+
+import static com.game.Settings.sfxEnabled;
 
 /**
  * Game over screen for Rocket Krieg program.
@@ -20,8 +23,9 @@ public class GameOver implements Screen {
     private Sprite background;
     private Sprite replayButton;
     private Sprite exitButton;
-    private Sound soundEffect;
     private Sprite gameOver;
+    private Sprite buttonHover;
+    private Sound soundEffect;
     private int score;
     private BitmapFont font;
     private OrthographicCamera camera;
@@ -40,6 +44,7 @@ public class GameOver implements Screen {
         replayButton = AssetStorage.replayButton;
         exitButton = AssetStorage.exitButton;
         gameOver = AssetStorage.gameOver;
+        buttonHover = AssetStorage.buttonHover;
         soundEffect = Gdx.audio.newSound(Gdx.files.internal("sounds/Play_Sound.mp3"));
 
         //Initialize font
@@ -76,7 +81,6 @@ public class GameOver implements Screen {
         GameEntry.batch.draw(replayButton, Gdx.graphics.getWidth()/2 - (replayWidth / 2), Gdx.graphics.getHeight()/2 - (replayHeight / 2) - 120);
         GameEntry.batch.draw(exitButton, Gdx.graphics.getWidth()/2 - (exitWidth / 2), Gdx.graphics.getHeight()/2 - (exitHeight / 2) - 200);
         font.draw(GameEntry.batch, "Your score: " + "" + score ,Gdx.graphics.getWidth()/2 - 80, Gdx.graphics.getHeight()/2 + 20);
-        GameEntry.batch.end();
 
         //Get mouse coordinates
         int xPos = Gdx.input.getX();
@@ -85,8 +89,11 @@ public class GameOver implements Screen {
         //Pressing replay button
         if (xPos <= Gdx.graphics.getWidth()/2 + (replayWidth / 2) && xPos >= Gdx.graphics.getWidth()/2 - (replayWidth / 2)){
             if (yPos <= Gdx.graphics.getHeight()/2 + (replayHeight / 2) + 120 && yPos >= Gdx.graphics.getHeight()/2 - (replayHeight / 2) + 120){
+                GameEntry.batch.draw(buttonHover, Gdx.graphics.getWidth()/2 - replayWidth/2 + 1, Gdx.graphics.getHeight()/2 - 148);
                 if (Gdx.input.isTouched()) {
-                    soundEffect.play(1.0f);
+                    if(sfxEnabled){
+                        soundEffect.play(1.0f);
+                    }
                     game.setScreen(new RocketKrieg(game));
                     dispose();
                 }
@@ -96,6 +103,7 @@ public class GameOver implements Screen {
         //Pressing exit button
         if (xPos <= Gdx.graphics.getWidth()/2 + (exitWidth / 2) && xPos >= Gdx.graphics.getWidth()/2 - (exitWidth / 2)){
             if (yPos <= Gdx.graphics.getHeight()/2 + (exitHeight / 2) + 200 && yPos >= Gdx.graphics.getHeight()/2 - (exitHeight / 2) + 200){
+                GameEntry.batch.draw(buttonHover, Gdx.graphics.getWidth()/2 - replayWidth/2 + 1, Gdx.graphics.getHeight()/2 - 227);
                 if (Gdx.input.isTouched()) {
                     soundEffect.play(1.0f);
                     Gdx.app.exit();
@@ -107,6 +115,8 @@ public class GameOver implements Screen {
         if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
             Gdx.app.exit();
         }
+
+        GameEntry.batch.end();
     }
 
     /**
