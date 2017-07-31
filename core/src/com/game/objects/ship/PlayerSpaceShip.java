@@ -62,6 +62,7 @@ public class PlayerSpaceShip extends GameEntity implements Entity {
      * Render the players ship.
      */
     public void render(SpriteBatch batch) {
+        System.out.println(Gdx.graphics.getDeltaTime());
         Sprite img = spaceship;
 
         if(Gdx.input.isKeyPressed(Input.Keys.W)) {
