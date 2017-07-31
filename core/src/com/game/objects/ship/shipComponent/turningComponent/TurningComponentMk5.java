@@ -4,12 +4,12 @@ import com.game.objects.ship.shipComponent.Component;
 import com.game.objects.ship.shipComponent.ShipComponent;
 
 /**
- * Created by JohanvonHacht on 2017-07-30.
+ * Created by JohanvonHacht on 2017-07-31.
  */
-public class StandardTurningSpeedComp extends ShipComponent implements Component {
-    public StandardTurningSpeedComp() {
+public class TurningComponentMk5 extends ShipComponent implements Component {
+    public TurningComponentMk5() {
         //reload time
         stats = 250f;
-        name = "Beginner turning speed upgrade";
+        name = "Mk5 turning speed upgrade";
     }
 }
