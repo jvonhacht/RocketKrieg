@@ -6,6 +6,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.game.objects.ship.PlayerSpaceShip;
@@ -33,7 +34,8 @@ public class RocketKrieg implements Screen {
 	private double time = 0.0;
     private double tick = 1/300f;
 	private double accumulator = 0.0;
-	private int maxUpdatesPerFrame = 5;
+	private Vector2 prevPos;
+	private Vector2 currentPos;
 
 	/**
 	 * Constructor for RocketKrieg screen.
@@ -76,7 +78,7 @@ public class RocketKrieg implements Screen {
 		cameraPosition.x += (shipPosition.x - cameraPosition.x) * lerp * delta + shipVelocity.x*delta/lerp;
 		cameraPosition.y += (shipPosition.y - cameraPosition.y) * lerp * delta + shipVelocity.y*delta/lerp;
 
-		//render all entities and tiles
+		//fixed step update and rendering
 		GameEntry.batch.begin();
 		float frameTime = Gdx.graphics.getDeltaTime();
 		if(frameTime>0.25) {
@@ -84,11 +86,20 @@ public class RocketKrieg implements Screen {
 		}
 		accumulator += frameTime;
 		while (accumulator >= tick) {
+			prevPos = ship.getPosition();
 			cm.render(true,(float)tick);
 			accumulator -= tick;
 			time += tick;
 		}
 		cm.render(false,1);
+		//interpolate ship
+		float alpha = (float)(accumulator/tick);
+		currentPos = ship.getPosition();
+		Vector2 lerpPosition = prevPos.interpolate(currentPos,alpha, Interpolation.linear);
+		if(!playerState) {
+			ship.renderr(GameEntry.batch, lerpPosition);
+		}
+		//draw score
 		GameEntry.font.draw(GameEntry.batch, "Score: " + score,cameraPosition.x, cameraPosition.y + Gdx.graphics.getHeight()/2 -50);
 
 		//draw instructions
