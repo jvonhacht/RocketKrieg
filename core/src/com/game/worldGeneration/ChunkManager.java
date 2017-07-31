@@ -73,7 +73,9 @@ public class ChunkManager {
                         Tile tile = tiles[k][l];
                         float tileX = tile.getX();
                         float tileY = tile.getY();
-                        batch.draw(tile.getImg(),tileX,tileY);
+                        if(!update) {
+                            batch.draw(tile.getImg(),tileX,tileY);
+                        }
 
                         //try collect entities in tile.
                         try {
@@ -103,7 +105,9 @@ public class ChunkManager {
         } else {
             //render and update the entity que.
             for (Entity ent:entitiesToRender) {
-                ent.render(batch);
+                if(!(ent instanceof PlayerSpaceShip)) {
+                    ent.render(batch);
+                }
             }
         }
     }

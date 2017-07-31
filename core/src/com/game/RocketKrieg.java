@@ -127,6 +127,12 @@ public class RocketKrieg implements Screen {
 		if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
 			Gdx.app.exit();
 		}
+		if(Gdx.input.isKeyPressed(Input.Keys.P)) {
+			tick = 0;
+		}
+		if(Gdx.input.isKeyPressed(Input.Keys.O)) {
+			tick = 1/300f;
+		}
 
 		//game over
 		if(playerState){
