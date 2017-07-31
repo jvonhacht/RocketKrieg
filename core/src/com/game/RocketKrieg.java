@@ -30,6 +30,11 @@ public class RocketKrieg implements Screen {
 	private boolean startPhase;
 	private static boolean playerState;
 
+	private double time = 0.0;
+    private double tick = 1/100f;
+	private double accumulator = 0.0;
+	private int maxUpdatesPerFrame = 5;
+
 	/**
 	 * Constructor for RocketKrieg screen.
 	 * @param game GameEntry with SpriteBatch
@@ -71,12 +76,17 @@ public class RocketKrieg implements Screen {
 		cameraPosition.x += (shipPosition.x - cameraPosition.x) * lerp * delta + shipVelocity.x*delta/lerp;
 		cameraPosition.y += (shipPosition.y - cameraPosition.y) * lerp * delta + shipVelocity.y*delta/lerp;
 
-		//update ship
-		ship.update();
 		//render all entities and tiles
 		GameEntry.batch.begin();
-
-		cm.render();
+		accumulator += Gdx.graphics. getDeltaTime();
+		int updatesThisFrame = 0;
+		while (accumulator >= tick) {
+			System.out.println(accumulator);
+			cm.render(true,(float)tick);
+			accumulator -= tick;
+			time += tick;
+		}
+		cm.render(false,1);
 		GameEntry.font.draw(GameEntry.batch, "Score: " + score,cameraPosition.x, cameraPosition.y + Gdx.graphics.getHeight()/2 -50);
 
 		//draw instructions
@@ -112,6 +122,10 @@ public class RocketKrieg implements Screen {
 			}
 		}
 		timeElapsed += delta;
+	}
+
+	public static float getDelta() {
+		return Gdx.graphics.getDeltaTime();
 	}
 
 	/**

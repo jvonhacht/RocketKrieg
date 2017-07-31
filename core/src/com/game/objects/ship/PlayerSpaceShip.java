@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.game.GameEntry;
 
+import com.game.RocketKrieg;
 import com.game.objects.Entity;
 import com.game.objects.GameEntity;
 import com.game.objects.ship.shipComponent.*;
@@ -62,7 +63,7 @@ public class PlayerSpaceShip extends GameEntity implements Entity {
      * Render the players ship.
      */
     public void render(SpriteBatch batch) {
-        System.out.println(Gdx.graphics.getDeltaTime());
+        //System.out.println();
         Sprite img = spaceship;
 
         if(Gdx.input.isKeyPressed(Input.Keys.W)) {
@@ -84,18 +85,18 @@ public class PlayerSpaceShip extends GameEntity implements Entity {
     /**
      * Update ship values based on input.
      */
-    public void update() {
-        move();
+    public void update(float delta) {
+        move(delta);
 
         //flight controls
         if(Gdx.input.isKeyPressed(Input.Keys.W)) {
-            accel();
+            accel(delta);
         }
         if(Gdx.input.isKeyPressed(Input.Keys.D)) {
-            turnLeft();
+            turnLeft(delta);
         }
         if(Gdx.input.isKeyPressed(Input.Keys.A)) {
-            turnRight();
+            turnRight(delta);
         }
         if(Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
             fireMissile();
@@ -119,27 +120,27 @@ public class PlayerSpaceShip extends GameEntity implements Entity {
     /**
      * Turn right by changing the spaceship angular velocity.
      */
-    public void turnRight() {
+    public void turnRight(float delta) {
         if(angularVelocity<MAX_ANGULARVELOCITY) {
-            angularVelocity += turningComponent.getStats()[2]*Gdx.graphics.getDeltaTime();
+            angularVelocity += turningComponent.getStats()[2]*delta;
         }
     }
 
     /**
      * Turn left by changing the spaceship angular velocity.
      */
-    public void turnLeft() {
+    public void turnLeft(float delta) {
         if(angularVelocity>-MAX_ANGULARVELOCITY) {
-            angularVelocity -= turningComponent.getStats()[2]*Gdx.graphics.getDeltaTime();
+            angularVelocity -= turningComponent.getStats()[2]*delta;
         }
     }
 
     /**
      * Accelerate forward.
      */
-    public void accel() {
+    public void accel(float delta) {
         float SPEED_MULTIPLIER = speedComponent.getStats()[1];
-        acceleration.add((float)Math.cos(angle)*SPEED_MULTIPLIER*Gdx.graphics.getDeltaTime(),
-                (float)Math.sin(angle)*SPEED_MULTIPLIER*Gdx.graphics.getDeltaTime());
+        acceleration.add((float)Math.cos(angle)*SPEED_MULTIPLIER*delta,
+                (float)Math.sin(angle)*SPEED_MULTIPLIER*delta);
     }
 }

@@ -23,7 +23,6 @@ public class DesktopLauncher {
 		config.useGL30 = false;
 		config.width = LwjglApplicationConfiguration.getDesktopDisplayMode().width;
 		config.height = LwjglApplicationConfiguration.getDesktopDisplayMode().height;
-		config.allowSoftwareMode = true;
 		config.title = "RocketKrieg";
 		new LwjglApplication(new GameEntry(), config);
 	}

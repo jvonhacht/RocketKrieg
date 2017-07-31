@@ -5,6 +5,10 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Vector2;
+import com.game.RocketKrieg;
+import com.game.objects.alien.Laser;
+import com.game.objects.ship.PlayerSpaceShip;
+import com.game.objects.ship.shipComponent.Missile;
 
 /**
  * GameEntity superclass.
@@ -44,17 +48,22 @@ public class GameEntity{
     /**
      * Method to move object.
      */
-    public void move() {
-        velocity.add(acceleration.x*Gdx.graphics.getDeltaTime(),acceleration.y*Gdx.graphics.getDeltaTime());
-        position.add(velocity.x/30,velocity.y/30);
+    public void move(float delta) {
+        velocity.add(acceleration.x*delta,acceleration.y*delta);
+        if(this instanceof PlayerSpaceShip || this instanceof Missile || this instanceof Laser) {
+            position.add(velocity.x/30,velocity.y/30);
+        } else {
+            position.add(velocity.x*delta,velocity.y*delta);
+        }
+
         acceleration.set(0,0);
 
-        angle = (float)Math.toRadians((Math.toDegrees(angle) + angularVelocity*Gdx.graphics.getDeltaTime()) % 360);
+        angle = (float)Math.toRadians((Math.toDegrees(angle) + angularVelocity*delta) % 360);
 
         hitbox.setPosition(position.x,position.y);
         hitbox.setRotation((float)Math.toDegrees(angle)-90);
 
-        timeElapsed += Gdx.graphics.getDeltaTime();
+        timeElapsed += delta;
     }
 
     /**

@@ -55,15 +55,15 @@ public class Laser extends GameEntity implements Entity {
     /**
      * Update movement and acceleration.
      */
-    public void update() {
-        move();
-        accel();
+    public void update(float delta) {
+        move(delta);
+        accel(delta);
     }
 
     /**
      * Accelerate forward.
      */
-    public void accel() {
-        acceleration.set((float)Math.cos(angle)*SPEED_MULTIPLIER*Gdx.graphics.getDeltaTime(),(float)Math.sin(angle)*SPEED_MULTIPLIER*Gdx.graphics.getDeltaTime());
+    public void accel(float delta) {
+        acceleration.set((float)Math.cos(angle)*SPEED_MULTIPLIER*delta,(float)Math.sin(angle)*SPEED_MULTIPLIER*delta);
     }
 }

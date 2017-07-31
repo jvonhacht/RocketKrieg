@@ -59,9 +59,9 @@ public class Missile extends GameEntity implements Entity {
     /**
      * Update missile.
      */
-    public void update() {
-        move();
-        accel();
+    public void update(float delta) {
+        move(delta);
+        accel(delta);
         if(position.dst(RocketKrieg.getShip().getPosition())>MAX_DISTANCE) {
             ChunkManager.removeEntity(this);
             ChunkManager.addEntity(new CollisionEvent(position.x,position.y));
@@ -71,7 +71,7 @@ public class Missile extends GameEntity implements Entity {
     /**
      * Accelerate forward. 
      */
-    public void accel() {
-        acceleration.add((float)Math.cos(angle)*SPEED_MULTIPLIER*Gdx.graphics.getDeltaTime(),(float)Math.sin(angle)*SPEED_MULTIPLIER*Gdx.graphics.getDeltaTime());
+    public void accel(float delta) {
+        acceleration.add((float)Math.cos(angle)*SPEED_MULTIPLIER*delta,(float)Math.sin(angle)*SPEED_MULTIPLIER*delta);
     }
 }

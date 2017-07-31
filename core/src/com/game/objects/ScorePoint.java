@@ -44,7 +44,7 @@ public class ScorePoint extends GameEntity implements Entity {
     /**
      * Update the ScorePoint.
      */
-    public void update() {
-        move();
+    public void update(float delta) {
+        move(delta);
     }
 }

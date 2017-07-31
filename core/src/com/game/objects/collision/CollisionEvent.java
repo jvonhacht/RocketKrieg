@@ -59,8 +59,8 @@ public class CollisionEvent implements Entity {
     /**
      * Getting the time elapsed.
      */
-    public void update() {
-        timeElapsed += Gdx.graphics.getDeltaTime();
+    public void update(float delta) {
+        timeElapsed += delta;
     }
 
     /**

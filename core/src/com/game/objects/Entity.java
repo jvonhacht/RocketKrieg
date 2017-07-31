@@ -19,7 +19,7 @@ public interface Entity {
     /**
      * Move entity based on velocity etc.
      */
-    void update();
+    void update(float delta);
 
     /**
      * Return position of entity.

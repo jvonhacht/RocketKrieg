@@ -71,7 +71,7 @@ public class Planet extends GameEntity implements Entity{
     /**
      * Update asteroid position.
      */
-    public void update(){
-        move();
+    public void update(float delta){
+        move(delta);
     }
 }
