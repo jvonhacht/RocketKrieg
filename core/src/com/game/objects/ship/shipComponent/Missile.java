@@ -19,7 +19,7 @@ import com.game.worldGeneration.ChunkManager;
  *  @version 1.0 (2017-05-08)
  */
 public class Missile extends GameEntity implements Entity {
-    private final float SPEED_MULTIPLIER = 7500f;
+    private final float SPEED_MULTIPLIER = 15000f;
     private final float MAX_DISTANCE = 1200f;
     private Sprite missile;
 

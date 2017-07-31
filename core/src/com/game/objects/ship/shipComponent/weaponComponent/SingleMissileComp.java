@@ -1,15 +1,18 @@
-package com.game.objects.ship.shipComponent;
+package com.game.objects.ship.shipComponent.weaponComponent;
 
 import com.badlogic.gdx.math.Vector2;
+import com.game.objects.ship.shipComponent.Component;
+import com.game.objects.ship.shipComponent.Missile;
+import com.game.objects.ship.shipComponent.ShipComponent;
 import com.game.worldGeneration.ChunkManager;
 
 /**
- * Created by JohanvonHacht on 2017-07-30.
+ * Created by JohanvonHacht on 2017-07-31.
  */
-public class DoubleMissileComp extends ShipComponent implements Component {
-    public DoubleMissileComp() {
+public class SingleMissileComp extends ShipComponent implements Component {
+    public SingleMissileComp() {
         //reload time
-        stats[0] = 1f;
+        stats = 0.5f;
         name = "Double missile upgrade";
     }
 
@@ -22,9 +25,7 @@ public class DoubleMissileComp extends ShipComponent implements Component {
      * @param angularVelocity
      */
     public void fireMissile(Vector2 position, Vector2 velocity, Vector2 acceleration, float angle, float angularVelocity) {
-        Missile missile = new Missile(position,velocity,acceleration,angle - (float)Math.toRadians(10),angularVelocity);
-        Missile missile1 = new Missile(position,velocity,acceleration,angle + (float)Math.toRadians(10),angularVelocity);
+        Missile missile = new Missile(position,velocity,acceleration,angle,angularVelocity);
         ChunkManager.addEntity(missile);
-        ChunkManager.addEntity(missile1);
     }
 }

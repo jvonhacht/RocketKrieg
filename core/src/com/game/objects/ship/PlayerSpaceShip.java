@@ -12,10 +12,13 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.game.GameEntry;
 
-import com.game.RocketKrieg;
 import com.game.objects.Entity;
 import com.game.objects.GameEntity;
 import com.game.objects.ship.shipComponent.*;
+import com.game.objects.ship.shipComponent.shieldComponent.StandardShieldComp;
+import com.game.objects.ship.shipComponent.speedComponent.StandardSpeedComp;
+import com.game.objects.ship.shipComponent.turningComponent.StandardTurningSpeedComp;
+import com.game.objects.ship.shipComponent.weaponComponent.SingleMissileComp;
 
 /**
  *  PlayerSpaceShip entity class.
@@ -30,6 +33,7 @@ public class PlayerSpaceShip extends GameEntity implements Entity {
     private Component weaponComponent;
     private Component speedComponent;
     private Component turningComponent;
+    private Component shieldComponent;
     private float MAX_ANGULARVELOCITY = 1000f;
     //Textures
     private Sprite spaceship;
@@ -40,9 +44,10 @@ public class PlayerSpaceShip extends GameEntity implements Entity {
      */
     public PlayerSpaceShip() {
         super();
-        weaponComponent = new DoubleMissileComp();
+        weaponComponent = new SingleMissileComp();
         speedComponent = new StandardSpeedComp();
         turningComponent = new StandardTurningSpeedComp();
+        shieldComponent = new StandardShieldComp();
 
         //set size of spaceship
         sizeX = 25;
@@ -114,7 +119,7 @@ public class PlayerSpaceShip extends GameEntity implements Entity {
      * Fire a missile.
      */
     public void fireMissile() {
-        if(timeElapsed > weaponComponent.getStats()[0]) {
+        if(timeElapsed > weaponComponent.getStats()) {
             weaponComponent.fireMissile(position,velocity,acceleration,angle,angularVelocity);
             timeElapsed = 0;
         }
@@ -125,7 +130,7 @@ public class PlayerSpaceShip extends GameEntity implements Entity {
      */
     public void turnRight(float delta) {
         if(angularVelocity<MAX_ANGULARVELOCITY) {
-            angularVelocity += turningComponent.getStats()[2]*delta;
+            angularVelocity += turningComponent.getStats()*delta;
         }
     }
 
@@ -134,7 +139,7 @@ public class PlayerSpaceShip extends GameEntity implements Entity {
      */
     public void turnLeft(float delta) {
         if(angularVelocity>-MAX_ANGULARVELOCITY) {
-            angularVelocity -= turningComponent.getStats()[2]*delta;
+            angularVelocity -= turningComponent.getStats()*delta;
         }
     }
 
@@ -142,7 +147,7 @@ public class PlayerSpaceShip extends GameEntity implements Entity {
      * Accelerate forward.
      */
     public void accel(float delta) {
-        float SPEED_MULTIPLIER = speedComponent.getStats()[1];
+        float SPEED_MULTIPLIER = speedComponent.getStats();
         acceleration.add((float)Math.cos(angle)*SPEED_MULTIPLIER*delta,
                 (float)Math.sin(angle)*SPEED_MULTIPLIER*delta);
     }
