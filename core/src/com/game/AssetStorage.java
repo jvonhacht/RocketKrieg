@@ -16,6 +16,9 @@ public class AssetStorage {
     //menus
     public static final Sprite gameLogo = new Sprite(new Texture("images/menu/Rocket_Krieg_Logo.png"));
     public static final Sprite playButton = new Sprite(new Texture("images/menu/Play_Button.png"));
+    public static final Sprite buttonHover = new Sprite(new Texture("images/menu/Button_Hover.png"));
+    public static final Sprite settingsButton = new Sprite(new Texture("images/menu/Settings_Button.png"));
+    public static final Sprite settingsBox = new Sprite(new Texture("images/menu/Settings_Box.png"));
     public static final Sprite background = new Sprite(new Texture("images/menu/Space_Background.jpg"));
     public static final Sprite background2 = new Sprite(new Texture("images/menu/Space_Background2.png"));
     public static final Sprite instructions = new Sprite(new Texture("images/menu/Instructions.png"));
@@ -52,6 +55,7 @@ public class AssetStorage {
     public static final Sprite debug = new Sprite(new Texture("images/worldGeneration/debugHitBox.png"));
     public static final Sprite debris = new Sprite(new Texture("images/collision/debris.png"));
     public static final Sprite singleSparkle = new Sprite(new Texture("images/worldGeneration/singleSparkle.png"));
+    public static final Sprite checkmark = new Sprite(new Texture("images/menu/Checkmark.png"));
 
     /**
      * Constructor creating animations
