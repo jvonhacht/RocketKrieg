@@ -83,6 +83,8 @@ public class Settings implements Screen {
 
         //font.draw(GameEntry.batch, "" + xPos, Gdx.graphics.getWidth()/2 - 80, Gdx.graphics.getHeight()/2 + 20);
         //font.draw(GameEntry.batch, "" + yPos, Gdx.graphics.getWidth()/2 - 80, Gdx.graphics.getHeight()/2 + 40);
+        //font.draw(GameEntry.batch, "" + (Gdx.graphics.getWidth()/2 - settingsBox.getWidth()/2), Gdx.graphics.getWidth()/2 - 80, Gdx.graphics.getHeight()/2 + 80);
+        //font.draw(GameEntry.batch, "" + (Gdx.graphics.getHeight()/2 - settingsBox.getHeight()/2), Gdx.graphics.getWidth()/2 - 80, Gdx.graphics.getHeight()/2 + 100);
         font.draw(GameEntry.batch, "more options to be added", Gdx.graphics.getWidth()/2 - 80, Gdx.graphics.getHeight()/2 + 60);
 
         //Enabling/disabling music
@@ -122,8 +124,8 @@ public class Settings implements Screen {
         }
 
         //Pressing back button
-        if (xPos >= 772  && xPos <= 893){
-            if (yPos <= 682 && yPos >= 660){
+        if (xPos >= (Gdx.graphics.getWidth()/2 - settingsBox.getWidth()/2) + 305  && xPos <= (Gdx.graphics.getWidth()/2 - settingsBox.getWidth()/2) + 530){
+            if (yPos >= (Gdx.graphics.getHeight()/2 - settingsBox.getHeight()/2) + 560 && yPos <= (Gdx.graphics.getHeight()/2 - settingsBox.getHeight()/2) + 584){
                 if (Gdx.input.isTouched()){
                     if(sfxEnabled){
                         soundEffect1.play(1.0f);
