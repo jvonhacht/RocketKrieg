@@ -7,16 +7,10 @@ import com.badlogic.gdx.math.Vector2;
  */
 public class ShipComponent {
     protected String name;
-    protected float[] stats;
+    protected float stats;
 
     public ShipComponent() {
         name = "";
-        /**
-         * index 0 - reload time.
-         * index 1 - speed multiplier.
-         * index 2 - turning speed.
-         */
-        stats = new float[3];
     }
 
     /**
@@ -31,7 +25,7 @@ public class ShipComponent {
      * Get component stats
      * @return stats
      */
-    public float[] getStats() {
+    public float getStats() {
         return stats;
     }
 

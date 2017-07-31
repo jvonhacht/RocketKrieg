@@ -16,7 +16,7 @@ public interface Component {
      * Get component stats
      * @return stats
      */
-    float[] getStats();
+    float getStats();
 
     void fireMissile(Vector2 position, Vector2 velocity, Vector2 acceleration, float angle, float angularVelocity);
 }

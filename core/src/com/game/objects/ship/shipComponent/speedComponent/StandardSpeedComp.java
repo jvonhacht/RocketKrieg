@@ -1,4 +1,7 @@
-package com.game.objects.ship.shipComponent;
+package com.game.objects.ship.shipComponent.speedComponent;
+
+import com.game.objects.ship.shipComponent.Component;
+import com.game.objects.ship.shipComponent.ShipComponent;
 
 /**
  * Created by JohanvonHacht on 2017-07-30.
@@ -6,7 +9,7 @@ package com.game.objects.ship.shipComponent;
 public class StandardSpeedComp extends ShipComponent implements Component {
     public StandardSpeedComp() {
         //reload time
-        stats[1] = 4000f;
+        stats = 4000f;
         name = "Beginner speed upgrade";
     }
 }
