@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 import com.game.AssetStorage;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -62,7 +63,7 @@ public class PlayerSpaceShip extends GameEntity implements Entity {
     /**
      * Render the players ship.
      */
-    public void render(SpriteBatch batch) {
+    public void renderr(SpriteBatch batch, Vector2 position) {
         //System.out.println();
         Sprite img = spaceship;
 
@@ -81,6 +82,8 @@ public class PlayerSpaceShip extends GameEntity implements Entity {
         spaceship.setRotation((float)Math.toDegrees(angle)-90);
         super.render(batch, spaceship);
     }
+
+    public void render(SpriteBatch batch) {}
 
     /**
      * Update ship values based on input.
