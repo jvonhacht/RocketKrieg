@@ -1,5 +1,6 @@
 package com.game.objects.alien;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Polygon;
@@ -62,10 +63,9 @@ public class AlienShip extends GameEntity implements Entity {
 
     /**
      * Update asteroid position.
-     * @param delta time since last frame.
      */
-    public void update(float delta){
-        move(delta);
+    public void update(){
+        move();
 
         //get position of playersip
         Vector2 shipPosition = ship.position;
@@ -78,22 +78,22 @@ public class AlienShip extends GameEntity implements Entity {
         if(distance < 800) {
 
             if (shipPosition.x > position.x) {
-                moveRight(delta);
+                moveRight();
             }
             if (shipPosition.x < position.x) {
-                moveLeft(delta);
+                moveLeft();
             }
             if (shipPosition.y > position.y) {
-                moveUp(delta);
+                moveUp();
             }
             if (shipPosition.y < position.y) {
-                moveDown(delta);
+                moveDown();
             }
         }
 
         //Slow down if too near
         if(distance < 400){
-            brake(delta);
+            brake();
             if(timeElapsed > RELOAD_TIME) {
                 fireLaser(angle);
                 timeElapsed = 0;
@@ -104,27 +104,27 @@ public class AlienShip extends GameEntity implements Entity {
     /**
      * Move right by changing the alien ship velocity.
      */
-    public void moveRight(float delta) {
+    public void moveRight() {
         if(velocity.x < MOVING_SPEED) {
-            velocity.x += ACCELERATION * delta;
+            velocity.x += ACCELERATION * Gdx.graphics.getDeltaTime();
         }
     }
 
     /**
      * Move left by changing the alien ship velocity.
      */
-    public void moveLeft(float delta) {
+    public void moveLeft() {
         if(velocity.x > -1*MOVING_SPEED) {
-            velocity.x -= ACCELERATION * delta;
+            velocity.x -= ACCELERATION * Gdx.graphics.getDeltaTime();
         }
     }
 
     /**
      * Move up by changing the alien ship velocity.
      */
-    public void moveUp(float delta) {
+    public void moveUp() {
         if(velocity.y < MOVING_SPEED) {
-            velocity.y += ACCELERATION * delta;
+            velocity.y += ACCELERATION * Gdx.graphics.getDeltaTime();
         }
     }
 
@@ -132,27 +132,27 @@ public class AlienShip extends GameEntity implements Entity {
     /**
      * Move down by changing the alien ship velocity.
      */
-    public void moveDown(float delta) {
+    public void moveDown() {
         if(velocity.y > -1*MOVING_SPEED) {
-            velocity.y -= ACCELERATION * delta;
+            velocity.y -= ACCELERATION * Gdx.graphics.getDeltaTime();
         }
     }
 
     /**
      * Slow down movement if too near.
      */
-    public void brake(float delta) {
+    public void brake() {
         if(velocity.x > 0) {
-            velocity.x -= 2 * ACCELERATION * delta;
+            velocity.x -= 2 * ACCELERATION * Gdx.graphics.getDeltaTime();
         }
         else{
-            velocity.x += 2 * ACCELERATION * delta;
+            velocity.x += 2 * ACCELERATION * Gdx.graphics.getDeltaTime();
         }
         if(velocity.y > 0) {
-            velocity.y -= 2 * ACCELERATION * delta;
+            velocity.y -= 2 * ACCELERATION * Gdx.graphics.getDeltaTime();
         }
         else{
-            velocity.y += 2 * ACCELERATION * delta;
+            velocity.y += 2 * ACCELERATION * Gdx.graphics.getDeltaTime();
         }
     }
 

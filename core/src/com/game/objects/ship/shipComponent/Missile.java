@@ -1,5 +1,6 @@
 package com.game.objects.ship.shipComponent;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Polygon;
@@ -29,13 +30,13 @@ public class Missile extends GameEntity implements Entity {
      * @param acceleration acceleration
      * @param angle starting angle
      */
-    public Missile(Vector2 position, Vector2 velocity, Vector2 acceleration, float angle, float angularVelocity, float delta) {
+    public Missile(Vector2 position, Vector2 velocity, Vector2 acceleration, float angle, float angularVelocity) {
         float height = 5;
         float width = 15;
         this.position = new Vector2(position.x+5,position.y+35);
         this.velocity = new Vector2(velocity.x,velocity.y);
         this.acceleration = new Vector2(acceleration.x,acceleration.y);
-        this.angle = angle + 3f*(angularVelocity * delta);
+        this.angle = angle + 2f*(angularVelocity * Gdx.graphics.getDeltaTime());
         missile = AssetStorage.missile;
         missile.setRotation(90);
         missile.setSize(width,height);
@@ -57,11 +58,10 @@ public class Missile extends GameEntity implements Entity {
 
     /**
      * Update missile.
-     * @param delta time since last frame.
      */
-    public void update(float delta) {
-        move(delta);
-        accel(delta);
+    public void update() {
+        move();
+        accel();
         if(position.dst(RocketKrieg.getShip().getPosition())>MAX_DISTANCE) {
             ChunkManager.removeEntity(this);
             ChunkManager.addEntity(new CollisionEvent(position.x,position.y));
@@ -71,7 +71,7 @@ public class Missile extends GameEntity implements Entity {
     /**
      * Accelerate forward. 
      */
-    public void accel(float delta) {
-        acceleration.set((float)Math.cos(angle)*SPEED_MULTIPLIER*delta,(float)Math.sin(angle)*SPEED_MULTIPLIER*delta);
+    public void accel() {
+        acceleration.add((float)Math.cos(angle)*SPEED_MULTIPLIER*Gdx.graphics.getDeltaTime(),(float)Math.sin(angle)*SPEED_MULTIPLIER*Gdx.graphics.getDeltaTime());
     }
 }

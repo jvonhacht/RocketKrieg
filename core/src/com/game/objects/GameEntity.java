@@ -1,5 +1,6 @@
 package com.game.objects;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Polygon;
@@ -42,11 +43,10 @@ public class GameEntity{
 
     /**
      * Method to move object.
-     * @param delta time since last frame.
      */
-    public void move(float delta) {
-        velocity.add(acceleration.x*delta,acceleration.y*delta);
-        position.add(velocity.x*delta,velocity.y*delta);
+    public void move() {
+        velocity.add(acceleration.x* Gdx.graphics.getDeltaTime(),acceleration.y*Gdx.graphics.getDeltaTime());
+        position.add(velocity.x*Gdx.graphics.getDeltaTime(),velocity.y*Gdx.graphics.getDeltaTime());
         acceleration.set(0,0);
 
         angle = (float)Math.toRadians((Math.toDegrees(angle) + angularVelocity) % 360);
@@ -54,7 +54,7 @@ public class GameEntity{
         hitbox.setPosition(position.x,position.y);
         hitbox.setRotation((float)Math.toDegrees(angle)-90);
 
-        timeElapsed += delta;
+        timeElapsed += Gdx.graphics.getDeltaTime();
     }
 
     /**

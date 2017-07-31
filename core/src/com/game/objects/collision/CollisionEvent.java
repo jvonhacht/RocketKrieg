@@ -1,5 +1,6 @@
 package com.game.objects.collision;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -57,10 +58,9 @@ public class CollisionEvent implements Entity {
 
     /**
      * Getting the time elapsed.
-     * @param delta time since last frame.
      */
-    public void update(float delta) {
-        timeElapsed += delta;
+    public void update() {
+        timeElapsed += Gdx.graphics.getDeltaTime();
     }
 
     /**

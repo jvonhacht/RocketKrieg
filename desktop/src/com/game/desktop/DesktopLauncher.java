@@ -19,8 +19,11 @@ public class DesktopLauncher {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		config.fullscreen = true;
 		config.vSyncEnabled = false;
+		config.foregroundFPS = 30;
 		config.width = LwjglApplicationConfiguration.getDesktopDisplayMode().width;
 		config.height = LwjglApplicationConfiguration.getDesktopDisplayMode().height;
+		config.allowSoftwareMode = true;
+		config.title = "RocketKrieg";
 		new LwjglApplication(new GameEntry(), config);
 	}
 }

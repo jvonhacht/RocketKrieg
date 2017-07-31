@@ -49,9 +49,8 @@ public class Asteroid extends GameEntity implements Entity{
 
     /**
      * Update asteroid position.
-     * @param delta time since last frame.
      */
-    public void update(float delta){
-        move(delta);
+    public void update(){
+        move();
     }
 }

@@ -99,7 +99,7 @@ public class ChunkManager {
         for (Entity ent:entitiesToRender) {
             //update ship separately to reduce stutter.
             if(!ent.equals(ship)) {
-                ent.update(1f/60f);
+                ent.update();
             }
             ent.render(batch);
         }

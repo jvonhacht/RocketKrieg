@@ -20,11 +20,10 @@ public class DoubleMissileComp extends ShipComponent implements Component {
      * @param acceleration
      * @param angle
      * @param angularVelocity
-     * @param delta
      */
-    public void fireMissile(Vector2 position, Vector2 velocity, Vector2 acceleration, float angle, float angularVelocity, float delta) {
-        Missile missile = new Missile(position,velocity,acceleration,angle - (float)Math.toRadians(10),angularVelocity, delta);
-        Missile missile1 = new Missile(position,velocity,acceleration,angle + (float)Math.toRadians(10),angularVelocity, delta);
+    public void fireMissile(Vector2 position, Vector2 velocity, Vector2 acceleration, float angle, float angularVelocity) {
+        Missile missile = new Missile(position,velocity,acceleration,angle - (float)Math.toRadians(10),angularVelocity);
+        Missile missile1 = new Missile(position,velocity,acceleration,angle + (float)Math.toRadians(10),angularVelocity);
         ChunkManager.addEntity(missile);
         ChunkManager.addEntity(missile1);
     }

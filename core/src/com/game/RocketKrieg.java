@@ -19,7 +19,6 @@ import com.game.worldGeneration.ChunkManager;
 public class RocketKrieg implements Screen {
 	private final GameEntry game;
 	private OrthographicCamera camera;
-	private final float FPS = 60f;
 	private static PlayerSpaceShip ship;
 	private Sprite instructions;
 	private Sprite gameOver;
@@ -73,7 +72,7 @@ public class RocketKrieg implements Screen {
 		cameraPosition.y += (shipPosition.y - cameraPosition.y) * lerp * delta + shipVelocity.y*delta/lerp;
 
 		//update ship
-		ship.update(1f/FPS);
+		ship.update();
 		//render all entities and tiles
 		GameEntry.batch.begin();
 

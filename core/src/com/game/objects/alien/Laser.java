@@ -1,5 +1,6 @@
 package com.game.objects.alien;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Polygon;
@@ -53,17 +54,16 @@ public class Laser extends GameEntity implements Entity {
 
     /**
      * Update movement and acceleration.
-     * @param delta time since last frame.
      */
-    public void update(float delta) {
-        move(delta);
-        accel(delta);
+    public void update() {
+        move();
+        accel();
     }
 
     /**
      * Accelerate forward.
      */
-    public void accel(float delta) {
-        acceleration.set((float)Math.cos(angle)*SPEED_MULTIPLIER*delta,(float)Math.sin(angle)*SPEED_MULTIPLIER*delta);
+    public void accel() {
+        acceleration.set((float)Math.cos(angle)*SPEED_MULTIPLIER* Gdx.graphics.getDeltaTime(),(float)Math.sin(angle)*SPEED_MULTIPLIER*Gdx.graphics.getDeltaTime());
     }
 }

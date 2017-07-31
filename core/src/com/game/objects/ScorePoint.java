@@ -43,9 +43,8 @@ public class ScorePoint extends GameEntity implements Entity {
 
     /**
      * Update the ScorePoint.
-     * @param delta time since last frame.
      */
-    public void update(float delta) {
-        move(delta);
+    public void update() {
+        move();
     }
 }

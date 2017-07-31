@@ -18,9 +18,8 @@ public interface Entity {
 
     /**
      * Move entity based on velocity etc.
-     * @param delta time since last frame.
      */
-    void update(float delta);
+    void update();
 
     /**
      * Return position of entity.
