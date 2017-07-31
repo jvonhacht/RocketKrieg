@@ -32,7 +32,7 @@ public class RocketKrieg implements Screen {
 	private static boolean playerState;
 
 	private double time = 0.0;
-    private double tick = 1/300f;
+	private double tick = 1/300f;
 	private double accumulator = 0.0;
 	private Vector2 prevPos;
 	private Vector2 currentPos;
