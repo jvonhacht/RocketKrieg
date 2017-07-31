@@ -31,7 +31,7 @@ public class RocketKrieg implements Screen {
 	private static boolean playerState;
 
 	private double time = 0.0;
-    private double tick = 1/100f;
+    private double tick = 1/300f;
 	private double accumulator = 0.0;
 	private int maxUpdatesPerFrame = 5;
 
@@ -78,10 +78,12 @@ public class RocketKrieg implements Screen {
 
 		//render all entities and tiles
 		GameEntry.batch.begin();
-		accumulator += Gdx.graphics. getDeltaTime();
-		int updatesThisFrame = 0;
+		float frameTime = Gdx.graphics.getDeltaTime();
+		if(frameTime>0.25) {
+			frameTime = 0.25f;
+		}
+		accumulator += frameTime;
 		while (accumulator >= tick) {
-			System.out.println(accumulator);
 			cm.render(true,(float)tick);
 			accumulator -= tick;
 			time += tick;
