@@ -35,7 +35,7 @@ public class ShipComponent {
         return stats;
     }
 
-    public void fireMissile(Vector2 position, Vector2 velocity, Vector2 acceleration, float angle, float angularVelocity, float delta) {
+    public void fireMissile(Vector2 position, Vector2 velocity, Vector2 acceleration, float angle, float angularVelocity) {
         //do nothing.
     }
 }

@@ -1,5 +1,6 @@
 package com.game.objects.alien;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Polygon;
@@ -23,8 +24,8 @@ public class AlienShipSpecial extends GameEntity implements Entity {
     private float sizeX;
     private float sizeY;
     private PlayerSpaceShip ship;
-    private final float movingSpeed = 120F;
-    private final float acceleration = 120F;
+    private final float movingSpeed = 40;
+    private final float acceleration = 80f;
 
     /**
      * Constructor of AlienShipSpecial entity.
@@ -63,7 +64,6 @@ public class AlienShipSpecial extends GameEntity implements Entity {
 
     /**
      * Update asteroid position.
-     * @param delta time since last frame.
      */
     public void update(float delta){
         move(delta);
@@ -103,7 +103,7 @@ public class AlienShipSpecial extends GameEntity implements Entity {
      * Move left by changing the alien ship velocity.
      */
     public void moveLeft(float delta) {
-        if(velocity.x > -1*movingSpeed) {
+        if(velocity.x > -movingSpeed) {
             velocity.x -= acceleration * delta;
         }
     }
@@ -121,7 +121,7 @@ public class AlienShipSpecial extends GameEntity implements Entity {
      * Move down by changing the alien ship velocity.
      */
     public void moveDown(float delta) {
-        if(velocity.y > -1*movingSpeed) {
+        if(velocity.y > -movingSpeed) {
             velocity.y -= acceleration * delta;
         }
     }

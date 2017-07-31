@@ -6,7 +6,7 @@ package com.game.objects.ship.shipComponent;
 public class StandardTurningSpeedComp extends ShipComponent implements Component {
     public StandardTurningSpeedComp() {
         //reload time
-        stats[2] = 3f;
+        stats[2] = 250f;
         name = "Beginner turning speed upgrade";
     }
 }

@@ -40,7 +40,7 @@ public class ChunkManager {
     /**
      * Method to render and update everything in the world.
      */
-    public void render() {
+    public void render(boolean update, float delta) {
         Vector2 position = ship.getPosition();
         int x = (int)position.x;
         int y = (int)position.y;
@@ -95,13 +95,16 @@ public class ChunkManager {
                 chunks.put(Chunkpair,chunk);
             }
         }
-        //render and update the entity que.
-        for (Entity ent:entitiesToRender) {
-            //update ship separately to reduce stutter.
-            if(!ent.equals(ship)) {
-                ent.update(1f/60f);
+        if(update) {
+            //render and update the entity que.
+            for (Entity ent:entitiesToRender) {
+                ent.update(delta);
             }
-            ent.render(batch);
+        } else {
+            //render and update the entity que.
+            for (Entity ent:entitiesToRender) {
+                ent.render(batch);
+            }
         }
     }
 

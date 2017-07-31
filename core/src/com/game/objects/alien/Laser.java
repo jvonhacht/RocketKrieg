@@ -1,5 +1,6 @@
 package com.game.objects.alien;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Polygon;
@@ -15,7 +16,7 @@ import com.game.objects.GameEntity;
  *  @version 1.0 (2017-05-10)
  */
 public class Laser extends GameEntity implements Entity {
-    private final float SPEED_MULTIPLIER = 10000;
+    private final float SPEED_MULTIPLIER = 7500f;
     private Sprite laser;
 
     /**
@@ -53,7 +54,6 @@ public class Laser extends GameEntity implements Entity {
 
     /**
      * Update movement and acceleration.
-     * @param delta time since last frame.
      */
     public void update(float delta) {
         move(delta);

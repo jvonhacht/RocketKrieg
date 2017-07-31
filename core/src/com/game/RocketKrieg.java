@@ -6,6 +6,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.game.objects.ship.PlayerSpaceShip;
@@ -19,7 +20,6 @@ import com.game.worldGeneration.ChunkManager;
 public class RocketKrieg implements Screen {
 	private final GameEntry game;
 	private OrthographicCamera camera;
-	private final float FPS = 60f;
 	private static PlayerSpaceShip ship;
 	private Sprite instructions;
 	private Sprite gameOver;
@@ -30,6 +30,12 @@ public class RocketKrieg implements Screen {
 	private static float timeElapsed;
 	private boolean startPhase;
 	private static boolean playerState;
+
+	private double time = 0.0;
+    private double tick = 1/300f;
+	private double accumulator = 0.0;
+	private Vector2 prevPos;
+	private Vector2 currentPos;
 
 	/**
 	 * Constructor for RocketKrieg screen.
@@ -72,12 +78,28 @@ public class RocketKrieg implements Screen {
 		cameraPosition.x += (shipPosition.x - cameraPosition.x) * lerp * delta + shipVelocity.x*delta/lerp;
 		cameraPosition.y += (shipPosition.y - cameraPosition.y) * lerp * delta + shipVelocity.y*delta/lerp;
 
-		//update ship
-		ship.update(1f/FPS);
-		//render all entities and tiles
+		//fixed step update and rendering
 		GameEntry.batch.begin();
-
-		cm.render();
+		float frameTime = Gdx.graphics.getDeltaTime();
+		if(frameTime>0.25) {
+			frameTime = 0.25f;
+		}
+		accumulator += frameTime;
+		while (accumulator >= tick) {
+			prevPos = ship.getPosition();
+			cm.render(true,(float)tick);
+			accumulator -= tick;
+			time += tick;
+		}
+		cm.render(false,1);
+		//interpolate ship
+		float alpha = (float)(accumulator/tick);
+		currentPos = ship.getPosition();
+		Vector2 lerpPosition = prevPos.interpolate(currentPos,alpha, Interpolation.linear);
+		if(!playerState) {
+			ship.renderr(GameEntry.batch, lerpPosition);
+		}
+		//draw score
 		GameEntry.font.draw(GameEntry.batch, "Score: " + score,cameraPosition.x, cameraPosition.y + Gdx.graphics.getHeight()/2 -50);
 
 		//draw instructions
@@ -113,6 +135,10 @@ public class RocketKrieg implements Screen {
 			}
 		}
 		timeElapsed += delta;
+	}
+
+	public static float getDelta() {
+		return Gdx.graphics.getDeltaTime();
 	}
 
 	/**

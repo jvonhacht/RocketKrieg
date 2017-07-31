@@ -1,5 +1,6 @@
 package com.game.objects.alien;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Polygon;
@@ -22,9 +23,9 @@ public class AlienShip extends GameEntity implements Entity {
     private float sizeX;
     private float sizeY;
     private PlayerSpaceShip ship;
-    private final float MOVING_SPEED = 100F;
-    private final float ACCELERATION = 50F;
-    private final float RELOAD_TIME = 2F;
+    private final float MOVING_SPEED = 40f;
+    private final float ACCELERATION = 80f;
+    private final float RELOAD_TIME = 2f;
 
 
     /**
@@ -62,7 +63,6 @@ public class AlienShip extends GameEntity implements Entity {
 
     /**
      * Update asteroid position.
-     * @param delta time since last frame.
      */
     public void update(float delta){
         move(delta);
@@ -106,7 +106,7 @@ public class AlienShip extends GameEntity implements Entity {
      */
     public void moveRight(float delta) {
         if(velocity.x < MOVING_SPEED) {
-            velocity.x += ACCELERATION * delta;
+            velocity.x += ACCELERATION*delta;
         }
     }
 
@@ -115,7 +115,7 @@ public class AlienShip extends GameEntity implements Entity {
      */
     public void moveLeft(float delta) {
         if(velocity.x > -1*MOVING_SPEED) {
-            velocity.x -= ACCELERATION * delta;
+            velocity.x -= ACCELERATION*delta;
         }
     }
 
@@ -124,7 +124,7 @@ public class AlienShip extends GameEntity implements Entity {
      */
     public void moveUp(float delta) {
         if(velocity.y < MOVING_SPEED) {
-            velocity.y += ACCELERATION * delta;
+            velocity.y += ACCELERATION*delta;
         }
     }
 
@@ -134,7 +134,7 @@ public class AlienShip extends GameEntity implements Entity {
      */
     public void moveDown(float delta) {
         if(velocity.y > -1*MOVING_SPEED) {
-            velocity.y -= ACCELERATION * delta;
+            velocity.y -= ACCELERATION*delta;
         }
     }
 
@@ -143,16 +143,16 @@ public class AlienShip extends GameEntity implements Entity {
      */
     public void brake(float delta) {
         if(velocity.x > 0) {
-            velocity.x -= 2 * ACCELERATION * delta;
+            velocity.x -= 2 * ACCELERATION*delta;
         }
         else{
-            velocity.x += 2 * ACCELERATION * delta;
+            velocity.x += 2 * ACCELERATION*delta;
         }
         if(velocity.y > 0) {
-            velocity.y -= 2 * ACCELERATION * delta;
+            velocity.y -= 2 * ACCELERATION*delta;
         }
         else{
-            velocity.y += 2 * ACCELERATION * delta;
+            velocity.y += 2 * ACCELERATION*delta;
         }
     }
 

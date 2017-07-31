@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.game.GameEntry;
 
+import com.game.RocketKrieg;
 import com.game.objects.Entity;
 import com.game.objects.GameEntity;
 import com.game.objects.ship.shipComponent.*;
@@ -28,7 +29,7 @@ public class PlayerSpaceShip extends GameEntity implements Entity {
     private Component weaponComponent;
     private Component speedComponent;
     private Component turningComponent;
-    private float MAX_ANGULARVELOCITY = 10f;
+    private float MAX_ANGULARVELOCITY = 1000f;
     //Textures
     private Sprite spaceship;
     private Animation<TextureRegion> animation;
@@ -62,6 +63,7 @@ public class PlayerSpaceShip extends GameEntity implements Entity {
      * Render the players ship.
      */
     public void render(SpriteBatch batch) {
+        //System.out.println();
         Sprite img = spaceship;
 
         if(Gdx.input.isKeyPressed(Input.Keys.W)) {
@@ -82,7 +84,6 @@ public class PlayerSpaceShip extends GameEntity implements Entity {
 
     /**
      * Update ship values based on input.
-     * @param delta time since last frame
      */
     public void update(float delta) {
         move(delta);
@@ -98,20 +99,20 @@ public class PlayerSpaceShip extends GameEntity implements Entity {
             turnRight(delta);
         }
         if(Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
-            fireMissile(delta);
+            fireMissile();
         }
         //reset position to center of the screen.
         if(Gdx.input.isKeyPressed(Input.Keys.R)) {
-            setPos(Gdx.graphics.getWidth()/2,Gdx.graphics.getHeight()/2);
+            setPos(0,0);
         }
     }
 
     /**
      * Fire a missile.
      */
-    public void fireMissile(float delta) {
+    public void fireMissile() {
         if(timeElapsed > weaponComponent.getStats()[0]) {
-            weaponComponent.fireMissile(position,velocity,acceleration,angle,angularVelocity, delta);
+            weaponComponent.fireMissile(position,velocity,acceleration,angle,angularVelocity);
             timeElapsed = 0;
         }
     }
@@ -139,6 +140,7 @@ public class PlayerSpaceShip extends GameEntity implements Entity {
      */
     public void accel(float delta) {
         float SPEED_MULTIPLIER = speedComponent.getStats()[1];
-        acceleration.set((float)Math.cos(angle)*SPEED_MULTIPLIER*delta,(float)Math.sin(angle)*SPEED_MULTIPLIER*delta);
+        acceleration.add((float)Math.cos(angle)*SPEED_MULTIPLIER*delta,
+                (float)Math.sin(angle)*SPEED_MULTIPLIER*delta);
     }
 }
