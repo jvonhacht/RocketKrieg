@@ -45,8 +45,8 @@ public class GameEntity{
      * Method to move object.
      */
     public void move() {
-        velocity.add(acceleration.x,acceleration.y);
-        position.add(velocity.x*Gdx.graphics.getDeltaTime(),velocity.y*Gdx.graphics.getDeltaTime());
+        velocity.add(acceleration.x*Gdx.graphics.getDeltaTime(),acceleration.y*Gdx.graphics.getDeltaTime());
+        position.add(velocity.x/30,velocity.y/30);
         acceleration.set(0,0);
 
         angle = (float)Math.toRadians((Math.toDegrees(angle) + angularVelocity*Gdx.graphics.getDeltaTime()) % 360);

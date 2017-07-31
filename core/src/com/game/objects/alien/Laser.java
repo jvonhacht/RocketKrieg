@@ -16,7 +16,7 @@ import com.game.objects.GameEntity;
  *  @version 1.0 (2017-05-10)
  */
 public class Laser extends GameEntity implements Entity {
-    private final float SPEED_MULTIPLIER = 5f;
+    private final float SPEED_MULTIPLIER = 7500f;
     private Sprite laser;
 
     /**
@@ -64,6 +64,6 @@ public class Laser extends GameEntity implements Entity {
      * Accelerate forward.
      */
     public void accel() {
-        acceleration.set((float)Math.cos(angle)*SPEED_MULTIPLIER,(float)Math.sin(angle)*SPEED_MULTIPLIER);
+        acceleration.set((float)Math.cos(angle)*SPEED_MULTIPLIER*Gdx.graphics.getDeltaTime(),(float)Math.sin(angle)*SPEED_MULTIPLIER*Gdx.graphics.getDeltaTime());
     }
 }

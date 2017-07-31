@@ -24,8 +24,8 @@ public class AlienShipSpecial extends GameEntity implements Entity {
     private float sizeX;
     private float sizeY;
     private PlayerSpaceShip ship;
-    private final float movingSpeed = 120F;
-    private final float acceleration = 120F;
+    private final float movingSpeed = 40;
+    private final float acceleration = 80f;
 
     /**
      * Constructor of AlienShipSpecial entity.
@@ -103,7 +103,7 @@ public class AlienShipSpecial extends GameEntity implements Entity {
      * Move left by changing the alien ship velocity.
      */
     public void moveLeft() {
-        if(velocity.x > -1*movingSpeed) {
+        if(velocity.x > -movingSpeed) {
             velocity.x -= acceleration * Gdx.graphics.getDeltaTime();
         }
     }
@@ -121,7 +121,7 @@ public class AlienShipSpecial extends GameEntity implements Entity {
      * Move down by changing the alien ship velocity.
      */
     public void moveDown() {
-        if(velocity.y > -1*movingSpeed) {
+        if(velocity.y > -movingSpeed) {
             velocity.y -= acceleration * Gdx.graphics.getDeltaTime();
         }
     }

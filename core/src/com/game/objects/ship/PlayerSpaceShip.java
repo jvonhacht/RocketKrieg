@@ -138,6 +138,7 @@ public class PlayerSpaceShip extends GameEntity implements Entity {
      */
     public void accel() {
         float SPEED_MULTIPLIER = speedComponent.getStats()[1];
-        acceleration.add((float)Math.cos(angle)*SPEED_MULTIPLIER,(float)Math.sin(angle)*SPEED_MULTIPLIER);
+        acceleration.add((float)Math.cos(angle)*SPEED_MULTIPLIER*Gdx.graphics.getDeltaTime(),
+                (float)Math.sin(angle)*SPEED_MULTIPLIER*Gdx.graphics.getDeltaTime());
     }
 }

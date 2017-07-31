@@ -19,8 +19,8 @@ import com.game.worldGeneration.ChunkManager;
  *  @version 1.0 (2017-05-08)
  */
 public class Missile extends GameEntity implements Entity {
-    private final float SPEED_MULTIPLIER = 5f;
-    private final float MAX_DISTANCE = 1200;
+    private final float SPEED_MULTIPLIER = 7500f;
+    private final float MAX_DISTANCE = 1200f;
     private Sprite missile;
 
     /**
@@ -36,7 +36,7 @@ public class Missile extends GameEntity implements Entity {
         this.position = new Vector2(position.x+5,position.y+35);
         this.velocity = new Vector2(velocity.x,velocity.y);
         this.acceleration = new Vector2(acceleration.x,acceleration.y);
-        this.angle = angle + 2f*(angularVelocity * Gdx.graphics.getDeltaTime());
+        this.angle = angle;
         missile = AssetStorage.missile;
         missile.setRotation(90);
         missile.setSize(width,height);
@@ -72,6 +72,6 @@ public class Missile extends GameEntity implements Entity {
      * Accelerate forward. 
      */
     public void accel() {
-        acceleration.add((float)Math.cos(angle)*SPEED_MULTIPLIER,(float)Math.sin(angle)*SPEED_MULTIPLIER);
+        acceleration.add((float)Math.cos(angle)*SPEED_MULTIPLIER*Gdx.graphics.getDeltaTime(),(float)Math.sin(angle)*SPEED_MULTIPLIER*Gdx.graphics.getDeltaTime());
     }
 }
