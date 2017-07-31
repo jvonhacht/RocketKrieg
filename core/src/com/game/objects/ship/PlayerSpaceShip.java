@@ -120,7 +120,7 @@ public class PlayerSpaceShip extends GameEntity implements Entity {
      */
     public void turnRight() {
         if(angularVelocity<MAX_ANGULARVELOCITY) {
-            angularVelocity += turningComponent.getStats()[2]*Gdx.graphics.getDeltaTime();;
+            angularVelocity += turningComponent.getStats()[2]*Gdx.graphics.getDeltaTime();
         }
     }
 
@@ -129,7 +129,7 @@ public class PlayerSpaceShip extends GameEntity implements Entity {
      */
     public void turnLeft() {
         if(angularVelocity>-MAX_ANGULARVELOCITY) {
-            angularVelocity -= turningComponent.getStats()[2]*Gdx.graphics.getDeltaTime();;
+            angularVelocity -= turningComponent.getStats()[2]*Gdx.graphics.getDeltaTime();
         }
     }
 
@@ -138,6 +138,6 @@ public class PlayerSpaceShip extends GameEntity implements Entity {
      */
     public void accel() {
         float SPEED_MULTIPLIER = speedComponent.getStats()[1];
-        acceleration.set((float)Math.cos(angle)*SPEED_MULTIPLIER*Gdx.graphics.getDeltaTime(),(float)Math.sin(angle)*SPEED_MULTIPLIER*Gdx.graphics.getDeltaTime());
+        acceleration.add((float)Math.cos(angle)*SPEED_MULTIPLIER,(float)Math.sin(angle)*SPEED_MULTIPLIER);
     }
 }

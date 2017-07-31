@@ -45,7 +45,7 @@ public class GameEntity{
      * Method to move object.
      */
     public void move() {
-        velocity.add(acceleration.x* Gdx.graphics.getDeltaTime(),acceleration.y*Gdx.graphics.getDeltaTime());
+        velocity.add(acceleration.x,acceleration.y);
         position.add(velocity.x*Gdx.graphics.getDeltaTime(),velocity.y*Gdx.graphics.getDeltaTime());
         acceleration.set(0,0);
 

@@ -23,9 +23,9 @@ public class AlienShip extends GameEntity implements Entity {
     private float sizeX;
     private float sizeY;
     private PlayerSpaceShip ship;
-    private final float MOVING_SPEED = 100F;
-    private final float ACCELERATION = 50F;
-    private final float RELOAD_TIME = 2F;
+    private final float MOVING_SPEED = 2f;
+    private final float ACCELERATION = 20f;
+    private final float RELOAD_TIME = 2f;
 
 
     /**
@@ -106,7 +106,7 @@ public class AlienShip extends GameEntity implements Entity {
      */
     public void moveRight() {
         if(velocity.x < MOVING_SPEED) {
-            velocity.x += ACCELERATION * Gdx.graphics.getDeltaTime();
+            velocity.x += ACCELERATION;
         }
     }
 
@@ -115,7 +115,7 @@ public class AlienShip extends GameEntity implements Entity {
      */
     public void moveLeft() {
         if(velocity.x > -1*MOVING_SPEED) {
-            velocity.x -= ACCELERATION * Gdx.graphics.getDeltaTime();
+            velocity.x -= ACCELERATION;
         }
     }
 
@@ -124,7 +124,7 @@ public class AlienShip extends GameEntity implements Entity {
      */
     public void moveUp() {
         if(velocity.y < MOVING_SPEED) {
-            velocity.y += ACCELERATION * Gdx.graphics.getDeltaTime();
+            velocity.y += ACCELERATION;
         }
     }
 
@@ -134,7 +134,7 @@ public class AlienShip extends GameEntity implements Entity {
      */
     public void moveDown() {
         if(velocity.y > -1*MOVING_SPEED) {
-            velocity.y -= ACCELERATION * Gdx.graphics.getDeltaTime();
+            velocity.y -= ACCELERATION;
         }
     }
 
@@ -143,16 +143,16 @@ public class AlienShip extends GameEntity implements Entity {
      */
     public void brake() {
         if(velocity.x > 0) {
-            velocity.x -= 2 * ACCELERATION * Gdx.graphics.getDeltaTime();
+            velocity.x -= 2 * ACCELERATION;
         }
         else{
-            velocity.x += 2 * ACCELERATION * Gdx.graphics.getDeltaTime();
+            velocity.x += 2 * ACCELERATION;
         }
         if(velocity.y > 0) {
-            velocity.y -= 2 * ACCELERATION * Gdx.graphics.getDeltaTime();
+            velocity.y -= 2 * ACCELERATION;
         }
         else{
-            velocity.y += 2 * ACCELERATION * Gdx.graphics.getDeltaTime();
+            velocity.y += 2 * ACCELERATION;
         }
     }
 
