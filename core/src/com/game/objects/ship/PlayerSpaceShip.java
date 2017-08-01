@@ -22,8 +22,7 @@ import com.game.objects.ship.shipComponent.speedComponent.SpeedComponentMk1;
 import com.game.objects.ship.shipComponent.speedComponent.SpeedComponentMk5;
 import com.game.objects.ship.shipComponent.turningComponent.TurningComponentMk1;
 import com.game.objects.ship.shipComponent.turningComponent.TurningComponentMk5;
-import com.game.objects.ship.shipComponent.weaponComponent.DoubleMissileComp;
-import com.game.objects.ship.shipComponent.weaponComponent.SingleMissileComp;
+import com.game.objects.ship.shipComponent.weaponComponent.*;
 
 /**
  *  PlayerSpaceShip entity class.
@@ -50,7 +49,7 @@ public class PlayerSpaceShip extends GameEntity implements Entity {
      */
     public PlayerSpaceShip() {
         super();
-        weaponComponent = new DoubleMissileComp();
+        weaponComponent = new SideMissileComp();
         speedComponent = new SpeedComponentMk5();
         turningComponent = new TurningComponentMk5();
         shieldComponent = new StandardShieldComp();
