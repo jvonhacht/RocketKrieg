@@ -160,6 +160,14 @@ public class RocketKrieg implements Screen {
 	}
 
 	/**
+	 * Get player score
+	 * @return score
+	 */
+	public static int getScore() {
+		return score;
+	}
+
+	/**
 	 * Indicate that player is dead
 	 */
 	public static void playerDead(){

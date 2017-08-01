@@ -3,6 +3,7 @@ package com.game.worldGeneration;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.game.AssetStorage;
+import com.game.RocketKrieg;
 import com.game.objects.*;
 import com.game.objects.alien.AlienShip;
 import com.game.objects.alien.AlienShipSpecial;
@@ -34,16 +35,25 @@ public class Tile {
 
         //choose random entity
         if(percent <= 75){
-            tileEntities.add(new Asteroid(x, y));
+            for (int i = 0; (i<(RocketKrieg.getScore()/10) && i<5) || i<1; i++) {
+                tileEntities.add(new Asteroid(x + rand.nextInt(2*TILE_SIZE), y + rand.nextInt(2*TILE_SIZE)));
+            }
         }
         else if(percent <= 85){
-            tileEntities.add(new AlienShip(x, y));
+            for (int i = 0; (i<(RocketKrieg.getScore()/15) && i<5) || i<1; i++) {
+                tileEntities.add(new AlienShip(x + rand.nextInt(2*TILE_SIZE), y + rand.nextInt(2*TILE_SIZE)));
+            }
         }
         else if(percent <= 90){
-            tileEntities.add(new AlienShipSpecial(x, y));
+            for (int i = 0; (i<(RocketKrieg.getScore()/15) && i<5) || i<1; i++) {
+                tileEntities.add(new AlienShipSpecial(x + rand.nextInt(2*TILE_SIZE), y + rand.nextInt(2*TILE_SIZE)));
+            }
         }
         else if(percent <= 95){
-            tileEntities.add(new ScorePoint(x,y));
+            tileEntities.add(new ScorePoint(x + rand.nextInt(TILE_SIZE), y + rand.nextInt(TILE_SIZE)));
+            tileEntities.add(new ScorePoint(x + rand.nextInt(TILE_SIZE), y + rand.nextInt(TILE_SIZE)));
+            tileEntities.add(new ScorePoint(x + rand.nextInt(TILE_SIZE), y + rand.nextInt(TILE_SIZE)));
+            tileEntities.add(new ScorePoint(x + rand.nextInt(TILE_SIZE), y + rand.nextInt(TILE_SIZE)));
         }
         else{
             tileEntities.add(new Planet(x, y));
