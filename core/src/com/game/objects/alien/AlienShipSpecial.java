@@ -24,8 +24,8 @@ public class AlienShipSpecial extends GameEntity implements Entity {
     private float sizeX;
     private float sizeY;
     private PlayerSpaceShip ship;
-    private final float movingSpeed = 40;
-    private final float acceleration = 80f;
+    private final float movingSpeed = 120f;
+    private final float acceleration = 150f;
 
     /**
      * Constructor of AlienShipSpecial entity.

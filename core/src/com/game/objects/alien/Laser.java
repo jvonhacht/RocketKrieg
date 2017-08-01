@@ -16,7 +16,7 @@ import com.game.objects.GameEntity;
  *  @version 1.0 (2017-05-10)
  */
 public class Laser extends GameEntity implements Entity {
-    private final float SPEED_MULTIPLIER = 7500f;
+    private final float SPEED_MULTIPLIER = 10000f;
     private Sprite laser;
 
     /**
@@ -30,8 +30,8 @@ public class Laser extends GameEntity implements Entity {
         float height = 5;
         float width = 15;
         this.position = new Vector2(position.x + 5, position.y + 35);
-        this.velocity = new Vector2(velocity.x, velocity.y);
-        this.acceleration = new Vector2(acceleration.x, acceleration.y);
+        this.velocity = new Vector2(velocity.x*Gdx.graphics.getDeltaTime(), velocity.y*Gdx.graphics.getDeltaTime());
+        this.acceleration = new Vector2(0,0);
         this.angle = angle;
         laser = AssetStorage.laser;
         laser.setRotation((float) Math.toDegrees(angle));
