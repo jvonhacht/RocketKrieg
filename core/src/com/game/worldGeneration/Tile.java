@@ -7,6 +7,7 @@ import com.game.objects.*;
 import com.game.objects.alien.AlienShip;
 import com.game.objects.alien.AlienShipSpecial;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 /**
@@ -19,7 +20,7 @@ public class Tile {
     public static final int TILE_SIZE = 512;
     private Vector2 position;
     private Random rand = new Random();
-    private Entity entity;
+    private ArrayList<Entity> tileEntities;
 
     /**
      * Constructor for Tile.
@@ -28,23 +29,24 @@ public class Tile {
      */
     public Tile(int x, int y) {
         //generate random percent
+        tileEntities = new ArrayList<Entity>();
         int percent = rand.nextInt(100);
 
         //choose random entity
         if(percent <= 75){
-            entity = new Asteroid(x, y);
+            tileEntities.add(new Asteroid(x, y));
         }
         else if(percent <= 85){
-            entity = new AlienShip(x, y);
+            tileEntities.add(new AlienShip(x, y));
         }
         else if(percent <= 90){
-            entity = new AlienShipSpecial(x, y);
+            tileEntities.add(new AlienShipSpecial(x, y));
         }
         else if(percent <= 95){
-            entity = new ScorePoint(x,y);
+            tileEntities.add(new ScorePoint(x,y));
         }
         else{
-            entity = new Planet(x, y);
+            tileEntities.add(new Planet(x, y));
         }
 
         int percent2 = rand.nextInt(100);
@@ -90,5 +92,5 @@ public class Tile {
      * Get tile entity.
      * @return entity
      */
-    public Entity getEntity() {return entity;}
+    public ArrayList<Entity> getEntity() {return tileEntities;}
 }
