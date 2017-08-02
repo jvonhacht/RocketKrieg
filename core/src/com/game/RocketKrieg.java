@@ -102,6 +102,8 @@ public class RocketKrieg implements Screen {
 		//draw score
 		GameEntry.font.draw(GameEntry.batch, "Score: " + score,cameraPosition.x, cameraPosition.y + Gdx.graphics.getHeight()/2 -50);
 
+		GameEntry.font.draw(GameEntry.batch,"Shield Charges: " + Integer.toString(ship.getShieldCharge()),cameraPosition.x, cameraPosition.y + Gdx.graphics.getHeight()/2 -75);
+
 		//draw instructions
 		if(startPhase && !playerState) {
 			GameEntry.batch.draw(instructions, ship.getPosition().x, ship.getPosition().y - instructions.getHeight() / 2);
@@ -171,8 +173,13 @@ public class RocketKrieg implements Screen {
 	 * Indicate that player is dead
 	 */
 	public static void playerDead(){
-		timeElapsed = 0;
-		playerState = true;
+		if(ship.getShieldCharge()>0) {
+			ship.reduceShieldCharge();
+		} else {
+			ChunkManager.removeEntity(ship);
+			playerState = true;
+			timeElapsed = 0;
+		}
 	}
 
 	/**

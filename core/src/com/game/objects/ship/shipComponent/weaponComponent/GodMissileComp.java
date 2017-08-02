@@ -10,9 +10,9 @@ import com.sun.tools.javac.code.Symbol;
 /**
  * Created by JohanvonHacht on 2017-08-01.
  */
-public class GodMissileComp extends ShipComponent implements Component {
+public class GodMissileComp extends WeaponComponent implements WeaponComponentInterface {
     public GodMissileComp() {
-        name = "Double missile upgrade";
+        name = "God missile upgrade";
     }
 
     /**

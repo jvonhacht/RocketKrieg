@@ -36,8 +36,11 @@ public class CollisionManager {
                     if(((ent1 instanceof PlayerSpaceShip && ent2 instanceof Missile) || (ent1 instanceof Missile && ent2 instanceof PlayerSpaceShip) || (ent1 instanceof Missile && ent2 instanceof Missile))) {
                         //missile should not blow up ship or each other, do nothing.
                     } else if(ent1 instanceof PlayerSpaceShip && !(ent2 instanceof ScorePoint || ent2 instanceof Planet) || (ent2 instanceof PlayerSpaceShip && !(ent1 instanceof ScorePoint || ent1 instanceof Planet))) {
-                        entities.remove(j);
-                        entities.remove(i);
+                        if(ent1 instanceof  PlayerSpaceShip) {
+                            entities.remove(j);
+                        } else {
+                            entities.remove(i);
+                        }
                         collisionEvent(ent1,ent2, entities);
                         RocketKrieg.playerDead();
                     } else if((ent1 instanceof Planet && !(ent2 instanceof PlayerSpaceShip)) || (ent2 instanceof Planet && !(ent1 instanceof PlayerSpaceShip))) {

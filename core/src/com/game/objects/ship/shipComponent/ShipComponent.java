@@ -28,8 +28,4 @@ public class ShipComponent {
     public float getStats() {
         return stats;
     }
-
-    public void fireMissile(Vector2 position, Vector2 velocity, Vector2 acceleration, float angle, float angularVelocity) {
-        //do nothing.
-    }
 }
