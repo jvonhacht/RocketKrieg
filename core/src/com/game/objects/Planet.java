@@ -35,18 +35,19 @@ public class Planet extends GameEntity implements Entity{
         sizeY = size;
 
         //set properties
-        int rand = MathUtils.random(100);
-        if(rand<25) {
+        int randomNumber = MathUtils.random(100);
+        if(randomNumber<25) {
             planet = AssetStorage.planet;
-        } else if(rand<50) {
+        } else if(randomNumber<50) {
             planet = AssetStorage.planet1;
-        } else if(rand<75){
+        } else if(randomNumber<75){
             planet = AssetStorage.planet2;
         } else {
             planet = AssetStorage.planet3;
         }
         //animation = AssetStorage.atmosphereAnimation;
         position.set(x , y );
+        angle = rand.nextInt(361);
 
         //setup hitbox
         Rectangle bounds =  new Rectangle(position.x, position.y, sizeX, sizeY);
