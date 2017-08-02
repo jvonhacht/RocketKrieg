@@ -1,7 +1,10 @@
 package com.game.worldGeneration;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.game.GameEntry;
 import com.game.objects.*;
 import com.game.objects.collision.CollisionManager;
@@ -22,13 +25,15 @@ public class ChunkManager {
     private Pair[] renderCloseAnchor;
     private CollisionManager colHandler;
     private PlayerSpaceShip ship;
+    private OrthographicCamera camera;
 
     /**
      * Constructor for ChunkManager.
      * @param ship PlayerSpaceShip
      */
-    public ChunkManager(PlayerSpaceShip ship) {
+    public ChunkManager(PlayerSpaceShip ship, OrthographicCamera camera) {
         batch = GameEntry.batch;
+        this.camera = camera;
         this.ship = ship;
         chunks = new HashMap<Pair,Chunk>();
         renderCloseAnchor = new Pair[9];
@@ -41,32 +46,83 @@ public class ChunkManager {
      * Method to render and update everything in the world.
      */
     public void render(boolean update, float delta) {
-        Vector2 position = ship.getPosition();
-        int x = (int)position.x;
-        int y = (int)position.y;
+        Vector3 camPosition = camera.position;
+        Vector2 position = new Vector2(camPosition.x,camPosition.y);
+
+        //Up side
+        Vector2 downSide = new Vector2();
+        downSide.x = position.x;
+        downSide.y = position.y + Gdx.graphics.getWidth()/2;
+
+        //Down side
+        Vector2 upSide = new Vector2();
+        upSide.x = position.x;
+        upSide.y = position.y - Gdx.graphics.getWidth()/2;
+
+        //Right side
+        Vector2 rightSide = new Vector2();
+        rightSide.x = position.x + Gdx.graphics.getWidth()/2;
+        rightSide.y = position.y;
+
+        //Right corner up
+        Vector2 rightSideUp = new Vector2();
+        rightSideUp.x = position.x + Gdx.graphics.getWidth()/2;
+        rightSideUp.y = position.y + Gdx.graphics.getHeight()/2;
+
+        //Right corner down
+        Vector2 rightSideDown = new Vector2();
+        rightSideDown.x = position.x + Gdx.graphics.getWidth()/2;
+        rightSideDown.y = position.y - Gdx.graphics.getHeight()/2;
+
+        //Left side
+        Vector2 leftSide = new Vector2();
+        leftSide.x = position.x - Gdx.graphics.getWidth()/2;
+        leftSide.y = position.y;
+
+        //Left corner up
+        Vector2 leftSideUp = new Vector2();
+        leftSideUp.x = position.x - Gdx.graphics.getWidth()/2;
+        leftSideUp.y = position.y + Gdx.graphics.getHeight()/2;
+
+        //Left corner down
+        Vector2 leftSideDown = new Vector2();
+        leftSideDown.x = position.x - Gdx.graphics.getWidth()/2;
+        leftSideDown.y = position.y - Gdx.graphics.getHeight()/2;
+
         int chunkSize = Chunk.WIDTH*Tile.TILE_SIZE;
+
         //anchor points is where chunk starts e.g. 0.0,
         Vector2 anchor = getAnchor(position, chunkSize);
-        int anchorX = (int)anchor.x;
-        int anchorY = (int)anchor.y;
+        Vector2 anchor1 = getAnchor(upSide, chunkSize);
+        Vector2 anchor2 = getAnchor(downSide, chunkSize);
+        Vector2 anchor3 = getAnchor(rightSide, chunkSize);
+        Vector2 anchor4 = getAnchor(rightSideUp, chunkSize);
+        Vector2 anchor5 = getAnchor(rightSideDown, chunkSize);
+        Vector2 anchor6 = getAnchor(leftSide, chunkSize);
+        Vector2 anchor7 = getAnchor(leftSideUp, chunkSize);
+        Vector2 anchor8 = getAnchor(leftSideDown, chunkSize);
+
         //add nearby neighbour chunks to render que.
-        renderCloseAnchor[0] = new Pair(anchorX,anchorY);
-        renderCloseAnchor[1] = new Pair(anchorX+chunkSize,anchorY);
-        renderCloseAnchor[2] = new Pair(anchorX,anchorY+chunkSize);
-        renderCloseAnchor[3] = new Pair(anchorX-chunkSize,anchorY);
-        renderCloseAnchor[4] = new Pair(anchorX,anchorY-chunkSize);
-        renderCloseAnchor[5] = new Pair(anchorX+chunkSize,anchorY+chunkSize);
-        renderCloseAnchor[6] = new Pair(anchorX-chunkSize,anchorY-chunkSize);
-        renderCloseAnchor[7] = new Pair(anchorX+chunkSize,anchorY-chunkSize);
-        renderCloseAnchor[8] = new Pair(anchorX-chunkSize,anchorY+chunkSize);
+        Set<Pair> anchors = new HashSet<Pair>();
+        anchors.add(new Pair(anchor.x,anchor.y));
+        anchors.add(new Pair(anchor1.x,anchor1.y));
+        anchors.add(new Pair(anchor2.x,anchor2.y));
+        anchors.add(new Pair(anchor3.x,anchor3.y));
+        anchors.add(new Pair(anchor4.x,anchor4.y));
+        anchors.add(new Pair(anchor5.x,anchor5.y));
+        anchors.add(new Pair(anchor6.x,anchor6.y));
+        anchors.add(new Pair(anchor7.x,anchor7.y));
+        anchors.add(new Pair(anchor8.x,anchor8.y));
+
         //create a render que that renders at the end of the method.
         ArrayList<Entity> entitiesToRender = new ArrayList<Entity>();
 
         //add all chunks to hashmap and render.
-        for (int i=0; i<renderCloseAnchor.length; i++) {
-            Pair Chunkpair = renderCloseAnchor[i];
-            if(chunks.containsKey(Chunkpair)) {
-                Tile[][] tiles = chunks.get(Chunkpair).getTiles();
+        Iterator iterator = anchors.iterator();
+        while(iterator.hasNext()) {
+            Pair chunkPair = (Pair)iterator.next();
+            if(chunks.containsKey(chunkPair)) {
+                Tile[][] tiles = chunks.get(chunkPair).getTiles();
                 //render background tiles in chunk.
                 for (int k=0; k<tiles.length; k++) {
                     for (int l = 0; l<tiles.length; l++) {
@@ -93,8 +149,8 @@ public class ChunkManager {
                 }
             } else {
                 //no chunks, make new ones.
-                Chunk chunk = new Chunk(Chunkpair.getX(),Chunkpair.getY());
-                chunks.put(Chunkpair,chunk);
+                Chunk chunk = new Chunk(chunkPair.getX(),chunkPair.getY());
+                chunks.put(chunkPair,chunk);
             }
         }
         if(update) {
