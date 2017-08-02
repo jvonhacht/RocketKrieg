@@ -52,8 +52,8 @@ public class Missile extends GameEntity implements Entity {
      * @param batch
      */
     public void render(SpriteBatch batch) {
-        missile.setRotation((float)Math.toDegrees(angle)+180);
-        super.render(batch, missile);
+        missile.setRotation((float)Math.toDegrees(angle));
+        super.render(batch, missile, Math.toDegrees(angle)-90);
     }
 
     /**

@@ -49,7 +49,7 @@ public class Laser extends GameEntity implements Entity {
      */
     public void render(SpriteBatch batch) {
         laser.setRotation((float)Math.toDegrees(angle)+180);
-        super.render(batch, laser);
+        super.render(batch, laser, Math.toDegrees(angle)-90);
     }
 
     /**
