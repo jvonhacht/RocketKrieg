@@ -24,6 +24,7 @@ public class Chunk {
         this.x = x;
         this.y = y;
         generateChunk();
+
     }
 
     /**

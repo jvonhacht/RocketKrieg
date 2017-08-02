@@ -8,6 +8,8 @@ import com.badlogic.gdx.math.*;
 import com.game.AssetStorage;
 import com.game.GameEntry;
 
+import java.util.Random;
+
 /**
  *  Planet entity class
  *  @author David Johansson 
@@ -18,6 +20,7 @@ public class Planet extends GameEntity implements Entity{
     private Animation<TextureRegion> animation;
     private float sizeX;
     private float sizeY;
+    private Random rand;
 
     /**
      * Constructor for Planet entity.
@@ -26,8 +29,10 @@ public class Planet extends GameEntity implements Entity{
      */
     public Planet(float x, float y){
         super();
-        sizeX = 300;
-        sizeY = 300;
+        rand = new Random();
+        int size = rand.nextInt(350) + 150;
+        sizeX = size;
+        sizeY = size;
 
         //set properties
         int rand = MathUtils.random(100);
@@ -40,8 +45,8 @@ public class Planet extends GameEntity implements Entity{
         } else {
             planet = AssetStorage.planet3;
         }
-        animation = AssetStorage.atmosphereAnimation;
-        position.set(x + 250, y + 250);
+        //animation = AssetStorage.atmosphereAnimation;
+        position.set(x , y );
 
         //setup hitbox
         Rectangle bounds =  new Rectangle(position.x, position.y, sizeX, sizeY);
@@ -65,7 +70,7 @@ public class Planet extends GameEntity implements Entity{
     public void render(SpriteBatch batch){
         planet.setSize(sizeX,sizeY);
         super.render(batch, planet);
-        GameEntry.batch.draw(animation.getKeyFrame(timeElapsed, true), position.x + sizeX/2 - 135, position.y + sizeY/2 - 135, sizeX - 29, sizeY - 29);
+        //GameEntry.batch.draw(animation.getKeyFrame(timeElapsed, true), position.x + sizeX/2 - 135, position.y + sizeY/2 - 135, sizeX - 29, sizeY - 29);
     }
 
     /**
