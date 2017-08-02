@@ -1,13 +1,10 @@
 package com.game.objects;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Vector2;
-import com.game.AssetStorage;
 import com.game.RocketKrieg;
 import com.game.objects.alien.Laser;
 import com.game.objects.ship.PlayerSpaceShip;
