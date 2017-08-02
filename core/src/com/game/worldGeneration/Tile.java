@@ -35,18 +35,18 @@ public class Tile {
 
         //choose random entity
         if(noise <= 0.4){
-            for (int i = 0; (i<(RocketKrieg.getScore()/10) && i<5) || i<1; i++) {
-                tileEntities.add(new Asteroid(x + rand.nextInt(2*TILE_SIZE), y + rand.nextInt(2*TILE_SIZE)));
+            for (int i = 0; (i<(RocketKrieg.getScore()/10) && i<3) || i<1; i++) {
+                tileEntities.add(new Asteroid(x + rand.nextInt(TILE_SIZE), y + rand.nextInt(TILE_SIZE)));
             }
         }
         else if(noise <= 0.5){
-            for (int i = 0; (i<(RocketKrieg.getScore()/15) && i<5) || i<1; i++) {
-                tileEntities.add(new AlienShip(x + rand.nextInt(2*TILE_SIZE), y + rand.nextInt(2*TILE_SIZE)));
+            for (int i = 0; (i<RocketKrieg.getScore()/15) || i<1; i++) {
+                tileEntities.add(new AlienShip(x + rand.nextInt(TILE_SIZE), y + rand.nextInt(TILE_SIZE)));
             }
         }
         else if(noise <= 0.6){
-            for (int i = 0; (i<(RocketKrieg.getScore()/15) && i<5) || i<1; i++) {
-                tileEntities.add(new AlienShipSpecial(x + rand.nextInt(2*TILE_SIZE), y + rand.nextInt(2*TILE_SIZE)));
+            for (int i = 0; (i<RocketKrieg.getScore()/15) || i<1; i++) {
+                tileEntities.add(new AlienShipSpecial(x + rand.nextInt(TILE_SIZE), y + rand.nextInt(TILE_SIZE)));
             }
         }
         else if(noise <= 0.7){
