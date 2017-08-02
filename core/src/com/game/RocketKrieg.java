@@ -56,7 +56,7 @@ public class RocketKrieg implements Screen {
 		ass = new AssetStorage();
 		ship = new PlayerSpaceShip();
 		cm = new ChunkManager(ship, camera);
-		score = 10000;
+		score = 0;
 		timeElapsed = 10;
 	}
 
@@ -100,9 +100,9 @@ public class RocketKrieg implements Screen {
 			ship.renderr(GameEntry.batch, lerpPosition);
 		}
 		//draw score
-		GameEntry.font.draw(GameEntry.batch, "Score: " + score,cameraPosition.x, cameraPosition.y + Gdx.graphics.getHeight()/2 -50);
-
-		GameEntry.font.draw(GameEntry.batch,"Shield Charges: " + Integer.toString(ship.getShieldCharge()),cameraPosition.x, cameraPosition.y + Gdx.graphics.getHeight()/2 -75);
+		GameEntry.font.draw(GameEntry.batch, "Score: " + score,cameraPosition.x - 25, cameraPosition.y + Gdx.graphics.getHeight()/2 -50);
+		GameEntry.font.draw(GameEntry.batch,"Shield Charges: " + Integer.toString(ship.getShieldCharge()),cameraPosition.x - 200, cameraPosition.y + Gdx.graphics.getHeight()/2 -50);
+		GameEntry.font.draw(GameEntry.batch,"Time: " + Integer.toString((int)time),cameraPosition.x + 90, cameraPosition.y + Gdx.graphics.getHeight()/2 - 50);
 
 		//draw instructions
 		if(startPhase && !playerState) {
@@ -137,10 +137,6 @@ public class RocketKrieg implements Screen {
 			}
 		}
 		timeElapsed += delta;
-	}
-
-	public static float getDelta() {
-		return Gdx.graphics.getDeltaTime();
 	}
 
 	/**
@@ -178,9 +174,9 @@ public class RocketKrieg implements Screen {
 		} else {
 			ChunkManager.removeEntity(ship);
 			playerState = true;
-			timeElapsed = 0;
 			ship.setPos(ship.position.x,ship.position.y);
 		}
+		timeElapsed = 0;
 	}
 
 	/**
