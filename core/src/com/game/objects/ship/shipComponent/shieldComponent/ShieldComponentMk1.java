@@ -6,10 +6,10 @@ import com.game.objects.ship.shipComponent.ShipComponent;
 /**
  * Created by JohanvonHacht on 2017-07-31.
  */
-public class StandardShieldComp extends ShipComponent implements Component {
-    public StandardShieldComp() {
+public class ShieldComponentMk1 extends ShieldComponent implements ShieldComponentInterface {
+    public ShieldComponentMk1() {
         //reload time
         stats = 1;
-        name = "Beginner shield upgrade";
+        name = "Mk1 shield upgrade";
     }
 }

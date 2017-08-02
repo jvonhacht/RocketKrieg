@@ -9,7 +9,7 @@ import com.game.worldGeneration.ChunkManager;
 /**
  * Created by JohanvonHacht on 2017-07-30.
  */
-public class DoubleMissileComp extends ShipComponent implements Component {
+public class DoubleMissileComp extends WeaponComponent implements WeaponComponentInterface {
     public DoubleMissileComp() {
         name = "Double missile upgrade";
     }

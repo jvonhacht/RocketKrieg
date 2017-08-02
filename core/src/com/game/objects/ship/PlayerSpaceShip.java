@@ -15,12 +15,10 @@ import com.game.GameEntry;
 import com.game.objects.Entity;
 import com.game.objects.GameEntity;
 import com.game.objects.ship.shipComponent.*;
-import com.game.objects.ship.shipComponent.reloadComponent.ReloadComponentMk1;
 import com.game.objects.ship.shipComponent.reloadComponent.ReloadComponentMk5;
-import com.game.objects.ship.shipComponent.shieldComponent.StandardShieldComp;
-import com.game.objects.ship.shipComponent.speedComponent.SpeedComponentMk1;
+import com.game.objects.ship.shipComponent.shieldComponent.ShieldComponentInterface;
+import com.game.objects.ship.shipComponent.shieldComponent.ShieldComponentMk5;
 import com.game.objects.ship.shipComponent.speedComponent.SpeedComponentMk5;
-import com.game.objects.ship.shipComponent.turningComponent.TurningComponentMk1;
 import com.game.objects.ship.shipComponent.turningComponent.TurningComponentMk5;
 import com.game.objects.ship.shipComponent.weaponComponent.*;
 
@@ -34,10 +32,10 @@ public class PlayerSpaceShip extends GameEntity implements Entity {
     private float sizeY;
     private boolean playerState;
     //Components and multipliers
-    private Component weaponComponent;
+    private WeaponComponentInterface weaponComponent;
     private Component speedComponent;
     private Component turningComponent;
-    private Component shieldComponent;
+    private ShieldComponentInterface shieldComponent;
     private Component reloadComponent;
     private float MAX_ANGULARVELOCITY = 1000f;
     //Textures
@@ -52,7 +50,7 @@ public class PlayerSpaceShip extends GameEntity implements Entity {
         weaponComponent = new SideMissileComp();
         speedComponent = new SpeedComponentMk5();
         turningComponent = new TurningComponentMk5();
-        shieldComponent = new StandardShieldComp();
+        shieldComponent = new ShieldComponentMk5();
         reloadComponent = new ReloadComponentMk5();
 
         //set size of spaceship
@@ -91,9 +89,14 @@ public class PlayerSpaceShip extends GameEntity implements Entity {
             GameEntry.batch.draw(animation.getKeyFrame(timeElapsed,true), position.x+18, position.y+45, sizeX/2-18, sizeY/2-45, sizeX, sizeY, 1f, 0.28f,(float)Math.toDegrees(angle)+180);
         }
         spaceship.setRotation((float)Math.toDegrees(angle)-90);
+
         super.render(batch, spaceship);
     }
 
+    /**
+     * Empty method for interface.
+     * @param batch
+     */
     public void render(SpriteBatch batch) {}
 
     /**
@@ -156,5 +159,60 @@ public class PlayerSpaceShip extends GameEntity implements Entity {
         float SPEED_MULTIPLIER = speedComponent.getStats();
         acceleration.add((float)Math.cos(angle)*SPEED_MULTIPLIER*delta,
                 (float)Math.sin(angle)*SPEED_MULTIPLIER*delta);
+    }
+
+    /**
+     * Return shield charge.
+     * @return
+     */
+    public int getShieldCharge() {
+        return shieldComponent.getCharges();
+    }
+
+    /**
+     * Reduce shield charges.
+     */
+    public void reduceShieldCharge() {
+        shieldComponent.reduceCharge();
+    }
+
+    /**
+     * Change shield component.
+     * @param component
+     */
+    public void setShieldComponent(ShieldComponentInterface component) {
+        shieldComponent = component;
+    }
+
+    /**
+     * Change weapon component.
+     * @param component
+     */
+    public void setWeaponComponent(WeaponComponentInterface component) {
+        weaponComponent = component;
+    }
+
+    /**
+     * Change speed component.
+     * @param component
+     */
+    public void setSpeedComponent(Component component) {
+        speedComponent = component;
+    }
+
+    /**
+     * Change turning speed component.
+     * @param component
+     */
+    public void setTurningComponent(Component component) {
+        turningComponent = component;
+    }
+
+    /**
+     * Change reload component.
+     * @param component
+     */
+    public void setReloadComponent(Component component) {
+        reloadComponent = component;
     }
 }

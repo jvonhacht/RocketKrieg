@@ -9,9 +9,9 @@ import com.game.worldGeneration.ChunkManager;
 /**
  * Created by JohanvonHacht on 2017-07-31.
  */
-public class SideMissileComp extends ShipComponent implements Component {
+public class SideMissileComp extends WeaponComponent implements WeaponComponentInterface {
     public SideMissileComp() {
-        name = "Double missile upgrade";
+        name = "Side missile upgrade";
     }
 
     /**
