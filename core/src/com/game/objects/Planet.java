@@ -47,6 +47,7 @@ public class Planet extends GameEntity implements Entity{
         }
         //animation = AssetStorage.atmosphereAnimation;
         position.set(x,y);
+        angle = (float)Math.toRadians(rand.nextInt(361));
 
         //setup hitbox
         Rectangle bounds =  new Rectangle(position.x, position.y, sizeX, sizeY);
@@ -69,7 +70,7 @@ public class Planet extends GameEntity implements Entity{
      */
     public void render(SpriteBatch batch){
         planet.setSize(sizeX,sizeY);
-        super.render(batch, planet, (double)Math.toDegrees(angle));
+        super.render(batch, planet, Math.toDegrees(angle));
         //GameEntry.batch.draw(animation.getKeyFrame(timeElapsed, true), position.x + sizeX/2 - 135, position.y + sizeY/2 - 135, sizeX - 29, sizeY - 29);
     }
 
