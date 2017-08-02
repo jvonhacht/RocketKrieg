@@ -47,7 +47,7 @@ public class PlayerSpaceShip extends GameEntity implements Entity {
      */
     public PlayerSpaceShip() {
         super();
-        weaponComponent = new SideMissileComp();
+        weaponComponent = new GodMissileComp();
         speedComponent = new SpeedComponentMk5();
         turningComponent = new TurningComponentMk5();
         shieldComponent = new ShieldComponentMk5();

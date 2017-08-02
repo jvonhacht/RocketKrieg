@@ -28,30 +28,28 @@ public class Tile {
      * @param x tile spawn coordinate
      * @param y tile spawn coordinate
      */
-    public Tile(int x, int y) {
+    public Tile(int x, int y, float noise) {
         //generate random percent
         tileEntities = new ArrayList<Entity>();
         int percent = rand.nextInt(100);
 
         //choose random entity
-        if(percent <= 75){
+        if(noise <= 0.4){
             for (int i = 0; (i<(RocketKrieg.getScore()/10) && i<5) || i<1; i++) {
                 tileEntities.add(new Asteroid(x + rand.nextInt(2*TILE_SIZE), y + rand.nextInt(2*TILE_SIZE)));
             }
         }
-        else if(percent <= 85){
+        else if(noise <= 0.5){
             for (int i = 0; (i<(RocketKrieg.getScore()/15) && i<5) || i<1; i++) {
                 tileEntities.add(new AlienShip(x + rand.nextInt(2*TILE_SIZE), y + rand.nextInt(2*TILE_SIZE)));
             }
         }
-        else if(percent <= 90){
+        else if(noise <= 0.6){
             for (int i = 0; (i<(RocketKrieg.getScore()/15) && i<5) || i<1; i++) {
                 tileEntities.add(new AlienShipSpecial(x + rand.nextInt(2*TILE_SIZE), y + rand.nextInt(2*TILE_SIZE)));
             }
         }
-        else if(percent <= 95){
-            tileEntities.add(new ScorePoint(x + rand.nextInt(TILE_SIZE), y + rand.nextInt(TILE_SIZE)));
-            tileEntities.add(new ScorePoint(x + rand.nextInt(TILE_SIZE), y + rand.nextInt(TILE_SIZE)));
+        else if(noise <= 0.7){
             tileEntities.add(new ScorePoint(x + rand.nextInt(TILE_SIZE), y + rand.nextInt(TILE_SIZE)));
             tileEntities.add(new ScorePoint(x + rand.nextInt(TILE_SIZE), y + rand.nextInt(TILE_SIZE)));
         }
