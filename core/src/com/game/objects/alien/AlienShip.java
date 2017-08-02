@@ -57,8 +57,8 @@ public class AlienShip extends GameEntity implements Entity {
      */
     public void render(SpriteBatch batch){
         alienShip.setSize(sizeX,sizeY);
-        alienShip.setRotation((float)Math.toDegrees(angle) - 90);
-        super.render(batch, alienShip);
+        alienShip.setRotation((float)Math.toDegrees(angle));
+        super.render(batch, alienShip, Math.toDegrees(angle));
     }
 
     /**

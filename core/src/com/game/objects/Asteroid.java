@@ -30,7 +30,7 @@ public class Asteroid extends GameEntity implements Entity{
         asteroid = AssetStorage.asteroid;
         position.set(x+MathUtils.random(0,500),y+MathUtils.random(0,500));
         velocity.set(MathUtils.random(-50,50),MathUtils.random(-50,50));
-        angularVelocity = MathUtils.random(-5, 5);
+        angularVelocity = MathUtils.random(-50, 50);
 
         //setup hitbox
         Rectangle bounds =  new Rectangle(position.x,position.y,sizeX-10,sizeY-10);
@@ -44,7 +44,7 @@ public class Asteroid extends GameEntity implements Entity{
      */
     public void render(SpriteBatch batch) {
         asteroid.setSize(sizeX,sizeY);
-        super.render(batch, asteroid);
+        super.render(batch, asteroid, Math.toDegrees(angle));
     }
 
     /**

@@ -88,9 +88,9 @@ public class PlayerSpaceShip extends GameEntity implements Entity {
             GameEntry.batch.draw(animation.getKeyFrame(timeElapsed,true), position.x+18, position.y+50, sizeX/2-18, sizeY/2-50, sizeX, sizeY, 1f, 0.2f,(float)Math.toDegrees(angle));
             GameEntry.batch.draw(animation.getKeyFrame(timeElapsed,true), position.x+18, position.y+45, sizeX/2-18, sizeY/2-45, sizeX, sizeY, 1f, 0.28f,(float)Math.toDegrees(angle)+180);
         }
-        spaceship.setRotation((float)Math.toDegrees(angle)-90);
+        spaceship.setRotation((float)Math.toDegrees(angle));
 
-        super.render(batch, spaceship);
+        super.render(batch, spaceship, Math.toDegrees(angle));
     }
 
     /**

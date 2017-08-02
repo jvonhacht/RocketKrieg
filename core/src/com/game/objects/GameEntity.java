@@ -39,8 +39,9 @@ public class GameEntity{
      * Render the object.
      * @param batch SpriteBatch
      */
-    public void render(SpriteBatch batch, Sprite sprite) {
+    public void render(SpriteBatch batch, Sprite sprite, double angle) {
         sprite.setOriginCenter();
+        sprite.setRotation((float)angle-90f);
         sprite.setPosition(position.x,position.y);
         sprite.draw(batch);
     }

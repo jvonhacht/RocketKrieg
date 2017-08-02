@@ -45,8 +45,13 @@ public class CollisionManager {
                         RocketKrieg.playerDead(false);
                     } else if((ent1 instanceof Planet && !(ent2 instanceof PlayerSpaceShip)) || (ent2 instanceof Planet && !(ent1 instanceof PlayerSpaceShip))) {
                         //do not explode planets.
-                        entities.remove(j);
-                        entities.add(new CollisionEvent(ent2.getPosition().x,ent2.getPosition().y));
+                        if(ent1 instanceof Planet) {
+                            entities.remove(j);
+                            entities.add(new CollisionEvent(ent2.getPosition().x,ent2.getPosition().y));
+                        } else {
+                            entities.remove(i);
+                            entities.add(new CollisionEvent(ent1.getPosition().x,ent1.getPosition().y));
+                        }
                     } else if(ent2 instanceof Planet) {
                         //do not explode planets.
                         entities.remove(i);
