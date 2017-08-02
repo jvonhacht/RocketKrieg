@@ -9,7 +9,6 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
-import com.sun.tools.javac.util.Assert;
 
 import static com.game.Settings.sfxEnabled;
 
@@ -48,7 +47,7 @@ public class GameOver implements Screen {
         soundEffect = Gdx.audio.newSound(Gdx.files.internal("sounds/Play_Sound.mp3"));
 
         //Initialize font
-        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/TW_Cen_MT_Bold.ttf"));
+        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/Tw_Cen_MT_Bold.ttf"));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
         parameter.size = 30;
         font = generator.generateFont(parameter);
