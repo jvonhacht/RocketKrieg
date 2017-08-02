@@ -50,6 +50,7 @@ public class AssetStorage {
     public static Animation<TextureRegion> redLightAnimation;
     public static Animation<TextureRegion> atmosphereAnimation;
     public static Animation<TextureRegion> sparkleAnimation;
+    public static Animation<TextureRegion> shieldAnimation;
 
     //extra
     public static final Sprite debug = new Sprite(new Texture("images/worldGeneration/debugHitBox.png"));
@@ -116,5 +117,16 @@ public class AssetStorage {
             }
         }
         atmosphereAnimation = new Animation<TextureRegion>(1f/3f, atmoFrames);
+
+        //shield animation
+        TextureRegion[] shieldFrames = new TextureRegion[4];
+        TextureRegion[][] tmpFrames6 = TextureRegion.split(new Texture(Gdx.files.internal("images/spaceship/Spaceship_Shield.png")), 340, 340);
+        int index6 = 0;
+        for (int i = 0; i < 2; i++){
+            for(int j = 0; j < 2; j++) {
+                shieldFrames[index6++] = tmpFrames6[i][j];
+            }
+        }
+        shieldAnimation = new Animation<TextureRegion>(1f/3f, shieldFrames);
     }
 }
