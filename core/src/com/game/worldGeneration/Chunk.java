@@ -18,13 +18,14 @@ public class Chunk {
     private int x;
     private int y;
     private Tile[][] tiles;
+    private PerlinNoise perlinNoise;
 
     public Chunk(int x, int y) {
         tiles = new Tile[WIDTH][HEIGHT];
         this.x = x;
         this.y = y;
+        perlinNoise = new PerlinNoise();
         generateChunk();
-
     }
 
     /**
@@ -39,9 +40,10 @@ public class Chunk {
      * Generate a new chunk and add tile entities to spatial hash.
      */
     public void generateChunk() {
+        float[][] noise = generateSimplexNoise(tiles.length,tiles.length);
         for (int i=0; i<tiles.length; i++) {
             for(int j=0; j<tiles.length; j++) {
-                Tile tile = new Tile(x+i*Tile.TILE_SIZE,y+j*Tile.TILE_SIZE);
+                Tile tile = new Tile(x+i*Tile.TILE_SIZE,y+j*Tile.TILE_SIZE, noise[i][j]);
                 tiles[i][j] = tile;
                 ArrayList tileEntities = tile.getEntity();
                 for (int k=0; k<tileEntities.size() ; k++) {
@@ -63,5 +65,24 @@ public class Chunk {
                 }
             }
         }
+    }
+
+    /**
+     * Method to generate simplex noise array.
+     * @param width
+     * @param height
+     * @return
+     */
+    public float[][] generateSimplexNoise(int width, int height) {
+        float[][] simplexnoise = new float[width][height];
+        float frequency = 5.0f / (float) width;
+
+        for(int x = 0; x < width; x++) {
+            for(int y = 0; y < height; y++){
+                simplexnoise[x][y] = perlinNoise.noise(x * frequency,y * frequency,1);
+                simplexnoise[x][y] = (simplexnoise[x][y] + 1) / 2;
+            }
+        }
+        return simplexnoise;
     }
 }
