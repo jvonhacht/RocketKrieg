@@ -35,7 +35,7 @@ public class PlayerSpaceShip extends GameEntity implements Entity {
     private WeaponComponentInterface weaponComponent;
     private Component speedComponent;
     private Component turningComponent;
-    private ShieldComponentInterface shieldComponentInterface;
+    private ShieldComponentInterface shieldComponent;
     private Component reloadComponent;
     private float MAX_ANGULARVELOCITY = 1000f;
     //Textures
@@ -50,7 +50,7 @@ public class PlayerSpaceShip extends GameEntity implements Entity {
         weaponComponent = new SideMissileComp();
         speedComponent = new SpeedComponentMk5();
         turningComponent = new TurningComponentMk5();
-        shieldComponentInterface = new ShieldComponentMk5();
+        shieldComponent = new ShieldComponentMk5();
         reloadComponent = new ReloadComponentMk5();
 
         //set size of spaceship
@@ -166,13 +166,53 @@ public class PlayerSpaceShip extends GameEntity implements Entity {
      * @return
      */
     public int getShieldCharge() {
-        return shieldComponentInterface.getCharges();
+        return shieldComponent.getCharges();
     }
 
     /**
      * Reduce shield charges.
      */
     public void reduceShieldCharge() {
-        shieldComponentInterface.reduceCharge();
+        shieldComponent.reduceCharge();
+    }
+
+    /**
+     * Change shield component.
+     * @param component
+     */
+    public void setShieldComponent(ShieldComponentInterface component) {
+        shieldComponent = component;
+    }
+
+    /**
+     * Change weapon component.
+     * @param component
+     */
+    public void setWeaponComponent(WeaponComponentInterface component) {
+        weaponComponent = component;
+    }
+
+    /**
+     * Change speed component.
+     * @param component
+     */
+    public void setSpeedComponent(Component component) {
+        speedComponent = component;
+    }
+
+    /**
+     * Change turning speed component.
+     * @param component
+     */
+    public void setTurningComponent(Component component) {
+        turningComponent = component;
+    }
+
+    /**
+     * Change reload component.
+     * @param component
+     */
+    public void setReloadComponent(Component component) {
+        reloadComponent = component;
     }
 }
