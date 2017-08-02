@@ -41,8 +41,8 @@ public class AssetStorage {
     //tiles
     public static final Sprite tile1 = new Sprite(new Texture(Gdx.files.internal("images/worldGeneration/testTile.png")));
     public static final Sprite tile2 = new Sprite(new Texture(Gdx.files.internal("images/worldGeneration/testTile1.png")));
-    public static final Sprite tile3 = new Sprite(new Texture(Gdx.files.internal("images/worldGeneration/tile3.png")));
-    public static final Sprite tile4 = new Sprite(new Texture(Gdx.files.internal("images/worldGeneration/tile4.png")));
+    public static final Sprite tile3 = new Sprite(new Texture(Gdx.files.internal("images/worldGeneration/Tile3.png")));
+    public static final Sprite tile4 = new Sprite(new Texture(Gdx.files.internal("images/worldGeneration/Tile4.png")));
 
     //animations
     public static Animation<TextureRegion> flameAnimation;
@@ -71,7 +71,7 @@ public class AssetStorage {
                 explosionFrames[index1++] = tmpFrames1[j][i];
             }
         }
-        explosionAnimation = new Animation(1f/20f,explosionFrames);
+        explosionAnimation = new Animation<TextureRegion>(1f/20f,explosionFrames);
 
         //rocket flame animation
         TextureRegion[] flameFrames = new TextureRegion[9];
@@ -82,7 +82,7 @@ public class AssetStorage {
                 flameFrames[index2++] = tmpFrames2[j][i];
             }
         }
-        flameAnimation = new Animation(1f/20f,flameFrames);
+        flameAnimation = new Animation<TextureRegion>(1f/20f,flameFrames);
 
         //sparkle animation
         TextureRegion[] sparkleFrames = new TextureRegion[30];
@@ -93,7 +93,7 @@ public class AssetStorage {
                 sparkleFrames[index3++] = tmpFrames3[j][i];
             }
         }
-        sparkleAnimation = new Animation(1f/10f,sparkleFrames);
+        sparkleAnimation = new Animation<TextureRegion>(1f/10f,sparkleFrames);
 
         //blinking red light animation
         TextureRegion[] redFrames = new TextureRegion[9];
@@ -104,7 +104,7 @@ public class AssetStorage {
                 redFrames[index4++] = tmpFrames4[j][i];
             }
         }
-        redLightAnimation = new Animation(1f/10f,redFrames);
+        redLightAnimation = new Animation<TextureRegion>(1f/10f,redFrames);
 
         //atmosphere animation
         TextureRegion[] atmoFrames = new TextureRegion[9];
@@ -115,6 +115,6 @@ public class AssetStorage {
                 atmoFrames[index5++] = tmpFrames5[i][j];
             }
         }
-        atmosphereAnimation = new Animation(1f/3f, atmoFrames);
+        atmosphereAnimation = new Animation<TextureRegion>(1f/3f, atmoFrames);
     }
 }

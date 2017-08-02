@@ -1,11 +1,8 @@
 package com.game.objects.ship.shipComponent.weaponComponent;
 
 import com.badlogic.gdx.math.Vector2;
-import com.game.objects.ship.shipComponent.Component;
 import com.game.objects.ship.shipComponent.Missile;
-import com.game.objects.ship.shipComponent.ShipComponent;
 import com.game.worldGeneration.ChunkManager;
-import com.sun.tools.javac.code.Symbol;
 
 /**
  * Created by JohanvonHacht on 2017-08-01.
