@@ -40,12 +40,12 @@ public class Tile {
             }
         }
         else if(noise <= 0.5){
-            for (int i = 0; (i<(RocketKrieg.getScore()/15) && i<30); i++) {
+            for (int i = 0; (i<(RocketKrieg.getScore()/15) && i<30) || i<1; i++) {
                 tileEntities.add(new AlienShip(x + (TILE_SIZE/(RocketKrieg.getScore()/15))*i, y + (TILE_SIZE/(RocketKrieg.getScore()/15))*i));
             }
         }
         else if(noise <= 0.6){
-            for (int i = 0; (i<(RocketKrieg.getScore()/15) && i<30); i++) {
+            for (int i = 0; (i<(RocketKrieg.getScore()/15) && i<30) || i<1; i++) {
                 tileEntities.add(new AlienShipSpecial(x + rand.nextInt(TILE_SIZE), y + rand.nextInt(TILE_SIZE)));
             }
         }
