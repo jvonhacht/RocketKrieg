@@ -56,7 +56,7 @@ public class RocketKrieg implements Screen {
 		ass = new AssetStorage();
 		ship = new PlayerSpaceShip();
 		cm = new ChunkManager(ship, camera);
-		score = 0;
+		score = 10000;
 		timeElapsed = 10;
 	}
 
