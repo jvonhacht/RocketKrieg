@@ -22,9 +22,7 @@ public class ChunkManager {
     private SpriteBatch batch;
     private Map<Pair,Chunk> chunks;
     static HashMap<Pair,ArrayList<Entity>> hashGrid;
-    private Pair[] renderCloseAnchor;
     private CollisionManager colHandler;
-    private PlayerSpaceShip ship;
     private OrthographicCamera camera;
 
     /**
@@ -34,9 +32,7 @@ public class ChunkManager {
     public ChunkManager(PlayerSpaceShip ship, OrthographicCamera camera) {
         batch = GameEntry.batch;
         this.camera = camera;
-        this.ship = ship;
         chunks = new HashMap<Pair,Chunk>();
-        renderCloseAnchor = new Pair[9];
         hashGrid = new HashMap<Pair, ArrayList<Entity>>();
         colHandler = new CollisionManager();
         addEntity(ship);
