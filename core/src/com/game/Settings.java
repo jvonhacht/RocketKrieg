@@ -66,7 +66,6 @@ public class Settings implements Screen {
         camera.update();
         GameEntry.batch.begin();
 
-        //Draw menu
         GameEntry.batch.draw(background, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         GameEntry.batch.draw(settingsBox, Gdx.graphics.getWidth()/2 - settingsBox.getWidth()/2, Gdx.graphics.getHeight()/2 - settingsBox.getHeight()/2);
 
@@ -96,94 +95,56 @@ public class Settings implements Screen {
 
         //font.draw(GameEntry.batch, "" + xPos, Gdx.graphics.getWidth()/2 - 80, Gdx.graphics.getHeight()/2 + 20);
         //font.draw(GameEntry.batch, "" + yPos, Gdx.graphics.getWidth()/2 - 80, Gdx.graphics.getHeight()/2 + 40);
-        font.draw(GameEntry.batch, "more options to be added. button hitboxes gets shifted upwards in windowed mode", Gdx.graphics.getWidth()/2 - 500, Gdx.graphics.getHeight()/2 - 150);
 
         //Full screen/windowed mode
-        if (xPos >= (Gdx.graphics.getWidth()/2 - settingsBox.getWidth()/2) + 375  && xPos <= (Gdx.graphics.getWidth()/2 - settingsBox.getWidth()/2) + 530){
-            if (yPos >= (Gdx.graphics.getHeight()/2 - settingsBox.getHeight()/2) + 75 && yPos <= (Gdx.graphics.getHeight()/2 - settingsBox.getHeight()/2) + 110){
-                if (Gdx.input.isTouched() && timeElapsed > 0.2f){
-                    timeElapsed = 0;
-                    if(fullScreenEnabled){
-                        Gdx.graphics.setWindowedMode(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-                        fullScreenEnabled = false;
-                    }
-                    else{
-                        Gdx.graphics.setFullscreenMode(Gdx.graphics.getDisplayMode());
-                        fullScreenEnabled = true;
-                    }
-                    if(sfxEnabled){
-                        soundEffect2.play(1.0f);
-                    }
-                }
+        if(buttonRectangle(((Gdx.graphics.getWidth()/2 - settingsBox.getWidth()/2) + 375), ((Gdx.graphics.getHeight()/2 - settingsBox.getHeight()/2) + 75), 155, 35, 2)){
+            if(fullScreenEnabled){
+                Gdx.graphics.setWindowedMode(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+                Gdx.graphics.setResizable(true);
+                fullScreenEnabled = false;
+            }
+            else{
+                Gdx.graphics.setFullscreenMode(Gdx.graphics.getDisplayMode());
+                Gdx.graphics.setResizable(false);
+                fullScreenEnabled = true;
             }
         }
 
         //Enabling/disabling V-sync
-        if (xPos >= (Gdx.graphics.getWidth()/2 - settingsBox.getWidth()/2) + 495  && xPos <= (Gdx.graphics.getWidth()/2 - settingsBox.getWidth()/2) + 530){
-            if (yPos >= (Gdx.graphics.getHeight()/2 - settingsBox.getHeight()/2) + 136 && yPos <= (Gdx.graphics.getHeight()/2 - settingsBox.getHeight()/2) + 171){
-                if (Gdx.input.isTouched() && timeElapsed > 0.2f){
-                    timeElapsed = 0;
-                    if(vSyncEnabled){
-                        Gdx.graphics.setVSync(false);
-                        vSyncEnabled = false;
-                    }
-                    else{
-                        Gdx.graphics.setVSync(true);
-                        vSyncEnabled = true;
-                    }
-                    if(sfxEnabled){
-                        soundEffect2.play(1.0f);
-                    }
-                }
+        if(buttonSquare(((Gdx.graphics.getWidth()/2 - settingsBox.getWidth()/2) + 495), ((Gdx.graphics.getHeight()/2 - settingsBox.getHeight()/2) + 136), 45, 2)){
+            if(vSyncEnabled){
+                Gdx.graphics.setVSync(false);
+                vSyncEnabled = false;
+            }
+            else{
+                Gdx.graphics.setVSync(true);
+                vSyncEnabled = true;
             }
         }
 
         //Enabling/disabling music
-        if (xPos >= (Gdx.graphics.getWidth()/2 - settingsBox.getWidth()/2) + 495  && xPos <= (Gdx.graphics.getWidth()/2 - settingsBox.getWidth()/2) + 530){
-            if (yPos >= (Gdx.graphics.getHeight()/2 - settingsBox.getHeight()/2) + 197 && yPos <= (Gdx.graphics.getHeight()/2 - settingsBox.getHeight()/2) + 232){
-                if (Gdx.input.isTouched() && timeElapsed > 0.2f){
-                    timeElapsed = 0;
-                    if(musicEnabled){
-                        musicEnabled = false;
-                    }
-                    else{
-                        musicEnabled = true;
-                    }
-                    if(sfxEnabled){
-                        soundEffect2.play(1.0f);
-                    }
-                }
+        if(buttonSquare(((Gdx.graphics.getWidth()/2 - settingsBox.getWidth()/2) + 495), ((Gdx.graphics.getHeight()/2 - settingsBox.getHeight()/2) + 197), 45, 2)){
+            if(musicEnabled){
+                musicEnabled = false;
+            }
+            else{
+                musicEnabled = true;
             }
         }
 
         //Enabling/disabling sfx
-        if (xPos >= (Gdx.graphics.getWidth()/2 - settingsBox.getWidth()/2) + 495  && xPos <= (Gdx.graphics.getWidth()/2 - settingsBox.getWidth()/2) + 530){
-            if (yPos >= (Gdx.graphics.getHeight()/2 - settingsBox.getHeight()/2) + 258 && yPos <= (Gdx.graphics.getHeight()/2 - settingsBox.getHeight()/2) + 293){
-                if (Gdx.input.isTouched() && timeElapsed > 0.2f){
-                    timeElapsed = 0;
-                    if(sfxEnabled){
-                        sfxEnabled = false;
-                    }
-                    else{
-                        sfxEnabled = true;
-                    }
-                    if(sfxEnabled){
-                        soundEffect2.play(1.0f);
-                    }
-                }
+        if(buttonSquare(((Gdx.graphics.getWidth()/2 - settingsBox.getWidth()/2) + 495), ((Gdx.graphics.getHeight()/2 - settingsBox.getHeight()/2) + 258), 45, 3)){
+            if(sfxEnabled){
+                sfxEnabled = false;
+            }
+            else{
+                sfxEnabled = true;
             }
         }
 
         //Pressing back button
-        if (xPos >= (Gdx.graphics.getWidth()/2 - settingsBox.getWidth()/2) + 305  && xPos <= (Gdx.graphics.getWidth()/2 - settingsBox.getWidth()/2) + 530){
-            if (yPos >= (Gdx.graphics.getHeight()/2 - settingsBox.getHeight()/2) + 560 && yPos <= (Gdx.graphics.getHeight()/2 - settingsBox.getHeight()/2) + 584){
-                if (Gdx.input.isTouched()){
-                    if(sfxEnabled){
-                        soundEffect1.play(1.0f);
-                    }
-                    game.setScreen(new MainMenu(game));
-                }
-            }
+        if(buttonRectangle(((Gdx.graphics.getWidth()/2 - settingsBox.getWidth()/2) + 305), ((Gdx.graphics.getHeight()/2 - settingsBox.getHeight()/2) + 560), 225, 24, 1)){
+            game.setScreen(new MainMenu(game));
         }
 
         //Exit game by pressing esc
@@ -194,6 +155,87 @@ public class Settings implements Screen {
         timeElapsed += delta;
         GameEntry.batch.end();
     }
+
+    /**
+     * Returns true if the player presses intended region
+     * inside the square button. Also plays sound effect
+     * if its enabled
+     * @param xMin minimum x value
+     * @param yMin minimum y value
+     * @param squareWidth square width
+     * @param sfxType sound effect type
+     */
+    public boolean buttonSquare(float xMin, float yMin, float squareWidth, int sfxType){
+        int xPos = Gdx.input.getX();
+        int yPos = Gdx.input.getY();
+        if (xPos >= xMin && xPos <= xMin + squareWidth){
+            if(yPos >= yMin && yPos <= yMin + squareWidth){
+                if (Gdx.input.isTouched() && timeElapsed > 0.2f){
+                    timeElapsed = 0;
+                    switch(sfxType){
+                        case 1:
+                            if(sfxEnabled){
+                                soundEffect1.play(1.0f);
+                            }
+                            break;
+                        case 2:
+                            if(sfxEnabled){
+                                soundEffect2.play(1.0f);
+                            }
+                            break;
+                        case 3:
+                            soundEffect2.play(1.0f);
+                            break;
+                    }
+                    return true;
+                }
+            }
+
+        }
+        return false;
+    }
+
+    /**
+     * Returns true if the player presses intended region
+     * inside the rectangle button. Also plays sound effect
+     * if its enabled
+     *
+     * @param xMin minimum x value
+     * @param yMin minimum y value
+     * @param recWidth rectangle width
+     * @param recHeight rectangle height
+     * @param sfxType sound effect type
+     */
+    public boolean buttonRectangle(float xMin, float yMin, float recWidth, float recHeight, int sfxType){
+        int xPos = Gdx.input.getX();
+        int yPos = Gdx.input.getY();
+        if (xPos >= xMin && xPos <= xMin + recWidth){
+            if(yPos >= yMin && yPos <= yMin + recHeight){
+                if (Gdx.input.isTouched() && timeElapsed > 0.2f){
+                    timeElapsed = 0;
+                    switch(sfxType){
+                        case 1:
+                            if(sfxEnabled){
+                                soundEffect1.play(1.0f);
+                            }
+                            break;
+                        case 2:
+                            if(sfxEnabled){
+                                soundEffect2.play(1.0f);
+                            }
+                            break;
+                        case 3:
+                            soundEffect2.play(1.0f);
+                            break;
+                    }
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+
 
     /**
      * Called when GameOver becomes current screen.

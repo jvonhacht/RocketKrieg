@@ -40,7 +40,10 @@ public class PlayerSpaceShip extends GameEntity implements Entity {
     private float MAX_ANGULARVELOCITY = 1000f;
     //Textures
     private Sprite spaceship;
-    private Animation<TextureRegion> animation;
+    private Animation<TextureRegion> flame;
+    private Animation<TextureRegion> shield;
+    private boolean playerHit;
+    private float spaceshipTime;
 
     /**
      * Initialise player ship.
@@ -61,7 +64,9 @@ public class PlayerSpaceShip extends GameEntity implements Entity {
         //load images
         spaceship = AssetStorage.spaceship;
         spaceship.setSize(sizeX,sizeY);
-        animation = AssetStorage.flameAnimation;
+        flame = AssetStorage.flameAnimation;
+        shield = AssetStorage.shieldAnimation;
+        spaceshipTime = 0;
 
         //setup hitbox
         Rectangle bounds = new Rectangle(position.x+sizeX,position.y+sizeY,sizeX,sizeY);
@@ -77,20 +82,27 @@ public class PlayerSpaceShip extends GameEntity implements Entity {
         Sprite img = spaceship;
 
         if(Gdx.input.isKeyPressed(Input.Keys.W)) {
-            GameEntry.batch.draw(animation.getKeyFrame(timeElapsed,true), position.x, position.y+70, sizeX/2, sizeY/2-70, sizeX, sizeY, 2f, 0.5f,(float)Math.toDegrees(angle)+90);
+            GameEntry.batch.draw(flame.getKeyFrame(timeElapsed,true), position.x, position.y+70, sizeX/2, sizeY/2-70, sizeX, sizeY, 2f, 0.5f,(float)Math.toDegrees(angle)+90);
         }
         if(Gdx.input.isKeyPressed(Input.Keys.A)) {
-            GameEntry.batch.draw(animation.getKeyFrame(timeElapsed,true), position.x-18, position.y+50, sizeX/2+18, sizeY/2-50, sizeX, sizeY, 1f, 0.2f,(float)Math.toDegrees(angle)+180);
-            GameEntry.batch.draw(animation.getKeyFrame(timeElapsed,true), position.x-18, position.y+45, sizeX/2+18, sizeY/2-45, sizeX, sizeY, 1f, 0.28f,(float)Math.toDegrees(angle));
+            GameEntry.batch.draw(flame.getKeyFrame(timeElapsed,true), position.x-18, position.y+50, sizeX/2+18, sizeY/2-50, sizeX, sizeY, 1f, 0.2f,(float)Math.toDegrees(angle)+180);
+            GameEntry.batch.draw(flame.getKeyFrame(timeElapsed,true), position.x-18, position.y+45, sizeX/2+18, sizeY/2-45, sizeX, sizeY, 1f, 0.28f,(float)Math.toDegrees(angle));
         }
         if(Gdx.input.isKeyPressed(Input.Keys.D)) {
             //GameEntry.batch.draw(animation.getKeyFrame(timeElapsed,true), position.x, position.y+40, sizeX/2, sizeY/2-40, sizeX, sizeY, 1f, 0.4f,(float)Math.toDegrees(angle));
-            GameEntry.batch.draw(animation.getKeyFrame(timeElapsed,true), position.x+18, position.y+50, sizeX/2-18, sizeY/2-50, sizeX, sizeY, 1f, 0.2f,(float)Math.toDegrees(angle));
-            GameEntry.batch.draw(animation.getKeyFrame(timeElapsed,true), position.x+18, position.y+45, sizeX/2-18, sizeY/2-45, sizeX, sizeY, 1f, 0.28f,(float)Math.toDegrees(angle)+180);
+            GameEntry.batch.draw(flame.getKeyFrame(timeElapsed,true), position.x+18, position.y+50, sizeX/2-18, sizeY/2-50, sizeX, sizeY, 1f, 0.2f,(float)Math.toDegrees(angle));
+            GameEntry.batch.draw(flame.getKeyFrame(timeElapsed,true), position.x+18, position.y+45, sizeX/2-18, sizeY/2-45, sizeX, sizeY, 1f, 0.28f,(float)Math.toDegrees(angle)+180);
         }
         spaceship.setRotation((float)Math.toDegrees(angle));
 
         super.render(batch, spaceship, Math.toDegrees(angle));
+
+        if(playerHit){
+            GameEntry.batch.draw(shield.getKeyFrame(timeElapsed, true), position.x, position.y, sizeX / 2, sizeY / 2, sizeX, sizeY, 2.4f, 1f, (float) Math.toDegrees(angle) + 270);
+            if(spaceshipTime > 1) {
+                playerHit = false;
+            }
+        }
     }
 
     /**
@@ -122,6 +134,7 @@ public class PlayerSpaceShip extends GameEntity implements Entity {
         if(Gdx.input.isKeyPressed(Input.Keys.R)) {
             setPos(0,0);
         }
+        spaceshipTime += delta;
     }
 
     /**
@@ -174,6 +187,8 @@ public class PlayerSpaceShip extends GameEntity implements Entity {
      */
     public void reduceShieldCharge() {
         shieldComponent.reduceCharge();
+        spaceshipTime = 0;
+        playerHit = true;
     }
 
     /**
