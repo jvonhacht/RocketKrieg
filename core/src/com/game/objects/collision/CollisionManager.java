@@ -100,7 +100,14 @@ public class CollisionManager {
         Vector2 pos2 = ent2.getPosition();
         float x = (pos1.x + pos2.x) / 2;
         float y = (pos1.y + pos2.y) / 2;
-        //magic number 50 to offset explosion into the correct pos
-        entities.add(new CollisionEvent(x-50,y-50));
+        //don't do any average position for planet collision.
+        if(ent1 instanceof Planet) {
+            entities.add(new CollisionEvent(pos2.x-25,pos2.y-25));
+        } else if(ent2 instanceof Planet) {
+            entities.add(new CollisionEvent(pos1.x-25,pos2.y-25));
+        } else {
+            //magic number 50 to offset explosion into the correct pos
+            entities.add(new CollisionEvent(x-50,y-50));
+        }
     }
 }
