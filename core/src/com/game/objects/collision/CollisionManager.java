@@ -42,7 +42,7 @@ public class CollisionManager {
                             entities.remove(i);
                         }
                         collisionEvent(ent1,ent2, entities);
-                        RocketKrieg.playerDead();
+                        RocketKrieg.playerDead(false);
                     } else if((ent1 instanceof Planet && !(ent2 instanceof PlayerSpaceShip)) || (ent2 instanceof Planet && !(ent1 instanceof PlayerSpaceShip))) {
                         //do not explode planets.
                         entities.remove(j);
@@ -70,7 +70,7 @@ public class CollisionManager {
                     } else if((ent1 instanceof Laser && (ent2 instanceof AlienShip || ent2 instanceof AlienShipSpecial)) || (ent2 instanceof Laser && (ent1 instanceof AlienShip || ent1 instanceof AlienShipSpecial))) {
                         //do not let alien laser blow up alien.
                     } else if((ent1 instanceof Planet && ent2 instanceof PlayerSpaceShip) || (ent1 instanceof PlayerSpaceShip && ent2 instanceof Planet)) {
-                        RocketKrieg.playerDead();
+                        RocketKrieg.playerDead(true);
                         if(ent1 instanceof PlayerSpaceShip){
                             entities.remove(i);
                             entities.add(new CollisionEvent(ent1.getPosition().x,ent1.getPosition().y));
@@ -78,6 +78,7 @@ public class CollisionManager {
                             entities.remove(j);
                             entities.add(new CollisionEvent(ent2.getPosition().x,ent2.getPosition().y));
                         }
+
                     } else {
                         //all other collisions.
                         entities.remove(j);

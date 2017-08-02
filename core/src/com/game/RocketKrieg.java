@@ -172,13 +172,14 @@ public class RocketKrieg implements Screen {
 	/**
 	 * Indicate that player is dead
 	 */
-	public static void playerDead(){
-		if(ship.getShieldCharge()>0) {
+	public static void playerDead(boolean planetCollision){
+		if(ship.getShieldCharge()>0 && !planetCollision) {
 			ship.reduceShieldCharge();
 		} else {
 			ChunkManager.removeEntity(ship);
 			playerState = true;
 			timeElapsed = 0;
+			ship.setPos(ship.position.x,ship.position.y);
 		}
 	}
 
