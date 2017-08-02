@@ -1,8 +1,10 @@
 package com.game;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 
 /**
  * Game entry class initializing the
@@ -21,7 +23,12 @@ public class GameEntry extends Game {
      */
     public void create() {
         batch = new SpriteBatch();
-        font = new BitmapFont();
+        //Initialize font
+        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/Tw_Cen_MT_Bold.ttf"));
+        FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+        parameter.size = 15;
+        font = generator.generateFont(parameter);
+        generator.dispose();
         this.setScreen(new MainMenu(this));
     }
 
