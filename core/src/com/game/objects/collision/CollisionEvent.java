@@ -11,6 +11,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.game.AssetStorage;
 import com.game.GameEntry;
 import com.game.objects.Entity;
+import com.game.worldGeneration.ChunkManager;
 
 /**
  * CollisionEvent class handling
@@ -53,6 +54,7 @@ public class CollisionEvent implements Entity {
         sprite.setRotation(angle);
         sprite.setSize(120,120);
         sprite.setPosition(position.x,position.y);
+        sprite.setAlpha(1-(timeElapsed/10));
         sprite.draw(batch);
     }
 
@@ -61,6 +63,9 @@ public class CollisionEvent implements Entity {
      */
     public void update(float delta) {
         timeElapsed += delta;
+        if(timeElapsed>10) {
+            ChunkManager.removeEntity(this);
+        }
     }
 
     /**
