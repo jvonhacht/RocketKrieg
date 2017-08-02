@@ -62,13 +62,13 @@ public class Tile {
         int percent2 = rand.nextInt(100);
 
         //choose random tile texture.
-        if(percent2 <= 94) {
+        if(percent2 <= 97) {
             img = AssetStorage.tile1;
         }
-        else if(percent2 <= 96){
+        else if(percent2 <= 98){
             img = AssetStorage.tile2;
         }
-        else if(percent2 <= 98){
+        else if(percent2 <= 99){
             img = AssetStorage.tile4;
         }
         else {
