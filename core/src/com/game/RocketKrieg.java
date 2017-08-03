@@ -51,6 +51,7 @@ public class RocketKrieg implements Screen {
 	private static float timeElapsed;
 	private static float instructionTimer;
 	private static float pointTimer;
+	private static float gameOverTimer;
 
 
 	/**
@@ -76,6 +77,7 @@ public class RocketKrieg implements Screen {
 		timeElapsed = 10;
 		instructionTimer = 0;
 		pointTimer = 2;
+		gameOverTimer = 0;
 	}
 
 	/**
@@ -156,13 +158,16 @@ public class RocketKrieg implements Screen {
 
 		//game over
 		if(playerState){
-			if(timeElapsed > 2){
+			if(gameOverTimer > 2){
 				game.setScreen(new GameOver(game, score));
 			}
+		} else {
+			gameOverTimer = 0;
 		}
 		timeElapsed += delta;
 		instructionTimer += delta;
 		pointTimer += delta;
+		gameOverTimer += delta;
 	}
 
 	/**

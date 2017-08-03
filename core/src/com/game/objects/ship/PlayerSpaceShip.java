@@ -15,15 +15,10 @@ import com.game.GameEntry;
 import com.game.objects.Entity;
 import com.game.objects.GameEntity;
 import com.game.objects.ship.shipComponent.*;
-import com.game.objects.ship.shipComponent.reloadComponent.ReloadComponentMk1;
-import com.game.objects.ship.shipComponent.reloadComponent.ReloadComponentMk5;
-import com.game.objects.ship.shipComponent.shieldComponent.ShieldComponentInterface;
-import com.game.objects.ship.shipComponent.shieldComponent.ShieldComponentMk1;
-import com.game.objects.ship.shipComponent.shieldComponent.ShieldComponentMk5;
-import com.game.objects.ship.shipComponent.speedComponent.SpeedComponentMk1;
-import com.game.objects.ship.shipComponent.speedComponent.SpeedComponentMk5;
-import com.game.objects.ship.shipComponent.turningComponent.TurningComponentMk1;
-import com.game.objects.ship.shipComponent.turningComponent.TurningComponentMk5;
+import com.game.objects.ship.shipComponent.reloadComponent.*;
+import com.game.objects.ship.shipComponent.shieldComponent.*;
+import com.game.objects.ship.shipComponent.speedComponent.*;
+import com.game.objects.ship.shipComponent.turningComponent.*;
 import com.game.objects.ship.shipComponent.weaponComponent.*;
 
 /**
@@ -53,10 +48,10 @@ public class PlayerSpaceShip extends GameEntity implements Entity {
     public PlayerSpaceShip() {
         super();
         weaponComponent = new SingleMissileComp();
-        speedComponent = new SpeedComponentMk1();
-        turningComponent = new TurningComponentMk1();
-        shieldComponent = null;
-        reloadComponent = new ReloadComponentMk1();
+        speedComponent = new SpeedComponentMk5();
+        turningComponent = new TurningComponentMk5();
+        shieldComponent = new ShieldComponentMk5();
+        reloadComponent = new ReloadComponentMk5();
 
         //set size of spaceship
         sizeX = 25;
