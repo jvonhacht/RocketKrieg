@@ -41,8 +41,8 @@ public class CollisionEvent implements Entity {
         hitbox = new Polygon(new float[]{0,0,0,0,0,0,0,0});
         animation = AssetStorage.explosionAnimation;
         ID = 99;
-        sizeX = 0;
-        sizeY = 0;
+        sizeX = 120;
+        sizeY = 120;
     }
 
     /**
@@ -56,8 +56,10 @@ public class CollisionEvent implements Entity {
 
         //render debris.
         sprite.setOriginCenter();
+        sprite.setCenterX(position.x+sizeX/2);
+        sprite.setCenterY(position.y+sizeY/2);
         sprite.setRotation(angle);
-        sprite.setSize(120,120);
+        sprite.setSize(sizeX,sizeY);
         sprite.setPosition(position.x,position.y);
         sprite.setAlpha(1-(timeElapsed/10));
         sprite.draw(batch);
