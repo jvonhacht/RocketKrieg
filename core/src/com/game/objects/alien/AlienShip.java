@@ -49,6 +49,8 @@ public class AlienShip extends GameEntity implements Entity {
 
         //get ship
         ship = RocketKrieg.getShip();
+
+        ID = 5;
     }
 
     /**

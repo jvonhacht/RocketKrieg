@@ -72,13 +72,14 @@ public class PlayerSpaceShip extends GameEntity implements Entity {
         Rectangle bounds = new Rectangle(position.x+sizeX,position.y+sizeY,sizeX,sizeY);
         hitbox = new Polygon(new float[]{0,0,bounds.width,0,bounds.width,bounds.height,0,bounds.height});
         hitbox.setOrigin(bounds.width/2,bounds.height/2);
+
+        ID = 1;
     }
 
     /**
      * Render the players ship.
      */
     public void renderr(SpriteBatch batch, Vector2 position) {
-        //System.out.println();
         Sprite img = spaceship;
 
         if(Gdx.input.isKeyPressed(Input.Keys.W)) {

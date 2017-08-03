@@ -231,9 +231,9 @@ public class ChunkManager implements Serializable {
      * Method to save world information to file.
      */
     public void saveGame() {
-        //save chunks.
+        //save chunks: x:y=tileId tileId ... tileId
         try {
-            File gameChunks = new File("gameChunks.txt");
+            File gameChunks = new File("chunkData.txt");
             FileOutputStream fos = new FileOutputStream(gameChunks);
             PrintWriter pw = new PrintWriter(fos);
 
@@ -257,6 +257,40 @@ public class ChunkManager implements Serializable {
         } catch(Exception e) {
             err.println(e);
         }
+        //===========================================================//
+        //save entities:
+        try {
+            File entityData = new File("entityData.txt");
+            FileOutputStream fos = new FileOutputStream(entityData);
+            PrintWriter pw = new PrintWriter(fos);
+
+            for(Map.Entry<Pair,ArrayList<Entity>> m :hashGrid.entrySet()){
+                StringBuilder sb = new StringBuilder();
+                ArrayList<Entity> entitiesToSave = m.getValue();
+                for (int i=0; i<entitiesToSave.size(); i++) {
+                    Entity ent = entitiesToSave.get(i);
+                    sb.append(ent.getId());                sb.append(".");
+                    sb.append(ent.getPosition().x);        sb.append("."); //position
+                    sb.append(ent.getPosition().y);        sb.append(".");
+                    sb.append(ent.getVelocity().x);        sb.append("."); //velocity
+                    sb.append(ent.getVelocity().y);        sb.append(".");
+                    sb.append(ent.getAcceleration().x);    sb.append("."); //acceleration
+                    sb.append(ent.getAcceleration().y);    sb.append(".");
+                    sb.append(ent.getAngle());             sb.append("."); //angle
+                    sb.append(ent.getAngularVelocity());   sb.append("."); //angular velocity
+                    //sb.append(ent.getSizeX());             sb.append("."); //size x
+                    //sb.append(ent.getSizeY());             sb.append("."); //size y
+                    sb.append("=");
+                }
+                String toPrint = sb.toString();
+                pw.println(toPrint);
+            }
+            pw.flush();
+            pw.close();
+            fos.close();
+        } catch(Exception e) {
+            err.println(e);
+        }
     }
 
     /**
@@ -265,7 +299,7 @@ public class ChunkManager implements Serializable {
     public void reloadGame() {
         //read chunk info
         try{
-            File toRead = new File("gameChunks.txt");
+            File toRead = new File("chunkData.txt");
             FileInputStream fis = new FileInputStream(toRead);
 
             Scanner sc = new Scanner(fis);
@@ -280,10 +314,6 @@ public class ChunkManager implements Serializable {
                 String[] data = currentLine.split(Pattern.quote("="));
                 //create chunkPair
                 String[] coord = data[0].split(Pattern.quote(":"));
-
-                System.out.println(Arrays.toString(data));
-                System.out.println(Arrays.toString(coord));
-
                 Pair chunkPair = new Pair(Float.parseFloat(coord[0]),Float.parseFloat(coord[1]));
                 //create chunk
                 Chunk chunk = new Chunk(chunkPair.getX(),chunkPair.getY(), false);

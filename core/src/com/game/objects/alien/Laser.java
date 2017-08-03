@@ -41,6 +41,8 @@ public class Laser extends GameEntity implements Entity {
         Rectangle bounds = new Rectangle(position.x + width, position.y + height, width, height);
         hitbox = new Polygon(new float[]{0, 0, bounds.width, 0, bounds.width, bounds.height, 0, bounds.height});
         hitbox.setOrigin(bounds.width / 2, bounds.height / 2);
+
+        ID = 7;
     }
 
     /**

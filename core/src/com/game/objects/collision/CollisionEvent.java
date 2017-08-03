@@ -11,6 +11,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.game.AssetStorage;
 import com.game.GameEntry;
 import com.game.objects.Entity;
+import com.game.objects.GameEntity;
 import com.game.worldGeneration.ChunkManager;
 
 /**
@@ -19,7 +20,7 @@ import com.game.worldGeneration.ChunkManager;
  * @author Johan von Hacht
  * @version 1.0 (2017-05-08)
  */
-public class CollisionEvent implements Entity {
+public class CollisionEvent extends GameEntity implements Entity {
     private float angle;
     private Sprite sprite;
     private Vector2 position;
@@ -38,6 +39,7 @@ public class CollisionEvent implements Entity {
         sprite = AssetStorage.debris;
         hitbox = new Polygon(new float[]{0,0,0,0,0,0,0,0});
         animation = AssetStorage.explosionAnimation;
+        ID = 99;
     }
 
     /**
@@ -66,21 +68,5 @@ public class CollisionEvent implements Entity {
         if(timeElapsed>10) {
             ChunkManager.removeEntity(this);
         }
-    }
-
-    /**
-     * Get position of collision
-     * @return position
-     */
-    public Vector2 getPosition() {
-        return position;
-    }
-
-    /**
-     * Method for getting the hitbox
-     * @return hitbox
-     */
-    public Polygon getHitBox() {
-        return hitbox;
     }
 }

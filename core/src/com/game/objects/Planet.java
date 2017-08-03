@@ -62,6 +62,7 @@ public class Planet extends GameEntity implements Entity{
                 bounds.width/4, bounds.height/4
         });
         hitbox.setOrigin(bounds.width/2, bounds.height/2);
+        ID = 3;
     }
 
     /**

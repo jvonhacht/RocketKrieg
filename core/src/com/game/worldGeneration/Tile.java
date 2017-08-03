@@ -77,7 +77,7 @@ public class Tile {
         int percent2 = rand.nextInt(100);
 
         //choose random tile texture.
-        if(percent2 <= 80) {
+        if(percent2 <= 97) {
             setImg(1);
             imgId = 1;
         }

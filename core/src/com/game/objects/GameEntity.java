@@ -16,6 +16,7 @@ import com.game.objects.ship.shipComponent.Missile;
  * @version 1.0 (2017-05-01)
  */
 public class GameEntity{
+    protected int ID;
     public Vector2 position;
     protected Vector2 velocity;
     protected Vector2 acceleration;
@@ -28,6 +29,7 @@ public class GameEntity{
      * Constructor for GameEntity.
      */
     public GameEntity() {
+        ID = 0;
         position = new Vector2();
         velocity = new Vector2();
         acceleration = new Vector2();
@@ -102,5 +104,37 @@ public class GameEntity{
      */
     public Vector2 getVelocity() {
         return velocity;
+    }
+
+    /**
+     * Get velocity of object.
+     * @return
+     */
+    public Vector2 getAcceleration() {
+        return acceleration;
+    }
+
+    /**
+     * Get angular velocity of object.
+     * @return
+     */
+    public float getAngularVelocity() {
+        return angularVelocity;
+    }
+
+    /**
+     * Get angle of object.
+     * @return
+     */
+    public float getAngle() {
+        return angle;
+    }
+
+    /**
+     * Return entity id
+     * @return
+     */
+    public int getId() {
+        return ID;
     }
 }
