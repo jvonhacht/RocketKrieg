@@ -6,7 +6,6 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
@@ -129,6 +128,12 @@ public class RocketKrieg implements Screen {
 		//input
 		if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
 			Gdx.app.exit();
+		}
+		if(Gdx.input.isKeyPressed(Input.Keys.O)) {
+			cm.saveGame();
+		}
+		if(Gdx.input.isKeyPressed(Input.Keys.P)) {
+			cm.reloadGame();
 		}
 
 		//game over

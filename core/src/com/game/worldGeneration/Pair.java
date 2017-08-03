@@ -54,7 +54,7 @@ public class Pair {
      */
     @Override
     public String toString() {
-        return ("Point[" + x + ":" + y + "]");
+        return (x + ":" + y);
     }
 
     /**

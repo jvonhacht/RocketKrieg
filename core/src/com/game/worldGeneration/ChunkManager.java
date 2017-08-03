@@ -5,12 +5,17 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.utils.StringBuilder;
 import com.game.GameEntry;
 import com.game.objects.*;
 import com.game.objects.collision.CollisionManager;
 import com.game.objects.ship.PlayerSpaceShip;
 
+import java.io.*;
 import java.util.*;
+import java.util.regex.Pattern;
+
+import static java.lang.System.err;
 
 /**
  *  ChunkManager class handling the
@@ -18,9 +23,9 @@ import java.util.*;
  *  @author Johan von Hacht
  *  @version 1.0 (2017-04-26)
  */
-public class ChunkManager {
+public class ChunkManager implements Serializable {
     private SpriteBatch batch;
-    private Map<Pair,Chunk> chunks;
+    private HashMap<Pair,Chunk> chunks;
     static HashMap<Pair,ArrayList<Entity>> hashGrid;
     private CollisionManager colHandler;
     private OrthographicCamera camera;
@@ -145,7 +150,7 @@ public class ChunkManager {
                 }
             } else {
                 //no chunks, make new ones.
-                Chunk chunk = new Chunk(chunkPair.getX(),chunkPair.getY());
+                Chunk chunk = new Chunk(chunkPair.getX(),chunkPair.getY(), true);
                 chunks.put(chunkPair,chunk);
             }
         }
@@ -220,6 +225,76 @@ public class ChunkManager {
         }
         anchor.set((int)(position.x - anchorX) / size * size,(int)(position.y - anchorY) / size * size);
         return anchor;
+    }
+
+    /**
+     * Method to save world information to file.
+     */
+    public void saveGame() {
+        //save chunks.
+        try {
+            File gameChunks = new File("gameChunks.txt");
+            FileOutputStream fos = new FileOutputStream(gameChunks);
+            PrintWriter pw = new PrintWriter(fos);
+
+            for(Map.Entry<Pair,Chunk> m :chunks.entrySet()){
+                StringBuilder sb = new StringBuilder();
+                sb.append(m.getKey());
+                sb.append("=");
+
+                Tile[][] gameDat = m.getValue().getTiles();
+                for (int i=0; i<gameDat.length; i++) {
+                    for (int j=0; j<gameDat.length; j++) {
+                        sb.append(gameDat[i][j].getImgId());
+                    }
+                }
+                String toPrint = sb.toString();
+                pw.println(toPrint);
+            }
+            pw.flush();
+            pw.close();
+            fos.close();
+        } catch(Exception e) {
+            err.println(e);
+        }
+    }
+
+    /**
+     * Method to reload game information from file.
+     */
+    public void reloadGame() {
+        //read chunk info
+        try{
+            File toRead = new File("gameChunks.txt");
+            FileInputStream fis = new FileInputStream(toRead);
+
+            Scanner sc = new Scanner(fis);
+
+            chunks = new HashMap<Pair,Chunk>();
+
+            //read data from file line by line:
+            String currentLine;
+            while(sc.hasNextLine()){
+                currentLine = sc.nextLine();
+                //split position data and tile data
+                String[] data = currentLine.split(Pattern.quote("="));
+                //create chunkPair
+                String[] coord = data[0].split(Pattern.quote(":"));
+
+                System.out.println(Arrays.toString(data));
+                System.out.println(Arrays.toString(coord));
+
+                Pair chunkPair = new Pair(Float.parseFloat(coord[0]),Float.parseFloat(coord[1]));
+                //create chunk
+                Chunk chunk = new Chunk(chunkPair.getX(),chunkPair.getY(), false);
+                chunk.setTiles(data[1]);
+
+                chunks.put(chunkPair,chunk);
+            }
+            fis.close();
+        }catch(Exception e){
+            err.println(e);
+        }
     }
 }
 

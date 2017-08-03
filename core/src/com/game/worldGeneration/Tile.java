@@ -22,16 +22,31 @@ public class Tile {
     private Vector2 position;
     private Random rand = new Random();
     private ArrayList<Entity> tileEntities;
+    private int imgId;
 
     /**
      * Constructor for Tile.
      * @param x tile spawn coordinate
      * @param y tile spawn coordinate
      */
-    public Tile(int x, int y, float noise) {
-        //generate random percent
+    public Tile(int x, int y, float noise, boolean newTile) {
+        if(newTile) {
+            selectEntity(x,y,noise);
+            selectTileImg();
+        }
+
+        //initialize starting position
+        position = new Vector2(x,y);
+    }
+
+    /**
+     * Method to select entity for a new tile.
+     * @param x
+     * @param y
+     * @param noise
+     */
+    public void selectEntity(int x, int y, float noise) {
         tileEntities = new ArrayList<Entity>();
-        int percent = rand.nextInt(100);
 
         //choose random entity.
         if(noise <= 0.4){
@@ -56,26 +71,30 @@ public class Tile {
         else{
             tileEntities.add(new Planet(x, y));
         }
+    }
 
+    public void selectTileImg() {
         int percent2 = rand.nextInt(100);
 
         //choose random tile texture.
-        if(percent2 <= 97) {
-            img = AssetStorage.tile1;
+        if(percent2 <= 80) {
+            setImg(1);
+            imgId = 1;
         }
         else if(percent2 <= 98){
-            img = AssetStorage.tile2;
+            setImg(2);
+            imgId = 2;
         }
         else if(percent2 <= 99){
-            img = AssetStorage.tile4;
+            setImg(4);
+            imgId = 4;
         }
         else {
-            img = AssetStorage.tile3;
+            setImg(3);
+            imgId = 3;
         }
-
-        //initialize starting position
-        position = new Vector2(x,y);
     }
+
      /**
      * Get Sprite of tile.
      * @return Sprite img.
@@ -101,4 +120,29 @@ public class Tile {
      * @return entity
      */
     public ArrayList<Entity> getEntity() {return tileEntities;}
+
+    /**
+     * Get img id.
+     * @return
+     */
+    public int getImgId() {
+        return imgId;
+    }
+
+    public void setImg(int id) {
+        switch(id) {
+            case 1: id = 1;
+                img = AssetStorage.tile1;
+                break;
+            case 2: id = 2;
+                img = AssetStorage.tile2;
+                break;
+            case 3: id = 3;
+                img = AssetStorage.tile3;
+                break;
+            case 4: id = 4;
+                img = AssetStorage.tile4;
+                break;
+        }
+    }
 }
