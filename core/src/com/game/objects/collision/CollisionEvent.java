@@ -42,7 +42,7 @@ public class CollisionEvent implements Entity {
         animation = AssetStorage.explosionAnimation;
         ID = 99;
         sizeX = 120;
-        sizeY = 12;
+        sizeY = 120;
     }
 
     /**
