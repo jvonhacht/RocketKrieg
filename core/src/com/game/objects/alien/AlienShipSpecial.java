@@ -38,7 +38,7 @@ public class AlienShipSpecial extends GameEntity implements Entity {
         //set properties
         alienShipSpecial = AssetStorage.alienShipSpecial;
         animation = AssetStorage.redLightAnimation;
-        position.set(x+MathUtils.random(0,500),y+MathUtils.random(0,500));
+        position.set(x,y);
 
         //setup hitbox
         Rectangle bounds =  new Rectangle(position.x, position.y, sizeX, sizeY);

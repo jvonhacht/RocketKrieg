@@ -24,7 +24,7 @@ public class ScorePoint extends GameEntity implements Entity {
      */
     public ScorePoint(float x, float y) {
         super();
-        position.set(x+MathUtils.random(0,500),y+MathUtils.random(0,500));
+        position.set(x,y);
 
         animation = AssetStorage.sparkleAnimation;
         //setup hitbox

@@ -12,7 +12,6 @@ import com.game.objects.*;
 import com.game.objects.alien.AlienShip;
 import com.game.objects.alien.AlienShipSpecial;
 import com.game.objects.alien.Laser;
-import com.game.objects.collision.CollisionEvent;
 import com.game.objects.collision.CollisionManager;
 import com.game.objects.ship.PlayerSpaceShip;
 import com.game.objects.ship.shipComponent.Missile;
@@ -29,7 +28,7 @@ import static java.lang.System.err;
  *  @author Johan von Hacht
  *  @version 1.0 (2017-04-26)
  */
-public class ChunkManager implements Serializable {
+public class ChunkManager {
     private SpriteBatch batch;
     private HashMap<Pair,Chunk> chunks;
     static HashMap<Pair,ArrayList<Entity>> hashGrid;
