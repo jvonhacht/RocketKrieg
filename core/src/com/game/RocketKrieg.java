@@ -38,7 +38,6 @@ public class RocketKrieg implements Screen {
 	private ChunkManager cm;
 	private AssetStorage ass; //:-)
 	private static int score;
-	private static float timeElapsed;
 	private boolean startPhase;
 	private static boolean playerState;
 
@@ -47,6 +46,12 @@ public class RocketKrieg implements Screen {
 	private double accumulator = 0.0;
 	private Vector2 prevPos;
 	private Vector2 currentPos;
+
+	//Timers
+	private static float timeElapsed;
+	private static float instructionTimer;
+	private static float pointTimer;
+
 
 	/**
 	 * Constructor for RocketKrieg screen.
@@ -69,6 +74,8 @@ public class RocketKrieg implements Screen {
 		cm = new ChunkManager(ship, camera);
 		score = 0;
 		timeElapsed = 10;
+		instructionTimer = 0;
+		pointTimer = 2;
 	}
 
 	/**
@@ -119,13 +126,13 @@ public class RocketKrieg implements Screen {
 		if(startPhase && !playerState) {
 			GameEntry.batch.draw(instructions, ship.getPosition().x, ship.getPosition().y - instructions.getHeight() / 2);
 			GameEntry.batch.draw(singleSparkle, ship.getPosition().x + 331, ship.getPosition().y - 115, 25f, 25f);
-			if(timeElapsed > 17){
+			if(instructionTimer > 15){
 				startPhase = false;
 			}
 		}
 
 		//draw "+1"
-		if(8 < timeElapsed  && timeElapsed < 10) {
+		if(pointTimer < 2) {
 			GameEntry.font.draw(GameEntry.batch,"+1",ship.getPosition().x,ship.getPosition().y);
 		}
 
@@ -154,6 +161,8 @@ public class RocketKrieg implements Screen {
 			}
 		}
 		timeElapsed += delta;
+		instructionTimer += delta;
+		pointTimer += delta;
 	}
 
 	/**
@@ -219,7 +228,7 @@ public class RocketKrieg implements Screen {
 	 */
 	public static void inscreaseScore(int amount) {
 		score += amount;
-		timeElapsed = 8;
+		pointTimer = 0;
 	}
 
 	/**
