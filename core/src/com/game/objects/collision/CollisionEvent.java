@@ -1,6 +1,5 @@
 package com.game.objects.collision;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -20,6 +19,9 @@ import com.game.worldGeneration.ChunkManager;
  * @version 1.0 (2017-05-08)
  */
 public class CollisionEvent implements Entity {
+    private int ID;
+    private float sizeX;
+    private float sizeY;
     private float angle;
     private Sprite sprite;
     private Vector2 position;
@@ -38,6 +40,9 @@ public class CollisionEvent implements Entity {
         sprite = AssetStorage.debris;
         hitbox = new Polygon(new float[]{0,0,0,0,0,0,0,0});
         animation = AssetStorage.explosionAnimation;
+        ID = 99;
+        sizeX = 0;
+        sizeY = 0;
     }
 
     /**
@@ -83,4 +88,27 @@ public class CollisionEvent implements Entity {
     public Polygon getHitBox() {
         return hitbox;
     }
+
+    public int getId() {
+        return ID;
+    }
+
+    public Vector2 getVelocity() {
+        return new Vector2(0,0);
+    }
+
+    public Vector2 getAcceleration() {
+        return new Vector2(0,0);
+    }
+
+    public float getAngularVelocity() {
+        return 0;
+    }
+
+    public float getAngle() {
+        return angle;
+    }
+
+    public float getSizeX() { return sizeX; }
+    public float getSizeY() { return sizeY; }
 }

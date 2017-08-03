@@ -18,8 +18,6 @@ import java.util.Random;
 public class Planet extends GameEntity implements Entity{
     private Sprite planet;
     private Animation<TextureRegion> animation;
-    private float sizeX;
-    private float sizeY;
     private Random rand;
 
     /**
@@ -62,6 +60,7 @@ public class Planet extends GameEntity implements Entity{
                 bounds.width/4, bounds.height/4
         });
         hitbox.setOrigin(bounds.width/2, bounds.height/2);
+        ID = 3;
     }
 
     /**

@@ -20,12 +20,14 @@ public class Chunk {
     private Tile[][] tiles;
     private PerlinNoise perlinNoise;
 
-    public Chunk(int x, int y) {
+    public Chunk(int x, int y, boolean generateChunk) {
         tiles = new Tile[WIDTH][HEIGHT];
         this.x = x;
         this.y = y;
         perlinNoise = new PerlinNoise();
-        generateChunk();
+        if(generateChunk) {
+            generateChunk();
+        }
     }
 
     /**
@@ -43,7 +45,7 @@ public class Chunk {
         float[][] noise = generateSimplexNoise(tiles.length,tiles.length);
         for (int i=0; i<tiles.length; i++) {
             for(int j=0; j<tiles.length; j++) {
-                Tile tile = new Tile(x+i*Tile.TILE_SIZE,y+j*Tile.TILE_SIZE, noise[i][j]);
+                Tile tile = new Tile(x+i*Tile.TILE_SIZE,y+j*Tile.TILE_SIZE, noise[i][j],true);
                 tiles[i][j] = tile;
                 ArrayList tileEntities = tile.getEntity();
                 for (int k=0; k<tileEntities.size() ; k++) {
@@ -84,5 +86,21 @@ public class Chunk {
             }
         }
         return simplexnoise;
+    }
+
+    /**
+     * Set saved tiles from String data.
+     * @param tileData
+     */
+    public void setTiles(String tileData) {
+        char[] data = tileData.toCharArray();
+        int index = 0;
+        for (int i=0; i<tiles.length ; i++) {
+            for (int j=0; j<tiles.length ; j++) {
+                tiles[i][j] = new Tile(x+i*Tile.TILE_SIZE,y+j*Tile.TILE_SIZE,0, false);
+                tiles[i][j].setImg(Character.getNumericValue(data[index]));
+                index++;
+            }
+        }
     }
 }

@@ -5,12 +5,23 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.utils.StringBuilder;
+import com.game.AssetStorage;
 import com.game.GameEntry;
 import com.game.objects.*;
+import com.game.objects.alien.AlienShip;
+import com.game.objects.alien.AlienShipSpecial;
+import com.game.objects.alien.Laser;
+import com.game.objects.collision.CollisionEvent;
 import com.game.objects.collision.CollisionManager;
 import com.game.objects.ship.PlayerSpaceShip;
+import com.game.objects.ship.shipComponent.Missile;
 
+import java.io.*;
 import java.util.*;
+import java.util.regex.Pattern;
+
+import static java.lang.System.err;
 
 /**
  *  ChunkManager class handling the
@@ -18,12 +29,13 @@ import java.util.*;
  *  @author Johan von Hacht
  *  @version 1.0 (2017-04-26)
  */
-public class ChunkManager {
+public class ChunkManager implements Serializable {
     private SpriteBatch batch;
-    private Map<Pair,Chunk> chunks;
+    private HashMap<Pair,Chunk> chunks;
     static HashMap<Pair,ArrayList<Entity>> hashGrid;
     private CollisionManager colHandler;
     private OrthographicCamera camera;
+    private PlayerSpaceShip ship;
 
     /**
      * Constructor for ChunkManager.
@@ -32,6 +44,7 @@ public class ChunkManager {
     public ChunkManager(PlayerSpaceShip ship, OrthographicCamera camera) {
         batch = GameEntry.batch;
         this.camera = camera;
+        this.ship = ship;
         chunks = new HashMap<Pair,Chunk>();
         hashGrid = new HashMap<Pair, ArrayList<Entity>>();
         colHandler = new CollisionManager();
@@ -126,7 +139,8 @@ public class ChunkManager {
                         float tileX = tile.getX();
                         float tileY = tile.getY();
                         if(!update) {
-                            batch.draw(tile.getImg(),tileX,tileY);
+                            //=======!!CHANGE TO TILE.GETIMG() IF NPE FIXED!!======
+                            batch.draw(AssetStorage.tile1,tileX,tileY);
                         }
 
                         //try collect entities in tile.
@@ -145,7 +159,7 @@ public class ChunkManager {
                 }
             } else {
                 //no chunks, make new ones.
-                Chunk chunk = new Chunk(chunkPair.getX(),chunkPair.getY());
+                Chunk chunk = new Chunk(chunkPair.getX(),chunkPair.getY(), true);
                 chunks.put(chunkPair,chunk);
             }
         }
@@ -220,6 +234,180 @@ public class ChunkManager {
         }
         anchor.set((int)(position.x - anchorX) / size * size,(int)(position.y - anchorY) / size * size);
         return anchor;
+    }
+
+    /**
+     * Method to save world information to file.
+     */
+    public void saveGame() {
+        //save chunks: x:y=tileId tileId ... tileId
+        try {
+            File gameChunks = new File("chunkData.txt");
+            FileOutputStream fos = new FileOutputStream(gameChunks);
+            PrintWriter pw = new PrintWriter(fos);
+
+            for(Map.Entry<Pair,Chunk> m :chunks.entrySet()){
+                StringBuilder sb = new StringBuilder();
+                sb.append(m.getKey());
+                sb.append("=");
+
+                Tile[][] gameDat = m.getValue().getTiles();
+                for (int i=0; i<gameDat.length; i++) {
+                    for (int j=0; j<gameDat.length; j++) {
+                        sb.append(gameDat[i][j].getImgId());
+                    }
+                }
+                String toPrint = sb.toString();
+                pw.println(toPrint);
+            }
+            pw.flush();
+            pw.close();
+            fos.close();
+        } catch(Exception e) {
+            err.println(e);
+        }
+        //===========================================================//
+        //save entities: position & velocity & acceleration & angle & angularvelocity & sizeX & sizeY
+        try {
+            File entityData = new File("entityData.txt");
+            FileOutputStream fos = new FileOutputStream(entityData);
+            PrintWriter pw = new PrintWriter(fos);
+
+            for(Map.Entry<Pair,ArrayList<Entity>> m :hashGrid.entrySet()){
+                StringBuilder sb = new StringBuilder();
+                ArrayList<Entity> entitiesToSave = m.getValue();
+                for (int i=0; i<entitiesToSave.size(); i++) {
+                    Entity ent = entitiesToSave.get(i);
+                    sb.append(ent.getId());                sb.append("&");
+                    sb.append(ent.getPosition().x);        sb.append("&"); //position
+                    sb.append(ent.getPosition().y);        sb.append("&");
+                    sb.append(ent.getVelocity().x);        sb.append("&"); //velocity
+                    sb.append(ent.getVelocity().y);        sb.append("&");
+                    sb.append(ent.getAcceleration().x);    sb.append("&"); //acceleration
+                    sb.append(ent.getAcceleration().y);    sb.append("&");
+                    sb.append(ent.getAngle());             sb.append("&"); //angle
+                    sb.append(ent.getAngularVelocity());   sb.append("&"); //angular velocity
+                    sb.append(ent.getSizeX());             sb.append("&"); //size x
+                    sb.append(ent.getSizeY());                             //size y
+                    sb.append("=");
+                }
+                sb.deleteCharAt(sb.length-1);
+                String toPrint = sb.toString();
+                pw.println(toPrint);
+            }
+            pw.flush();
+            pw.close();
+            fos.close();
+        } catch(Exception e) {
+            err.println(e);
+        }
+    }
+
+    /**
+     * Method to reload game information from file.
+     */
+    public void reloadGame() {
+        //read chunk info
+        try{
+            File toRead = new File("chunkData.txt");
+            FileInputStream fis = new FileInputStream(toRead);
+
+            Scanner sc = new Scanner(fis);
+
+            chunks = new HashMap<Pair,Chunk>();
+
+            //read data from file line by line:
+            String currentLine;
+            while(sc.hasNextLine()){
+                currentLine = sc.nextLine();
+                //split position data and tile data
+                String[] data = currentLine.split(Pattern.quote("="));
+                //create chunkPair
+                String[] coord = data[0].split(Pattern.quote(":"));
+                Pair chunkPair = new Pair(Float.parseFloat(coord[0]),Float.parseFloat(coord[1]));
+                //create chunk
+                Chunk chunk = new Chunk(chunkPair.getX(),chunkPair.getY(), false);
+                chunk.setTiles(data[1]);
+
+                chunks.put(chunkPair,chunk);
+            }
+            fis.close();
+        }catch(Exception e){
+            err.println(e);
+        }
+
+        //===========================================================//
+        //read entities:
+        try{
+            File toRead = new File("entityData.txt");
+            FileInputStream fis = new FileInputStream(toRead);
+
+            Scanner sc = new Scanner(fis);
+
+            hashGrid = new HashMap<Pair,ArrayList<Entity>>();
+
+            //read data from file line by line:
+            String currentLine;
+            while(sc.hasNextLine()){
+                currentLine = sc.nextLine();
+                //split position data and tile data
+                String[] entities = currentLine.split(Pattern.quote("="));
+                for (int i=0; i<entities.length; i++) {
+                    String entity = entities[i];
+                    String[] entityData = entity.split(Pattern.quote("&"));
+                    int ID = Integer.parseInt(entityData[0]);
+
+                    //retrieve location data.
+                    Vector2 position = new Vector2(Float.parseFloat(entityData[1]),Float.parseFloat(entityData[2]));
+                    Vector2 velocity = new Vector2(Float.parseFloat(entityData[3]),Float.parseFloat(entityData[4]));
+                    Vector2 acceleration = new Vector2(Float.parseFloat(entityData[5]),Float.parseFloat(entityData[6]));
+                    float angle = Float.parseFloat(entityData[7]);
+                    float angularVelocity = Float.parseFloat(entityData[8]);
+                    float sizeX = Float.parseFloat(entityData[9]);
+                    float sizeY = Float.parseFloat(entityData[10]);
+                    //create new entity.
+                    switch (ID) {
+                        case 1: ID = 1;
+                            ship.setProperties(position,velocity,acceleration,angle,angularVelocity,sizeX,sizeY);
+                            addEntity(ship);
+                            break;
+                        case 2: ID = 2;
+                            Missile missile = new Missile(position,velocity,acceleration,angle,angularVelocity);
+                            missile.setProperties(position,velocity,acceleration,angle,angularVelocity,sizeX,sizeY);
+                            addEntity(missile);
+                            break;
+                        case 3: ID = 3;
+                            Planet planet = new Planet(position.x,position.y);
+                            planet.setProperties(position,velocity,acceleration,angle,angularVelocity,sizeX,sizeY);
+                            addEntity(planet);
+                            break;
+                        case 4: ID = 4;
+                            ScorePoint score = new ScorePoint(position.x,position.y);
+                            score.setProperties(position,velocity,acceleration,angle,angularVelocity,sizeX,sizeY);
+                            addEntity(score);
+                            break;
+                        case 5: ID = 5;
+                            AlienShip alien = new AlienShip(position.x,position.y);
+                            alien.setProperties(position,velocity,acceleration,angle,angularVelocity,sizeX,sizeY);
+                            addEntity(alien);
+                            break;
+                        case 6: ID = 6;
+                            AlienShipSpecial alienSpecial = new AlienShipSpecial(position.x,position.y);
+                            alienSpecial.setProperties(position,velocity,acceleration,angle,angularVelocity,sizeX,sizeY);
+                            addEntity(alienSpecial);
+                            break;
+                        case 7: ID = 7;
+                            Laser laser = new Laser(position,velocity,acceleration,angle);
+                            laser.setProperties(position,velocity,acceleration,angle,angularVelocity,sizeX,sizeY);
+                            addEntity(laser);
+                            break;
+                    }
+                }
+            }
+            fis.close();
+        }catch(Exception e){
+            err.println(e);
+        }
     }
 }
 

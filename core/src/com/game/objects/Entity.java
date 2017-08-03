@@ -32,4 +32,41 @@ public interface Entity {
      * @return polygon pol
      */
     Polygon getHitBox();
+
+    /**
+     * Get entity id.
+     * @return id
+     */
+    int getId();
+
+    /**
+     * Return velocity of entity.
+     * @return
+     */
+    Vector2 getVelocity();
+
+    /**
+     * Return acceleration of entity.
+     * @return
+     */
+    Vector2 getAcceleration();
+
+    /**
+     * Return angular velocity of entity.
+     * @return
+     */
+    float getAngularVelocity();
+
+    /**
+     * Return angle of entity.
+     * @return
+     */
+    float getAngle();
+
+    /**
+     * Get size in x and y.
+     * @return
+     */
+    float getSizeX();
+    float getSizeY();
 }

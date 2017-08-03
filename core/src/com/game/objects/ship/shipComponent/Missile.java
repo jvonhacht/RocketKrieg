@@ -31,20 +31,22 @@ public class Missile extends GameEntity implements Entity {
      * @param angle starting angle
      */
     public Missile(Vector2 position, Vector2 velocity, Vector2 acceleration, float angle, float angularVelocity) {
-        float height = 5;
-        float width = 15;
+        sizeY = 5;
+        sizeX = 15;
         this.position = new Vector2(position.x+5,position.y+35);
         this.velocity = new Vector2(velocity.x,velocity.y);
         this.acceleration = new Vector2(acceleration.x,acceleration.y);
         this.angle = angle;
         missile = AssetStorage.missile;
         missile.setRotation(90);
-        missile.setSize(width,height);
+        missile.setSize(sizeX,sizeY);
 
         //setup hitbox
-        Rectangle bounds = new Rectangle(position.x+width,position.y+height,width,height);
+        Rectangle bounds = new Rectangle(position.x+sizeX,position.y+sizeY,sizeX,sizeY);
         hitbox = new Polygon(new float[]{0,0,bounds.width,0,bounds.width,bounds.height,0,bounds.height});
         hitbox.setOrigin(bounds.width/2,bounds.height/2);
+
+        ID = 8;
     }
 
     /**

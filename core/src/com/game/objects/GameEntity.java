@@ -16,6 +16,7 @@ import com.game.objects.ship.shipComponent.Missile;
  * @version 1.0 (2017-05-01)
  */
 public class GameEntity{
+    protected int ID;
     public Vector2 position;
     protected Vector2 velocity;
     protected Vector2 acceleration;
@@ -23,16 +24,21 @@ public class GameEntity{
     protected float angle;
     protected Polygon hitbox;
     protected float timeElapsed;
+    protected float sizeX;
+    protected float sizeY;
 
     /**
      * Constructor for GameEntity.
      */
     public GameEntity() {
+        ID = 0;
         position = new Vector2();
         velocity = new Vector2();
         acceleration = new Vector2();
         angle = (float)Math.toRadians(90);
         timeElapsed = 0;
+        sizeX = 0;
+        sizeY = 0;
     }
 
     /**
@@ -102,5 +108,58 @@ public class GameEntity{
      */
     public Vector2 getVelocity() {
         return velocity;
+    }
+
+    /**
+     * Get velocity of object.
+     * @return
+     */
+    public Vector2 getAcceleration() {
+        return acceleration;
+    }
+
+    /**
+     * Get angular velocity of object.
+     * @return
+     */
+    public float getAngularVelocity() {
+        return angularVelocity;
+    }
+
+    /**
+     * Get angle of object.
+     * @return
+     */
+    public float getAngle() {
+        return angle;
+    }
+
+    /**
+     * Return entity id.
+     * @return
+     */
+    public int getId() {
+        return ID;
+    }
+
+    /**
+     * Return size of object.
+     * @return
+     */
+    public float getSizeX() { return sizeX; }
+    public float getSizeY() { return sizeY; }
+
+    /**
+     * Set all properties for an entity
+     */
+    public void setProperties(Vector2 position, Vector2 velocity, Vector2 acceleration, float angle,
+                              float angularVelocity, float sizeX, float sizeY) {
+        this.position = position;
+        this.velocity = velocity;
+        this.acceleration = acceleration;
+        this.angle = angle;
+        this.angularVelocity = angularVelocity;
+        this.sizeX = sizeX;
+        this.sizeY = sizeY;
     }
 }

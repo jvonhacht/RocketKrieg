@@ -28,8 +28,6 @@ import com.game.objects.ship.shipComponent.weaponComponent.*;
  *  @version 1.0 (2017-04-27)
  */
 public class PlayerSpaceShip extends GameEntity implements Entity {
-    private float sizeX;
-    private float sizeY;
     private boolean playerState;
     //Components and multipliers
     private WeaponComponentInterface weaponComponent;
@@ -72,13 +70,14 @@ public class PlayerSpaceShip extends GameEntity implements Entity {
         Rectangle bounds = new Rectangle(position.x+sizeX,position.y+sizeY,sizeX,sizeY);
         hitbox = new Polygon(new float[]{0,0,bounds.width,0,bounds.width,bounds.height,0,bounds.height});
         hitbox.setOrigin(bounds.width/2,bounds.height/2);
+
+        ID = 1;
     }
 
     /**
      * Render the players ship.
      */
     public void renderr(SpriteBatch batch, Vector2 position) {
-        //System.out.println();
         Sprite img = spaceship;
 
         if(Gdx.input.isKeyPressed(Input.Keys.W)) {
@@ -192,6 +191,14 @@ public class PlayerSpaceShip extends GameEntity implements Entity {
     }
 
     /**
+     * Set shield charge.
+     * @param amount
+     */
+    public void setShieldCharge(int amount) {
+        shieldComponent.setShieldCharge(amount);
+    }
+
+    /**
      * Change shield component.
      * @param component
      */
@@ -230,4 +237,6 @@ public class PlayerSpaceShip extends GameEntity implements Entity {
     public void setReloadComponent(Component component) {
         reloadComponent = component;
     }
+
+
 }

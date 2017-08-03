@@ -14,4 +14,9 @@ public interface ShieldComponentInterface {
      * @return stats
      */
     int getCharges();
+
+    /**
+     * Set shield charge.
+     */
+    void setShieldCharge(int amount);
 }

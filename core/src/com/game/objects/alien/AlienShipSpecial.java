@@ -21,8 +21,6 @@ import com.game.objects.ship.PlayerSpaceShip;
 public class AlienShipSpecial extends GameEntity implements Entity {
     private Sprite alienShipSpecial;
     private Animation<TextureRegion> animation;
-    private float sizeX;
-    private float sizeY;
     private PlayerSpaceShip ship;
     private final float movingSpeed = 120f;
     private final float acceleration = 150f;
@@ -49,6 +47,8 @@ public class AlienShipSpecial extends GameEntity implements Entity {
 
         //get ship
         ship = RocketKrieg.getShip();
+
+        ID = 6;
     }
 
     /**
