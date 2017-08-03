@@ -8,7 +8,7 @@ import com.game.objects.ship.shipComponent.ShipComponent;
  */
 public class SpeedComponentMk1 extends ShipComponent implements Component {
     public SpeedComponentMk1() {
-        stats = 2000f;
+        stats = 3000f;
         name = "Mk1 speed upgrade";
     }
 }
