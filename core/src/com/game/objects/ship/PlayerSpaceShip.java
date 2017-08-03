@@ -191,6 +191,14 @@ public class PlayerSpaceShip extends GameEntity implements Entity {
     }
 
     /**
+     * Set shield charge.
+     * @param amount
+     */
+    public void setShieldCharge(int amount) {
+        shieldComponent.setShieldCharge(amount);
+    }
+
+    /**
      * Change shield component.
      * @param component
      */
@@ -229,4 +237,6 @@ public class PlayerSpaceShip extends GameEntity implements Entity {
     public void setReloadComponent(Component component) {
         reloadComponent = component;
     }
+
+
 }

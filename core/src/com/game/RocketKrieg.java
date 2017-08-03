@@ -9,8 +9,19 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.utils.StringBuilder;
 import com.game.objects.ship.PlayerSpaceShip;
 import com.game.worldGeneration.ChunkManager;
+import com.game.worldGeneration.Pair;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.PrintWriter;
+import java.util.Scanner;
+import java.util.regex.Pattern;
+
+import static java.lang.System.err;
 
 /**
  * Rocket League game mode
@@ -130,10 +141,10 @@ public class RocketKrieg implements Screen {
 			Gdx.app.exit();
 		}
 		if(Gdx.input.isKeyPressed(Input.Keys.O)) {
-			cm.saveGame();
+			saveGame();
 		}
 		if(Gdx.input.isKeyPressed(Input.Keys.P)) {
-			cm.reloadGame();
+			reloadGame();
 		}
 
 		//game over
@@ -143,6 +154,54 @@ public class RocketKrieg implements Screen {
 			}
 		}
 		timeElapsed += delta;
+	}
+
+	/**
+	 * Method to save game to file.
+	 */
+	public void saveGame() {
+		cm.saveGame();
+		//save game stats
+		try {
+			File gameChunks = new File("playerData.txt");
+			FileOutputStream fos = new FileOutputStream(gameChunks);
+			PrintWriter pw = new PrintWriter(fos);
+			StringBuilder sb = new StringBuilder();
+			sb.append(score); sb.append("&");
+			sb.append(time); sb.append("&");
+			sb.append(ship.getShieldCharge());
+			pw.println(sb.toString());
+			// Add support to save component and loadout.
+
+			pw.flush();
+			pw.close();
+			fos.close();
+		} catch(Exception e) {
+			err.println(e);
+		}
+	}
+
+	/**
+	 * Method to reload game from file.
+	 */
+	public void reloadGame() {
+		cm.reloadGame();
+		try{
+			File toRead = new File("playerData.txt");
+			FileInputStream fis = new FileInputStream(toRead);
+			Scanner sc = new Scanner(fis);
+			String currentLine;
+			if(sc.hasNextLine()){
+				currentLine = sc.nextLine();
+				String[] data = currentLine.split(Pattern.quote("&"));
+				score = Integer.parseInt(data[0]);
+				time = Float.parseFloat(data[1]);
+				ship.setShieldCharge(Integer.parseInt(data[2]));
+			}
+			fis.close();
+		}catch(Exception e){
+			err.println(e);
+		}
 	}
 
 	/**

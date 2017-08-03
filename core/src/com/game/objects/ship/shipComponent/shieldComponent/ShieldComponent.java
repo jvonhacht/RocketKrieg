@@ -37,4 +37,12 @@ public class ShieldComponent {
             stats = 0;
         }
     }
+
+    /**
+     * Set charges on shield.
+     * @param amount
+     */
+    public void setShieldCharge(int amount) {
+        stats = amount;
+    }
 }

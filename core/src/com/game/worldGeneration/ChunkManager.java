@@ -139,6 +139,7 @@ public class ChunkManager implements Serializable {
                         float tileX = tile.getX();
                         float tileY = tile.getY();
                         if(!update) {
+                            //=======!!CHANGE TO TILE.GETIMG() IF NPE FIXED!!======
                             batch.draw(AssetStorage.tile1,tileX,tileY);
                         }
 
