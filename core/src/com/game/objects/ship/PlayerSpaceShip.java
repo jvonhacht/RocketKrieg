@@ -28,8 +28,6 @@ import com.game.objects.ship.shipComponent.weaponComponent.*;
  *  @version 1.0 (2017-04-27)
  */
 public class PlayerSpaceShip extends GameEntity implements Entity {
-    private float sizeX;
-    private float sizeY;
     private boolean playerState;
     //Components and multipliers
     private WeaponComponentInterface weaponComponent;

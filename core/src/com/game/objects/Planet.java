@@ -18,8 +18,6 @@ import java.util.Random;
 public class Planet extends GameEntity implements Entity{
     private Sprite planet;
     private Animation<TextureRegion> animation;
-    private float sizeX;
-    private float sizeY;
     private Random rand;
 
     /**

@@ -67,4 +67,6 @@ public interface Entity {
      * Get size in x and y.
      * @return
      */
+    float getSizeX();
+    float getSizeY();
 }

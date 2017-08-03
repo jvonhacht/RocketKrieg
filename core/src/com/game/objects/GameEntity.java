@@ -24,6 +24,8 @@ public class GameEntity{
     protected float angle;
     protected Polygon hitbox;
     protected float timeElapsed;
+    protected float sizeX;
+    protected float sizeY;
 
     /**
      * Constructor for GameEntity.
@@ -35,6 +37,8 @@ public class GameEntity{
         acceleration = new Vector2();
         angle = (float)Math.toRadians(90);
         timeElapsed = 0;
+        sizeX = 0;
+        sizeY = 0;
     }
 
     /**
@@ -131,10 +135,31 @@ public class GameEntity{
     }
 
     /**
-     * Return entity id
+     * Return entity id.
      * @return
      */
     public int getId() {
         return ID;
+    }
+
+    /**
+     * Return size of object.
+     * @return
+     */
+    public float getSizeX() { return sizeX; }
+    public float getSizeY() { return sizeY; }
+
+    /**
+     * Set all properties for an entity
+     */
+    public void setProperties(Vector2 position, Vector2 velocity, Vector2 acceleration, float angle,
+                              float angularVelocity, float sizeX, float sizeY) {
+        this.position = position;
+        this.velocity = velocity;
+        this.acceleration = acceleration;
+        this.angle = angle;
+        this.angularVelocity = angularVelocity;
+        this.sizeX = sizeX;
+        this.sizeY = sizeY;
     }
 }

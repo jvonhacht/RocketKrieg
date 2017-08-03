@@ -129,20 +129,19 @@ public class Tile {
         return imgId;
     }
 
+    /**
+     * Set tile img with an id
+     * @param id tile
+     */
     public void setImg(int id) {
-        switch(id) {
-            case 1: id = 1;
-                img = AssetStorage.tile1;
-                break;
-            case 2: id = 2;
-                img = AssetStorage.tile2;
-                break;
-            case 3: id = 3;
-                img = AssetStorage.tile3;
-                break;
-            case 4: id = 4;
-                img = AssetStorage.tile4;
-                break;
+        if(id == 1) {
+            img = AssetStorage.tile1;
+        } else if(id == 2) {
+            img = AssetStorage.tile2;
+        } else if(id == 3) {
+            img = AssetStorage.tile3;
+        } else if(id == 4) {
+            img = AssetStorage.tile4;
         }
     }
 }

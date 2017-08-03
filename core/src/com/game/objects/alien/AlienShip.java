@@ -1,6 +1,5 @@
 package com.game.objects.alien;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Polygon;
@@ -20,8 +19,6 @@ import com.game.worldGeneration.ChunkManager;
  */
 public class AlienShip extends GameEntity implements Entity {
     private Sprite alienShip;
-    private float sizeX;
-    private float sizeY;
     private PlayerSpaceShip ship;
     private final float MOVING_SPEED = 120f;
     private final float ACCELERATION = 240f;

@@ -1,6 +1,5 @@
 package com.game.objects.collision;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -11,7 +10,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.game.AssetStorage;
 import com.game.GameEntry;
 import com.game.objects.Entity;
-import com.game.objects.GameEntity;
 import com.game.worldGeneration.ChunkManager;
 
 /**
@@ -20,7 +18,10 @@ import com.game.worldGeneration.ChunkManager;
  * @author Johan von Hacht
  * @version 1.0 (2017-05-08)
  */
-public class CollisionEvent extends GameEntity implements Entity {
+public class CollisionEvent implements Entity {
+    private int ID;
+    private float sizeX;
+    private float sizeY;
     private float angle;
     private Sprite sprite;
     private Vector2 position;
@@ -40,6 +41,8 @@ public class CollisionEvent extends GameEntity implements Entity {
         hitbox = new Polygon(new float[]{0,0,0,0,0,0,0,0});
         animation = AssetStorage.explosionAnimation;
         ID = 99;
+        sizeX = 0;
+        sizeY = 0;
     }
 
     /**
@@ -69,4 +72,43 @@ public class CollisionEvent extends GameEntity implements Entity {
             ChunkManager.removeEntity(this);
         }
     }
+
+    /**
+     * Get position of collision
+     * @return position
+     */
+    public Vector2 getPosition() {
+        return position;
+    }
+
+    /**
+     * Method for getting the hitbox
+     * @return hitbox
+     */
+    public Polygon getHitBox() {
+        return hitbox;
+    }
+
+    public int getId() {
+        return ID;
+    }
+
+    public Vector2 getVelocity() {
+        return new Vector2(0,0);
+    }
+
+    public Vector2 getAcceleration() {
+        return new Vector2(0,0);
+    }
+
+    public float getAngularVelocity() {
+        return 0;
+    }
+
+    public float getAngle() {
+        return angle;
+    }
+
+    public float getSizeX() { return sizeX; }
+    public float getSizeY() { return sizeY; }
 }
