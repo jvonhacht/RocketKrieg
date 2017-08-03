@@ -47,15 +47,15 @@ public class CollisionManager {
                         //do not explode planets.
                         if(ent1 instanceof Planet) {
                             entities.remove(j);
-                            entities.add(new CollisionEvent(ent2.getPosition().x,ent2.getPosition().y));
+                            entities.add(new CollisionEvent(ent2.getPosition().x-60,ent2.getPosition().y-60));
                         } else {
                             entities.remove(i);
-                            entities.add(new CollisionEvent(ent1.getPosition().x,ent1.getPosition().y));
+                            entities.add(new CollisionEvent(ent1.getPosition().x-60,ent1.getPosition().y-60));
                         }
                     } else if(ent2 instanceof Planet) {
                         //do not explode planets.
                         entities.remove(i);
-                        entities.add(new CollisionEvent(ent1.getPosition().x,ent1.getPosition().y));
+                        entities.add(new CollisionEvent(ent1.getPosition().x-60,ent1.getPosition().y-60));
                     } else if (ent1 instanceof PlayerSpaceShip && ent2 instanceof ScorePoint) {
                         //if player collides with scorepoint, give point do no collision.
                         RocketKrieg.inscreaseScore(1);
@@ -105,14 +105,6 @@ public class CollisionManager {
         Vector2 pos2 = ent2.getPosition();
         float x = (pos1.x + pos2.x) / 2;
         float y = (pos1.y + pos2.y) / 2;
-        //don't do any average position for planet collision.
-        if(ent1 instanceof Planet) {
-            entities.add(new CollisionEvent(pos2.x-25,pos2.y-25));
-        } else if(ent2 instanceof Planet) {
-            entities.add(new CollisionEvent(pos1.x-25,pos2.y-25));
-        } else {
-            //magic number 50 to offset explosion into the correct pos
-            entities.add(new CollisionEvent(x-50,y-50));
-        }
+        entities.add(new CollisionEvent(x-60,y-60));
     }
 }
