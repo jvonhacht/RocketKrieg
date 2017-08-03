@@ -28,7 +28,7 @@ public class Asteroid extends GameEntity implements Entity{
 
         //set properties
         asteroid = AssetStorage.asteroid;
-        position.set(x+MathUtils.random(0,500),y+MathUtils.random(0,500));
+        position.set(x,y);
         velocity.set(MathUtils.random(-50,50),MathUtils.random(-50,50));
         angularVelocity = MathUtils.random(-50, 50);
 
