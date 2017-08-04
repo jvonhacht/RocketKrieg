@@ -15,6 +15,8 @@ import com.game.GameEntry;
 import com.game.objects.Entity;
 import com.game.objects.GameEntity;
 import com.game.objects.ship.shipComponent.*;
+import com.game.objects.ship.shipComponent.boostComponent.BoostComponent;
+import com.game.objects.ship.shipComponent.boostComponent.BoostComponentMk1;
 import com.game.objects.ship.shipComponent.reloadComponent.*;
 import com.game.objects.ship.shipComponent.shieldComponent.*;
 import com.game.objects.ship.shipComponent.speedComponent.*;
@@ -29,11 +31,12 @@ import com.game.objects.ship.shipComponent.weaponComponent.*;
 public class PlayerSpaceShip extends GameEntity implements Entity {
     private boolean playerState;
     //Components and multipliers
-    private WeaponComponentInterface weaponComponent;
-    private Component speedComponent;
-    private Component turningComponent;
-    private ShieldComponentInterface shieldComponent;
-    private Component reloadComponent;
+    private WeaponComponent weaponComponent;
+    private ShipComponent speedComponent;
+    private ShipComponent turningComponent;
+    private ShieldComponent shieldComponent;
+    private ShipComponent reloadComponent;
+    private BoostComponent boostComponent;
     private float MAX_ANGULARVELOCITY = 1000f;
     //Textures
     private Sprite spaceship;
@@ -52,6 +55,7 @@ public class PlayerSpaceShip extends GameEntity implements Entity {
         turningComponent = new TurningComponentMk5();
         shieldComponent = new ShieldComponentMk5();
         reloadComponent = new ReloadComponentMk5();
+        boostComponent = new BoostComponentMk1();
 
         //set size of spaceship
         sizeX = 25;
@@ -114,6 +118,7 @@ public class PlayerSpaceShip extends GameEntity implements Entity {
      */
     public void update(float delta) {
         move(delta);
+        boost(delta); //check if boost
 
         //flight controls
         if(Gdx.input.isKeyPressed(Input.Keys.W)) {
@@ -185,12 +190,51 @@ public class PlayerSpaceShip extends GameEntity implements Entity {
     }
 
     /**
+     * Return boost charge.
+     * @return
+     */
+    public float getBoostCharge() {
+        if(boostComponent!=null) {
+            return boostComponent.getCharge();
+        } else {
+            return 0;
+        }
+    }
+
+    public float getSpeed() {
+        if(speedComponent!=null) {
+            return speedComponent.getStats();
+        } else {
+            return 0;
+        }
+    }
+
+    /**
      * Reduce shield charges.
      */
     public void reduceShieldCharge() {
         shieldComponent.reduceCharge();
         spaceshipTime = 0;
         playerHit = true;
+    }
+
+    /**
+     * Boost ship speed.
+     * @param delta
+     */
+    public void boost(float delta){
+        float originalSpeed = speedComponent.getUnchangedStats();
+        if(boostComponent != null) {
+            if (Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT) && (boostComponent.getCharge() > 0)) {
+                boostComponent.boost(delta);
+                speedComponent.setStats(2f * originalSpeed);
+            } else if(!Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)) {
+                speedComponent.setStats(originalSpeed);
+                boostComponent.reChargeBoost(delta);
+            } else {
+                speedComponent.setStats(originalSpeed);
+            }
+        }
     }
 
     /**
@@ -205,7 +249,7 @@ public class PlayerSpaceShip extends GameEntity implements Entity {
      * Change shield component.
      * @param component
      */
-    public void setShieldComponent(ShieldComponentInterface component) {
+    public void setShieldComponent(ShieldComponent component) {
         shieldComponent = component;
     }
 
@@ -213,7 +257,7 @@ public class PlayerSpaceShip extends GameEntity implements Entity {
      * Change weapon component.
      * @param component
      */
-    public void setWeaponComponent(WeaponComponentInterface component) {
+    public void setWeaponComponent(WeaponComponent component) {
         weaponComponent = component;
     }
 
@@ -221,7 +265,7 @@ public class PlayerSpaceShip extends GameEntity implements Entity {
      * Change speed component.
      * @param component
      */
-    public void setSpeedComponent(Component component) {
+    public void setSpeedComponent(ShipComponent component) {
         speedComponent = component;
     }
 
@@ -229,7 +273,7 @@ public class PlayerSpaceShip extends GameEntity implements Entity {
      * Change turning speed component.
      * @param component
      */
-    public void setTurningComponent(Component component) {
+    public void setTurningComponent(ShipComponent component) {
         turningComponent = component;
     }
 
@@ -237,7 +281,7 @@ public class PlayerSpaceShip extends GameEntity implements Entity {
      * Change reload component.
      * @param component
      */
-    public void setReloadComponent(Component component) {
+    public void setReloadComponent(ShipComponent component) {
         reloadComponent = component;
     }
 

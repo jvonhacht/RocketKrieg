@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.Vector2;
 public class ShipComponent {
     protected String name;
     protected float stats;
+    protected float unChangedStats;
 
     public ShipComponent() {
         name = "";
@@ -27,5 +28,17 @@ public class ShipComponent {
      */
     public float getStats() {
         return stats;
+    }
+
+    /**
+     * Set component stats.
+     * @param stats
+     */
+    public void setStats(float stats) {
+        this.stats = stats;
+    }
+
+    public float getUnchangedStats() {
+        return unChangedStats;
     }
 }

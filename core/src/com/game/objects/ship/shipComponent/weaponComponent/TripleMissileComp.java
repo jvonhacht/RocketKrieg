@@ -1,15 +1,13 @@
 package com.game.objects.ship.shipComponent.weaponComponent;
 
 import com.badlogic.gdx.math.Vector2;
-import com.game.objects.ship.shipComponent.Component;
 import com.game.objects.ship.shipComponent.Missile;
-import com.game.objects.ship.shipComponent.ShipComponent;
 import com.game.worldGeneration.ChunkManager;
 
 /**
  * Created by JohanvonHacht on 2017-07-31.
  */
-public class TripleMissileComp extends WeaponComponent implements WeaponComponentInterface {
+public class TripleMissileComp extends WeaponComponent {
     public TripleMissileComp() {
         name = "Triple missile upgrade";
     }

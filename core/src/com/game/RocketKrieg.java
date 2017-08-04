@@ -124,6 +124,9 @@ public class RocketKrieg implements Screen {
 		GameEntry.font.draw(GameEntry.batch, "Score: " + score,cameraPosition.x - 25, cameraPosition.y + Gdx.graphics.getHeight()/2 -50);
 		GameEntry.font.draw(GameEntry.batch,"Shield Charges: " + Integer.toString(ship.getShieldCharge()),cameraPosition.x - 200, cameraPosition.y + Gdx.graphics.getHeight()/2 -50);
 		GameEntry.font.draw(GameEntry.batch,"Time: " + Integer.toString((int)time),cameraPosition.x + 90, cameraPosition.y + Gdx.graphics.getHeight()/2 - 50);
+		GameEntry.font.draw(GameEntry.batch,"Bcharge: " + Float.toString(ship.getBoostCharge()),cameraPosition.x + 90, cameraPosition.y + Gdx.graphics.getHeight()/2 - 100);
+		GameEntry.font.draw(GameEntry.batch,"Speed: " + Float.toString(ship.getSpeed()),cameraPosition.x + 90, cameraPosition.y + Gdx.graphics.getHeight()/2 - 120);
+
 
 		//draw instructions
 		if(startPhase && !playerState) {
