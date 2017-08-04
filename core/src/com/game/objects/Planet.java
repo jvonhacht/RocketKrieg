@@ -17,7 +17,6 @@ import java.util.Random;
  */
 public class Planet extends GameEntity implements Entity{
     private Sprite planet;
-    private Animation<TextureRegion> animation;
     private Random rand;
 
     /**
@@ -25,12 +24,17 @@ public class Planet extends GameEntity implements Entity{
      * @param x spawn coordinate
      * @param y spawn coordinate
      */
-    public Planet(float x, float y){
+    public Planet(float x, float y, float sizeX, float sizeY){
         super();
         rand = new Random();
-        int size = rand.nextInt(350) + 150;
-        sizeX = size;
-        sizeY = size;
+        if((sizeX != 0) && (sizeY != 0)) {
+            this.sizeX = sizeX;
+            this.sizeY = sizeY;
+        } else {
+            int size = rand.nextInt(350) + 150;
+            this.sizeX = size;
+            this.sizeY = size;
+        }
 
         //set properties
         int randomNumber = MathUtils.random(100);
@@ -43,12 +47,11 @@ public class Planet extends GameEntity implements Entity{
         } else {
             planet = AssetStorage.planet3;
         }
-        //animation = AssetStorage.atmosphereAnimation;
         position.set(x,y);
         angle = (float)Math.toRadians(rand.nextInt(361));
 
         //setup hitbox
-        Rectangle bounds =  new Rectangle(position.x, position.y, sizeX, sizeY);
+        Rectangle bounds =  new Rectangle(position.x, position.y, this.sizeX, this.sizeY);
         hitbox = new Polygon(new float[]{
                 bounds.width/2, 0,
                 3 * (bounds.width/4), bounds.height/4,
@@ -70,7 +73,6 @@ public class Planet extends GameEntity implements Entity{
     public void render(SpriteBatch batch){
         planet.setSize(sizeX,sizeY);
         super.render(batch, planet, Math.toDegrees(angle));
-        //GameEntry.batch.draw(animation.getKeyFrame(timeElapsed, true), position.x + sizeX/2 - 135, position.y + sizeY/2 - 135, sizeX - 29, sizeY - 29);
     }
 
     /**

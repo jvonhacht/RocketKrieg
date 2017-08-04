@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.utils.Base64Coder;
 import com.badlogic.gdx.utils.StringBuilder;
 import com.game.objects.ship.PlayerSpaceShip;
 import com.game.worldGeneration.ChunkManager;
@@ -177,14 +178,16 @@ public class RocketKrieg implements Screen {
 		cm.saveGame();
 		//save game stats
 		try {
-			File gameChunks = new File("playerData.txt");
+			File gameChunks = new File("playerData.rk");
 			FileOutputStream fos = new FileOutputStream(gameChunks);
 			PrintWriter pw = new PrintWriter(fos);
 			StringBuilder sb = new StringBuilder();
 			sb.append(score); sb.append("&");
 			sb.append(time); sb.append("&");
 			sb.append(ship.getShieldCharge());
-			pw.println(sb.toString());
+			String toPrint = sb.toString();
+			Base64Coder.encodeString(toPrint);
+			pw.println(toPrint);
 			// Add support to save component and loadout.
 
 			pw.flush();
@@ -201,12 +204,14 @@ public class RocketKrieg implements Screen {
 	public void reloadGame() {
 		cm.reloadGame();
 		try{
-			File toRead = new File("playerData.txt");
+			File toRead = new File("playerData.rk");
 			FileInputStream fis = new FileInputStream(toRead);
 			Scanner sc = new Scanner(fis);
 			String currentLine;
 			if(sc.hasNextLine()){
 				currentLine = sc.nextLine();
+				byte[] byteLine = Base64Coder.decode(currentLine);
+				currentLine = new String(byteLine,"UTF-8");
 				String[] data = currentLine.split(Pattern.quote("&"));
 				score = Integer.parseInt(data[0]);
 				time = Float.parseFloat(data[1]);
