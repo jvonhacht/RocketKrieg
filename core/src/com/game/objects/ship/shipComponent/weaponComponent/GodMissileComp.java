@@ -7,7 +7,7 @@ import com.game.worldGeneration.ChunkManager;
 /**
  * Created by JohanvonHacht on 2017-08-01.
  */
-public class GodMissileComp extends WeaponComponent implements WeaponComponentInterface {
+public class GodMissileComp extends WeaponComponent {
     public GodMissileComp() {
         name = "God missile upgrade";
     }
