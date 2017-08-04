@@ -69,7 +69,8 @@ public class Tile {
             tileEntities.add(new ScorePoint(x - rand.nextInt(TILE_SIZE), y - rand.nextInt(TILE_SIZE)));
         }
         else{
-            tileEntities.add(new Planet(x, y));
+            //sizeX and Y 0 to determine new size
+            tileEntities.add(new Planet(x, y, 0, 0));
         }
     }
 

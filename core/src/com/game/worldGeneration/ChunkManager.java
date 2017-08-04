@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.utils.Base64Coder;
 import com.badlogic.gdx.utils.StringBuilder;
 import com.game.AssetStorage;
 import com.game.GameEntry;
@@ -15,6 +16,7 @@ import com.game.objects.alien.Laser;
 import com.game.objects.collision.CollisionManager;
 import com.game.objects.ship.PlayerSpaceShip;
 import com.game.objects.ship.shipComponent.Missile;
+import sun.misc.BASE64Encoder;
 
 import java.io.*;
 import java.util.*;
@@ -241,7 +243,7 @@ public class ChunkManager {
     public void saveGame() {
         //save chunks: x:y=tileId tileId ... tileId
         try {
-            File gameChunks = new File("chunkData.txt");
+            File gameChunks = new File("chunkData.rk");
             FileOutputStream fos = new FileOutputStream(gameChunks);
             PrintWriter pw = new PrintWriter(fos);
 
@@ -257,6 +259,7 @@ public class ChunkManager {
                     }
                 }
                 String toPrint = sb.toString();
+                toPrint = Base64Coder.encodeString(toPrint);
                 pw.println(toPrint);
             }
             pw.flush();
@@ -268,7 +271,7 @@ public class ChunkManager {
         //===========================================================//
         //save entities: position & velocity & acceleration & angle & angularvelocity & sizeX & sizeY
         try {
-            File entityData = new File("entityData.txt");
+            File entityData = new File("entityData.rk");
             FileOutputStream fos = new FileOutputStream(entityData);
             PrintWriter pw = new PrintWriter(fos);
 
@@ -292,7 +295,9 @@ public class ChunkManager {
                 }
                 sb.deleteCharAt(sb.length-1);
                 String toPrint = sb.toString();
+                toPrint = Base64Coder.encodeString(toPrint);
                 pw.println(toPrint);
+
             }
             pw.flush();
             pw.close();
@@ -308,7 +313,7 @@ public class ChunkManager {
     public void reloadGame() {
         //read chunk info
         try{
-            File toRead = new File("chunkData.txt");
+            File toRead = new File("chunkData.rk");
             FileInputStream fis = new FileInputStream(toRead);
 
             Scanner sc = new Scanner(fis);
@@ -319,6 +324,8 @@ public class ChunkManager {
             String currentLine;
             while(sc.hasNextLine()){
                 currentLine = sc.nextLine();
+                byte[] byteLine = Base64Coder.decode(currentLine);
+                currentLine = new String(byteLine,"UTF-8");
                 //split position data and tile data
                 String[] data = currentLine.split(Pattern.quote("="));
                 //create chunkPair
@@ -331,14 +338,12 @@ public class ChunkManager {
                 chunks.put(chunkPair,chunk);
             }
             fis.close();
-        }catch(Exception e){
-            err.println(e);
-        }
+        }catch(Exception e){}
 
         //===========================================================//
         //read entities:
         try{
-            File toRead = new File("entityData.txt");
+            File toRead = new File("entityData.rk");
             FileInputStream fis = new FileInputStream(toRead);
 
             Scanner sc = new Scanner(fis);
@@ -349,6 +354,8 @@ public class ChunkManager {
             String currentLine;
             while(sc.hasNextLine()){
                 currentLine = sc.nextLine();
+                byte[] byteLine = Base64Coder.decode(currentLine);
+                currentLine = new String(byteLine,"UTF-8");
                 //split position data and tile data
                 String[] entities = currentLine.split(Pattern.quote("="));
                 for (int i=0; i<entities.length; i++) {
@@ -376,7 +383,7 @@ public class ChunkManager {
                             addEntity(missile);
                             break;
                         case 3: ID = 3;
-                            Planet planet = new Planet(position.x,position.y);
+                            Planet planet = new Planet(position.x,position.y,sizeX,sizeY);
                             planet.setProperties(position,velocity,acceleration,angle,angularVelocity,sizeX,sizeY);
                             addEntity(planet);
                             break;
@@ -404,9 +411,7 @@ public class ChunkManager {
                 }
             }
             fis.close();
-        }catch(Exception e){
-            err.println(e);
-        }
+        }catch(Exception e){}
     }
 }
 
