@@ -46,6 +46,7 @@ public class ComponentsMenu extends Menu implements Screen {
 
         //font.draw(GameEntry.batch, "" + xPos, Gdx.graphics.getWidth()/2 - 80, Gdx.graphics.getHeight()/2 + 20);
         //font.draw(GameEntry.batch, "" + yPos, Gdx.graphics.getWidth()/2 - 80, Gdx.graphics.getHeight()/2 + 40);
+        font.draw(GameEntry.batch, "work in progress", Gdx.graphics.getWidth()/2 - 80, Gdx.graphics.getHeight()/2 + 60);
 
         //Exit game by pressing esc
         if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
