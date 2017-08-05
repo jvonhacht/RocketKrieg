@@ -70,23 +70,16 @@ public class Settings implements Screen {
         GameEntry.batch.draw(settingsBox, Gdx.graphics.getWidth()/2 - settingsBox.getWidth()/2, Gdx.graphics.getHeight()/2 - settingsBox.getHeight()/2);
 
         //Checkmarks
-        if(fullScreenEnabled){
-            font.draw(GameEntry.batch, "Full Screen", Gdx.graphics.getWidth()/2 - settingsBox.getWidth()/2 + 383, Gdx.graphics.getHeight()/2 + settingsBox.getHeight()/2 - 81);
-        }
-        else{
-            font.draw(GameEntry.batch, "Windowed", Gdx.graphics.getWidth()/2 - settingsBox.getWidth()/2 + 384, Gdx.graphics.getHeight()/2 + settingsBox.getHeight()/2 - 81);
-        }
-
         if(vSyncEnabled){
-            GameEntry.batch.draw(checkmark, (Gdx.graphics.getWidth()/2 - settingsBox.getWidth()/2) + 493, (Gdx.graphics.getHeight()/2 - settingsBox.getHeight()/2) + 428, 40, 40);
+            GameEntry.batch.draw(checkmark, (Gdx.graphics.getWidth()/2 - settingsBox.getWidth()/2) + 493, (Gdx.graphics.getHeight()/2 - settingsBox.getHeight()/2) + 489, 40, 40);
         }
 
         if(musicEnabled){
-            GameEntry.batch.draw(checkmark, (Gdx.graphics.getWidth()/2 - settingsBox.getWidth()/2) + 493, (Gdx.graphics.getHeight()/2 - settingsBox.getHeight()/2) + 367, 40, 40);
+            GameEntry.batch.draw(checkmark, (Gdx.graphics.getWidth()/2 - settingsBox.getWidth()/2) + 493, (Gdx.graphics.getHeight()/2 - settingsBox.getHeight()/2) + 428, 40, 40);
         }
 
         if(sfxEnabled){
-            GameEntry.batch.draw(checkmark, (Gdx.graphics.getWidth()/2 - settingsBox.getWidth()/2) + 493, (Gdx.graphics.getHeight()/2 - settingsBox.getHeight()/2) + 306, 40, 40);
+            GameEntry.batch.draw(checkmark, (Gdx.graphics.getWidth()/2 - settingsBox.getWidth()/2) + 493, (Gdx.graphics.getHeight()/2 - settingsBox.getHeight()/2) + 367, 40, 40);
         }
 
         //Get mouse coordinates
@@ -96,22 +89,8 @@ public class Settings implements Screen {
         //font.draw(GameEntry.batch, "" + xPos, Gdx.graphics.getWidth()/2 - 80, Gdx.graphics.getHeight()/2 + 20);
         //font.draw(GameEntry.batch, "" + yPos, Gdx.graphics.getWidth()/2 - 80, Gdx.graphics.getHeight()/2 + 40);
 
-        //Full screen/windowed mode
-        if(buttonRectangle(((Gdx.graphics.getWidth()/2 - settingsBox.getWidth()/2) + 375), ((Gdx.graphics.getHeight()/2 - settingsBox.getHeight()/2) + 75), 155, 35, 2)){
-            if(fullScreenEnabled){
-                Gdx.graphics.setWindowedMode(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-                Gdx.graphics.setResizable(true);
-                fullScreenEnabled = false;
-            }
-            else{
-                Gdx.graphics.setFullscreenMode(Gdx.graphics.getDisplayMode());
-                Gdx.graphics.setResizable(false);
-                fullScreenEnabled = true;
-            }
-        }
-
         //Enabling/disabling V-sync
-        if(buttonSquare(((Gdx.graphics.getWidth()/2 - settingsBox.getWidth()/2) + 495), ((Gdx.graphics.getHeight()/2 - settingsBox.getHeight()/2) + 136), 45, 2)){
+        if(buttonSquare(((Gdx.graphics.getWidth()/2 - settingsBox.getWidth()/2) + 495), ((Gdx.graphics.getHeight()/2 - settingsBox.getHeight()/2) + 75), 45, 2)){
             if(vSyncEnabled){
                 Gdx.graphics.setVSync(false);
                 vSyncEnabled = false;
@@ -123,7 +102,7 @@ public class Settings implements Screen {
         }
 
         //Enabling/disabling music
-        if(buttonSquare(((Gdx.graphics.getWidth()/2 - settingsBox.getWidth()/2) + 495), ((Gdx.graphics.getHeight()/2 - settingsBox.getHeight()/2) + 197), 45, 2)){
+        if(buttonSquare(((Gdx.graphics.getWidth()/2 - settingsBox.getWidth()/2) + 495), ((Gdx.graphics.getHeight()/2 - settingsBox.getHeight()/2) + 136), 45, 2)){
             if(musicEnabled){
                 musicEnabled = false;
             }
@@ -133,7 +112,7 @@ public class Settings implements Screen {
         }
 
         //Enabling/disabling sfx
-        if(buttonSquare(((Gdx.graphics.getWidth()/2 - settingsBox.getWidth()/2) + 495), ((Gdx.graphics.getHeight()/2 - settingsBox.getHeight()/2) + 258), 45, 3)){
+        if(buttonSquare(((Gdx.graphics.getWidth()/2 - settingsBox.getWidth()/2) + 495), ((Gdx.graphics.getHeight()/2 - settingsBox.getHeight()/2) + 197), 45, 3)){
             if(sfxEnabled){
                 sfxEnabled = false;
             }
