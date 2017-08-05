@@ -37,12 +37,13 @@ public class CollisionManager {
                         //missile should not blow up ship or each other, do nothing.
                     } else if(ent1 instanceof PlayerSpaceShip && !(ent2 instanceof ScorePoint || ent2 instanceof Planet) || (ent2 instanceof PlayerSpaceShip && !(ent1 instanceof ScorePoint || ent1 instanceof Planet))) {
                         if(ent1 instanceof  PlayerSpaceShip) {
+                            PlayerSpaceShip ship = (PlayerSpaceShip)ent1;
+                            ship.hit(false);
                             entities.remove(j);
                         } else {
                             entities.remove(i);
                         }
                         collisionEvent(ent1,ent2, entities);
-                        RocketKrieg.playerDead(false);
                     } else if((ent1 instanceof Planet && !(ent2 instanceof PlayerSpaceShip)) || (ent2 instanceof Planet && !(ent1 instanceof PlayerSpaceShip))) {
                         //do not explode planets.
                         if(ent1 instanceof Planet) {
@@ -75,11 +76,14 @@ public class CollisionManager {
                     } else if((ent1 instanceof Laser && (ent2 instanceof AlienShip || ent2 instanceof AlienShipSpecial)) || (ent2 instanceof Laser && (ent1 instanceof AlienShip || ent1 instanceof AlienShipSpecial))) {
                         //do not let alien laser blow up alien.
                     } else if((ent1 instanceof Planet && ent2 instanceof PlayerSpaceShip) || (ent1 instanceof PlayerSpaceShip && ent2 instanceof Planet)) {
-                        RocketKrieg.playerDead(true);
                         if(ent1 instanceof PlayerSpaceShip){
+                            PlayerSpaceShip ship = (PlayerSpaceShip) ent1;
+                            ship.hit(true);
                             entities.remove(i);
                             entities.add(new CollisionEvent(ent1.getPosition().x,ent1.getPosition().y));
                         } else {
+                            PlayerSpaceShip ship = (PlayerSpaceShip) ent2;
+                            ship.hit(true);
                             entities.remove(j);
                             entities.add(new CollisionEvent(ent2.getPosition().x,ent2.getPosition().y));
                         }

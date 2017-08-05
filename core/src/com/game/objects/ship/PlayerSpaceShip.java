@@ -15,13 +15,13 @@ import com.game.GameEntry;
 import com.game.objects.Entity;
 import com.game.objects.GameEntity;
 import com.game.objects.ship.shipComponent.*;
-import com.game.objects.ship.shipComponent.boostComponent.BoostComponent;
-import com.game.objects.ship.shipComponent.boostComponent.BoostComponentMk1;
+import com.game.objects.ship.shipComponent.boostComponent.*;
 import com.game.objects.ship.shipComponent.reloadComponent.*;
 import com.game.objects.ship.shipComponent.shieldComponent.*;
 import com.game.objects.ship.shipComponent.speedComponent.*;
 import com.game.objects.ship.shipComponent.turningComponent.*;
 import com.game.objects.ship.shipComponent.weaponComponent.*;
+import com.game.worldGeneration.ChunkManager;
 
 /**
  *  PlayerSpaceShip entity class.
@@ -29,7 +29,7 @@ import com.game.objects.ship.shipComponent.weaponComponent.*;
  *  @version 1.0 (2017-04-27)
  */
 public class PlayerSpaceShip extends GameEntity implements Entity {
-    private boolean playerState;
+    private boolean isAlive;
     //Components and multipliers
     private WeaponComponent weaponComponent;
     private ShipComponent speedComponent;
@@ -55,12 +55,12 @@ public class PlayerSpaceShip extends GameEntity implements Entity {
         turningComponent = new TurningComponentMk5();
         shieldComponent = new ShieldComponentMk5();
         reloadComponent = new ReloadComponentMk5();
-        boostComponent = new BoostComponentMk1();
+        boostComponent = new BoostComponentMk5();
 
         //set size of spaceship
         sizeX = 25;
         sizeY = 70;
-        playerState = false;
+        isAlive = true;
 
         //load images
         spaceship = AssetStorage.spaceship;
@@ -210,15 +210,6 @@ public class PlayerSpaceShip extends GameEntity implements Entity {
     }
 
     /**
-     * Reduce shield charges.
-     */
-    public void reduceShieldCharge() {
-        shieldComponent.reduceCharge();
-        spaceshipTime = 0;
-        playerHit = true;
-    }
-
-    /**
      * Boost ship speed.
      * @param delta
      */
@@ -235,6 +226,36 @@ public class PlayerSpaceShip extends GameEntity implements Entity {
                 speedComponent.setStats(originalSpeed);
             }
         }
+    }
+
+    /**
+     * Ship hit by entity.
+     */
+    public void hit(boolean planetCollision) {
+        if(getShieldCharge()>0 && !planetCollision) {
+            reduceShieldCharge();
+        } else {
+            ChunkManager.removeEntity(this);
+            isAlive = false;
+            setPos(position.x,position.y);
+        }
+    }
+
+    /**
+     * Reduce shield charges.
+     */
+    public void reduceShieldCharge() {
+        shieldComponent.reduceCharge();
+        spaceshipTime = 0;
+        playerHit = true;
+    }
+
+    /**
+     * Get state of player.
+     * @return
+     */
+    public boolean getPlayerState() {
+        return isAlive;
     }
 
     /**
