@@ -17,14 +17,16 @@ public class AssetStorage {
     public static final Sprite gameLogo = new Sprite(new Texture("images/menu/Rocket_Krieg_Logo.png"));
     public static final Sprite playButton = new Sprite(new Texture("images/menu/Play_Button.png"));
     public static final Sprite buttonHover = new Sprite(new Texture("images/menu/Button_Hover.png"));
-    public static final Sprite settingsButton = new Sprite(new Texture("images/menu/Settings_Button.png"));
-    public static final Sprite settingsBox = new Sprite(new Texture("images/menu/Settings_Box.png"));
-    public static final Sprite background = new Sprite(new Texture("images/menu/Space_Background.jpg"));
+    public static final Sprite settingsButton = new Sprite(new Texture("images/menu/settings/Settings_Button.png"));
+    public static final Sprite settingsBox = new Sprite(new Texture("images/menu/settings/Settings_Box.png"));
+    public static final Sprite componentsButton = new Sprite(new Texture("images/menu/components/Components_Button.png"));
+    public static final Sprite componentsBox = new Sprite(new Texture("images/menu/components/Components_Box.png"));
+    public static final Sprite background1 = new Sprite(new Texture("images/menu/Space_Background.jpg"));
     public static final Sprite background2 = new Sprite(new Texture("images/menu/Space_Background2.png"));
     public static final Sprite instructions = new Sprite(new Texture("images/menu/Instructions.png"));
     public static final Sprite replayButton = new Sprite(new Texture("images/menu/Replay_Button.png"));
     public static final Sprite exitButton = new Sprite(new Texture("images/menu/Exit_Button.png"));
-    public static final Sprite gameOver = new Sprite(new Texture("images/menu/Game_Over.png"));
+    public static final Sprite gameOver = new Sprite(new Texture("images/menu/game_over/Game_Over.png"));
 
     //game entities
     public static final Sprite spaceship = new Sprite(new Texture(Gdx.files.internal("images/spaceship/Spaceship.png")));
