@@ -41,6 +41,8 @@ public class CollisionManager {
                             ship.hit(false);
                             entities.remove(j);
                         } else {
+                            PlayerSpaceShip ship = (PlayerSpaceShip)ent2;
+                            ship.hit(false);
                             entities.remove(i);
                         }
                         collisionEvent(ent1,ent2, entities);
