@@ -20,6 +20,7 @@ public class MainMenu implements Screen {
     private Sprite gameLogo;
     private Sprite playButton;
     private Sprite settingsButton;
+    private Sprite componentsButton;
     private Sprite buttonHover;
     private Sprite background;
     private float timeElapsed;
@@ -33,6 +34,7 @@ public class MainMenu implements Screen {
         gameLogo = AssetStorage.gameLogo;
         playButton = AssetStorage.playButton;
         settingsButton = AssetStorage.settingsButton;
+        componentsButton = AssetStorage.componentsButton;
         buttonHover = AssetStorage.buttonHover;
         background = AssetStorage.background;
         timeElapsed = 10;
@@ -61,7 +63,8 @@ public class MainMenu implements Screen {
         GameEntry.batch.draw(background, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         GameEntry.batch.draw(gameLogo, Gdx.graphics.getWidth()/2 - (logoWidth / 2), Gdx.graphics.getHeight()/2 - (logoHeight / 2) + 50);
         GameEntry.batch.draw(playButton, Gdx.graphics.getWidth()/2 - (playWidth / 2), Gdx.graphics.getHeight()/2 - (playHeight / 2) - 100);
-        GameEntry.batch.draw(settingsButton, Gdx.graphics.getWidth()/2 - (playWidth / 2), Gdx.graphics.getHeight()/2 - (playHeight / 2) - 175);
+        GameEntry.batch.draw(componentsButton, Gdx.graphics.getWidth()/2 - (playWidth / 2), Gdx.graphics.getHeight()/2 - (playHeight / 2) - 175);
+        GameEntry.batch.draw(settingsButton, Gdx.graphics.getWidth()/2 - (playWidth / 2), Gdx.graphics.getHeight()/2 - (playHeight / 2) - 250);
 
         //Get mouse coordinates
         int xPos = Gdx.input.getX();
@@ -82,10 +85,23 @@ public class MainMenu implements Screen {
             }
         }
 
-        //Pressing settings button
+        //Pressing components button
         if (xPos <= Gdx.graphics.getWidth()/2 + (playWidth / 2) && xPos >= Gdx.graphics.getWidth()/2 - (playWidth / 2)){
             if (yPos <= Gdx.graphics.getHeight()/2 + (playHeight / 2) + 175 && yPos >= Gdx.graphics.getHeight()/2 - (playHeight / 2) + 175){
-                GameEntry.batch.draw(buttonHover, Gdx.graphics.getWidth()/2 - (playWidth / 2), Gdx.graphics.getHeight()/2 - (playHeight / 2) - 171);
+                GameEntry.batch.draw(buttonHover, Gdx.graphics.getWidth()/2 - (playWidth / 2) + 1, Gdx.graphics.getHeight()/2 - (playHeight / 2) - 171);
+                if (Gdx.input.isTouched()){
+                    if(sfxEnabled){
+                        playSound.play(1.0f);
+                    }
+                    game.setScreen(new ComponentsMenu(game));
+                }
+            }
+        }
+
+        //Pressing settings button
+        if (xPos <= Gdx.graphics.getWidth()/2 + (playWidth / 2) && xPos >= Gdx.graphics.getWidth()/2 - (playWidth / 2)){
+            if (yPos <= Gdx.graphics.getHeight()/2 + (playHeight / 2) + 250 && yPos >= Gdx.graphics.getHeight()/2 - (playHeight / 2) + 250){
+                GameEntry.batch.draw(buttonHover, Gdx.graphics.getWidth()/2 - (playWidth / 2), Gdx.graphics.getHeight()/2 - (playHeight / 2) - 246);
                 if (Gdx.input.isTouched()){
                     if(sfxEnabled){
                         playSound.play(1.0f);
