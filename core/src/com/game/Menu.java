@@ -32,9 +32,9 @@ public class Menu{
     public Menu(final GameEntry game) {
         this.game = game;
         camera = new OrthographicCamera();
+        camera.setToOrtho(false, 800, 480);
         soundEffect1 = Gdx.audio.newSound(Gdx.files.internal("sounds/Play_Sound.mp3"));
         soundEffect2 = Gdx.audio.newSound(Gdx.files.internal("sounds/SettingsButtonPress.mp3"));
-        camera.setToOrtho(false, 800, 480);
         timeElapsed = 0;
 
         //Initialize font

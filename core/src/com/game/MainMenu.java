@@ -4,10 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import static com.game.Settings.sfxEnabled;
 
 /**
  * The main menu of the Rocket Krieg program.
@@ -33,8 +30,6 @@ public class MainMenu extends Menu implements Screen {
         settingsButton = AssetStorage.settingsButton;
         componentsButton = AssetStorage.componentsButton;
         buttonHover = AssetStorage.buttonHover;
-        camera = new OrthographicCamera();
-        camera.setToOrtho(false, 800, 480);
     }
 
     /**
@@ -63,49 +58,27 @@ public class MainMenu extends Menu implements Screen {
 
         Sound playSound = Gdx.audio.newSound(Gdx.files.internal("sounds/Play_Sound.mp3"));
 
+        //missing hover animations
         //Pressing play button
-        if (xPos <= Gdx.graphics.getWidth()/2 + (playWidth / 2) && xPos >= Gdx.graphics.getWidth()/2 - (playWidth / 2)){
-            if (yPos <= Gdx.graphics.getHeight()/2 + (playHeight / 2) + 100 && yPos >= Gdx.graphics.getHeight()/2 - (playHeight / 2) + 100){
-                GameEntry.batch.draw(buttonHover, Gdx.graphics.getWidth()/2 - (playWidth / 2) + 2, Gdx.graphics.getHeight()/2 - (playHeight / 2) - 95);
-                if (Gdx.input.isTouched()){
-                    if(sfxEnabled){
-                        playSound.play(1.0f);
-                    }
-                    game.setScreen(new RocketKrieg(game));
-                }
-            }
+        if(buttonRectangle(Gdx.graphics.getWidth()/2 - (playWidth / 2), Gdx.graphics.getHeight()/2 - (playHeight / 2) + 100, playWidth, playHeight, 1)){
+            game.setScreen(new RocketKrieg(game));
         }
 
         //Pressing components button
-        if (xPos <= Gdx.graphics.getWidth()/2 + (playWidth / 2) && xPos >= Gdx.graphics.getWidth()/2 - (playWidth / 2)){
-            if (yPos <= Gdx.graphics.getHeight()/2 + (playHeight / 2) + 175 && yPos >= Gdx.graphics.getHeight()/2 - (playHeight / 2) + 175){
-                GameEntry.batch.draw(buttonHover, Gdx.graphics.getWidth()/2 - (playWidth / 2) + 1, Gdx.graphics.getHeight()/2 - (playHeight / 2) - 171);
-                if (Gdx.input.isTouched()){
-                    if(sfxEnabled){
-                        playSound.play(1.0f);
-                    }
-                    game.setScreen(new ComponentsMenu(game));
-                }
-            }
+        if(buttonRectangle(Gdx.graphics.getWidth()/2 - (playWidth / 2), Gdx.graphics.getHeight()/2 - (playHeight / 2) + 175, playWidth, playHeight, 1)){
+            game.setScreen(new ComponentsMenu(game));
         }
 
         //Pressing settings button
-        if (xPos <= Gdx.graphics.getWidth()/2 + (playWidth / 2) && xPos >= Gdx.graphics.getWidth()/2 - (playWidth / 2)){
-            if (yPos <= Gdx.graphics.getHeight()/2 + (playHeight / 2) + 250 && yPos >= Gdx.graphics.getHeight()/2 - (playHeight / 2) + 250){
-                GameEntry.batch.draw(buttonHover, Gdx.graphics.getWidth()/2 - (playWidth / 2), Gdx.graphics.getHeight()/2 - (playHeight / 2) - 246);
-                if (Gdx.input.isTouched()){
-                    if(sfxEnabled){
-                        playSound.play(1.0f);
-                    }
-                    game.setScreen(new Settings(game));
-                }
-            }
+        if(buttonRectangle(Gdx.graphics.getWidth()/2 - (playWidth / 2), Gdx.graphics.getHeight()/2 - (playHeight / 2) + 250, playWidth, playHeight, 1)){
+            game.setScreen(new Settings(game));
         }
 
         //Exit game by pressing esc
         if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
             Gdx.app.exit();
         }
+
         GameEntry.batch.end();
     }
 
