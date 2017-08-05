@@ -1,45 +1,41 @@
 package com.game;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
-import com.badlogic.gdx.audio.Sound;
+
 import static com.game.Settings.sfxEnabled;
 
 /**
- * Components menu for Rocket Krieg program.
+ * Menu screen superclass
  * @author David Johansson
  * @version 1.0 (2017-08-05)
  */
-public class ComponentsMenu implements Screen {
-    private final GameEntry game;
-    private Sprite background;
-    private Sprite componentsBox;
-    private Sound soundEffect1;
-    private Sound soundEffect2;
-    private OrthographicCamera camera;
-    private BitmapFont font;
-    private float timeElapsed;
+public class Menu{
+    protected final GameEntry game;
+    protected OrthographicCamera camera;
+    protected Sprite background;
+    protected Sound soundEffect1;
+    protected Sound soundEffect2;
+    protected float timeElapsed;
+    protected BitmapFont font;
+
 
     /**
-     * Constructor for Components screen.
-     *
-     * @param game SpriteBatch
+     * Constructor for Menu screen.
+     * @param game GameEntry with SpriteBatch
      */
-    public ComponentsMenu(final GameEntry game) {
+    public Menu(final GameEntry game) {
         this.game = game;
-        background = AssetStorage.background1;
-        componentsBox = AssetStorage.componentsBox;
-        timeElapsed = 0;
+        camera = new OrthographicCamera();
         soundEffect1 = Gdx.audio.newSound(Gdx.files.internal("sounds/Play_Sound.mp3"));
         soundEffect2 = Gdx.audio.newSound(Gdx.files.internal("sounds/SettingsButtonPress.mp3"));
-        camera = new OrthographicCamera();
-        camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        camera.setToOrtho(false, 800, 480);
+        timeElapsed = 0;
 
         //Initialize font
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/Tw_Cen_MT_Bold.ttf"));
@@ -52,7 +48,6 @@ public class ComponentsMenu implements Screen {
     /**
      * Renders all the textures
      * and checks for player input.
-     *
      * @param delta time since last frame
      */
     public void render(float delta) {
@@ -62,25 +57,9 @@ public class ComponentsMenu implements Screen {
         GameEntry.batch.begin();
 
         GameEntry.batch.draw(background, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        GameEntry.batch.draw(componentsBox, Gdx.graphics.getWidth()/2 - componentsBox.getWidth()/2, Gdx.graphics.getHeight()/2 - componentsBox.getHeight()/2);
-
-
-        //Get mouse coordinates
-        int xPos = Gdx.input.getX();
-        int yPos = Gdx.input.getY();
-
-        //font.draw(GameEntry.batch, "" + xPos, Gdx.graphics.getWidth()/2 - 80, Gdx.graphics.getHeight()/2 + 20);
-        //font.draw(GameEntry.batch, "" + yPos, Gdx.graphics.getWidth()/2 - 80, Gdx.graphics.getHeight()/2 + 40);
-
-
-        //Exit game by pressing esc
-        if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
-            Gdx.app.exit();
-        }
-
         timeElapsed += delta;
-        GameEntry.batch.end();
     }
+
 
     /**
      * Returns true if the player presses intended region
@@ -160,43 +139,4 @@ public class ComponentsMenu implements Screen {
         }
         return false;
     }
-
-
-
-    /**
-     * Called when GameOver becomes current screen.
-     */
-    public void show() {
-    }
-
-    /**
-     * Method to resize screen.
-     *
-     * @param width  int
-     * @param height int
-     */
-    public void resize(int width, int height) {
-    }
-
-    /**
-     * Actions performed when game is paused.
-     */
-    public void pause() {
-    }
-
-    /**
-     * Dispose the GameOver screen.
-     */
-    public void dispose() {
-    }
-
-    /**
-     * Only called on android.
-     */
-    public void resume() {
-    }
-
-    public void hide() {
-    }
 }
-

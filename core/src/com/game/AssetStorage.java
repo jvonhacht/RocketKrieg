@@ -21,7 +21,7 @@ public class AssetStorage {
     public static final Sprite settingsBox = new Sprite(new Texture("images/menu/settings/Settings_Box.png"));
     public static final Sprite componentsButton = new Sprite(new Texture("images/menu/components/Components_Button.png"));
     public static final Sprite componentsBox = new Sprite(new Texture("images/menu/components/Components_Box.png"));
-    public static final Sprite background = new Sprite(new Texture("images/menu/Space_Background.jpg"));
+    public static final Sprite background1 = new Sprite(new Texture("images/menu/Space_Background.jpg"));
     public static final Sprite background2 = new Sprite(new Texture("images/menu/Space_Background2.png"));
     public static final Sprite instructions = new Sprite(new Texture("images/menu/Instructions.png"));
     public static final Sprite replayButton = new Sprite(new Texture("images/menu/Replay_Button.png"));

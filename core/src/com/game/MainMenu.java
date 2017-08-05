@@ -14,30 +14,25 @@ import static com.game.Settings.sfxEnabled;
  * @author David Johansson
  * @version 1.0 (2017-05-01)
  */
-public class MainMenu implements Screen {
-    private final GameEntry game;
-    private OrthographicCamera camera;
+public class MainMenu extends Menu implements Screen {
     private Sprite gameLogo;
     private Sprite playButton;
     private Sprite settingsButton;
     private Sprite componentsButton;
     private Sprite buttonHover;
-    private Sprite background;
-    private float timeElapsed;
 
     /**
      * Constructor for MainMenu screen.
      * @param game GameEntry with SpriteBatch
      */
     public MainMenu(final GameEntry game) {
-        this.game = game;
+        super(game);
+        background = AssetStorage.background1;
         gameLogo = AssetStorage.gameLogo;
         playButton = AssetStorage.playButton;
         settingsButton = AssetStorage.settingsButton;
         componentsButton = AssetStorage.componentsButton;
         buttonHover = AssetStorage.buttonHover;
-        background = AssetStorage.background;
-        timeElapsed = 10;
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 800, 480);
     }
@@ -48,10 +43,7 @@ public class MainMenu implements Screen {
      * @param delta time since last frame
      */
     public void render(float delta) {
-        Gdx.gl.glClearColor(0, 0, 0, 0);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        camera.update();
-        GameEntry.batch.begin();
+        super.render(delta);
 
         //Get measurements of textures
         float logoWidth = gameLogo.getWidth();
@@ -60,7 +52,6 @@ public class MainMenu implements Screen {
         float playHeight = playButton.getHeight();
 
         //Draw menu
-        GameEntry.batch.draw(background, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         GameEntry.batch.draw(gameLogo, Gdx.graphics.getWidth()/2 - (logoWidth / 2), Gdx.graphics.getHeight()/2 - (logoHeight / 2) + 50);
         GameEntry.batch.draw(playButton, Gdx.graphics.getWidth()/2 - (playWidth / 2), Gdx.graphics.getHeight()/2 - (playHeight / 2) - 100);
         GameEntry.batch.draw(componentsButton, Gdx.graphics.getWidth()/2 - (playWidth / 2), Gdx.graphics.getHeight()/2 - (playHeight / 2) - 175);
@@ -115,8 +106,6 @@ public class MainMenu implements Screen {
         if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
             Gdx.app.exit();
         }
-
-        timeElapsed += delta;
         GameEntry.batch.end();
     }
 
