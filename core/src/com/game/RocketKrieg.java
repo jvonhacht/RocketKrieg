@@ -1,6 +1,5 @@
 package com.game;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
@@ -45,6 +44,7 @@ public class RocketKrieg implements Screen {
 	private ChunkManager cm;
 	private AssetStorage ass; //:-)
 	private static int score;
+	private static int currency;
 	private boolean startPhase;
 
 	private double time = 0.0;
@@ -78,11 +78,12 @@ public class RocketKrieg implements Screen {
 		ass = new AssetStorage();
 		ship = new PlayerSpaceShip();
 		cm = new ChunkManager(ship, camera);
-		score = 0;
 		timeElapsed = 10;
 		instructionTimer = 0;
 		pointTimer = 2;
 		gameOverTimer = 0;
+		reloadPlayerStats();
+		score = 0;
 
 		state = GAME_RUNNING;
 	}
@@ -159,6 +160,7 @@ public class RocketKrieg implements Screen {
 		}
 		//draw score
 		GameEntry.font.draw(GameEntry.batch, "Score: " + score,cameraPosition.x - 25, cameraPosition.y + Gdx.graphics.getHeight()/2 -50);
+		GameEntry.font.draw(GameEntry.batch, "Currency: " + currency,cameraPosition.x - 50, cameraPosition.y + Gdx.graphics.getHeight()/2 -75);
 		GameEntry.font.draw(GameEntry.batch,"Shield Charges: " + Integer.toString(ship.getShieldCharge()),cameraPosition.x - 200, cameraPosition.y + Gdx.graphics.getHeight()/2 -50);
 		GameEntry.font.draw(GameEntry.batch,"Time: " + Integer.toString((int)time),cameraPosition.x + 90, cameraPosition.y + Gdx.graphics.getHeight()/2 - 50);
 		GameEntry.font.draw(GameEntry.batch,"Bcharge: " + Float.toString(ship.getBoostCharge()),cameraPosition.x + 90, cameraPosition.y + Gdx.graphics.getHeight()/2 - 100);
@@ -181,6 +183,7 @@ public class RocketKrieg implements Screen {
 
 		//game over
 		if(!isAlive){
+			savePlayerStats();
 			state = GAME_OVER;
 		} else  {
 			gameOverTimer = 0;
@@ -191,6 +194,7 @@ public class RocketKrieg implements Screen {
 			saveGame();
 		}
 		if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
+			savePlayerStats();
 			Gdx.app.exit();
 		}
 		if(Gdx.input.isKeyPressed(Input.Keys.L)) {
@@ -220,21 +224,21 @@ public class RocketKrieg implements Screen {
 	}
 
 	/**
-	 * Method to save game to file.
+	 * Method to save player stats to file.
 	 */
-	public void saveGame() {
-		cm.saveGame();
+	public void savePlayerStats() {
 		//save game stats
 		try {
 			File gameChunks = new File("playerData.rk");
 			FileOutputStream fos = new FileOutputStream(gameChunks);
 			PrintWriter pw = new PrintWriter(fos);
 			StringBuilder sb = new StringBuilder();
-			sb.append(score); sb.append("&");
-			sb.append(time); sb.append("&");
+			sb.append(score); sb.append("B");
+			sb.append(currency); sb.append("B");
+			sb.append(time); sb.append("B");
 			sb.append(ship.getShieldCharge());
 			String toPrint = sb.toString();
-			Base64Coder.encodeString(toPrint);
+			toPrint = Base64Coder.encodeString(toPrint);
 			pw.println(toPrint);
 			// Add support to save component and loadout.
 
@@ -247,10 +251,16 @@ public class RocketKrieg implements Screen {
 	}
 
 	/**
-	 * Method to reload game from file.
+	 * Method to save game to file.
 	 */
-	public void reloadGame() {
-		cm.reloadGame();
+	public void saveGame() {
+		cm.saveGame();
+	}
+
+	/**
+	 * Method to reload player stats from file.
+	 */
+	public void reloadPlayerStats() {
 		try{
 			File toRead = new File("playerData.rk");
 			FileInputStream fis = new FileInputStream(toRead);
@@ -260,15 +270,23 @@ public class RocketKrieg implements Screen {
 				currentLine = sc.nextLine();
 				byte[] byteLine = Base64Coder.decode(currentLine);
 				currentLine = new String(byteLine,"UTF-8");
-				String[] data = currentLine.split(Pattern.quote("&"));
+				String[] data = currentLine.split(Pattern.quote("B"));
 				score = Integer.parseInt(data[0]);
-				time = Float.parseFloat(data[1]);
-				ship.setShieldCharge(Integer.parseInt(data[2]));
+				currency = Integer.parseInt(data[1]);
+				time = Float.parseFloat(data[2]);
+				ship.setShieldCharge(Integer.parseInt(data[3]));
 			}
 			fis.close();
 		}catch(Exception e){
 			err.println(e);
 		}
+	}
+
+	/**
+	 * Method to reload game from file.
+	 */
+	public void reloadGame() {
+		cm.reloadGame();
 	}
 
 	/**
@@ -286,6 +304,7 @@ public class RocketKrieg implements Screen {
 	 */
 	public static void inscreaseScore(int amount) {
 		score += amount;
+		currency += amount;
 		pointTimer = 0;
 	}
 
