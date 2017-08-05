@@ -1,5 +1,6 @@
 package com.game;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
@@ -30,6 +31,11 @@ import static java.lang.System.err;
  * @version 1.5 (2017-05-11)
  */
 public class RocketKrieg implements Screen {
+	static final int GAME_RUNNING = 1;
+	static final int GAME_PAUSED = 2;
+	static final int GAME_OVER = 3;
+	private int state;
+
 	private final GameEntry game;
 	private OrthographicCamera camera;
 	private static PlayerSpaceShip ship;
@@ -40,7 +46,6 @@ public class RocketKrieg implements Screen {
 	private AssetStorage ass; //:-)
 	private static int score;
 	private boolean startPhase;
-	private static boolean playerState;
 
 	private double time = 0.0;
 	private double tick = 1/300f;
@@ -49,10 +54,10 @@ public class RocketKrieg implements Screen {
 	private Vector2 currentPos;
 
 	//Timers
-	private static float timeElapsed;
-	private static float instructionTimer;
+	private float timeElapsed;
+	private float instructionTimer;
 	private static float pointTimer;
-	private static float gameOverTimer;
+	private float gameOverTimer;
 
 
 	/**
@@ -62,7 +67,6 @@ public class RocketKrieg implements Screen {
 	public RocketKrieg(final GameEntry game) {
 		this.game = game;
 		startPhase = true;
-		playerState = false;
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
 		camera.position.x = 0;
@@ -79,6 +83,8 @@ public class RocketKrieg implements Screen {
 		instructionTimer = 0;
 		pointTimer = 2;
 		gameOverTimer = 0;
+
+		state = GAME_RUNNING;
 	}
 
 	/**
@@ -87,8 +93,37 @@ public class RocketKrieg implements Screen {
 	 * @param delta time since last frame
 	 */
 	public void render(float delta) {
-		//clear screen
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+		switch (state) {
+			case GAME_RUNNING:
+				GameEntry.batch.begin();
+				updateRunning(true);
+				GameEntry.batch.end();
+				break;
+			case GAME_PAUSED:
+				GameEntry.batch.begin();
+				updateGamePaused();
+				GameEntry.batch.end();
+				break;
+			case GAME_OVER:
+				GameEntry.batch.begin();
+				updateGameOver();
+				GameEntry.batch.end();
+				break;
+		}
+		timeElapsed += delta;
+		instructionTimer += delta;
+		pointTimer += delta;
+		gameOverTimer += delta;
+	}
+
+	/**
+	 * Game running screen.
+	 */
+	public void updateRunning(boolean updatePhysics) {
+		boolean isAlive = ship.getPlayerState();
+
 		//camera
 		GameEntry.batch.setProjectionMatrix(camera.combined);
 		camera.update();
@@ -96,28 +131,30 @@ public class RocketKrieg implements Screen {
 		Vector2 shipPosition = ship.getPosition();
 		Vector2 shipVelocity = ship.getVelocity();
 		float lerp = 2f;
+		float delta = Gdx.graphics.getDeltaTime();
 		cameraPosition.x += (shipPosition.x - cameraPosition.x) * lerp * delta + shipVelocity.x*delta/lerp;
 		cameraPosition.y += (shipPosition.y - cameraPosition.y) * lerp * delta + shipVelocity.y*delta/lerp;
 
 		//fixed step update and rendering
-		GameEntry.batch.begin();
 		float frameTime = Gdx.graphics.getDeltaTime();
 		if(frameTime>0.25) {
 			frameTime = 0.25f;
 		}
-		accumulator += frameTime;
-		while (accumulator >= tick) {
-			prevPos = ship.getPosition();
-			cm.render(true,(float)tick);
-			accumulator -= tick;
-			time += tick;
+		if(updatePhysics) {
+			accumulator += frameTime;
+			while (accumulator >= tick) {
+				prevPos = ship.getPosition();
+				cm.render(true,(float)tick);
+				accumulator -= tick;
+				time += tick;
+			}
 		}
 		cm.render(false,1);
 		//interpolate ship
 		float alpha = (float)(accumulator/tick);
 		currentPos = ship.getPosition();
 		Vector2 lerpPosition = prevPos.interpolate(currentPos,alpha, Interpolation.linear);
-		if(!playerState) {
+		if(isAlive) {
 			ship.renderr(GameEntry.batch, lerpPosition);
 		}
 		//draw score
@@ -129,7 +166,7 @@ public class RocketKrieg implements Screen {
 
 
 		//draw instructions
-		if(startPhase && !playerState) {
+		if(startPhase && isAlive) {
 			GameEntry.batch.draw(instructions, ship.getPosition().x, ship.getPosition().y - instructions.getHeight() / 2);
 			GameEntry.batch.draw(singleSparkle, ship.getPosition().x + 331, ship.getPosition().y - 115, 25f, 25f);
 			if(instructionTimer > 15){
@@ -142,36 +179,44 @@ public class RocketKrieg implements Screen {
 			GameEntry.font.draw(GameEntry.batch,"+1",ship.getPosition().x,ship.getPosition().y);
 		}
 
-		//draw game over message
-		if(playerState){
-			GameEntry.batch.draw(gameOver, ship.getPosition().x - (gameOver.getWidth()/2), ship.getPosition().y - (gameOver.getHeight()/2) + 40);
+		//game over
+		if(!isAlive){
+			state = GAME_OVER;
+		} else  {
+			gameOverTimer = 0;
 		}
-
-		GameEntry.batch.end();
 
 		//input
-		if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
-			Gdx.app.exit();
-		}
 		if(Gdx.input.isKeyPressed(Input.Keys.O)) {
 			saveGame();
 		}
-		if(Gdx.input.isKeyPressed(Input.Keys.P)) {
-			reloadGame();
+		if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
+			Gdx.app.exit();
 		}
+		if(Gdx.input.isKeyPressed(Input.Keys.L)) {
+			state = GAME_PAUSED;
+		}
+	}
 
-		//game over
-		if(playerState){
-			if(gameOverTimer > 2){
-				game.setScreen(new GameOver(game, score));
-			}
-		} else {
-			gameOverTimer = 0;
+	/**
+	 * Game over screen.
+	 */
+	public void updateGameOver() {
+		updateRunning(true);
+		GameEntry.batch.draw(gameOver, ship.getPosition().x - (gameOver.getWidth()/2), ship.getPosition().y - (gameOver.getHeight()/2) + 40);
+		if(gameOverTimer>2) {
+			game.setScreen(new GameOver(game, score));
 		}
-		timeElapsed += delta;
-		instructionTimer += delta;
-		pointTimer += delta;
-		gameOverTimer += delta;
+	}
+
+	/**
+	 * Game paused screen.
+	 */
+	public void updateGamePaused() {
+		if(Gdx.input.isKeyPressed(Input.Keys.K)) {
+			state = GAME_RUNNING;
+		}
+		updateRunning(false);
 	}
 
 	/**
@@ -250,20 +295,6 @@ public class RocketKrieg implements Screen {
 	 */
 	public static int getScore() {
 		return score;
-	}
-
-	/**
-	 * Indicate that player is dead
-	 */
-	public static void playerDead(boolean planetCollision){
-		if(ship.getShieldCharge()>0 && !planetCollision) {
-			ship.reduceShieldCharge();
-		} else {
-			ChunkManager.removeEntity(ship);
-			playerState = true;
-			ship.setPos(ship.position.x,ship.position.y);
-		}
-		timeElapsed = 0;
 	}
 
 	/**
