@@ -251,6 +251,15 @@ public class PlayerSpaceShip extends GameEntity implements Entity {
     }
 
     /**
+     * Restart ship in between games.
+     */
+    public void restart() {
+        if(shieldComponent!=null) {
+            shieldComponent.shieldReset();
+        }
+    }
+
+    /**
      * Get state of player.
      * @return
      */

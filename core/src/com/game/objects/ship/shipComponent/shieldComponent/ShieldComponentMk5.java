@@ -7,6 +7,7 @@ public class ShieldComponentMk5 extends ShieldComponent {
     public ShieldComponentMk5() {
         //reload time
         stats = 5;
+        unChangedStats = stats;
         name = "Mk5 shield upgrade";
     }
 }

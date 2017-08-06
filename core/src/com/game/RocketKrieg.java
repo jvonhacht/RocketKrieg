@@ -204,6 +204,7 @@ public class RocketKrieg implements Screen {
 
 		//game over
 		if(!isAlive){
+			ship.restart();
 			savePlayerStats();
 			state = GAME_OVER;
 		} else  {
@@ -244,6 +245,7 @@ public class RocketKrieg implements Screen {
 		updateRunning(true);
 		GameEntry.batch.draw(gameOver, ship.getPosition().x - (gameOver.getWidth()/2), ship.getPosition().y - (gameOver.getHeight()/2) + 40);
 		if(gameOverTimer>2) {
+			ship.restart();
 			game.setScreen(new GameOver(game, score));
 		}
 	}

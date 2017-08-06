@@ -6,6 +6,7 @@ package com.game.objects.ship.shipComponent.shieldComponent;
 public class ShieldComponent {
     protected String name;
     protected int stats;
+    protected int unChangedStats;
 
     public ShieldComponent() {
         name = "";
@@ -44,5 +45,12 @@ public class ShieldComponent {
      */
     public void setShieldCharge(int amount) {
         stats = amount;
+    }
+
+    /**
+     * Reset shield charges to original state.
+     */
+    public void shieldReset() {
+        stats = unChangedStats;
     }
 }

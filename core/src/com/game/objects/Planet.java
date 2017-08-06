@@ -51,7 +51,7 @@ public class Planet extends GameEntity implements Entity{
         angle = (float)Math.toRadians(rand.nextInt(361));
 
         //setup hitbox
-        Rectangle bounds =  new Rectangle(position.x, position.y, this.sizeX, this.sizeY);
+        Rectangle bounds =  new Rectangle(position.x+2, position.y+2, this.sizeX-7, this.sizeY-7);
         hitbox = new Polygon(new float[]{
                 bounds.width/2, 0,
                 3 * (bounds.width/4), bounds.height/4,
