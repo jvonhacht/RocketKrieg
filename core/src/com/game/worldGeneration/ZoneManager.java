@@ -1,16 +1,19 @@
 package com.game.worldGeneration;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.game.AssetStorage;
 import com.game.GameEntry;
+import com.game.RocketKrieg;
 import com.game.objects.ship.PlayerSpaceShip;
 
 /**
  * Created by JohanvonHacht on 2017-08-06.
  */
 public class ZoneManager {
+    private OrthographicCamera camera;
     private PlayerSpaceShip ship;
     private static int alienKills;
     private static int alienSpecialKills;
@@ -21,7 +24,8 @@ public class ZoneManager {
     private boolean playerIsAlive;
     private String missionMessage;
 
-    public ZoneManager(PlayerSpaceShip ship) {
+    public ZoneManager(PlayerSpaceShip ship, OrthographicCamera camera) {
+        this.camera = camera;
         this.ship = ship;
         tileImg = AssetStorage.tile2;
         tileImg.setAlpha(0.5f);
@@ -49,8 +53,8 @@ public class ZoneManager {
      */
     public void render() {
         int zoneLength = zone*ZONESIZE*Tile.TILE_SIZE;
-        if((zoneLength-Math.abs(ship.position.x))< Gdx.graphics.getWidth()/2) {
-            int start = (int)ship.position.y - Gdx.graphics.getHeight()/2 - Tile.TILE_SIZE;
+        if((zoneLength-Math.abs(camera.position.x))< Gdx.graphics.getWidth()/2) {
+            int start = (int)camera.position.y - Gdx.graphics.getHeight()/2 - Tile.TILE_SIZE;
             for (int i=start; i<start+Gdx.graphics.getHeight()+2*Tile.TILE_SIZE ; i+=Tile.TILE_SIZE) {
                 Vector2 anchor = ChunkManager.getAnchor(new Vector2(zoneLength,i),Tile.TILE_SIZE);
                 if(ship.position.x>0) {
@@ -63,8 +67,8 @@ public class ZoneManager {
                 }
             }
         }
-        if((zoneLength-Math.abs(ship.position.y))< Gdx.graphics.getHeight()/2) {
-            int start = (int)ship.position.x - Gdx.graphics.getWidth()/2 - 250;
+        if((zoneLength-Math.abs(camera.position.y))< Gdx.graphics.getHeight()/2) {
+            int start = (int)camera.position.x - Gdx.graphics.getWidth()/2 - 250;
             for (int i=start; i<start+Gdx.graphics.getWidth()+2*Tile.TILE_SIZE; i+=Tile.TILE_SIZE) {
                 Vector2 anchor = ChunkManager.getAnchor(new Vector2(i,zoneLength),Tile.TILE_SIZE);
                 if(ship.position.y>0) {
@@ -85,19 +89,43 @@ public class ZoneManager {
     public void checkMissionProgress() {
         switch(zone) {
             case 1:
-                missionMessage = "Kill " +  (5-alienKills) + " more aliens to progress to the next zone";
-                if(alienKills > 4) {
-                    //displayZoneCompleteMessage();
-                    zone++;
+                missionMessage = "Collect " +  (5-scorePointsCollected) + " more energy orbs to progress to the next zone";
+                if(scorePointsCollected > 4) {
                     resetKills();
+                    zone++;
                 }
                 break;
             case 2:
-                missionMessage = "Kill " +  (5-alienKills)  + " more aliens and " +  (5-alienSpecialKills) + " more suicide aliens to progress";
-                if(alienKills > 9 &&
-                        alienSpecialKills > 5) {
+                missionMessage = "Kill " +  (5-alienKills)  + " more aliens to progress";
+                if(alienKills > 4) {
+                    resetKills();
                     zone ++;
                 }
+                break;
+            case 3:
+                missionMessage = "Kill " +  (5-alienSpecialKills) + " more suicide aliens to progress";
+                if(alienSpecialKills > 4) {
+                    resetKills();
+                    zone ++;
+                }
+                break;
+
+            case 4:
+                missionMessage = "Kill " +  (5-alienKills)  + " more aliens and " +  (5-alienSpecialKills) + " more suicide aliens to progress";
+                if(alienKills > 4 &&
+                        alienSpecialKills > 4) {
+                    resetKills();
+                    zone ++;
+                }
+                break;
+            case 5:
+                missionMessage = "Collect " +  (10-scorePointsCollected) + " more energy orbs and kill " + (5-alienKills) + " to progress to the next zone";
+                if(scorePointsCollected > 9 &&
+                        alienKills > 4) {
+                    resetKills();
+                    zone++;
+                }
+                break;
         }
     }
 
@@ -115,6 +143,7 @@ public class ZoneManager {
      * @param amount
      */
     public static void addAlienKills(int amount) {
+        System.out.println(alienKills);
         alienKills += amount;
     }
 
@@ -123,6 +152,7 @@ public class ZoneManager {
      * @param amount
      */
     public static void addAlienSpecialKills(int amount) {
+        System.out.println(alienSpecialKills);
         alienSpecialKills += amount;
     }
 

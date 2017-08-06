@@ -180,7 +180,7 @@ public class RocketKrieg implements Screen {
 		//draw score
 		if(state != GAME_PAUSED) {
 			GameEntry.font.draw(GameEntry.batch, "Score: " + score, cameraPosition.x - 25, cameraPosition.y + Gdx.graphics.getHeight() / 2 - 50);
-			GameEntry.font.draw(GameEntry.batch, "Score: " + cm.getMissionMessage(), cameraPosition.x - 500, cameraPosition.y + Gdx.graphics.getHeight() / 2 - 100);
+			GameEntry.font.draw(GameEntry.batch, cm.getMissionMessage(), cameraPosition.x - 500, cameraPosition.y + Gdx.graphics.getHeight() / 2 - 100);
 			GameEntry.font.draw(GameEntry.batch, "Currency: " + currency, cameraPosition.x - 50, cameraPosition.y + Gdx.graphics.getHeight() / 2 - 75);
 			GameEntry.font.draw(GameEntry.batch, "Shield Charges: " + Integer.toString(ship.getShieldCharge()), cameraPosition.x - 200, cameraPosition.y + Gdx.graphics.getHeight() / 2 - 50);
 			GameEntry.font.draw(GameEntry.batch, "Time: " + Integer.toString((int) time), cameraPosition.x + 90, cameraPosition.y + Gdx.graphics.getHeight() / 2 - 50);
