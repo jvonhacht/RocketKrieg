@@ -139,10 +139,6 @@ public class Tile {
             img = AssetStorage.tile1;
         } else if(id == 2) {
             img = AssetStorage.tile2;
-        } else if(id == 3) {
-            img = AssetStorage.tile3;
-        } else if(id == 4) {
-            img = AssetStorage.tile4;
         }
     }
 }

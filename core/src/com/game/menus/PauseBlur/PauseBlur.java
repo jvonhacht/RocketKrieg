@@ -1,4 +1,4 @@
-package com.game.pauseBlur;
+package com.game.menus.PauseBlur;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;

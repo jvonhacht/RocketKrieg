@@ -1,9 +1,13 @@
-package com.game;
+package com.game.menus;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.game.AssetStorage;
+import com.game.GameEntry;
+import com.game.menus.MainMenu;
+import com.game.menus.Menu;
 
 /**
  * Settings screen for Rocket Krieg program.

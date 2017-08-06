@@ -37,6 +37,7 @@ public class ChunkManager {
     private CollisionManager colHandler;
     private OrthographicCamera camera;
     private PlayerSpaceShip ship;
+    private ZoneManager zm;
 
     /**
      * Constructor for ChunkManager.
@@ -49,6 +50,7 @@ public class ChunkManager {
         chunks = new HashMap<Pair,Chunk>();
         hashGrid = new HashMap<Pair, ArrayList<Entity>>();
         colHandler = new CollisionManager();
+        zm = new ZoneManager(ship);
         addEntity(ship);
     }
 
@@ -177,6 +179,7 @@ public class ChunkManager {
                 }
             }
         }
+        zm.update();
     }
 
     /**
@@ -412,6 +415,22 @@ public class ChunkManager {
             }
             fis.close();
         }catch(Exception e){}
+    }
+
+    /**
+     * Get currently unlocked zone.
+     * @return
+     */
+    public int getZone() {
+        return zm.getZone();
+    }
+
+    /**
+     * Get current zone mission message.
+     * @return missionMessage
+     */
+    public String getMissionMessage() {
+        return zm.getMissionMessage();
     }
 }
 

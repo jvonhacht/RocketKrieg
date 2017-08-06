@@ -12,9 +12,8 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Base64Coder;
 import com.badlogic.gdx.utils.StringBuilder;
+import com.game.menus.GameOver;
 import com.game.objects.ship.PlayerSpaceShip;
-import com.game.pauseBlur.PauseBlur;
-import com.game.pauseBlur.Screenshot;
 import com.game.worldGeneration.ChunkManager;
 
 import java.io.File;
@@ -151,7 +150,7 @@ public class RocketKrieg implements Screen {
 		Vector2 shipPosition = ship.getPosition();
 		Vector2 shipVelocity = ship.getVelocity();
 		float lerp = 2f;
-		float delta = Gdx.graphics.getDeltaTime();
+		float delta = 2*Gdx.graphics.getDeltaTime();
 		cameraPosition.x += (shipPosition.x - cameraPosition.x) * lerp * delta + shipVelocity.x*delta/lerp;
 		cameraPosition.y += (shipPosition.y - cameraPosition.y) * lerp * delta + shipVelocity.y*delta/lerp;
 
@@ -181,6 +180,7 @@ public class RocketKrieg implements Screen {
 		//draw score
 		if(state != GAME_PAUSED) {
 			GameEntry.font.draw(GameEntry.batch, "Score: " + score, cameraPosition.x - 25, cameraPosition.y + Gdx.graphics.getHeight() / 2 - 50);
+			GameEntry.font.draw(GameEntry.batch, "Score: " + cm.getMissionMessage(), cameraPosition.x - 500, cameraPosition.y + Gdx.graphics.getHeight() / 2 - 100);
 			GameEntry.font.draw(GameEntry.batch, "Currency: " + currency, cameraPosition.x - 50, cameraPosition.y + Gdx.graphics.getHeight() / 2 - 75);
 			GameEntry.font.draw(GameEntry.batch, "Shield Charges: " + Integer.toString(ship.getShieldCharge()), cameraPosition.x - 200, cameraPosition.y + Gdx.graphics.getHeight() / 2 - 50);
 			GameEntry.font.draw(GameEntry.batch, "Time: " + Integer.toString((int) time), cameraPosition.x + 90, cameraPosition.y + Gdx.graphics.getHeight() / 2 - 50);
