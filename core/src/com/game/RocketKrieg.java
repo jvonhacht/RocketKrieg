@@ -15,7 +15,6 @@ import com.badlogic.gdx.utils.StringBuilder;
 import com.game.menus.GameOver;
 import com.game.objects.ship.PlayerSpaceShip;
 import com.game.worldGeneration.ChunkManager;
-import com.game.worldGeneration.Pair;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -43,8 +42,8 @@ public class RocketKrieg implements Screen {
 	private Sprite instructions;
 	private Sprite gameOver;
 	private Sprite singleSparkle;
-    private Sprite gamePaused;
-    private Sprite pausedFilter;
+	private Sprite gamePaused;
+	private Sprite pausedFilter;
 	private ChunkManager cm;
 	private AssetStorage ass; //:-)
 	private static int score;
@@ -205,6 +204,7 @@ public class RocketKrieg implements Screen {
 
 		//game over
 		if(!isAlive){
+			ship.restart();
 			savePlayerStats();
 			state = GAME_OVER;
 		} else  {
@@ -245,6 +245,7 @@ public class RocketKrieg implements Screen {
 		updateRunning(true);
 		GameEntry.batch.draw(gameOver, ship.getPosition().x - (gameOver.getWidth()/2), ship.getPosition().y - (gameOver.getHeight()/2) + 40);
 		if(gameOverTimer>2) {
+			ship.restart();
 			game.setScreen(new GameOver(game, score));
 		}
 	}

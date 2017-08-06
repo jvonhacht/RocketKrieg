@@ -5,21 +5,16 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.game.AssetStorage;
 import com.game.GameEntry;
 import com.game.RocketKrieg;
-
-import static com.game.menus.Settings.sfxEnabled;
 
 /**
  * Game over screen for Rocket Krieg program.
  * @author David Johansson
  * @version 1.0 (2017-05-11)
  */
-public class GameOver implements Screen {
-    private final GameEntry game;
-    private Sprite background;
+public class GameOver extends Menu implements Screen {
     private Sprite replayButton;
     private Sprite exitButton;
     private Sprite gameOver;
