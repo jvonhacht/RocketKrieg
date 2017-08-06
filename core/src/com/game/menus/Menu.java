@@ -1,4 +1,4 @@
-package com.game;
+package com.game.menus;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
@@ -7,8 +7,9 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.game.GameEntry;
 
-import static com.game.Settings.sfxEnabled;
+import static com.game.menus.Settings.sfxEnabled;
 
 /**
  * Menu screen superclass

@@ -1,4 +1,4 @@
-package com.game;
+package com.game.menus;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -9,8 +9,11 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.game.AssetStorage;
+import com.game.GameEntry;
+import com.game.RocketKrieg;
 
-import static com.game.Settings.sfxEnabled;
+import static com.game.menus.Settings.sfxEnabled;
 
 /**
  * Game over screen for Rocket Krieg program.
