@@ -27,6 +27,8 @@ public class AssetStorage {
     public static final Sprite replayButton = new Sprite(new Texture("images/menu/Replay_Button.png"));
     public static final Sprite exitButton = new Sprite(new Texture("images/menu/Exit_Button.png"));
     public static final Sprite gameOver = new Sprite(new Texture("images/menu/game_over/Game_Over.png"));
+    public static final Sprite gamePaused = new Sprite(new Texture("images/menu/pause/Game_Paused.png"));
+    public static final Sprite pauseFilter = new Sprite(new Texture("images/menu/pause/Red_Gradient_Filter.png"));
 
     //game entities
     public static final Sprite spaceship = new Sprite(new Texture(Gdx.files.internal("images/spaceship/Spaceship.png")));

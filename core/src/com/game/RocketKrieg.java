@@ -3,17 +3,19 @@ package com.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.*;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Base64Coder;
 import com.badlogic.gdx.utils.StringBuilder;
 import com.game.objects.ship.PlayerSpaceShip;
+import com.game.pauseBlur.PauseBlur;
+import com.game.pauseBlur.Screenshot;
 import com.game.worldGeneration.ChunkManager;
-import com.game.worldGeneration.Pair;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -27,7 +29,7 @@ import static java.lang.System.err;
 /**
  * Rocket League game mode
  * @author Johan von Hacht & David Johansson
- * @version 1.5 (2017-05-11)
+ * @version 1.6 (2017-08-06)
  */
 public class RocketKrieg implements Screen {
 	static final int GAME_RUNNING = 1;
@@ -41,6 +43,8 @@ public class RocketKrieg implements Screen {
 	private Sprite instructions;
 	private Sprite gameOver;
 	private Sprite singleSparkle;
+	private Sprite gamePaused;
+	private Sprite pausedFilter;
 	private ChunkManager cm;
 	private AssetStorage ass; //:-)
 	private static int score;
@@ -53,11 +57,14 @@ public class RocketKrieg implements Screen {
 	private Vector2 prevPos;
 	private Vector2 currentPos;
 
+	BitmapFont font2;
+
 	//Timers
 	private float timeElapsed;
 	private float instructionTimer;
 	private static float pointTimer;
 	private float gameOverTimer;
+	private float pauseTimer;
 
 
 	/**
@@ -75,6 +82,8 @@ public class RocketKrieg implements Screen {
 		instructions = AssetStorage.instructions;
 		gameOver = AssetStorage.gameOver;
 		singleSparkle = AssetStorage.singleSparkle;
+		gamePaused = AssetStorage.gamePaused;
+		pausedFilter = AssetStorage.pauseFilter;
 		ass = new AssetStorage();
 		ship = new PlayerSpaceShip();
 		cm = new ChunkManager(ship, camera);
@@ -86,6 +95,15 @@ public class RocketKrieg implements Screen {
 		score = 0;
 
 		state = GAME_RUNNING;
+
+		pauseTimer = 3;
+
+		//Initialize second font
+		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/Tw_Cen_MT_Bold.ttf"));
+		FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+		parameter.size = 50;
+		font2 = generator.generateFont(parameter);
+		generator.dispose();
 	}
 
 	/**
@@ -117,6 +135,7 @@ public class RocketKrieg implements Screen {
 		instructionTimer += delta;
 		pointTimer += delta;
 		gameOverTimer += delta;
+		pauseTimer += delta;
 	}
 
 	/**
@@ -158,17 +177,19 @@ public class RocketKrieg implements Screen {
 		if(isAlive) {
 			ship.renderr(GameEntry.batch, lerpPosition);
 		}
-		//draw score
-		GameEntry.font.draw(GameEntry.batch, "Score: " + score,cameraPosition.x - 25, cameraPosition.y + Gdx.graphics.getHeight()/2 -50);
-		GameEntry.font.draw(GameEntry.batch, "Currency: " + currency,cameraPosition.x - 50, cameraPosition.y + Gdx.graphics.getHeight()/2 -75);
-		GameEntry.font.draw(GameEntry.batch,"Shield Charges: " + Integer.toString(ship.getShieldCharge()),cameraPosition.x - 200, cameraPosition.y + Gdx.graphics.getHeight()/2 -50);
-		GameEntry.font.draw(GameEntry.batch,"Time: " + Integer.toString((int)time),cameraPosition.x + 90, cameraPosition.y + Gdx.graphics.getHeight()/2 - 50);
-		GameEntry.font.draw(GameEntry.batch,"Bcharge: " + Float.toString(ship.getBoostCharge()),cameraPosition.x + 90, cameraPosition.y + Gdx.graphics.getHeight()/2 - 100);
-		GameEntry.font.draw(GameEntry.batch,"Speed: " + Float.toString(ship.getSpeed()),cameraPosition.x + 90, cameraPosition.y + Gdx.graphics.getHeight()/2 - 120);
 
+		//draw score
+		if(state != GAME_PAUSED) {
+			GameEntry.font.draw(GameEntry.batch, "Score: " + score, cameraPosition.x - 25, cameraPosition.y + Gdx.graphics.getHeight() / 2 - 50);
+			GameEntry.font.draw(GameEntry.batch, "Currency: " + currency, cameraPosition.x - 50, cameraPosition.y + Gdx.graphics.getHeight() / 2 - 75);
+			GameEntry.font.draw(GameEntry.batch, "Shield Charges: " + Integer.toString(ship.getShieldCharge()), cameraPosition.x - 200, cameraPosition.y + Gdx.graphics.getHeight() / 2 - 50);
+			GameEntry.font.draw(GameEntry.batch, "Time: " + Integer.toString((int) time), cameraPosition.x + 90, cameraPosition.y + Gdx.graphics.getHeight() / 2 - 50);
+			GameEntry.font.draw(GameEntry.batch, "Bcharge: " + Float.toString(ship.getBoostCharge()), cameraPosition.x + 90, cameraPosition.y + Gdx.graphics.getHeight() / 2 - 100);
+			GameEntry.font.draw(GameEntry.batch, "Speed: " + Float.toString(ship.getSpeed()), cameraPosition.x + 90, cameraPosition.y + Gdx.graphics.getHeight() / 2 - 120);
+		}
 
 		//draw instructions
-		if(startPhase && isAlive) {
+		if(startPhase && isAlive && state != GAME_PAUSED) {
 			GameEntry.batch.draw(instructions, ship.getPosition().x, ship.getPosition().y - instructions.getHeight() / 2);
 			GameEntry.batch.draw(singleSparkle, ship.getPosition().x + 331, ship.getPosition().y - 115, 25f, 25f);
 			if(instructionTimer > 15){
@@ -193,12 +214,26 @@ public class RocketKrieg implements Screen {
 		if(Gdx.input.isKeyPressed(Input.Keys.O)) {
 			saveGame();
 		}
+
 		if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
 			savePlayerStats();
 			Gdx.app.exit();
 		}
-		if(Gdx.input.isKeyPressed(Input.Keys.L)) {
+
+		if(Gdx.input.isKeyPressed(Input.Keys.L) && pauseTimer > 3) {
 			state = GAME_PAUSED;
+			pauseTimer = 0;
+			//Screenshot.saveScreenshot();
+		}
+		if(state == GAME_PAUSED && pauseTimer > 1){
+			//Create blurred background, currently bad quality
+			//PauseBlur pb = new PauseBlur();
+			//pb.createBlur();
+			//pb.render();
+
+			GameEntry.batch.draw(pausedFilter, shipPosition.x - Gdx.graphics.getWidth()/2, shipPosition.y - Gdx.graphics.getHeight()/2, Gdx.graphics.getWidth() + 200, Gdx.graphics.getHeight() + 200);
+			GameEntry.batch.draw(gamePaused, shipPosition.x - gamePaused.getWidth()/2, shipPosition.y - gamePaused.getHeight()/2);
+			font2.draw(GameEntry.batch, "" + score , shipPosition.x + 155, shipPosition.y - 7);
 		}
 	}
 
