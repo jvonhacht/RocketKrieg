@@ -9,6 +9,7 @@ import com.game.objects.alien.AlienShipSpecial;
 import com.game.objects.alien.Laser;
 import com.game.objects.ship.shipComponent.Missile;
 import com.game.objects.ship.PlayerSpaceShip;
+import com.game.worldGeneration.ZoneManager;
 
 import java.util.ArrayList;
 
@@ -32,10 +33,63 @@ public class CollisionManager {
                 Entity ent1 = entities.get(i);
                 Entity ent2 = entities.get(j);
                 if(Intersector.overlapConvexPolygons(ent1.getHitBox(),ent2.getHitBox())) {
-                    //Fruktansvärd if sats men funkar..
+                    //PROJECTILES <====================================>
                     if(((ent1 instanceof PlayerSpaceShip && ent2 instanceof Missile) || (ent1 instanceof Missile && ent2 instanceof PlayerSpaceShip) || (ent1 instanceof Missile && ent2 instanceof Missile))) {
                         //missile should not blow up ship or each other, do nothing.
-                    } else if(ent1 instanceof PlayerSpaceShip && !(ent2 instanceof ScorePoint || ent2 instanceof Planet) || (ent2 instanceof PlayerSpaceShip && !(ent1 instanceof ScorePoint || ent1 instanceof Planet))) {
+                    } else if((ent1 instanceof Laser && (ent2 instanceof AlienShip || ent2 instanceof AlienShipSpecial)) || (ent2 instanceof Laser && (ent1 instanceof AlienShip || ent1 instanceof AlienShipSpecial))) {
+                        //do not let alien laser blow up alien.
+
+                        //Missile <==> Aliens
+                    } else if((ent1 instanceof Missile && ent2 instanceof AlienShip) || (ent2 instanceof Missile && ent1 instanceof AlienShip)) {
+                        entities.remove(j);
+                        entities.remove(i);
+                        collisionEvent(ent1, ent2, entities);
+                        RocketKrieg.inscreaseScore(1);
+                        ZoneManager.addAlienKills(1);
+                    } else if((ent1 instanceof Missile && ent2 instanceof AlienShipSpecial) || (ent2 instanceof Missile && ent1 instanceof AlienShipSpecial)) {
+                        entities.remove(j);
+                        entities.remove(i);
+                        collisionEvent(ent1, ent2, entities);
+                        RocketKrieg.inscreaseScore(1);
+                        ZoneManager.addAlienSpecialKills(1);
+                    }
+                        //SPACESHIP   <====================================>
+                        //Spaceship <==> score points
+                    else if(ent1 instanceof PlayerSpaceShip && ent2 instanceof ScorePoint) {
+                        entities.remove(j);
+                        RocketKrieg.inscreaseScore(1);
+                        ZoneManager.addScorePointsCollected(1);
+                    } else if(ent2 instanceof PlayerSpaceShip && ent1 instanceof ScorePoint) {
+                        entities.remove(i);
+                        RocketKrieg.inscreaseScore(1);
+                        ZoneManager.addScorePointsCollected(1);
+                        //MISC
+                        //Scorepoint <==> other entities
+                    } else if(ent1 instanceof  ScorePoint || ent2 instanceof ScorePoint) {
+                        //do nothing, entities do not collide with points.
+
+                        //Spaceship <==> planet
+                    } else if(ent1 instanceof Planet && ent2 instanceof PlayerSpaceShip) {
+                        PlayerSpaceShip ship = (PlayerSpaceShip) ent2;
+                        ship.hit(true);
+                        entities.remove(j);
+                        entities.add(new CollisionEvent(ent2.getPosition().x-60, ent2.getPosition().y-60));
+                    } else if(ent1 instanceof PlayerSpaceShip && ent2 instanceof Planet) {
+                        PlayerSpaceShip ship = (PlayerSpaceShip) ent1;
+                        ship.hit(true);
+                        entities.remove(i);
+                        entities.add(new CollisionEvent(ent1.getPosition().x-60, ent1.getPosition().y-60));
+                        //Planet <==> Other entity
+                    } else if((ent1 instanceof Planet && !(ent2 instanceof PlayerSpaceShip)) || (ent2 instanceof Planet && !(ent1 instanceof PlayerSpaceShip))) {
+                        //do not explode planets.
+                        if(ent1 instanceof Planet) {
+                            entities.remove(j);
+                            entities.add(new CollisionEvent(ent2.getPosition().x-60,ent2.getPosition().y-60));
+                        } else {
+                            entities.remove(i);
+                            entities.add(new CollisionEvent(ent1.getPosition().x-60,ent1.getPosition().y-60));
+                        }
+                    } else if(ent1 instanceof PlayerSpaceShip || ent2 instanceof PlayerSpaceShip) {
                         if(ent1 instanceof  PlayerSpaceShip) {
                             PlayerSpaceShip ship = (PlayerSpaceShip)ent1;
                             ship.hit(false);
@@ -46,50 +100,6 @@ public class CollisionManager {
                             entities.remove(i);
                         }
                         collisionEvent(ent1,ent2, entities);
-                    } else if((ent1 instanceof Planet && !(ent2 instanceof PlayerSpaceShip)) || (ent2 instanceof Planet && !(ent1 instanceof PlayerSpaceShip))) {
-                        //do not explode planets.
-                        if(ent1 instanceof Planet) {
-                            entities.remove(j);
-                            entities.add(new CollisionEvent(ent2.getPosition().x-60,ent2.getPosition().y-60));
-                        } else {
-                            entities.remove(i);
-                            entities.add(new CollisionEvent(ent1.getPosition().x-60,ent1.getPosition().y-60));
-                        }
-                    } else if(ent2 instanceof Planet) {
-                        //do not explode planets.
-                        entities.remove(i);
-                        entities.add(new CollisionEvent(ent1.getPosition().x-60,ent1.getPosition().y-60));
-                    } else if (ent1 instanceof PlayerSpaceShip && ent2 instanceof ScorePoint) {
-                        //if player collides with scorepoint, give point do no collision.
-                        RocketKrieg.inscreaseScore(1);
-                        entities.remove(j);
-                    } else if (ent1 instanceof ScorePoint && ent2 instanceof PlayerSpaceShip) {
-                        //if player collides with scorepoint, give point do no collision.
-                        RocketKrieg.inscreaseScore(1);
-                        entities.remove(i);
-                    } else if(ent1 instanceof  ScorePoint || ent2 instanceof ScorePoint) {
-                        //do nothing, entities do not collide with points.
-                    } else if ((ent1 instanceof  Missile && (ent2 instanceof AlienShip || ent2 instanceof AlienShipSpecial)) || (ent2 instanceof Missile && (ent1 instanceof AlienShip || ent1 instanceof AlienShipSpecial))) {
-                        //give point and do collision if player missile hits alien.
-                        entities.remove(j);
-                        entities.remove(i);
-                        RocketKrieg.inscreaseScore(1);
-                        collisionEvent(ent1, ent2, entities);
-                    } else if((ent1 instanceof Laser && (ent2 instanceof AlienShip || ent2 instanceof AlienShipSpecial)) || (ent2 instanceof Laser && (ent1 instanceof AlienShip || ent1 instanceof AlienShipSpecial))) {
-                        //do not let alien laser blow up alien.
-                    } else if((ent1 instanceof Planet && ent2 instanceof PlayerSpaceShip) || (ent1 instanceof PlayerSpaceShip && ent2 instanceof Planet)) {
-                        if(ent1 instanceof PlayerSpaceShip){
-                            PlayerSpaceShip ship = (PlayerSpaceShip) ent1;
-                            ship.hit(true);
-                            entities.remove(i);
-                            entities.add(new CollisionEvent(ent1.getPosition().x,ent1.getPosition().y));
-                        } else {
-                            PlayerSpaceShip ship = (PlayerSpaceShip) ent2;
-                            ship.hit(true);
-                            entities.remove(j);
-                            entities.add(new CollisionEvent(ent2.getPosition().x,ent2.getPosition().y));
-                        }
-
                     } else {
                         //all other collisions.
                         entities.remove(j);

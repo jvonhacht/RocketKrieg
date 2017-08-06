@@ -6,7 +6,7 @@ package com.game.objects.ship.shipComponent.shieldComponent;
 public class ShieldComponentMk5 extends ShieldComponent {
     public ShieldComponentMk5() {
         //reload time
-        stats = 5;
+        stats = 100;
         unChangedStats = stats;
         name = "Mk5 shield upgrade";
     }

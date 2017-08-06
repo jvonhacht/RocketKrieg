@@ -1,10 +1,11 @@
-package com.game;
+package com.game.menus;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.game.*;
 
 /**
  * The main menu of the Rocket Krieg program.
