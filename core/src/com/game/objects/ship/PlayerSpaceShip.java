@@ -239,6 +239,10 @@ public class PlayerSpaceShip extends GameEntity implements Entity {
      * Ship hit by entity.
      */
     public boolean hit(int amount, boolean planetCollision) {
+        if(hitpoints<1) {
+            isAlive = false;
+            return true;
+        }
         if (!planetCollision) {
             if (getShieldCharge() > 0) {
                 reduceShieldCharge();

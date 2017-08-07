@@ -18,7 +18,7 @@ public class ZoneManager {
     private static int alienKills;
     private static int alienSpecialKills;
     private static int scorePointsCollected;
-    private int zone;
+    private static int zone;
     private final int ZONESIZE = 5; //in tiles
     private Sprite tileImg;
     private boolean playerIsAlive;
@@ -166,7 +166,7 @@ public class ZoneManager {
      * Get zone player is in.
      * @return zone.
      */
-    public int getZone() {
+    public static int getZone() {
         return zone;
     }
 
