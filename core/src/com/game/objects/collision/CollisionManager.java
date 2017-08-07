@@ -49,15 +49,15 @@ public class CollisionManager {
                         //Missile <==> Aliens
                     } else if((ent1 instanceof Missile && ent2 instanceof AlienShip) || (ent2 instanceof Missile && ent1 instanceof AlienShip)) {
                         if(ent1 instanceof Missile) {
-                            missileImpact(ent2, ent1, entities);
+                            missileImpact(ent2, ent1, entities,0);
                         } else {
-                            missileImpact(ent1, ent2, entities);
+                            missileImpact(ent1, ent2, entities,0);
                         }
                     } else if((ent1 instanceof Missile && ent2 instanceof AlienShipSpecial) || (ent2 instanceof Missile && ent1 instanceof AlienShipSpecial)) {
                         if(ent1 instanceof Missile) {
-                            missileImpact(ent2, ent1, entities);
+                            missileImpact(ent2, ent1, entities,1);
                         } else {
-                            missileImpact(ent1, ent2, entities);
+                            missileImpact(ent1, ent2, entities,1);
                         }
                     }
                         //SPACESHIP   <====================================>
@@ -76,14 +76,14 @@ public class CollisionManager {
                         //do nothing, entities do not collide with points.
                     } else if(ent1 instanceof PlayerSpaceShip && ent2 instanceof Laser) {
                         PlayerSpaceShip ship = (PlayerSpaceShip) ent1;
-                        ship.hit(5, false);
+                        ship.hit(10, false);
                         entities.remove(j);
-                        collisionEvent(ent1,ent2, entities, PROJECTILEEXPLOSION);
+                        collisionEvent(ent1,ent2, entities, LARGEEXPLOSION);
                     } else if(ent2 instanceof PlayerSpaceShip && ent1 instanceof Laser) {
                         PlayerSpaceShip ship = (PlayerSpaceShip) ent2;
-                        ship.hit(5, false);
+                        ship.hit(10, false);
                         entities.remove(i);
-                        collisionEvent(ent1,ent2, entities, PROJECTILEEXPLOSION);
+                        collisionEvent(ent1,ent2, entities, LARGEEXPLOSION);
                         //Spaceship <==> planet
                     } else if(ent1 instanceof Planet && ent2 instanceof PlayerSpaceShip) {
                         PlayerSpaceShip ship = (PlayerSpaceShip) ent2;
@@ -108,11 +108,11 @@ public class CollisionManager {
                     } else if(ent1 instanceof PlayerSpaceShip || ent2 instanceof PlayerSpaceShip) {
                         if(ent1 instanceof  PlayerSpaceShip) {
                             PlayerSpaceShip ship = (PlayerSpaceShip)ent1;
-                            ship.hit(1,false);
+                            ship.hit(25,false);
                             entities.remove(j);
                         } else {
                             PlayerSpaceShip ship = (PlayerSpaceShip)ent2;
-                            ship.hit(1,false);
+                            ship.hit(25,false);
                             entities.remove(i);
                         }
                         collisionEvent(ent1,ent2, entities, LARGEEXPLOSION);
@@ -146,13 +146,20 @@ public class CollisionManager {
      * @param ent2
      * @param entities
      */
-    private void missileImpact(Entity ent1, Entity ent2, ArrayList<Entity> entities) {
+    private void missileImpact(Entity ent1, Entity ent2, ArrayList<Entity> entities, int ID) {
         if(ent1.hit(ship.getWeaponComponent().getDamage())) {
             RocketKrieg.inscreaseScore(1);
-            ZoneManager.addAlienKills(1);
             collisionEvent(ent1, ent2, entities, LARGEEXPLOSION);
             entities.remove(ent1);
             entities.remove(ent2);
+            switch (ID) {
+                case 0:
+                    ZoneManager.addAlienKills(1);
+                    break;
+                case 1:
+                    ZoneManager.addAlienSpecialKills(1);
+                    break;
+            }
         } else {
             collisionEvent(ent1,ent2,entities, LARGEEXPLOSION);
             entities.remove(ent2);
