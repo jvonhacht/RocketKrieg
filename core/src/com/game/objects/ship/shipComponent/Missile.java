@@ -19,7 +19,7 @@ import com.game.worldGeneration.ChunkManager;
  *  @version 1.0 (2017-05-08)
  */
 public class Missile extends GameEntity implements Entity {
-    private final float SPEED_MULTIPLIER = 15000f;
+    private final float SPEED_MULTIPLIER = 30000f;
     private final float MAX_DISTANCE = 1200f;
     private Sprite missile;
 
@@ -31,8 +31,8 @@ public class Missile extends GameEntity implements Entity {
      * @param angle starting angle
      */
     public Missile(Vector2 position, Vector2 velocity, Vector2 acceleration, float angle, float angularVelocity) {
-        sizeY = 5;
-        sizeX = 15;
+        sizeY = 3;
+        sizeX = 9;
         this.position = new Vector2(position.x+5,position.y+35);
         this.velocity = new Vector2(velocity.x,velocity.y);
         this.acceleration = new Vector2(acceleration.x,acceleration.y);
@@ -66,7 +66,7 @@ public class Missile extends GameEntity implements Entity {
         accel(delta);
         if(position.dst(RocketKrieg.getShip().getPosition())>MAX_DISTANCE) {
             ChunkManager.removeEntity(this);
-            ChunkManager.addEntity(new CollisionEvent(position.x,position.y));
+            ChunkManager.addEntity(new CollisionEvent(position.x,position.y,30));
         }
     }
 

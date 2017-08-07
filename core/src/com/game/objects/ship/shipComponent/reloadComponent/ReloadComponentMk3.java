@@ -8,7 +8,7 @@ import com.game.objects.ship.shipComponent.ShipComponent;
 public class ReloadComponentMk3 extends ShipComponent {
     public ReloadComponentMk3() {
         //reload time
-        stats = 0.8f;
+        stats = 0.7f;
         name = "Mk3 reload upgrade";
     }
 }

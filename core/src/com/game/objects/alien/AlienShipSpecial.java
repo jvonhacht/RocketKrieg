@@ -47,6 +47,8 @@ public class AlienShipSpecial extends GameEntity implements Entity {
 
         //get ship
         ship = RocketKrieg.getShip();
+        hitpoints = 5;
+        totalHealth = 5;
 
         ID = 6;
     }
@@ -60,6 +62,9 @@ public class AlienShipSpecial extends GameEntity implements Entity {
         alienShipSpecial.setRotation((float)Math.toDegrees(angle)-90);
         super.render(batch, alienShipSpecial, Math.toDegrees(angle));
         GameEntry.batch.draw(animation.getKeyFrame(timeElapsed, true), position.x + sizeX/2 - 10, position.y + sizeY/2 - 2, 20f, 20f);
+
+        float width = (float)hitpoints / (float)totalHealth * 100;
+        healthBar.draw(batch, position.x-sizeX,position.y+sizeY, width, 2);
     }
 
     /**

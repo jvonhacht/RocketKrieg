@@ -37,7 +37,7 @@ public class RocketKrieg implements Screen {
 	private int state;
 
 	private final GameEntry game;
-	private OrthographicCamera camera;
+	private static OrthographicCamera camera;
 	private static PlayerSpaceShip ship;
 	private Sprite instructions;
 	private Sprite gameOver;
@@ -333,6 +333,14 @@ public class RocketKrieg implements Screen {
 	 */
 	public static PlayerSpaceShip getShip(){
 		return ship;
+	}
+
+	/**
+	 * Return the camera.
+	 * @return
+	 */
+	public static OrthographicCamera getCamera() {
+		return camera;
 	}
 
 	/**

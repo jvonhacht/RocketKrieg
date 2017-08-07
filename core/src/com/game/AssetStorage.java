@@ -41,6 +41,7 @@ public class AssetStorage {
     public static final Sprite planet2 = new Sprite(new Texture("images/planet/greyPlanet.png"));
     public static final Sprite planet3 = new Sprite(new Texture("images/planet/jupiterPlanet.png"));
     public static final Sprite laser = new Sprite(new Texture("images/alien_ship/Laser.png"));
+    public static final Texture hBar = new Texture("images/spaceship/healthbar.png");
 
     //tiles
     public static final Sprite tile1 = new Sprite(new Texture(Gdx.files.internal("images/worldGeneration/testTile.png")));

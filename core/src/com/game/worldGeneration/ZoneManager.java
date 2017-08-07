@@ -44,7 +44,7 @@ public class ZoneManager {
         render();
         if(Math.abs(ship.position.x)> zone*ZONESIZE*Tile.TILE_SIZE || Math.abs(ship.position.y)> zone*ZONESIZE*Tile.TILE_SIZE) {
             playerIsAlive = false;
-            ship.hit(true);
+            ship.hit(100000,true);
         }
     }
 
@@ -143,7 +143,6 @@ public class ZoneManager {
      * @param amount
      */
     public static void addAlienKills(int amount) {
-        System.out.println(alienKills);
         alienKills += amount;
     }
 
@@ -152,7 +151,6 @@ public class ZoneManager {
      * @param amount
      */
     public static void addAlienSpecialKills(int amount) {
-        System.out.println(alienSpecialKills);
         alienSpecialKills += amount;
     }
 
