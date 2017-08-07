@@ -12,6 +12,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.game.GameEntry;
 
+import com.game.RocketKrieg;
 import com.game.objects.Entity;
 import com.game.objects.GameEntity;
 import com.game.objects.ship.shipComponent.*;
@@ -50,7 +51,7 @@ public class PlayerSpaceShip extends GameEntity implements Entity {
      */
     public PlayerSpaceShip() {
         super();
-        weaponComponent = new GodMissileComp();
+        weaponComponent = new SingleMissileComp();
         speedComponent = new SpeedComponentMk5();
         turningComponent = new TurningComponentMk5();
         shieldComponent = new ShieldComponentMk5();
@@ -73,6 +74,9 @@ public class PlayerSpaceShip extends GameEntity implements Entity {
         Rectangle bounds = new Rectangle(position.x+sizeX,position.y+sizeY,sizeX,sizeY);
         hitbox = new Polygon(new float[]{0,0,bounds.width,0,bounds.width,bounds.height,0,bounds.height});
         hitbox.setOrigin(bounds.width/2,bounds.height/2);
+
+        hitpoints = 100;
+        totalHealth = 100;
 
         ID = 1;
     }
@@ -105,6 +109,9 @@ public class PlayerSpaceShip extends GameEntity implements Entity {
                 playerHit = false;
             }
         }
+        //render hp
+        float width = (float)hitpoints / (float)totalHealth * 200;
+        healthBar.draw(batch, position.x,position.y, width, 5f);
     }
 
     /**
@@ -144,7 +151,7 @@ public class PlayerSpaceShip extends GameEntity implements Entity {
      * Fire a missile.
      */
     public void fireMissile() {
-        if(timeElapsed > reloadComponent.getStats()) {
+        if(timeElapsed > reloadComponent.getStats()*weaponComponent.getReloadTime()) {
             weaponComponent.fireMissile(position,velocity,acceleration,angle,angularVelocity);
             timeElapsed = 0;
         }
@@ -231,13 +238,19 @@ public class PlayerSpaceShip extends GameEntity implements Entity {
     /**
      * Ship hit by entity.
      */
-    public void hit(boolean planetCollision) {
-        if(getShieldCharge()>0 && !planetCollision) {
-            reduceShieldCharge();
+    public boolean hit(int amount, boolean planetCollision) {
+        if (!planetCollision) {
+            if (getShieldCharge() > 0) {
+                reduceShieldCharge();
+                return false;
+            } else {
+                hitpoints -= amount;
+                return hitpoints>0;
+            }
         } else {
-            ChunkManager.removeEntity(this);
             isAlive = false;
-            setPos(position.x,position.y);
+            setPos(position.x, position.y);
+            return true;
         }
     }
 
@@ -315,5 +328,7 @@ public class PlayerSpaceShip extends GameEntity implements Entity {
         reloadComponent = component;
     }
 
-
+    public WeaponComponent getWeaponComponent() {
+        return weaponComponent;
+    }
 }

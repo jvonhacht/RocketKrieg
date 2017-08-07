@@ -34,15 +34,15 @@ public class CollisionEvent implements Entity {
      * @param x coordinate for collision
      * @param y coordinate for collision
      */
-    public CollisionEvent(float x, float y) {
+    public CollisionEvent(float x, float y, float size) {
         position = new Vector2(x,y);
         angle = MathUtils.random(360);
         sprite = AssetStorage.debris;
         hitbox = new Polygon(new float[]{0,0,0,0,0,0,0,0});
         animation = AssetStorage.explosionAnimation;
         ID = 99;
-        sizeX = 120;
-        sizeY = 120;
+        sizeX = size;
+        sizeY = size;
     }
 
     /**
@@ -113,4 +113,6 @@ public class CollisionEvent implements Entity {
 
     public float getSizeX() { return sizeX; }
     public float getSizeY() { return sizeY; }
+
+    public boolean hit(double amount) { return false; }
 }

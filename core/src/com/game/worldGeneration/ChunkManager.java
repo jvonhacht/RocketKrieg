@@ -49,7 +49,7 @@ public class ChunkManager {
         this.ship = ship;
         chunks = new HashMap<Pair,Chunk>();
         hashGrid = new HashMap<Pair, ArrayList<Entity>>();
-        colHandler = new CollisionManager();
+        colHandler = new CollisionManager(ship);
         zm = new ZoneManager(ship, camera);
         addEntity(ship);
     }

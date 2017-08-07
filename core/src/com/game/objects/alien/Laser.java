@@ -27,8 +27,8 @@ public class Laser extends GameEntity implements Entity {
      * @param angle starting angle
      */
     public Laser(Vector2 position, Vector2 velocity, Vector2 acceleration, float angle) {
-        sizeY = 5;
-        sizeX = 15;
+        sizeY = 3;
+        sizeX = 9;
         this.position = new Vector2(position.x + 5, position.y + 35);
         this.velocity = new Vector2(velocity.x*Gdx.graphics.getDeltaTime(), velocity.y*Gdx.graphics.getDeltaTime());
         this.acceleration = new Vector2(0,0);

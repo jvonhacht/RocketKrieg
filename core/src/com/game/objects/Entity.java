@@ -69,4 +69,10 @@ public interface Entity {
      */
     float getSizeX();
     float getSizeY();
+
+    /**
+     * Hit entity.
+     * @param amount
+     */
+    boolean hit(double amount);
 }

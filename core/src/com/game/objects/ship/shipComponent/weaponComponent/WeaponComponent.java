@@ -10,6 +10,8 @@ import com.game.worldGeneration.ChunkManager;
 public class WeaponComponent {
     protected String name;
     protected int stats;
+    protected double damage;
+    protected double reloadTime;
 
     public WeaponComponent() {
         name = "";
@@ -26,5 +28,13 @@ public class WeaponComponent {
     public void fireMissile(Vector2 position, Vector2 velocity, Vector2 acceleration, float angle, float angularVelocity) {
         Missile missile = new Missile(position,velocity,acceleration,angle,angularVelocity);
         ChunkManager.addEntity(missile);
+    }
+
+    public double getDamage() {
+        return damage;
+    }
+
+    public double getReloadTime() {
+        return reloadTime;
     }
 }

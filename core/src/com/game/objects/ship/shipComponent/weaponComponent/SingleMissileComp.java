@@ -10,6 +10,8 @@ import com.game.worldGeneration.ChunkManager;
 public class SingleMissileComp extends WeaponComponent {
     public SingleMissileComp() {
         name = "Single missile upgrade";
+        damage = 5;
+        reloadTime = 0.5;
     }
 
     /**

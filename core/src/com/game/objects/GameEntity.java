@@ -1,10 +1,13 @@
 package com.game.objects;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Polygon;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.game.AssetStorage;
 import com.game.RocketKrieg;
 import com.game.objects.alien.Laser;
 import com.game.objects.ship.PlayerSpaceShip;
@@ -17,6 +20,9 @@ import com.game.objects.ship.shipComponent.Missile;
  */
 public class GameEntity{
     protected int ID;
+    protected int hitpoints;
+    protected int totalHealth;
+    protected NinePatch healthBar;
     public Vector2 position;
     protected Vector2 velocity;
     protected Vector2 acceleration;
@@ -39,6 +45,9 @@ public class GameEntity{
         timeElapsed = 0;
         sizeX = 0;
         sizeY = 0;
+        hitpoints = 100;
+        totalHealth = hitpoints;
+        healthBar = new NinePatch(AssetStorage.hBar, 0, 0, 0, 0);
     }
 
     /**
@@ -161,5 +170,14 @@ public class GameEntity{
         this.angularVelocity = angularVelocity;
         this.sizeX = sizeX;
         this.sizeY = sizeY;
+    }
+
+    /**
+     * If entity hit.
+     * @param amount
+     */
+    public boolean hit(double amount) {
+        hitpoints -= amount;
+        return !(hitpoints>0);
     }
 }
