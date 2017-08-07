@@ -12,6 +12,7 @@ import com.game.RocketKrieg;
 import com.game.objects.Entity;
 import com.game.objects.GameEntity;
 import com.game.objects.ship.PlayerSpaceShip;
+import com.game.worldGeneration.ZoneManager;
 
 /**
  *  AlienShipSpecial entity class
@@ -47,8 +48,8 @@ public class AlienShipSpecial extends GameEntity implements Entity {
 
         //get ship
         ship = RocketKrieg.getShip();
-        hitpoints = 5;
-        totalHealth = 5;
+        hitpoints = 5* ZoneManager.getZone();
+        totalHealth = hitpoints;
 
         ID = 6;
     }
