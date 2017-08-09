@@ -9,6 +9,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.game.AssetStorage;
 import com.game.RocketKrieg;
+import com.game.objects.alien.AlienShip;
 import com.game.objects.alien.Laser;
 import com.game.objects.ship.PlayerSpaceShip;
 import com.game.objects.ship.shipComponent.Missile;
@@ -19,7 +20,7 @@ import com.game.objects.ship.shipComponent.Missile;
  * @version 1.0 (2017-05-01)
  */
 public class GameEntity{
-    protected int ID;
+    protected static int ID;
     protected int hitpoints;
     protected int totalHealth;
     protected NinePatch healthBar;
