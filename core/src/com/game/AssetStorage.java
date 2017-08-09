@@ -30,6 +30,9 @@ public class AssetStorage {
     public static final Sprite gamePaused = new Sprite(new Texture("images/menu/pause/Game_Paused.png"));
     public static final Sprite pauseFilter = new Sprite(new Texture("images/menu/pause/Red_Gradient_Filter.png"));
 
+    //HUD
+    public static final Sprite hudBar = new Sprite(new Texture("images/HUD/HUD_Bar.png"));
+
     //game entities
     public static final Sprite spaceship = new Sprite(new Texture(Gdx.files.internal("images/spaceship/Spaceship.png")));
     public static final Sprite missile = new Sprite(new Texture("images/spaceship/missile.png"));
