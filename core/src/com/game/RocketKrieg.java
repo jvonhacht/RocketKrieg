@@ -113,7 +113,7 @@ public class RocketKrieg implements Screen {
 		//Initialize third font
 		FreeTypeFontGenerator generator3 = new FreeTypeFontGenerator(Gdx.files.internal("fonts/Tw_Cen_MT_Bold.ttf"));
 		FreeTypeFontGenerator.FreeTypeFontParameter parameter3 = new FreeTypeFontGenerator.FreeTypeFontParameter();
-		parameter3.size = 41;
+		parameter3.size = 35;
 		font3 = generator3.generateFont(parameter3);
 		generator3.dispose();
 	}
@@ -193,11 +193,11 @@ public class RocketKrieg implements Screen {
 		//draw HUD
 		if(state != GAME_PAUSED) {
 			GameEntry.batch.draw(hudBar, cameraPosition.x - hudBar.getWidth()/2, cameraPosition.y + Gdx.graphics.getHeight()/2 - hudBar.getHeight() - 20);
-			font3.draw(GameEntry.batch, "" + score, cameraPosition.x - 170, cameraPosition.y + Gdx.graphics.getHeight()/2 - 27);
-			font3.draw(GameEntry.batch, "" + Integer.toString(ship.getShieldCharge()), cameraPosition.x - 70, cameraPosition.y + Gdx.graphics.getHeight()/2 - 27);
-			font3.draw(GameEntry.batch, "" + (int)(((ship.getBoostCharge())/5)*100) + "%", cameraPosition.x + 20, cameraPosition.y + Gdx.graphics.getHeight()/2 - 27);
-			font3.draw(GameEntry.batch, "" + Integer.toString((int) time) + "s", cameraPosition.x + 170, cameraPosition.y + Gdx.graphics.getHeight()/2 - 27);
-			//TODO fix formatting if mission message
+			font3.draw(GameEntry.batch, "" + score, cameraPosition.x - 170, cameraPosition.y + Gdx.graphics.getHeight()/2 - 30);
+			font3.draw(GameEntry.batch, "" + Integer.toString(ship.getShieldCharge()), cameraPosition.x - 70, cameraPosition.y + Gdx.graphics.getHeight()/2 - 30);
+			font3.draw(GameEntry.batch, "" + (int)(((ship.getBoostCharge())/5)*100) + "%", cameraPosition.x + 20, cameraPosition.y + Gdx.graphics.getHeight()/2 - 30);
+			font3.draw(GameEntry.batch, "" + Integer.toString((int) time) + "s", cameraPosition.x + 170, cameraPosition.y + Gdx.graphics.getHeight()/2 - 30);
+			//TODO fix formatting of mission message
 			GameEntry.font.draw(GameEntry.batch, ("Mission: " + cm.getMissionMessage()), cameraPosition.x - hudBar.getWidth()/2, cameraPosition.y + Gdx.graphics.getHeight()/2 - 70);
 		}
 
@@ -240,7 +240,7 @@ public class RocketKrieg implements Screen {
 			//Screenshot.saveScreenshot();
 		}
 		if(state == GAME_PAUSED && pauseTimer > 1){
-			//Create blurred background, currently bad quality
+			//TODO fix background blur during pauses
 			//PauseBlur pb = new PauseBlur();
 			//pb.createBlur();
 			//pb.render();
