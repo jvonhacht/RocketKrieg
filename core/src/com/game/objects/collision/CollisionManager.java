@@ -64,11 +64,11 @@ public class CollisionManager {
                         //Spaceship <==> score points
                     else if(ent1 instanceof PlayerSpaceShip && ent2 instanceof ScorePoint) {
                         entities.remove(j);
-                        RocketKrieg.inscreaseScore(1);
+                        RocketKrieg.inscreaseScore();
                         ZoneManager.addScorePointsCollected(1);
                     } else if(ent2 instanceof PlayerSpaceShip && ent1 instanceof ScorePoint) {
                         entities.remove(i);
-                        RocketKrieg.inscreaseScore(1);
+                        RocketKrieg.inscreaseScore();
                         ZoneManager.addScorePointsCollected(1);
                         //MISC
                         //Scorepoint <==> other entities
@@ -148,7 +148,7 @@ public class CollisionManager {
      */
     private void missileImpact(Entity ent1, Entity ent2, ArrayList<Entity> entities, int ID) {
         if(ent1.hit(ship.getWeaponComponent().getDamage())) {
-            RocketKrieg.inscreaseScore(1);
+            RocketKrieg.inscreaseScore();
             collisionEvent(ent1, ent2, entities, LARGEEXPLOSION);
             entities.remove(ent1);
             entities.remove(ent2);

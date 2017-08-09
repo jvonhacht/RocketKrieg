@@ -15,6 +15,7 @@ import com.badlogic.gdx.utils.StringBuilder;
 import com.game.menus.GameOver;
 import com.game.objects.ship.PlayerSpaceShip;
 import com.game.worldGeneration.ChunkManager;
+import com.game.worldGeneration.ZoneManager;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -199,7 +200,7 @@ public class RocketKrieg implements Screen {
 
 		//draw "+1"
 		if(pointTimer < 2) {
-			GameEntry.font.draw(GameEntry.batch,"+1",ship.getPosition().x,ship.getPosition().y);
+			GameEntry.font.draw(GameEntry.batch,"+" + Integer.toString(ZoneManager.getZone()),ship.getPosition().x,ship.getPosition().y);
 		}
 
 		//game over
@@ -345,11 +346,10 @@ public class RocketKrieg implements Screen {
 
 	/**
 	 * Increases the player's score
-	 * @param amount to increase
 	 */
-	public static void inscreaseScore(int amount) {
-		score += amount;
-		currency += amount;
+	public static void inscreaseScore() {
+		score += ZoneManager.getZone();
+		currency += ZoneManager.getZone();
 		pointTimer = 0;
 	}
 
