@@ -3,6 +3,7 @@ package com.game.worldGeneration;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Base64Coder;
@@ -142,7 +143,6 @@ public class ChunkManager {
                         float tileX = tile.getX();
                         float tileY = tile.getY();
                         if(!update) {
-                            //=======!!CHANGE TO TILE.GETIMG() IF NPE FIXED!!======
                             batch.draw(AssetStorage.tile1,tileX,tileY);
                         }
 
@@ -151,6 +151,9 @@ public class ChunkManager {
                             //rehash, add to render que and do collisions for all entities.
                             Pair objectPair = new Pair(tileX, tileY);
                             ArrayList<Entity> entities = hashGrid.get(objectPair);
+                            if(entities.size()<1) {
+                                randomEntitySpawn(objectPair);
+                            }
                             hashGrid.remove(objectPair);
                             colHandler.collides(entities);
                             for (Entity ent:entities) {
@@ -431,6 +434,41 @@ public class ChunkManager {
      */
     public String getMissionMessage() {
         return zm.getMissionMessage();
+    }
+
+    /**
+     * Random chance to spawn random entity in tile.
+     * @param objectPair
+     */
+    private void randomEntitySpawn(Pair objectPair) {
+        int rand = MathUtils.random(0,100);
+        int entityId = MathUtils.random(20,23);
+        if(rand<50) {
+            Entity entity = getEntityFromID(entityId,objectPair);
+            if(entity!=null) {
+                ChunkManager.addEntity(entity);
+            }
+        }
+    }
+
+    /**
+     *
+     * @param id
+     * @param objectPair
+     * @return
+     */
+    private Entity getEntityFromID(int id, Pair objectPair) {
+        int xPlacement = MathUtils.random(Tile.TILE_SIZE) + objectPair.getX();
+        int yPlacement = MathUtils.random(Tile.TILE_SIZE) + objectPair.getY();
+        switch(id) {
+            case 20:
+                return new AlienShip(xPlacement,yPlacement);
+            case 21:
+                return new AlienShipSpecial(xPlacement,yPlacement);
+            case 22:
+                return new Asteroid(xPlacement,yPlacement);
+        }
+        return null;
     }
 }
 

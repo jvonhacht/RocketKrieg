@@ -51,7 +51,7 @@ public class AlienShipSpecial extends GameEntity implements Entity {
         hitpoints = 5* ZoneManager.getZone();
         totalHealth = hitpoints;
 
-        ID = 6;
+        ID = 21;
     }
 
     /**

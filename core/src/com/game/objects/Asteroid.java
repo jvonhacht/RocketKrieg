@@ -36,7 +36,7 @@ public class Asteroid extends GameEntity implements Entity{
         Rectangle bounds =  new Rectangle(position.x,position.y,sizeX-10,sizeY-10);
         hitbox = new Polygon(new float[]{0,0,bounds.width,0,bounds.width,bounds.height,0,bounds.height});
         hitbox.setOrigin(bounds.width/2, bounds.height/2);
-        ID = 2;
+        ID = 22;
     }
 
     /**
