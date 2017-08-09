@@ -5,8 +5,8 @@ import com.badlogic.gdx.math.Vector2;
 import com.game.AssetStorage;
 import com.game.RocketKrieg;
 import com.game.objects.*;
-import com.game.objects.alien.AlienShip;
-import com.game.objects.alien.AlienShipSpecial;
+import com.game.objects.alien.PurpleAlien;
+import com.game.objects.alien.RedAlien;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -56,12 +56,12 @@ public class Tile {
         }
         else if(noise <= 0.5){
             for (int i = 0; i<ZoneManager.getZone() && i<3; i++) {
-                tileEntities.add(new AlienShip(x - (TILE_SIZE/(1+RocketKrieg.getScore()/15))*i, y + (TILE_SIZE/(1+RocketKrieg.getScore()/15))*i));
+                tileEntities.add(new PurpleAlien(x - (TILE_SIZE/(1+RocketKrieg.getScore()/15))*i, y + (TILE_SIZE/(1+RocketKrieg.getScore()/15))*i));
             }
         }
         else if(noise <= 0.6){
             for (int i = 0; i<ZoneManager.getZone() && i<3; i++) {
-                tileEntities.add(new AlienShipSpecial(x - (TILE_SIZE/(1+RocketKrieg.getScore()/15))*i, y + (TILE_SIZE/(1+RocketKrieg.getScore()/15))*i));
+                tileEntities.add(new RedAlien(x - (TILE_SIZE/(1+RocketKrieg.getScore()/15))*i, y + (TILE_SIZE/(1+RocketKrieg.getScore()/15))*i));
             }
         }
         else if(noise <= 0.7){

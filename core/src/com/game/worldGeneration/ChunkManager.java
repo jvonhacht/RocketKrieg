@@ -11,13 +11,12 @@ import com.badlogic.gdx.utils.StringBuilder;
 import com.game.AssetStorage;
 import com.game.GameEntry;
 import com.game.objects.*;
-import com.game.objects.alien.AlienShip;
-import com.game.objects.alien.AlienShipSpecial;
+import com.game.objects.alien.PurpleAlien;
+import com.game.objects.alien.RedAlien;
 import com.game.objects.alien.Laser;
 import com.game.objects.collision.CollisionManager;
 import com.game.objects.ship.PlayerSpaceShip;
 import com.game.objects.ship.shipComponent.Missile;
-import sun.misc.BASE64Encoder;
 
 import java.io.*;
 import java.util.*;
@@ -399,12 +398,12 @@ public class ChunkManager {
                             addEntity(score);
                             break;
                         case 5: ID = 5;
-                            AlienShip alien = new AlienShip(position.x,position.y);
+                            PurpleAlien alien = new PurpleAlien(position.x,position.y);
                             alien.setProperties(position,velocity,acceleration,angle,angularVelocity,sizeX,sizeY);
                             addEntity(alien);
                             break;
                         case 6: ID = 6;
-                            AlienShipSpecial alienSpecial = new AlienShipSpecial(position.x,position.y);
+                            RedAlien alienSpecial = new RedAlien(position.x,position.y);
                             alienSpecial.setProperties(position,velocity,acceleration,angle,angularVelocity,sizeX,sizeY);
                             addEntity(alienSpecial);
                             break;
@@ -462,9 +461,9 @@ public class ChunkManager {
         int yPlacement = MathUtils.random(Tile.TILE_SIZE) + objectPair.getY();
         switch(id) {
             case 20:
-                return new AlienShip(xPlacement,yPlacement);
+                return new PurpleAlien(xPlacement,yPlacement);
             case 21:
-                return new AlienShipSpecial(xPlacement,yPlacement);
+                return new RedAlien(xPlacement,yPlacement);
             case 22:
                 return new Asteroid(xPlacement,yPlacement);
         }

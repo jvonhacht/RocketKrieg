@@ -15,29 +15,25 @@ import com.game.objects.ship.PlayerSpaceShip;
 import com.game.worldGeneration.ZoneManager;
 
 /**
- *  AlienShipSpecial entity class
+ *  RedAlien entity class
  *  @author David Johansson 
  *  @version 1.0 (2017-05-09)
  */
-public class AlienShipSpecial extends GameEntity implements Entity {
-    private Sprite alienShipSpecial;
+public class RedAlien extends Alien implements Entity {
     private Animation<TextureRegion> animation;
-    private PlayerSpaceShip ship;
-    private final float movingSpeed = 120f;
-    private final float acceleration = 150f;
 
     /**
-     * Constructor of AlienShipSpecial entity.
+     * Constructor of RedAlien entity.
      * @param x spawn coordinate
      * @param y spawn coordinate
      */
-    public AlienShipSpecial(float x, float y){
+    public RedAlien(float x, float y){
         super();
         sizeX = 40;
         sizeY = 55;
 
         //set properties
-        alienShipSpecial = AssetStorage.alienShipSpecial;
+        img = AssetStorage.alienShipSpecial;
         animation = AssetStorage.redLightAnimation;
         position.set(x,y);
 
@@ -47,9 +43,10 @@ public class AlienShipSpecial extends GameEntity implements Entity {
         hitbox.setOrigin(bounds.width/2, bounds.height/2);
 
         //get ship
-        ship = RocketKrieg.getShip();
         hitpoints = 5* ZoneManager.getZone();
         totalHealth = hitpoints;
+        MOVING_SPEED = 120f;
+        ACCELERATION = 180f;
 
         ID = 21;
     }
@@ -59,21 +56,15 @@ public class AlienShipSpecial extends GameEntity implements Entity {
      * @param batch SpriteBatch batch.
      */
     public void render(SpriteBatch batch){
-        alienShipSpecial.setSize(sizeX,sizeY);
-        alienShipSpecial.setRotation((float)Math.toDegrees(angle)-90);
-        super.render(batch, alienShipSpecial, Math.toDegrees(angle));
+        super.render(GameEntry.batch);
         GameEntry.batch.draw(animation.getKeyFrame(timeElapsed, true), position.x + sizeX/2 - 10, position.y + sizeY/2 - 2, 20f, 20f);
-
-        float width = (float)hitpoints / (float)totalHealth * 100;
-        healthBar.draw(batch, position.x-sizeX,position.y+sizeY, width, 2);
     }
 
     /**
      * Update asteroid position.
      */
     public void update(float delta){
-        move(delta);
-
+        super.update(delta);
         //get position of playersip
         Vector2 shipPosition = ship.position;
         float distance = shipPosition.dst(position);
@@ -93,42 +84,6 @@ public class AlienShipSpecial extends GameEntity implements Entity {
             if (shipPosition.y < position.y) {
                 moveDown(delta);
             }
-        }
-    }
-
-    /**
-     * Move right by changing the alien ship velocity.
-     */
-    public void moveRight(float delta) {
-        if(velocity.x < movingSpeed) {
-            velocity.x += acceleration * delta;
-        }
-    }
-
-    /**
-     * Move left by changing the alien ship velocity.
-     */
-    public void moveLeft(float delta) {
-        if(velocity.x > -movingSpeed) {
-            velocity.x -= acceleration * delta;
-        }
-    }
-
-    /**
-     * Move up by changing the alien ship velocity.
-     */
-    public void moveUp(float delta) {
-        if(velocity.y < movingSpeed) {
-            velocity.y += acceleration * delta;
-        }
-    }
-
-    /**
-     * Move down by changing the alien ship velocity.
-     */
-    public void moveDown(float delta) {
-        if(velocity.y > -movingSpeed) {
-            velocity.y -= acceleration * delta;
         }
     }
 }
