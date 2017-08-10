@@ -2,11 +2,15 @@ package com.game.objects.alien;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 import com.game.RocketKrieg;
 import com.game.objects.Entity;
 import com.game.objects.GameEntity;
+import com.game.objects.Planet;
 import com.game.objects.ship.PlayerSpaceShip;
 import com.game.worldGeneration.ChunkManager;
+
+import java.util.ArrayList;
 
 /**
  * Created by JohanvonHacht on 2017-08-09.
@@ -41,7 +45,45 @@ public class Alien extends GameEntity implements Entity {
      * @param delta
      */
     public void update(float delta) {
+        ArrayList<Entity> entities = ChunkManager.getEntitiesInTile(position);
+        Planet planet = null;
+        if(entities!=null && entities.size()>0) {
+            Entity ent = entities.get(0);
+            if(ent instanceof Planet) {
+                planet = (Planet)ent;
+                System.out.println("ffff");
+            }
+        }
+        if(planet!=null) {
+            avoidPlanet(planet, delta);
+        }
         move(delta);
+    }
+
+    /**
+     * Avoid if there is any nearby planet.
+     * @param planet
+     */
+    public void avoidPlanet(Planet planet, float delta) {
+        Vector2 position = planet.getPosition();
+        float size = planet.getSizeX();
+        float distance = ship.position.dst(position);
+
+        //move alien ship if near
+        if(distance < size+100) {
+            if (planet.position.x > position.x) {
+                moveLeft(delta);
+            }
+            if (planet.position.x < position.x) {
+                moveRight(delta);
+            }
+            if (planet.position.y > position.y) {
+                moveDown(delta);
+            }
+            if (planet.position.y < position.y) {
+                moveUp(delta);
+            }
+        }
     }
 
     /**

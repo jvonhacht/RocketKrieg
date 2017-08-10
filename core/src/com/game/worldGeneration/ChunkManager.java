@@ -150,14 +150,20 @@ public class ChunkManager {
                             //rehash, add to render que and do collisions for all entities.
                             Pair objectPair = new Pair(tileX, tileY);
                             ArrayList<Entity> entities = hashGrid.get(objectPair);
-                            if(entities.size()<1) {
-                                randomEntitySpawn(objectPair);
-                            }
-                            hashGrid.remove(objectPair);
-                            colHandler.collides(entities);
-                            for (Entity ent:entities) {
-                                entitiesToRender.add(ent);
-                                addEntity(ent);
+                            if(update) {
+                                if(entities.size()<1) {
+                                    randomEntitySpawn(objectPair);
+                                }
+                                hashGrid.remove(objectPair);
+                                colHandler.collides(entities);
+                                for (Entity ent:entities) {
+                                    entitiesToRender.add(ent);
+                                    addEntity(ent);
+                                }
+                            } else {
+                                for (Entity ent:entities) {
+                                    entitiesToRender.add(ent);
+                                }
                             }
                         } catch (NullPointerException e){}
                     }
@@ -216,6 +222,15 @@ public class ChunkManager {
             ArrayList<Entity> gridTile = hashGrid.get(pair);
             gridTile.remove(ent);
         }
+    }
+
+    public static ArrayList<Entity> getEntitiesInTile(Vector2 position) {
+        Vector2 anchor = getAnchor(position,Tile.TILE_SIZE);
+        Pair pair = new Pair(position.x,position.y);
+        if(hashGrid.containsKey(pair)) {
+            return hashGrid.get(pair);
+        }
+        return null;
     }
 
     /**
