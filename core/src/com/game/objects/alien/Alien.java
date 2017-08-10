@@ -21,10 +21,12 @@ public class Alien extends GameEntity implements Entity {
     protected float ACCELERATION;
     protected float RELOAD_TIME;
     protected Sprite img;
+    protected boolean avoiding;
 
     public Alien() {
         super();
         ship = RocketKrieg.getShip();
+        avoiding = false;
     }
 
     /**
@@ -51,7 +53,6 @@ public class Alien extends GameEntity implements Entity {
             Entity ent = entities.get(0);
             if(ent instanceof Planet) {
                 planet = (Planet)ent;
-                System.out.println("ffff");
             }
         }
         if(planet!=null) {
@@ -65,24 +66,27 @@ public class Alien extends GameEntity implements Entity {
      * @param planet
      */
     public void avoidPlanet(Planet planet, float delta) {
-        Vector2 position = planet.getPosition();
+        Vector2 planetPosition = planet.getPosition();
         float size = planet.getSizeX();
-        float distance = ship.position.dst(position);
+        float distance = planetPosition.dst(position);
 
         //move alien ship if near
         if(distance < size+100) {
-            if (planet.position.x > position.x) {
+            avoiding = true;
+            if (planetPosition.x > position.x) {
                 moveLeft(delta);
             }
-            if (planet.position.x < position.x) {
+            if (planetPosition.x < position.x) {
                 moveRight(delta);
             }
-            if (planet.position.y > position.y) {
+            if (planetPosition.y > position.y) {
                 moveDown(delta);
             }
-            if (planet.position.y < position.y) {
+            if (planetPosition.y < position.y) {
                 moveUp(delta);
             }
+        } else {
+            avoiding = false;
         }
     }
 

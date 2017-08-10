@@ -72,8 +72,7 @@ public class PurpleAlien extends Alien implements Entity {
         float angle = (float) Math.atan2(shipPosition.y - position.y, shipPosition.x - position.x);
 
         //move alien ship if near
-        if(distance < 800) {
-
+        if(distance < 800 && !avoiding) {
             if (shipPosition.x > position.x) {
                 moveRight(delta);
             }

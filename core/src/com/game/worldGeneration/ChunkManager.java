@@ -156,14 +156,12 @@ public class ChunkManager {
                                 }
                                 hashGrid.remove(objectPair);
                                 colHandler.collides(entities);
+                                entitiesToRender.addAll(entities);
                                 for (Entity ent:entities) {
-                                    entitiesToRender.add(ent);
                                     addEntity(ent);
                                 }
                             } else {
-                                for (Entity ent:entities) {
-                                    entitiesToRender.add(ent);
-                                }
+                                entitiesToRender.addAll(entities);
                             }
                         } catch (NullPointerException e){}
                     }
@@ -224,9 +222,14 @@ public class ChunkManager {
         }
     }
 
+    /**
+     * Return entities in tile
+     * @param position of entity
+     * @return ArrayList
+     */
     public static ArrayList<Entity> getEntitiesInTile(Vector2 position) {
         Vector2 anchor = getAnchor(position,Tile.TILE_SIZE);
-        Pair pair = new Pair(position.x,position.y);
+        Pair pair = new Pair(anchor.x,anchor.y);
         if(hashGrid.containsKey(pair)) {
             return hashGrid.get(pair);
         }
