@@ -8,6 +8,7 @@ import com.game.AssetStorage;
 import com.game.GameEntry;
 import com.game.menus.MainMenu;
 import com.game.menus.Menu;
+import com.game.objects.ship.shipComponent.shieldComponent.ShieldComponent;
 
 /**
  * Components menu for Rocket Krieg program.
@@ -16,6 +17,8 @@ import com.game.menus.Menu;
  */
 public class ComponentsMenu extends Menu implements Screen {
     private Sprite componentsBox;
+    private ComponentsWidget shieldComp;
+    public ShieldComponent activeShieldComponent;
 
     /**
      * Constructor for Components screen.
@@ -26,6 +29,7 @@ public class ComponentsMenu extends Menu implements Screen {
         super(game);
         background = AssetStorage.background1;
         componentsBox = AssetStorage.componentsBox;
+        shieldComp = new ComponentsWidget(1, 1, componentsBox);
     }
 
     /**
@@ -44,12 +48,14 @@ public class ComponentsMenu extends Menu implements Screen {
             game.setScreen(new MainMenu(game));
         }
 
-        //Get mouse coordinates
-        //int xPos = Gdx.input.getX();
-        //int yPos = Gdx.input.getY();
+        shieldComp.renderComponent(delta);
 
-        //font.draw(GameEntry.batch, "" + xPos, Gdx.graphics.getWidth()/2 - 80, Gdx.graphics.getHeight()/2 + 20);
-        //font.draw(GameEntry.batch, "" + yPos, Gdx.graphics.getWidth()/2 - 80, Gdx.graphics.getHeight()/2 + 40);
+        //Get mouse coordinates
+        int xPos = Gdx.input.getX();
+        int yPos = Gdx.input.getY();
+
+        font.draw(GameEntry.batch, "" + xPos, Gdx.graphics.getWidth()/2 - 80, Gdx.graphics.getHeight()/2 + 20);
+        font.draw(GameEntry.batch, "" + yPos, Gdx.graphics.getWidth()/2 - 80, Gdx.graphics.getHeight()/2 + 40);
         font.draw(GameEntry.batch, "work in progress", Gdx.graphics.getWidth()/2 - 80, Gdx.graphics.getHeight()/2 + 60);
 
         //Exit game by pressing esc

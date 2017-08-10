@@ -33,6 +33,16 @@ public class AssetStorage {
     //HUD
     public static final Sprite hudBar = new Sprite(new Texture("images/HUD/HUD_Bar.png"));
 
+    //Component_Widget
+    public static final Sprite compBackground = new Sprite(new Texture("images/menu/components/Component_Background.png"));
+    public static final Sprite compShield = new Sprite(new Texture("images/menu/components/Component_Shield.png"));
+
+    public static final Sprite compMk1 = new Sprite(new Texture("images/menu/components/Comp_Mk1.png"));
+    public static final Sprite compMk2 = new Sprite(new Texture("images/menu/components/Comp_Mk2.png"));
+    public static final Sprite compMk3 = new Sprite(new Texture("images/menu/components/Comp_Mk3.png"));
+    public static final Sprite compMk4 = new Sprite(new Texture("images/menu/components/Comp_Mk4.png"));
+    public static final Sprite compMk5 = new Sprite(new Texture("images/menu/components/Comp_Mk5.png"));
+
     //game entities
     public static final Sprite spaceship = new Sprite(new Texture(Gdx.files.internal("images/spaceship/Spaceship.png")));
     public static final Sprite missile = new Sprite(new Texture("images/spaceship/missile.png"));
