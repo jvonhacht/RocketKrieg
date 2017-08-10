@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.badlogic.gdx.graphics.g3d.particles.ResourceData;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
@@ -45,6 +46,7 @@ public class RocketKrieg implements Screen {
 	private Sprite singleSparkle;
 	private Sprite gamePaused;
 	private Sprite pausedFilter;
+	private Sprite hudBar;
 	private ChunkManager cm;
 	private AssetStorage ass; //:-)
 	private static int score;
@@ -58,6 +60,7 @@ public class RocketKrieg implements Screen {
 	private Vector2 currentPos;
 
 	BitmapFont font2;
+	BitmapFont font3;
 
 	//Timers
 	private float timeElapsed;
@@ -84,6 +87,8 @@ public class RocketKrieg implements Screen {
 		singleSparkle = AssetStorage.singleSparkle;
 		gamePaused = AssetStorage.gamePaused;
 		pausedFilter = AssetStorage.pauseFilter;
+		hudBar = AssetStorage.hudBar;
+
 		ass = new AssetStorage();
 		ship = new PlayerSpaceShip();
 		cm = new ChunkManager(ship, camera);
@@ -104,6 +109,13 @@ public class RocketKrieg implements Screen {
 		parameter.size = 50;
 		font2 = generator.generateFont(parameter);
 		generator.dispose();
+
+		//Initialize third font
+		FreeTypeFontGenerator generator3 = new FreeTypeFontGenerator(Gdx.files.internal("fonts/Tw_Cen_MT_Bold.ttf"));
+		FreeTypeFontGenerator.FreeTypeFontParameter parameter3 = new FreeTypeFontGenerator.FreeTypeFontParameter();
+		parameter3.size = 35;
+		font3 = generator3.generateFont(parameter3);
+		generator3.dispose();
 	}
 
 	/**
@@ -178,15 +190,15 @@ public class RocketKrieg implements Screen {
 			ship.renderr(GameEntry.batch, lerpPosition);
 		}
 
-		//draw score
+		//draw HUD
 		if(state != GAME_PAUSED) {
-			GameEntry.font.draw(GameEntry.batch, "Score: " + score, cameraPosition.x - 25, cameraPosition.y + Gdx.graphics.getHeight() / 2 - 50);
-			GameEntry.font.draw(GameEntry.batch, cm.getMissionMessage(), cameraPosition.x - 500, cameraPosition.y + Gdx.graphics.getHeight() / 2 - 100);
-			GameEntry.font.draw(GameEntry.batch, "Currency: " + currency, cameraPosition.x - 50, cameraPosition.y + Gdx.graphics.getHeight() / 2 - 75);
-			GameEntry.font.draw(GameEntry.batch, "Shield Charges: " + Integer.toString(ship.getShieldCharge()), cameraPosition.x - 200, cameraPosition.y + Gdx.graphics.getHeight() / 2 - 50);
-			GameEntry.font.draw(GameEntry.batch, "Time: " + Integer.toString((int) time), cameraPosition.x + 90, cameraPosition.y + Gdx.graphics.getHeight() / 2 - 50);
-			GameEntry.font.draw(GameEntry.batch, "Bcharge: " + Float.toString(ship.getBoostCharge()), cameraPosition.x + 90, cameraPosition.y + Gdx.graphics.getHeight() / 2 - 100);
-			GameEntry.font.draw(GameEntry.batch, "Speed: " + Float.toString(ship.getSpeed()), cameraPosition.x + 90, cameraPosition.y + Gdx.graphics.getHeight() / 2 - 120);
+			GameEntry.batch.draw(hudBar, cameraPosition.x - hudBar.getWidth()/2, cameraPosition.y + Gdx.graphics.getHeight()/2 - hudBar.getHeight() - 20);
+			font3.draw(GameEntry.batch, "" + score, cameraPosition.x - 170, cameraPosition.y + Gdx.graphics.getHeight()/2 - 30);
+			font3.draw(GameEntry.batch, "" + Integer.toString(ship.getShieldCharge()), cameraPosition.x - 70, cameraPosition.y + Gdx.graphics.getHeight()/2 - 30);
+			font3.draw(GameEntry.batch, "" + (int)(((ship.getBoostCharge())/5)*100) + "%", cameraPosition.x + 20, cameraPosition.y + Gdx.graphics.getHeight()/2 - 30);
+			font3.draw(GameEntry.batch, "" + Integer.toString((int) time) + "s", cameraPosition.x + 170, cameraPosition.y + Gdx.graphics.getHeight()/2 - 30);
+			//TODO fix formatting of mission message
+			GameEntry.font.draw(GameEntry.batch, ("Mission: " + cm.getMissionMessage()), cameraPosition.x - hudBar.getWidth()/2, cameraPosition.y + Gdx.graphics.getHeight()/2 - 70);
 		}
 
 		//draw instructions
@@ -228,12 +240,12 @@ public class RocketKrieg implements Screen {
 			//Screenshot.saveScreenshot();
 		}
 		if(state == GAME_PAUSED && pauseTimer > 1){
-			//Create blurred background, currently bad quality
+			//TODO fix background blur during pauses
 			//PauseBlur pb = new PauseBlur();
 			//pb.createBlur();
 			//pb.render();
 
-			GameEntry.batch.draw(pausedFilter, shipPosition.x - Gdx.graphics.getWidth()/2, shipPosition.y - Gdx.graphics.getHeight()/2, Gdx.graphics.getWidth() + 200, Gdx.graphics.getHeight() + 200);
+			GameEntry.batch.draw(pausedFilter, shipPosition.x - Gdx.graphics.getWidth()/2 - 100, shipPosition.y - Gdx.graphics.getHeight()/2 - 100, Gdx.graphics.getWidth() + 200, Gdx.graphics.getHeight() + 200);
 			GameEntry.batch.draw(gamePaused, shipPosition.x - gamePaused.getWidth()/2, shipPosition.y - gamePaused.getHeight()/2);
 			font2.draw(GameEntry.batch, "" + score , shipPosition.x + 155, shipPosition.y - 7);
 		}
