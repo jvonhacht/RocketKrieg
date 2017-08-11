@@ -36,6 +36,9 @@ public class AssetStorage {
     //Component_Widget
     public static final Sprite compBackground = new Sprite(new Texture("images/menu/components/Component_Background.png"));
     public static final Sprite compShield = new Sprite(new Texture("images/menu/components/Component_Shield.png"));
+    public static final Sprite compReload = new Sprite(new Texture("images/menu/components/Component_Reload.png"));
+    public static final Sprite compSpeed = new Sprite(new Texture("images/menu/components/Component_Speed.png"));
+    public static final Sprite compBoost = new Sprite(new Texture("images/menu/components/Component_Boost.png"));
 
     public static final Sprite compMk1 = new Sprite(new Texture("images/menu/components/Comp_Mk1.png"));
     public static final Sprite compMk2 = new Sprite(new Texture("images/menu/components/Comp_Mk2.png"));

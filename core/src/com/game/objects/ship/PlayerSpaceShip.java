@@ -13,6 +13,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.game.GameEntry;
 
 import com.game.RocketKrieg;
+import com.game.menus.ComponentsMenu;
 import com.game.objects.Entity;
 import com.game.objects.GameEntity;
 import com.game.objects.ship.shipComponent.*;
@@ -54,9 +55,9 @@ public class PlayerSpaceShip extends GameEntity implements Entity {
         weaponComponent = new SingleMissileComp();
         speedComponent = new SpeedComponentMk5();
         turningComponent = new TurningComponentMk5();
-        shieldComponent = new ShieldComponentMk5();
+        shieldComponent = ComponentsMenu.activeShieldComponent;
         reloadComponent = new ReloadComponentMk5();
-        boostComponent = new BoostComponentMk5();
+        boostComponent = ComponentsMenu.activeBoostComponent;
 
         //set size of spaceship
         sizeX = 25;

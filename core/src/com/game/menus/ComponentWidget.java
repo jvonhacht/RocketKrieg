@@ -7,7 +7,6 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.game.AssetStorage;
 import com.game.GameEntry;
-import com.game.objects.ship.shipComponent.shieldComponent.ShieldComponent;
 
 import static com.game.menus.Settings.sfxEnabled;
 
@@ -17,15 +16,12 @@ import static com.game.menus.Settings.sfxEnabled;
  * @author David Johansson
  * @version 1.0 (2017-08-10)
  */
-public class ComponentsWidget{
+public class ComponentWidget{
     //Sprites
     private Sprite componentsBox;
     private Sprite compBackgound;
     private Sprite compSymbol;
     private Sprite compBar;
-
-    //Active components
-    public ShieldComponent activeShieldComponent;
 
     private float MARGIN;
     private float HEIGHT;
@@ -39,7 +35,13 @@ public class ComponentsWidget{
     private Sound soundEffect2;
 
 
-    public ComponentsWidget(int type, int currentMk, Sprite componentsBox){
+    /**
+     * Constructor for the ComponentWidget
+     * @param type type of component
+     * @param currentMk current component index
+     * @param componentsBox componentBox sprite
+     */
+    public ComponentWidget(int type, int currentMk, Sprite componentsBox){
         this.componentsBox = componentsBox;
         this.currentMk = currentMk;
         compBackgound = AssetStorage.compBackground;
@@ -49,12 +51,15 @@ public class ComponentsWidget{
                 compName = "SHIELD COMPONENT";
                 break;
             case 2:
+                compSymbol = AssetStorage.compReload;
                 compName = "RELOAD COMPONENT";
                 break;
             case 3:
+                compSymbol = AssetStorage.compSpeed;
                 compName = "SPEED COMPONENT";
                 break;
             case 4:
+                compSymbol = AssetStorage.compBoost;
                 compName = "BOOST COMPONENT";
                 break;
         }
@@ -80,6 +85,11 @@ public class ComponentsWidget{
         generator.dispose();
     }
 
+    /**
+     * Render method for the
+     * component widget
+     * @param delta time since last frame
+     */
     public void renderComponent(float delta){
         GameEntry.batch.draw(compBackgound, Gdx.graphics.getWidth()/2 - componentsBox.getWidth()/2 + MARGIN, HEIGHT);
         GameEntry.batch.draw(compSymbol, Gdx.graphics.getWidth()/2 - componentsBox.getWidth()/2 + MARGIN + 5, HEIGHT + compBackgound.getHeight() - compSymbol.getHeight() - 5);
@@ -155,5 +165,14 @@ public class ComponentsWidget{
             }
         }
         return false;
+    }
+
+    /**
+     * Method for getting the index of
+     * the active components.
+     * @return active component index
+     */
+    public int getCurrentComp(){
+        return currentMk;
     }
 }
