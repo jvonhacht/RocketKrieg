@@ -4,12 +4,11 @@ import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector2;
 import com.game.RocketKrieg;
 import com.game.objects.*;
-import com.game.objects.alien.AlienShip;
-import com.game.objects.alien.AlienShipSpecial;
+import com.game.objects.alien.PurpleAlien;
+import com.game.objects.alien.RedAlien;
 import com.game.objects.alien.Laser;
 import com.game.objects.ship.shipComponent.Missile;
 import com.game.objects.ship.PlayerSpaceShip;
-import com.game.worldGeneration.ChunkManager;
 import com.game.worldGeneration.ZoneManager;
 
 import java.util.ArrayList;
@@ -43,17 +42,19 @@ public class CollisionManager {
                     //PROJECTILES <====================================>
                     if(((ent1 instanceof PlayerSpaceShip && ent2 instanceof Missile) || (ent1 instanceof Missile && ent2 instanceof PlayerSpaceShip) || (ent1 instanceof Missile && ent2 instanceof Missile))) {
                         //missile should not blow up ship or each other, do nothing.
-                    } else if((ent1 instanceof Laser && (ent2 instanceof AlienShip || ent2 instanceof AlienShipSpecial)) || (ent2 instanceof Laser && (ent1 instanceof AlienShip || ent1 instanceof AlienShipSpecial))) {
+                    } else if((ent1 instanceof Laser && (ent2 instanceof PurpleAlien || ent2 instanceof RedAlien)) || (ent2 instanceof Laser && (ent1 instanceof PurpleAlien || ent1 instanceof RedAlien))) {
                         //do not let alien laser blow up alien.
                     } else if(ent1 instanceof Missile && ent2 instanceof Laser || ent2 instanceof Missile && ent1 instanceof Laser) {
                         //Missile <==> Aliens
-                    } else if((ent1 instanceof Missile && ent2 instanceof AlienShip) || (ent2 instanceof Missile && ent1 instanceof AlienShip)) {
+                    } else if(ent1 instanceof Laser && ent2 instanceof Laser) {
+                        //do nothing
+                    } else if((ent1 instanceof Missile && ent2 instanceof PurpleAlien) || (ent2 instanceof Missile && ent1 instanceof PurpleAlien)) {
                         if(ent1 instanceof Missile) {
                             missileImpact(ent2, ent1, entities,0);
                         } else {
                             missileImpact(ent1, ent2, entities,0);
                         }
-                    } else if((ent1 instanceof Missile && ent2 instanceof AlienShipSpecial) || (ent2 instanceof Missile && ent1 instanceof AlienShipSpecial)) {
+                    } else if((ent1 instanceof Missile && ent2 instanceof RedAlien) || (ent2 instanceof Missile && ent1 instanceof RedAlien)) {
                         if(ent1 instanceof Missile) {
                             missileImpact(ent2, ent1, entities,1);
                         } else {

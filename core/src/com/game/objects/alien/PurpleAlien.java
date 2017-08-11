@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.game.AssetStorage;
+import com.game.GameEntry;
 import com.game.RocketKrieg;
 import com.game.objects.Entity;
 import com.game.objects.GameEntity;
@@ -14,30 +15,23 @@ import com.game.worldGeneration.ChunkManager;
 import com.game.worldGeneration.ZoneManager;
 
 /**
- *  AlienShip entity class.
+ *  PurpleAlien entity class.
  *  @author David Johansson 
  *  @version 1.0 (2017-05-09)
  */
-public class AlienShip extends GameEntity implements Entity {
-    private Sprite alienShip;
-    private PlayerSpaceShip ship;
-    private final float MOVING_SPEED = 120f;
-    private final float ACCELERATION = 240f;
-    private final float RELOAD_TIME = 2f;
-
-
+public class PurpleAlien extends Alien implements Entity {
     /**
-     * Constructor of AlienShip entity.
+     * Constructor of PurpleAlien entity.
      * @param x spawn coordinate
      * @param y spawn coordinate
      */
-    public AlienShip(float x, float y){
+    public PurpleAlien(float x, float y){
         super();
         sizeX = 40;
         sizeY = 55;
 
         //set properties
-        alienShip = AssetStorage.alienShip;
+        img = AssetStorage.alienShip;
         position.set(x,y);
 
         //setup hitbox
@@ -46,9 +40,12 @@ public class AlienShip extends GameEntity implements Entity {
         hitbox.setOrigin(bounds.width/2, bounds.height/2);
 
         //get ship
-        ship = RocketKrieg.getShip();
         hitpoints = 10*ZoneManager.getZone();
         totalHealth = hitpoints;
+
+        MOVING_SPEED = 120f;
+        ACCELERATION = 180f;
+        RELOAD_TIME = 1f;
 
         ID = 20;
     }
@@ -58,19 +55,14 @@ public class AlienShip extends GameEntity implements Entity {
      * @param batch SpriteBatch batch.
      */
     public void render(SpriteBatch batch){
-        alienShip.setSize(sizeX,sizeY);
-        alienShip.setRotation((float)Math.toDegrees(angle));
-        super.render(batch, alienShip, Math.toDegrees(angle));
-
-        float width = (float)hitpoints / (float)totalHealth * 100;
-        healthBar.draw(batch, position.x-sizeX,position.y+sizeY, width, 2f);
+        super.render(GameEntry.batch);
     }
 
     /**
      * Update asteroid position.
      */
     public void update(float delta){
-        move(delta);
+        super.update(delta);
 
         //get position of playersip
         Vector2 shipPosition = ship.position;
@@ -80,8 +72,7 @@ public class AlienShip extends GameEntity implements Entity {
         float angle = (float) Math.atan2(shipPosition.y - position.y, shipPosition.x - position.x);
 
         //move alien ship if near
-        if(distance < 800) {
-
+        if(distance < 800 && !avoiding) {
             if (shipPosition.x > position.x) {
                 moveRight(delta);
             }
@@ -104,67 +95,5 @@ public class AlienShip extends GameEntity implements Entity {
                 timeElapsed = 0;
             }
         }
-    }
-
-    /**
-     * Move right by changing the alien ship velocity.
-     */
-    public void moveRight(float delta) {
-        if(velocity.x < MOVING_SPEED) {
-            velocity.x += ACCELERATION*delta;
-        }
-    }
-
-    /**
-     * Move left by changing the alien ship velocity.
-     */
-    public void moveLeft(float delta) {
-        if(velocity.x > -1*MOVING_SPEED) {
-            velocity.x -= ACCELERATION*delta;
-        }
-    }
-
-    /**
-     * Move up by changing the alien ship velocity.
-     */
-    public void moveUp(float delta) {
-        if(velocity.y < MOVING_SPEED) {
-            velocity.y += ACCELERATION*delta;
-        }
-    }
-
-
-    /**
-     * Move down by changing the alien ship velocity.
-     */
-    public void moveDown(float delta) {
-        if(velocity.y > -1*MOVING_SPEED) {
-            velocity.y -= ACCELERATION*delta;
-        }
-    }
-
-    /**
-     * Slow down movement if too near.
-     */
-    public void brake(float delta) {
-        if(velocity.x > 0) {
-            velocity.x -= 2 * ACCELERATION*delta;
-        }
-        else{
-            velocity.x += 2 * ACCELERATION*delta;
-        }
-        if(velocity.y > 0) {
-            velocity.y -= 2 * ACCELERATION*delta;
-        }
-        else{
-            velocity.y += 2 * ACCELERATION*delta;
-        }
-    }
-
-    /**
-     * Fire lasers.
-     */
-    public void fireLaser(float angle){
-        ChunkManager.addEntity(new Laser(position, velocity, acceleration, angle));
     }
 }
