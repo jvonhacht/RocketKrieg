@@ -5,7 +5,15 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.utils.Base64Coder;
 import com.game.*;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.util.Scanner;
+import java.util.regex.Pattern;
+
+import static java.lang.System.err;
 
 /**
  * The main menu of the Rocket Krieg program.
@@ -17,7 +25,6 @@ public class MainMenu extends Menu implements Screen {
     private Sprite playButton;
     private Sprite settingsButton;
     private Sprite componentsButton;
-    private Sprite buttonHover;
 
     /**
      * Constructor for MainMenu screen.
@@ -30,7 +37,8 @@ public class MainMenu extends Menu implements Screen {
         playButton = AssetStorage.playButton;
         settingsButton = AssetStorage.settingsButton;
         componentsButton = AssetStorage.componentsButton;
-        buttonHover = AssetStorage.buttonHover;
+
+        reloadComponents();
     }
 
     /**
@@ -81,6 +89,31 @@ public class MainMenu extends Menu implements Screen {
         }
 
         GameEntry.batch.end();
+    }
+
+    /**
+     * Method to reload components.
+     */
+    public void reloadComponents() {
+        try{
+            File toRead = new File("componentsData.rk");
+            FileInputStream fis = new FileInputStream(toRead);
+            Scanner sc = new Scanner(fis);
+            String currentLine;
+            if(sc.hasNextLine()){
+                currentLine = sc.nextLine();
+                byte[] byteLine = Base64Coder.decode(currentLine);
+                currentLine = new String(byteLine,"UTF-8");
+                String[] data = currentLine.split(Pattern.quote("_"));
+                ComponentsMenu.shieldMk = Integer.parseInt(data[0]);
+                ComponentsMenu.reloadMk = Integer.parseInt(data[1]);
+                ComponentsMenu.speedMk = Integer.parseInt(data[2]);
+                ComponentsMenu.boostMk = Integer.parseInt(data[3]);
+            }
+            fis.close();
+        }catch(Exception e){
+            err.println(e);
+        }
     }
 
     /**

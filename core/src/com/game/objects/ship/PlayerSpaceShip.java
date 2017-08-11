@@ -25,6 +25,8 @@ import com.game.objects.ship.shipComponent.turningComponent.*;
 import com.game.objects.ship.shipComponent.weaponComponent.*;
 import com.game.worldGeneration.ChunkManager;
 
+import java.io.File;
+
 /**
  *  PlayerSpaceShip entity class.
  *  @author Johan von Hacht
@@ -52,12 +54,21 @@ public class PlayerSpaceShip extends GameEntity implements Entity {
      */
     public PlayerSpaceShip() {
         super();
+        File file = new File("componentsData.rk");
+        if(file.exists() && !file.isDirectory()) {
+            shieldComponent = ComponentsMenu.activeShieldComponent;
+            reloadComponent = ComponentsMenu.activeReloadComponent;
+            speedComponent = ComponentsMenu.activeSpeedComponent;
+            boostComponent = ComponentsMenu.activeBoostComponent;
+        }
+        else{
+            shieldComponent = new ShieldComponentMk1();
+            reloadComponent = new ReloadComponentMk1();
+            speedComponent = new SpeedComponentMk1();
+            boostComponent = new BoostComponentMk1();
+        }
         weaponComponent = new SingleMissileComp();
-        speedComponent = new SpeedComponentMk5();
         turningComponent = new TurningComponentMk5();
-        shieldComponent = ComponentsMenu.activeShieldComponent;
-        reloadComponent = new ReloadComponentMk5();
-        boostComponent = ComponentsMenu.activeBoostComponent;
 
         //set size of spaceship
         sizeX = 25;
