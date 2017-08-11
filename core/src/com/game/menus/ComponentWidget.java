@@ -23,6 +23,8 @@ public class ComponentWidget{
     private Sprite compBackgound;
     private Sprite compSymbol;
     private Sprite compBar;
+    private Sprite plusDark;
+    private Sprite minusDark;
 
     private float MARGIN;
     private float HEIGHT;
@@ -50,6 +52,8 @@ public class ComponentWidget{
         this.componentsBox = componentsBox;
         this.currentMk = currentMk;
         compBackgound = AssetStorage.compBackground;
+        plusDark = AssetStorage.plusDark;
+        minusDark = AssetStorage.minusDark;
 
         switch(type){
             case 1:
@@ -65,12 +69,12 @@ public class ComponentWidget{
             case 3:
                 compSymbol = AssetStorage.compSpeed;
                 compName = "SPEED COMPONENT";
-                compInfo = "The speed component allows for\nfaster movement";
+                compInfo = "The speed component makes the\nship move faster";
                 break;
             case 4:
                 compSymbol = AssetStorage.compBoost;
                 compName = "BOOST COMPONENT";
-                compInfo = "The boost component grants the\nplayer to accelerate faster by\nholding shift";
+                compInfo = "The boost component allows the\nplayer to accelerate faster by\nholding down shift";
                 break;
         }
         MARGIN = (type - 1)*(compBackgound.getWidth()) + 23*type;
@@ -100,6 +104,13 @@ public class ComponentWidget{
         GameEntry.batch.draw(compSymbol, Gdx.graphics.getWidth()/2 - componentsBox.getWidth()/2 + MARGIN + 5, HEIGHT + compBackgound.getHeight() - compSymbol.getHeight() - 5);
         molotFont.draw(GameEntry.batch, compName, Gdx.graphics.getWidth()/2 - componentsBox.getWidth()/2 + MARGIN + 35, HEIGHT + compBackgound.getHeight() - 10);
         smallFont.draw(GameEntry.batch, compInfo, Gdx.graphics.getWidth()/2 - componentsBox.getWidth()/2 + MARGIN + 10, HEIGHT + compBackgound.getHeight() - 97);
+
+        if(currentMk == 4){
+            GameEntry.batch.draw(plusDark, Gdx.graphics.getWidth()/2 - componentsBox.getWidth()/2 + MARGIN + 216, HEIGHT + 69);
+        }
+        if(currentMk == 0){
+            GameEntry.batch.draw(minusDark, Gdx.graphics.getWidth()/2 - componentsBox.getWidth()/2 + MARGIN + 11, HEIGHT + 68);
+        }
 
         //Press minus
         if(buttonSquare(Gdx.graphics.getWidth()/2 - componentsBox.getWidth()/2 + MARGIN + 10, Gdx.graphics.getHeight()/2 - componentsBox.getHeight()/2 + 132, 23, 2) && currentMk > 0){

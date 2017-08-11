@@ -39,6 +39,8 @@ public class AssetStorage {
     public static final Sprite compReload = new Sprite(new Texture("images/menu/components/Component_Reload.png"));
     public static final Sprite compSpeed = new Sprite(new Texture("images/menu/components/Component_Speed.png"));
     public static final Sprite compBoost = new Sprite(new Texture("images/menu/components/Component_Boost.png"));
+    public static final Sprite plusDark = new Sprite(new Texture("images/menu/components/Plus_Dark.png"));
+    public static final Sprite minusDark = new Sprite(new Texture("images/menu/components/Minus_Dark.png"));
 
     public static final Sprite compMk1 = new Sprite(new Texture("images/menu/components/Comp_Mk1.png"));
     public static final Sprite compMk2 = new Sprite(new Texture("images/menu/components/Comp_Mk2.png"));
