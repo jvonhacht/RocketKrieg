@@ -19,7 +19,7 @@ public class Settings extends Menu implements Screen {
     private Sprite checkmark;
     public static boolean musicEnabled = true;
     public static boolean sfxEnabled = true;
-    private boolean vSyncEnabled = true;
+    private boolean vSyncEnabled = false;
 
     /**
      * Constructor for Settings screen.
