@@ -69,6 +69,7 @@ public class PlayerSpaceShip extends GameEntity implements Entity {
         }
         weaponComponent = new SingleMissileComp();
         turningComponent = new TurningComponentMk5();
+        boostComponent.recharge();
 
         //set size of spaceship
         sizeX = 25;

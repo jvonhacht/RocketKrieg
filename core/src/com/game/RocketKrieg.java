@@ -284,10 +284,9 @@ public class RocketKrieg implements Screen {
 			FileOutputStream fos = new FileOutputStream(gameChunks);
 			PrintWriter pw = new PrintWriter(fos);
 			StringBuilder sb = new StringBuilder();
-			sb.append(score); sb.append("B");
-			sb.append(currency); sb.append("B");
-			sb.append(time); sb.append("B");
-			sb.append(ship.getShieldCharge());
+			sb.append(score); sb.append("&");
+			sb.append(currency); sb.append("&");
+			sb.append(time);
 			String toPrint = sb.toString();
 			toPrint = Base64Coder.encodeString(toPrint);
 			pw.println(toPrint);
@@ -322,11 +321,10 @@ public class RocketKrieg implements Screen {
 					currentLine = sc.nextLine();
 					byte[] byteLine = Base64Coder.decode(currentLine);
 					currentLine = new String(byteLine,"UTF-8");
-					String[] data = currentLine.split(Pattern.quote("B"));
+					String[] data = currentLine.split(Pattern.quote("&"));
 					score = Integer.parseInt(data[0]);
 					currency = Integer.parseInt(data[1]);
 					time = Float.parseFloat(data[2]);
-					ship.setShieldCharge(Integer.parseInt(data[3]));
 				}
 				fis.close();
 			}

@@ -46,4 +46,11 @@ public class BoostComponent {
             stats += delta/8;
         }
     }
+
+    /**
+     * Recharge boost.
+     */
+    public void recharge() {
+        stats = maxCharge;
+    }
 }
