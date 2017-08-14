@@ -99,7 +99,7 @@ public class ComponentsMenu extends Menu implements Screen {
      * Method for updating the
      * components.
      */
-    private void updateComponents(){
+    public void updateComponents(){
         updateShieldComp();
         updateReloadComp();
         updateSpeedComp();

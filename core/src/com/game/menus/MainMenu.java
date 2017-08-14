@@ -25,6 +25,7 @@ public class MainMenu extends Menu implements Screen {
     private Sprite playButton;
     private Sprite settingsButton;
     private Sprite componentsButton;
+    ComponentsMenu menu;
 
     /**
      * Constructor for MainMenu screen.
@@ -39,6 +40,9 @@ public class MainMenu extends Menu implements Screen {
         componentsButton = AssetStorage.componentsButton;
 
         reloadComponents();
+        //Initialise componentsmenu to add reloaded components to ship.
+        menu = new ComponentsMenu(game);
+        menu.updateComponents();
     }
 
     /**
@@ -75,7 +79,7 @@ public class MainMenu extends Menu implements Screen {
 
         //Pressing components button
         if(buttonRectangle(Gdx.graphics.getWidth()/2 - (playWidth / 2), Gdx.graphics.getHeight()/2 - (playHeight / 2) + 175, playWidth, playHeight, 1)){
-            game.setScreen(new ComponentsMenu(game));
+            game.setScreen(menu);
         }
 
         //Pressing settings button
