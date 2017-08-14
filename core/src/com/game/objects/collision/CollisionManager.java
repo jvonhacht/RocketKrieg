@@ -4,6 +4,7 @@ import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector2;
 import com.game.RocketKrieg;
 import com.game.objects.*;
+import com.game.objects.alien.Alien;
 import com.game.objects.alien.PurpleAlien;
 import com.game.objects.alien.RedAlien;
 import com.game.objects.alien.Laser;
@@ -42,8 +43,12 @@ public class CollisionManager {
                     //PROJECTILES <====================================>
                     if(((ent1 instanceof PlayerSpaceShip && ent2 instanceof Missile) || (ent1 instanceof Missile && ent2 instanceof PlayerSpaceShip) || (ent1 instanceof Missile && ent2 instanceof Missile))) {
                         //missile should not blow up ship or each other, do nothing.
-                    } else if((ent1 instanceof Laser && (ent2 instanceof PurpleAlien || ent2 instanceof RedAlien)) || (ent2 instanceof Laser && (ent1 instanceof PurpleAlien || ent1 instanceof RedAlien))) {
+                    } else if((ent1 instanceof Laser && (ent2 instanceof Alien)) || (ent2 instanceof Laser && ent1 instanceof Alien)) {
                         //do not let alien laser blow up alien.
+                    } else if(ent1 instanceof Alien && ent2 instanceof Alien) {
+                        Vector2 v1 = ent2.getVelocity();
+                        ent2.setVelocity(ent1.getVelocity());
+                        ent1.setVelocity(v1);
                     } else if(ent1 instanceof Missile && ent2 instanceof Laser || ent2 instanceof Missile && ent1 instanceof Laser) {
                         //Missile <==> Aliens
                     } else if(ent1 instanceof Laser && ent2 instanceof Laser) {

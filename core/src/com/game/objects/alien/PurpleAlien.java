@@ -64,29 +64,7 @@ public class PurpleAlien extends Alien implements Entity {
     public void update(float delta){
         super.update(delta);
 
-        //get position of playersip
-        Vector2 shipPosition = ship.position;
-        float distance = shipPosition.dst(position);
-
-        //calculate angle
-        float angle = (float) Math.atan2(shipPosition.y - position.y, shipPosition.x - position.x);
-
-        //move alien ship if near
-        if(distance < 800 && !avoiding) {
-            if (shipPosition.x > position.x) {
-                moveRight(delta);
-            }
-            if (shipPosition.x < position.x) {
-                moveLeft(delta);
-            }
-            if (shipPosition.y > position.y) {
-                moveUp(delta);
-            }
-            if (shipPosition.y < position.y) {
-                moveDown(delta);
-            }
-        }
-
+        float distance = ship.position.dst(position);
         //Slow down if too near
         if(distance < 400){
             brake(delta);

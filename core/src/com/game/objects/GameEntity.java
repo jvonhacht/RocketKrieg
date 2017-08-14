@@ -177,4 +177,8 @@ public class GameEntity{
         hitpoints -= amount;
         return !(hitpoints>0);
     }
+
+    public void setVelocity(Vector2 vector) {
+        this.velocity = vector;
+    }
 }

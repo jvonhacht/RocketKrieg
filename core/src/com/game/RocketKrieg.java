@@ -191,7 +191,7 @@ public class RocketKrieg implements Screen {
 		}
 
 		//draw HUD
-		if(state != GAME_PAUSED) {
+		if(updatePhysics) {
 			GameEntry.batch.draw(hudBar, cameraPosition.x - hudBar.getWidth()/2, cameraPosition.y + Gdx.graphics.getHeight()/2 - hudBar.getHeight() - 20);
 			font3.draw(GameEntry.batch, "" + score, cameraPosition.x - 170, cameraPosition.y + Gdx.graphics.getHeight()/2 - 30);
 			font3.draw(GameEntry.batch, "" + Integer.toString(ship.getShieldCharge()), cameraPosition.x - 70, cameraPosition.y + Gdx.graphics.getHeight()/2 - 30);
@@ -202,7 +202,7 @@ public class RocketKrieg implements Screen {
 		}
 
 		//draw instructions
-		if(startPhase && isAlive && state != GAME_PAUSED) {
+		if(startPhase && isAlive && updatePhysics) {
 			GameEntry.batch.draw(instructions, ship.getPosition().x, ship.getPosition().y - instructions.getHeight() / 2);
 			GameEntry.batch.draw(singleSparkle, ship.getPosition().x + 331, ship.getPosition().y - 115, 25f, 25f);
 			if(instructionTimer > 15){
@@ -239,16 +239,6 @@ public class RocketKrieg implements Screen {
 			pauseTimer = 0;
 			//Screenshot.saveScreenshot();
 		}
-		if(state == GAME_PAUSED && pauseTimer > 1){
-			//TODO fix background blur during pauses
-			//PauseBlur pb = new PauseBlur();
-			//pb.createBlur();
-			//pb.render();
-
-			GameEntry.batch.draw(pausedFilter, shipPosition.x - Gdx.graphics.getWidth()/2 - 100, shipPosition.y - Gdx.graphics.getHeight()/2 - 100, Gdx.graphics.getWidth() + 200, Gdx.graphics.getHeight() + 200);
-			GameEntry.batch.draw(gamePaused, shipPosition.x - gamePaused.getWidth()/2, shipPosition.y - gamePaused.getHeight()/2);
-			font2.draw(GameEntry.batch, "" + score , shipPosition.x + 155, shipPosition.y - 7);
-		}
 	}
 
 	/**
@@ -271,6 +261,16 @@ public class RocketKrieg implements Screen {
 			state = GAME_RUNNING;
 		}
 		updateRunning(false);
+		if(pauseTimer > 1){
+			//TODO fix background blur during pauses
+			//PauseBlur pb = new PauseBlur();
+			//pb.createBlur();
+			//pb.render();
+
+			GameEntry.batch.draw(pausedFilter, ship.position.x - Gdx.graphics.getWidth()/2 - 100, ship.position.y - Gdx.graphics.getHeight()/2 - 100, Gdx.graphics.getWidth() + 200, Gdx.graphics.getHeight() + 200);
+			GameEntry.batch.draw(gamePaused, ship.position.x - gamePaused.getWidth()/2, ship.position.y - gamePaused.getHeight()/2);
+			font2.draw(GameEntry.batch, "" + score , ship.position.x + 155, ship.position.y - 7);
+		}
 	}
 
 	/**

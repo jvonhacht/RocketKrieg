@@ -75,4 +75,6 @@ public interface Entity {
      * @param amount
      */
     boolean hit(double amount);
+
+    void setVelocity(Vector2 vector);
 }
