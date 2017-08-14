@@ -69,7 +69,8 @@ public class PurpleAlien extends Alien implements Entity {
         if(distance < 400){
             brake(delta);
             if(timeElapsed > RELOAD_TIME) {
-                fireLaser(angle);
+                float shipAngle = (float)Math.atan2(ship.position.y - position.y, ship.position.x - position.x);
+                fireLaser(shipAngle);
                 timeElapsed = 0;
             }
         }

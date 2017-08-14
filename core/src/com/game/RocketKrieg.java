@@ -314,20 +314,22 @@ public class RocketKrieg implements Screen {
 	public void reloadPlayerStats() {
 		try{
 			File toRead = new File("playerData.rk");
-			FileInputStream fis = new FileInputStream(toRead);
-			Scanner sc = new Scanner(fis);
-			String currentLine;
-			if(sc.hasNextLine()){
-				currentLine = sc.nextLine();
-				byte[] byteLine = Base64Coder.decode(currentLine);
-				currentLine = new String(byteLine,"UTF-8");
-				String[] data = currentLine.split(Pattern.quote("B"));
-				score = Integer.parseInt(data[0]);
-				currency = Integer.parseInt(data[1]);
-				time = Float.parseFloat(data[2]);
-				ship.setShieldCharge(Integer.parseInt(data[3]));
+			if(toRead.exists()) {
+				FileInputStream fis = new FileInputStream(toRead);
+				Scanner sc = new Scanner(fis);
+				String currentLine;
+				if(sc.hasNextLine()){
+					currentLine = sc.nextLine();
+					byte[] byteLine = Base64Coder.decode(currentLine);
+					currentLine = new String(byteLine,"UTF-8");
+					String[] data = currentLine.split(Pattern.quote("B"));
+					score = Integer.parseInt(data[0]);
+					currency = Integer.parseInt(data[1]);
+					time = Float.parseFloat(data[2]);
+					ship.setShieldCharge(Integer.parseInt(data[3]));
+				}
+				fis.close();
 			}
-			fis.close();
 		}catch(Exception e){
 			err.println(e);
 		}
