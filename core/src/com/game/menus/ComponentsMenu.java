@@ -8,6 +8,7 @@ import com.badlogic.gdx.utils.Base64Coder;
 import com.badlogic.gdx.utils.StringBuilder;
 import com.game.AssetStorage;
 import com.game.GameEntry;
+import com.game.RocketKrieg;
 import com.game.objects.ship.shipComponent.ShipComponent;
 import com.game.objects.ship.shipComponent.shieldComponent.*;
 import com.game.objects.ship.shipComponent.reloadComponent.*;
@@ -15,8 +16,11 @@ import com.game.objects.ship.shipComponent.speedComponent.*;
 import com.game.objects.ship.shipComponent.boostComponent.*;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.PrintWriter;
+import java.util.Scanner;
+import java.util.regex.Pattern;
 
 import static java.lang.System.err;
 
@@ -204,12 +208,9 @@ public class ComponentsMenu extends Menu implements Screen {
             FileOutputStream fos = new FileOutputStream(gameChunks);
             PrintWriter pw = new PrintWriter(fos);
             StringBuilder sb = new StringBuilder();
-            sb.append(shieldComp.getCurrentComp());
-            sb.append("_");
-            sb.append(reloadComp.getCurrentComp());
-            sb.append("_");
-            sb.append(speedComp.getCurrentComp());
-            sb.append("_");
+            sb.append(shieldComp.getCurrentComp()); sb.append("&");
+            sb.append(reloadComp.getCurrentComp()); sb.append("&");
+            sb.append(speedComp.getCurrentComp());  sb.append("&");
             sb.append(boostComp.getCurrentComp());
             String toPrint = sb.toString();
             toPrint = Base64Coder.encodeString(toPrint);

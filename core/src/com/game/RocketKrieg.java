@@ -13,6 +13,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Base64Coder;
 import com.badlogic.gdx.utils.StringBuilder;
+import com.game.menus.ComponentsMenu;
 import com.game.menus.GameOver;
 import com.game.objects.ship.PlayerSpaceShip;
 import com.game.worldGeneration.ChunkManager;
