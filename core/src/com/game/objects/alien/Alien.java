@@ -178,4 +178,12 @@ public class Alien extends GameEntity implements Entity {
     public void fireLaser(float angle){
         ChunkManager.addEntity(new Laser(position, velocity, acceleration, angle));
     }
+
+    /**
+     * Get alien hitpoints.
+     * @return
+     */
+    public int getHitpoints() {
+        return hitpoints;
+    }
 }

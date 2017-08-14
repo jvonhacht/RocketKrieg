@@ -68,7 +68,20 @@ public class CollisionManager {
                     }
                         //SPACESHIP   <====================================>
                         //Spaceship <==> score points
-                    else if(ent1 instanceof PlayerSpaceShip && ent2 instanceof ScorePoint) {
+                    else if((ent1 instanceof PlayerSpaceShip && ent2 instanceof Alien) || (ent2 instanceof Missile && ent1 instanceof Alien)) {
+                        if(ent1 instanceof  PlayerSpaceShip) {
+                            PlayerSpaceShip ship = (PlayerSpaceShip)ent1;
+                            Alien alien = (Alien)ent2;
+                            ship.hit(alien.getHitpoints(),false);
+                            entities.remove(j);
+                        } else {
+                            PlayerSpaceShip ship = (PlayerSpaceShip)ent2;
+                            Alien alien = (Alien)ent1;
+                            ship.hit(alien.getHitpoints(),false);
+                            entities.remove(i);
+                        }
+                        collisionEvent(ent1,ent2, entities, LARGEEXPLOSION);
+                    } else if(ent1 instanceof PlayerSpaceShip && ent2 instanceof ScorePoint) {
                         entities.remove(j);
                         RocketKrieg.inscreaseScore();
                         ZoneManager.addScorePointsCollected(1);
