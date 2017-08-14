@@ -115,4 +115,7 @@ public class CollisionEvent implements Entity {
     public float getSizeY() { return sizeY; }
 
     public boolean hit(double amount) { return false; }
+
+    public void setVelocity(Vector2 vector) {
+    }
 }

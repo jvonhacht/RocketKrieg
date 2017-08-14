@@ -104,7 +104,7 @@ public class MainMenu extends Menu implements Screen {
                 currentLine = sc.nextLine();
                 byte[] byteLine = Base64Coder.decode(currentLine);
                 currentLine = new String(byteLine,"UTF-8");
-                String[] data = currentLine.split(Pattern.quote("_"));
+                String[] data = currentLine.split(Pattern.quote("&"));
                 ComponentsMenu.shieldMk = Integer.parseInt(data[0]);
                 ComponentsMenu.reloadMk = Integer.parseInt(data[1]);
                 ComponentsMenu.speedMk = Integer.parseInt(data[2]);

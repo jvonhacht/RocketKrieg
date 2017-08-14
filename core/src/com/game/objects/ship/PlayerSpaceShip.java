@@ -55,7 +55,7 @@ public class PlayerSpaceShip extends GameEntity implements Entity {
     public PlayerSpaceShip() {
         super();
         File file = new File("componentsData.rk");
-        if(file.exists() && !file.isDirectory()) {
+        if(file.exists()) {
             shieldComponent = ComponentsMenu.activeShieldComponent;
             reloadComponent = ComponentsMenu.activeReloadComponent;
             speedComponent = ComponentsMenu.activeSpeedComponent;
@@ -342,6 +342,14 @@ public class PlayerSpaceShip extends GameEntity implements Entity {
      */
     public void setReloadComponent(ShipComponent component) {
         reloadComponent = component;
+    }
+
+    /**
+     * Change boost component.
+     * @param component
+     */
+    public void setBoostComponent(BoostComponent component) {
+        boostComponent = component;
     }
 
     public WeaponComponent getWeaponComponent() {
