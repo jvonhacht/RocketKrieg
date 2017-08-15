@@ -260,16 +260,19 @@ public class RocketKrieg implements Screen {
 	public void updateGamePaused() {
 		if(Gdx.input.isKeyPressed(Input.Keys.K)) {
 			state = GAME_RUNNING;
+			GameEntry.batch.setColor(1,1,1,1);
 		}
-		updateRunning(false);
-		//TODO fix background blur during pauses
-		//PauseBlur pb = new PauseBlur();
-		//pb.createBlur();
-		//pb.render();
-		GameEntry.batch.setColor(1.0f, 1.0f, 1.0f, (float)-(Math.exp(-pauseTimer)-1));
-		GameEntry.batch.draw(pausedFilter, ship.position.x - Gdx.graphics.getWidth()/2 - 100, ship.position.y - Gdx.graphics.getHeight()/2 - 100, Gdx.graphics.getWidth() + 200, Gdx.graphics.getHeight() + 200);
-		GameEntry.batch.draw(gamePaused, ship.position.x - gamePaused.getWidth()/2, ship.position.y - gamePaused.getHeight()/2);
-		font2.draw(GameEntry.batch, "" + score , ship.position.x + 155, ship.position.y - 7);
+		else {
+			updateRunning(false);
+			//TODO fix background blur during pauses
+			//PauseBlur pb = new PauseBlur();
+			//pb.createBlur();
+			//pb.render();
+			GameEntry.batch.setColor(1.0f, 1.0f, 1.0f, (float) -(Math.exp(-pauseTimer) - 1));
+			GameEntry.batch.draw(pausedFilter, ship.position.x - Gdx.graphics.getWidth() / 2 - 100, ship.position.y - Gdx.graphics.getHeight() / 2 - 100, Gdx.graphics.getWidth() + 200, Gdx.graphics.getHeight() + 200);
+			GameEntry.batch.draw(gamePaused, ship.position.x - gamePaused.getWidth() / 2, ship.position.y - gamePaused.getHeight() / 2);
+			font2.draw(GameEntry.batch, "" + score, ship.position.x + 155, ship.position.y - 7);
+		}
 	}
 
 	/**
