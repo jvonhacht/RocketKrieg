@@ -4,6 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.utils.Base64Coder;
 import com.game.*;
@@ -21,10 +23,17 @@ import static java.lang.System.err;
  * @version 1.0 (2017-05-01)
  */
 public class MainMenu extends Menu implements Screen {
+    private static final int START_SCREEN = 1;
+    private static final int MAIN_MENU = 2;
+
+    private int state;
     private Sprite gameLogo;
     private Sprite playButton;
     private Sprite settingsButton;
     private Sprite componentsButton;
+    private BitmapFont font;
+    private GlyphLayout glyphLayout;
+    private String startingText;
     ComponentsMenu menu;
 
     /**
@@ -33,11 +42,15 @@ public class MainMenu extends Menu implements Screen {
      */
     public MainMenu(final GameEntry game) {
         super(game);
+        state = START_SCREEN;
         background = AssetStorage.background1;
         gameLogo = AssetStorage.gameLogo;
         playButton = AssetStorage.playButton;
         settingsButton = AssetStorage.settingsButton;
         componentsButton = AssetStorage.componentsButton;
+        font = initializeFontTW(40);
+        startingText = "PRESS ANY KEY TO CONTINUE";
+        glyphLayout = new GlyphLayout();
 
         reloadComponents();
         //Initialise componentsmenu to add reloaded components to ship.
@@ -53,6 +66,41 @@ public class MainMenu extends Menu implements Screen {
     public void render(float delta) {
         super.render(delta);
 
+        switch(state){
+            case 1:
+                renderStart(delta);
+                break;
+            case 2:
+                renderMenu(delta);
+                break;
+        }
+
+        //Exit game by pressing esc
+        if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
+            Gdx.app.exit();
+        }
+    }
+
+    /**
+     * Renders the start screen
+     * @param delta time since last frame
+     */
+    private void renderStart(float delta){
+        GameEntry.batch.draw(gameLogo, Gdx.graphics.getWidth()/3 - (gameLogo.getWidth() / 2), Gdx.graphics.getHeight()/2 - (gameLogo.getHeight() / 2) + 50);
+        glyphLayout.setText(font, startingText);
+        font.draw(GameEntry.batch, startingText ,Gdx.graphics.getWidth()/3 - glyphLayout.width/2, Gdx.graphics.getHeight()/2 - 40);
+
+        if(Gdx.input.isKeyPressed(Input.Keys.ANY_KEY) || Gdx.input.isTouched()){
+            state = MAIN_MENU;
+        }
+        GameEntry.batch.end();
+    }
+
+    /**
+     * Renders the main menu
+     * @param delta time since last frame
+     */
+    private void renderMenu(float delta){
         //Get measurements of textures
         float logoWidth = gameLogo.getWidth();
         float logoHeight = gameLogo.getHeight();
@@ -85,11 +133,6 @@ public class MainMenu extends Menu implements Screen {
         //Pressing settings button
         if(buttonRectangle(Gdx.graphics.getWidth()/2 - (playWidth / 2), Gdx.graphics.getHeight()/2 - (playHeight / 2) + 250, playWidth, playHeight, 1)){
             game.setScreen(new Settings(game));
-        }
-
-        //Exit game by pressing esc
-        if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
-            Gdx.app.exit();
         }
 
         GameEntry.batch.end();
