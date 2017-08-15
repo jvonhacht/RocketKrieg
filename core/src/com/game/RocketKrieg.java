@@ -6,6 +6,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g3d.particles.ResourceData;
 import com.badlogic.gdx.math.Interpolation;
@@ -69,7 +70,6 @@ public class RocketKrieg implements Screen {
 	private static float pointTimer;
 	private float gameOverTimer;
 	private float pauseTimer;
-
 
 	/**
 	 * Constructor for RocketKrieg screen.
@@ -262,16 +262,14 @@ public class RocketKrieg implements Screen {
 			state = GAME_RUNNING;
 		}
 		updateRunning(false);
-		if(pauseTimer > 1){
-			//TODO fix background blur during pauses
-			//PauseBlur pb = new PauseBlur();
-			//pb.createBlur();
-			//pb.render();
-
-			GameEntry.batch.draw(pausedFilter, ship.position.x - Gdx.graphics.getWidth()/2 - 100, ship.position.y - Gdx.graphics.getHeight()/2 - 100, Gdx.graphics.getWidth() + 200, Gdx.graphics.getHeight() + 200);
-			GameEntry.batch.draw(gamePaused, ship.position.x - gamePaused.getWidth()/2, ship.position.y - gamePaused.getHeight()/2);
-			font2.draw(GameEntry.batch, "" + score , ship.position.x + 155, ship.position.y - 7);
-		}
+		//TODO fix background blur during pauses
+		//PauseBlur pb = new PauseBlur();
+		//pb.createBlur();
+		//pb.render();
+		GameEntry.batch.setColor(1.0f, 1.0f, 1.0f, (float)-(Math.exp(-pauseTimer)-1));
+		GameEntry.batch.draw(pausedFilter, ship.position.x - Gdx.graphics.getWidth()/2 - 100, ship.position.y - Gdx.graphics.getHeight()/2 - 100, Gdx.graphics.getWidth() + 200, Gdx.graphics.getHeight() + 200);
+		GameEntry.batch.draw(gamePaused, ship.position.x - gamePaused.getWidth()/2, ship.position.y - gamePaused.getHeight()/2);
+		font2.draw(GameEntry.batch, "" + score , ship.position.x + 155, ship.position.y - 7);
 	}
 
 	/**
