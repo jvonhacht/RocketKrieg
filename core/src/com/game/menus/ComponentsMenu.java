@@ -8,12 +8,12 @@ import com.badlogic.gdx.utils.Base64Coder;
 import com.badlogic.gdx.utils.StringBuilder;
 import com.game.AssetStorage;
 import com.game.GameEntry;
-import com.game.RocketKrieg;
 import com.game.objects.ship.shipComponent.ShipComponent;
 import com.game.objects.ship.shipComponent.shieldComponent.*;
 import com.game.objects.ship.shipComponent.reloadComponent.*;
 import com.game.objects.ship.shipComponent.speedComponent.*;
 import com.game.objects.ship.shipComponent.boostComponent.*;
+import com.game.objects.ship.shipComponent.turningComponent.*;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -34,17 +34,20 @@ public class ComponentsMenu extends Menu implements Screen {
     public static ShipComponent activeReloadComponent;
     public static ShipComponent activeSpeedComponent;
     public static BoostComponent activeBoostComponent;
+    public static ShipComponent activeTurnComponent;
 
     public static int shieldMk;
     public static int reloadMk;
     public static int speedMk;
     public static int boostMk;
+    public static int turningMk;
 
     private Sprite componentsBox;
     private ComponentWidget shieldComp;
     private ComponentWidget reloadComp;
     private ComponentWidget speedComp;
     private ComponentWidget boostComp;
+    private ComponentWidget turningComp;
 
     /**
      * Constructor for Components screen.
@@ -59,6 +62,7 @@ public class ComponentsMenu extends Menu implements Screen {
         reloadComp = new ComponentWidget(2, reloadMk, componentsBox);
         speedComp = new ComponentWidget(3, speedMk, componentsBox);
         boostComp = new ComponentWidget(4, boostMk, componentsBox);
+        turningComp = new ComponentWidget(5, turningMk, componentsBox);
     }
 
     /**
@@ -78,6 +82,7 @@ public class ComponentsMenu extends Menu implements Screen {
         reloadComp.renderComponent(delta);
         speedComp.renderComponent(delta);
         boostComp.renderComponent(delta);
+        turningComp.renderComponent(delta);
 
         //Press back button
         if(buttonRectangle((Gdx.graphics.getWidth()/2 + componentsBox.getWidth()/2) - 119, (Gdx.graphics.getHeight()/2 + componentsBox.getHeight()/2) - 32, 101, 19, 1)){
@@ -104,6 +109,7 @@ public class ComponentsMenu extends Menu implements Screen {
         updateReloadComp();
         updateSpeedComp();
         updateBoostComp();
+        updateTurnComp();
     }
 
     /**
@@ -199,6 +205,29 @@ public class ComponentsMenu extends Menu implements Screen {
     }
 
     /**
+     * Update turning component
+     */
+    private void updateTurnComp(){
+        switch(turningComp.getCurrentComp()){
+            case 0:
+                activeTurnComponent = new TurningComponentMk1();
+                break;
+            case 1:
+                activeTurnComponent = new TurningComponentMk2();
+                break;
+            case 2:
+                activeTurnComponent = new TurningComponentMk3();
+                break;
+            case 3:
+                activeTurnComponent = new TurningComponentMk4();
+                break;
+            case 4:
+                activeTurnComponent = new TurningComponentMk5();
+                break;
+        }
+    }
+
+    /**
      * Method for saving components.
      */
     public void saveComponents() {
@@ -210,8 +239,9 @@ public class ComponentsMenu extends Menu implements Screen {
             StringBuilder sb = new StringBuilder();
             sb.append(shieldComp.getCurrentComp()); sb.append("&");
             sb.append(reloadComp.getCurrentComp()); sb.append("&");
-            sb.append(speedComp.getCurrentComp());  sb.append("&");
-            sb.append(boostComp.getCurrentComp());
+            sb.append(speedComp.getCurrentComp()); sb.append("&");
+            sb.append(boostComp.getCurrentComp()); sb.append("&");
+            sb.append(turningComp.getCurrentComp());
             String toPrint = sb.toString();
             toPrint = Base64Coder.encodeString(toPrint);
             pw.println(toPrint);

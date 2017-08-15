@@ -28,6 +28,7 @@ public class ComponentWidget{
 
     private float MARGIN;
     private float HEIGHT;
+    private float type;
     private String compName;
     private String compInfo;
     private int currentMk;
@@ -49,6 +50,7 @@ public class ComponentWidget{
      * @param componentsBox componentBox sprite
      */
     public ComponentWidget(int type, int currentMk, Sprite componentsBox){
+        this.type = type;
         this.componentsBox = componentsBox;
         this.currentMk = currentMk;
         compBackgound = AssetStorage.compBackground;
@@ -76,8 +78,19 @@ public class ComponentWidget{
                 compName = "BOOST COMPONENT";
                 compInfo = "The boost component allows the\nplayer to accelerate faster by\nholding down shift";
                 break;
+            case 5:
+                compSymbol = AssetStorage.compTurning;
+                compName = "TURNING COMPONENT";
+                compInfo = "Upgrading this component makes\nthe ship turn faster";
         }
-        MARGIN = (type - 1)*(compBackgound.getWidth()) + 23*type;
+
+        if(type <= 4){
+            MARGIN = (type - 1)*(compBackgound.getWidth()) + 23*type;
+        }
+        else{
+            MARGIN = (type - 5)*(compBackgound.getWidth()) + (type - 4)*23;
+        }
+
         if(type <= 4){
             HEIGHT = Gdx.graphics.getHeight()/2 + componentsBox.getHeight()/2 - compBackgound.getHeight() - 75;
         }
@@ -113,13 +126,27 @@ public class ComponentWidget{
         }
 
         //Press minus
-        if(buttonSquare(Gdx.graphics.getWidth()/2 - componentsBox.getWidth()/2 + MARGIN + 10, Gdx.graphics.getHeight()/2 - componentsBox.getHeight()/2 + 132, 23, 2) && currentMk > 0){
-            currentMk -= 1;
+        if(type <= 4){
+            if(buttonSquare(Gdx.graphics.getWidth()/2 - componentsBox.getWidth()/2 + MARGIN + 10, Gdx.graphics.getHeight()/2 - componentsBox.getHeight()/2 + 132, 23, 2) && currentMk > 0){
+                currentMk -= 1;
+            }
+        }
+        else{
+            if(buttonSquare(Gdx.graphics.getWidth()/2 - componentsBox.getWidth()/2 + MARGIN + 10, Gdx.graphics.getHeight()/2 - componentsBox.getHeight()/2 + 307, 23, 2) && currentMk > 0){
+                currentMk -= 1;
+            }
         }
 
         //Press plus
-        if(buttonSquare(Gdx.graphics.getWidth()/2 - componentsBox.getWidth()/2 + MARGIN + 215, Gdx.graphics.getHeight()/2 - componentsBox.getHeight()/2 + 132, 23, 2) && currentMk < 4){
-            currentMk += 1;
+        if(type <= 4){
+            if(buttonSquare(Gdx.graphics.getWidth()/2 - componentsBox.getWidth()/2 + MARGIN + 215, Gdx.graphics.getHeight()/2 - componentsBox.getHeight()/2 + 132, 23, 2) && currentMk < 4){
+                currentMk += 1;
+            }
+        }
+        else{
+            if(buttonSquare(Gdx.graphics.getWidth()/2 - componentsBox.getWidth()/2 + MARGIN + 215, Gdx.graphics.getHeight()/2 - componentsBox.getHeight()/2 + 307, 23, 2) && currentMk < 4){
+                currentMk += 1;
+            }
         }
 
         switch(currentMk){
