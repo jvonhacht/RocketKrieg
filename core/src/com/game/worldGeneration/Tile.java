@@ -5,6 +5,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.game.AssetStorage;
 import com.game.RocketKrieg;
 import com.game.objects.*;
+import com.game.objects.alien.GreenAlien;
 import com.game.objects.alien.PurpleAlien;
 import com.game.objects.alien.RedAlien;
 
@@ -59,9 +60,14 @@ public class Tile {
                 tileEntities.add(new PurpleAlien(x - (TILE_SIZE/(1+RocketKrieg.getScore()/15))*i, y + (TILE_SIZE/(1+RocketKrieg.getScore()/15))*i));
             }
         }
-        else if(noise <= 0.6){
+        else if(noise <= 0.55){
             for (int i = 0; i<ZoneManager.getZone() && i<3; i++) {
                 tileEntities.add(new RedAlien(x - (TILE_SIZE/(1+RocketKrieg.getScore()/15))*i, y + (TILE_SIZE/(1+RocketKrieg.getScore()/15))*i));
+            }
+        }
+        else if(noise <= 0.6){
+            for (int i = 0; i<ZoneManager.getZone() && i<3; i++) {
+                tileEntities.add(new GreenAlien(x - (TILE_SIZE/(1+RocketKrieg.getScore()/15))*i, y + (TILE_SIZE/(1+RocketKrieg.getScore()/15))*i));
             }
         }
         else if(noise <= 0.7){
