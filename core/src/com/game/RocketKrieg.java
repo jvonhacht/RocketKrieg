@@ -104,19 +104,9 @@ public class RocketKrieg implements Screen {
 
 		pauseTimer = 3;
 
-		//Initialize second font
-		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/Tw_Cen_MT_Bold.ttf"));
-		FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-		parameter.size = 50;
-		font2 = generator.generateFont(parameter);
-		generator.dispose();
-
-		//Initialize third font
-		FreeTypeFontGenerator generator3 = new FreeTypeFontGenerator(Gdx.files.internal("fonts/Tw_Cen_MT_Bold.ttf"));
-		FreeTypeFontGenerator.FreeTypeFontParameter parameter3 = new FreeTypeFontGenerator.FreeTypeFontParameter();
-		parameter3.size = 35;
-		font3 = generator3.generateFont(parameter3);
-		generator3.dispose();
+		//Initialize fonts
+		font2 = initializeFont(50);
+		font3 = initializeFont(35);
 	}
 
 	/**
@@ -235,7 +225,7 @@ public class RocketKrieg implements Screen {
 			Gdx.app.exit();
 		}
 
-		if(Gdx.input.isKeyPressed(Input.Keys.L) && pauseTimer > 3) {
+		if(Gdx.input.isKeyPressed(Input.Keys.L) && pauseTimer > 3 && state != GAME_OVER) {
 			state = GAME_PAUSED;
 			pauseTimer = 0;
 			//Screenshot.saveScreenshot();
@@ -332,6 +322,20 @@ public class RocketKrieg implements Screen {
 		}catch(Exception e){
 			err.println(e);
 		}
+	}
+
+	/**
+	 * Method for initializing TW_Cen_MT font
+	 * @param size size of font
+	 */
+	private BitmapFont initializeFont(int size) {
+		BitmapFont font;
+		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/Tw_Cen_MT_Bold.ttf"));
+		FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+		parameter.size = size;
+		font = generator.generateFont(parameter);
+		generator.dispose();
+		return font;
 	}
 
 	/**
