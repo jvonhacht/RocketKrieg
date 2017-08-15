@@ -2,6 +2,7 @@ package com.game.objects.alien;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.game.RocketKrieg;
 import com.game.objects.Entity;
@@ -17,20 +18,21 @@ import java.util.ArrayList;
  */
 public class Alien extends GameEntity implements Entity {
     protected PlayerSpaceShip ship;
-    protected float MOVING_SPEED;
-    protected float ACCELERATION;
-    protected float RELOAD_TIME;
-    protected Sprite img;
-    protected boolean avoiding;
-
-    //states
-    int WANDER = 0;
-    int CHASE = 1;
+    float MOVING_SPEED;
+    float ACCELERATION;
+    float RELOAD_TIME;
+    Sprite img;
+    boolean avoiding;
+    int sightDistance;
+    float directionTimer;
+    int direction;
 
     public Alien() {
         super();
         ship = RocketKrieg.getShip();
         avoiding = false;
+        sightDistance = MathUtils.random(600,800);
+        direction = 0;
     }
 
     /**
@@ -51,6 +53,8 @@ public class Alien extends GameEntity implements Entity {
      * @param delta
      */
     public void update(float delta) {
+        directionTimer += delta;
+        //Check for nearby planets to avoid.
         ArrayList<Entity> entities = ChunkManager.getEntitiesInTile(position);
         Planet planet = null;
         if(entities!=null && entities.size()>0) {
@@ -66,11 +70,8 @@ public class Alien extends GameEntity implements Entity {
         Vector2 shipPosition = ship.position;
         float distance = shipPosition.dst(position);
 
-        //calculate angle
-        float angle = (float) Math.atan2(shipPosition.y - position.y, shipPosition.x - position.x);
-
-        //move alien ship if near
-        if(distance < 800 && !avoiding) {
+        //move alien ship if spaceship is near
+        if(distance < sightDistance && !avoiding) {
             if (shipPosition.x > position.x) {
                 moveRight(delta);
             }
@@ -83,9 +84,16 @@ public class Alien extends GameEntity implements Entity {
             if (shipPosition.y < position.y) {
                 moveDown(delta);
             }
+        } else if(!avoiding) {
+            wander(delta);
         }
-
         move(delta);
+
+        //get new wander direction.
+        if(directionTimer>2) {
+            direction = MathUtils.random(8);
+            directionTimer = 0;
+        }
     }
 
     /**
@@ -114,6 +122,42 @@ public class Alien extends GameEntity implements Entity {
             }
         } else {
             avoiding = false;
+        }
+    }
+
+    /**
+     * Wander when a player is not around.
+     */
+    public void wander(float delta) {
+        switch(direction) {
+            case 0:
+                moveLeft(delta);
+                break;
+            case 1:
+                moveRight(delta);
+                break;
+            case 2:
+                moveUp(delta);
+                break;
+            case 3:
+                moveDown(delta);
+                break;
+            case 4:
+                moveLeft(delta/2);
+                moveUp(delta/2);
+                break;
+            case 5:
+                moveRight(delta/2);
+                moveUp(delta/2);
+                break;
+            case 6:
+                moveLeft(delta/2);
+                moveDown(delta/2);
+                break;
+            case 7:
+                moveRight(delta/2);
+                moveDown(delta/2);
+                break;
         }
     }
 
