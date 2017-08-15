@@ -113,6 +113,7 @@ public class MainMenu extends Menu implements Screen {
                 ComponentsMenu.reloadMk = Integer.parseInt(data[1]);
                 ComponentsMenu.speedMk = Integer.parseInt(data[2]);
                 ComponentsMenu.boostMk = Integer.parseInt(data[3]);
+                ComponentsMenu.turningMk = Integer.parseInt(data[4]);
             }
             fis.close();
         }catch(Exception e){

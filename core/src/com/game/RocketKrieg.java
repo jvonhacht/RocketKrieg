@@ -6,6 +6,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g3d.particles.ResourceData;
 import com.badlogic.gdx.math.Interpolation;
@@ -70,7 +71,6 @@ public class RocketKrieg implements Screen {
 	private float gameOverTimer;
 	private float pauseTimer;
 
-
 	/**
 	 * Constructor for RocketKrieg screen.
 	 * @param game GameEntry with SpriteBatch
@@ -104,19 +104,9 @@ public class RocketKrieg implements Screen {
 
 		pauseTimer = 3;
 
-		//Initialize second font
-		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/Tw_Cen_MT_Bold.ttf"));
-		FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-		parameter.size = 50;
-		font2 = generator.generateFont(parameter);
-		generator.dispose();
-
-		//Initialize third font
-		FreeTypeFontGenerator generator3 = new FreeTypeFontGenerator(Gdx.files.internal("fonts/Tw_Cen_MT_Bold.ttf"));
-		FreeTypeFontGenerator.FreeTypeFontParameter parameter3 = new FreeTypeFontGenerator.FreeTypeFontParameter();
-		parameter3.size = 35;
-		font3 = generator3.generateFont(parameter3);
-		generator3.dispose();
+		//Initialize fonts
+		font2 = initializeFont(50);
+		font3 = initializeFont(35);
 	}
 
 	/**
@@ -235,7 +225,7 @@ public class RocketKrieg implements Screen {
 			Gdx.app.exit();
 		}
 
-		if(Gdx.input.isKeyPressed(Input.Keys.L) && pauseTimer > 3) {
+		if(Gdx.input.isKeyPressed(Input.Keys.L) && pauseTimer > 3 && state != GAME_OVER) {
 			state = GAME_PAUSED;
 			pauseTimer = 0;
 			//Screenshot.saveScreenshot();
@@ -260,17 +250,18 @@ public class RocketKrieg implements Screen {
 	public void updateGamePaused() {
 		if(Gdx.input.isKeyPressed(Input.Keys.K)) {
 			state = GAME_RUNNING;
+			GameEntry.batch.setColor(1,1,1,1);
 		}
-		updateRunning(false);
-		if(pauseTimer > 1){
+		else {
+			updateRunning(false);
 			//TODO fix background blur during pauses
 			//PauseBlur pb = new PauseBlur();
 			//pb.createBlur();
 			//pb.render();
-
-			GameEntry.batch.draw(pausedFilter, ship.position.x - Gdx.graphics.getWidth()/2 - 100, ship.position.y - Gdx.graphics.getHeight()/2 - 100, Gdx.graphics.getWidth() + 200, Gdx.graphics.getHeight() + 200);
-			GameEntry.batch.draw(gamePaused, ship.position.x - gamePaused.getWidth()/2, ship.position.y - gamePaused.getHeight()/2);
-			font2.draw(GameEntry.batch, "" + score , ship.position.x + 155, ship.position.y - 7);
+			GameEntry.batch.setColor(1.0f, 1.0f, 1.0f, (float) -(Math.exp(-pauseTimer) - 1));
+			GameEntry.batch.draw(pausedFilter, ship.position.x - Gdx.graphics.getWidth() / 2 - 100, ship.position.y - Gdx.graphics.getHeight() / 2 - 100, Gdx.graphics.getWidth() + 200, Gdx.graphics.getHeight() + 200);
+			GameEntry.batch.draw(gamePaused, ship.position.x - gamePaused.getWidth() / 2, ship.position.y - gamePaused.getHeight() / 2);
+			font2.draw(GameEntry.batch, "" + score, ship.position.x + 155, ship.position.y - 7);
 		}
 	}
 
@@ -331,6 +322,20 @@ public class RocketKrieg implements Screen {
 		}catch(Exception e){
 			err.println(e);
 		}
+	}
+
+	/**
+	 * Method for initializing TW_Cen_MT font
+	 * @param size size of font
+	 */
+	private BitmapFont initializeFont(int size) {
+		BitmapFont font;
+		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/Tw_Cen_MT_Bold.ttf"));
+		FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+		parameter.size = size;
+		font = generator.generateFont(parameter);
+		generator.dispose();
+		return font;
 	}
 
 	/**

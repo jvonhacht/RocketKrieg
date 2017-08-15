@@ -60,15 +60,16 @@ public class PlayerSpaceShip extends GameEntity implements Entity {
             reloadComponent = ComponentsMenu.activeReloadComponent;
             speedComponent = ComponentsMenu.activeSpeedComponent;
             boostComponent = ComponentsMenu.activeBoostComponent;
+            turningComponent = ComponentsMenu.activeTurnComponent;
         }
         else{
             shieldComponent = new ShieldComponentMk1();
             reloadComponent = new ReloadComponentMk1();
             speedComponent = new SpeedComponentMk1();
             boostComponent = new BoostComponentMk1();
+            turningComponent = new TurningComponentMk1();
         }
         weaponComponent = new SingleMissileComp();
-        turningComponent = new TurningComponentMk5();
         boostComponent.recharge();
 
         //set size of spaceship
