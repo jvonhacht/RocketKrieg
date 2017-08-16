@@ -3,7 +3,9 @@ package com.game.menus;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.game.AssetStorage;
 import com.game.GameEntry;
@@ -19,6 +21,7 @@ public class GameOver extends Menu implements Screen {
     private Sprite exitButton;
     private Sprite gameOver;
     private int score;
+    private BitmapFont font;
 
     /**
      * Constructor for GameOver screen.
@@ -34,6 +37,7 @@ public class GameOver extends Menu implements Screen {
         replayButton = AssetStorage.replayButton;
         exitButton = AssetStorage.exitButton;
         gameOver = AssetStorage.gameOver;
+        font = initializeFontTW(30, Color.WHITE);
     }
 
     /**
