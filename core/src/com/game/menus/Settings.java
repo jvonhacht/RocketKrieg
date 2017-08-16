@@ -99,7 +99,7 @@ public class Settings extends Menu implements Screen {
 
         //Pressing back button
         if(buttonRectangle(((Gdx.graphics.getWidth()/2 - settingsBox.getWidth()/2) + 305), ((Gdx.graphics.getHeight()/2 - settingsBox.getHeight()/2) + 560), 225, 24, 1)){
-            game.setScreen(new MainMenu(game));
+            game.setScreen(new MainMenu(game, 2));
         }
 
         //Exit game by pressing esc

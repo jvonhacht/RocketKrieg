@@ -30,7 +30,7 @@ public class GameEntry extends Game {
         parameter.size = 15;
         font = generator.generateFont(parameter);
         generator.dispose();
-        this.setScreen(new MainMenu(this));
+        this.setScreen(new MainMenu(this, 1));
     }
 
     /**

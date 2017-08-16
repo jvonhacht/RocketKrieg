@@ -2,6 +2,7 @@ package com.game.menus;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -136,11 +137,12 @@ public class Menu{
      * Method for initializing TW_Cen_MT font
      * @param size size of font
      */
-    public BitmapFont initializeFontTW(int size) {
+    public BitmapFont initializeFontTW(int size, Color color) {
         BitmapFont font;
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/Tw_Cen_MT_Bold.ttf"));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
         parameter.size = size;
+        parameter.color = color;
         font = generator.generateFont(parameter);
         generator.dispose();
         return font;
@@ -150,11 +152,12 @@ public class Menu{
      * Method for initializing TW_Cen_MT font
      * @param size size of font
      */
-    public BitmapFont initializeFontMolot(int size) {
+    public BitmapFont initializeFontMolot(int size, Color color) {
         BitmapFont font;
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/Molot.otf"));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
         parameter.size = size;
+        parameter.color = color;
         font = generator.generateFont(parameter);
         generator.dispose();
         return font;

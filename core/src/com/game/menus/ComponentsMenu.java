@@ -88,7 +88,7 @@ public class ComponentsMenu extends Menu implements Screen {
         if(buttonRectangle((Gdx.graphics.getWidth()/2 + componentsBox.getWidth()/2) - 119, (Gdx.graphics.getHeight()/2 + componentsBox.getHeight()/2) - 32, 101, 19, 1)){
             updateComponents();
             saveComponents();
-            game.setScreen(new MainMenu(game));
+            game.setScreen(new MainMenu(game, 2));
         }
 
         //Exit game by pressing esc
