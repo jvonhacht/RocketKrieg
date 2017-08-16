@@ -18,6 +18,7 @@ public class ZoneManager {
     private static int alienKills;
     private static int alienSpecialKills;
     private static int scorePointsCollected;
+    private static int greenAlienKills;
     private static int zone;
     private final int ZONESIZE = 5; //in tiles
     private Sprite tileImg;
@@ -160,6 +161,10 @@ public class ZoneManager {
      */
     public static void addScorePointsCollected(int amount) {
         scorePointsCollected += amount;
+    }
+
+    public static void addGreenAlienKills(int amount) {
+        greenAlienKills += amount;
     }
 
     /**

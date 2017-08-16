@@ -4,10 +4,7 @@ import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector2;
 import com.game.RocketKrieg;
 import com.game.objects.*;
-import com.game.objects.alien.Alien;
-import com.game.objects.alien.PurpleAlien;
-import com.game.objects.alien.RedAlien;
-import com.game.objects.alien.Laser;
+import com.game.objects.alien.*;
 import com.game.objects.ship.shipComponent.Missile;
 import com.game.objects.ship.PlayerSpaceShip;
 import com.game.worldGeneration.ZoneManager;
@@ -65,10 +62,15 @@ public class CollisionManager {
                         } else {
                             missileImpact(ent1, ent2, entities,1);
                         }
+                    } else if((ent1 instanceof Missile && ent2 instanceof GreenAlien) || (ent2 instanceof Missile && ent1 instanceof GreenAlien)) {
+                        if(ent1 instanceof Missile) {
+                            missileImpact(ent2, ent1, entities,2);
+                        } else {
+                            missileImpact(ent1, ent2, entities,2);
+                        }
                     }
                         //SPACESHIP   <====================================>
-                        //Spaceship <==> score points
-                    else if((ent1 instanceof PlayerSpaceShip && ent2 instanceof Alien) || (ent2 instanceof Missile && ent1 instanceof Alien)) {
+                    else if((ent1 instanceof PlayerSpaceShip && ent2 instanceof Alien) || (ent2 instanceof PlayerSpaceShip && ent1 instanceof Alien)) {
                         if(ent1 instanceof  PlayerSpaceShip) {
                             PlayerSpaceShip ship = (PlayerSpaceShip)ent1;
                             Alien alien = (Alien)ent2;
@@ -177,6 +179,9 @@ public class CollisionManager {
                     break;
                 case 1:
                     ZoneManager.addAlienSpecialKills(1);
+                    break;
+                case 2:
+                    ZoneManager.addGreenAlienKills(1);
                     break;
             }
         } else {
