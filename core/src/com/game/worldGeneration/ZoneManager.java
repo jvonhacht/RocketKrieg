@@ -3,6 +3,7 @@ package com.game.worldGeneration;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.game.AssetStorage;
 import com.game.GameEntry;
@@ -97,14 +98,14 @@ public class ZoneManager {
                 }
                 break;
             case 2:
-                missionMessage = "Kill " +  (5-alienKills)  + " more aliens to progress";
+                missionMessage = "Kill " +  (5-alienKills)  + " more purple aliens to progress";
                 if(alienKills > 4) {
                     resetKills();
                     zone ++;
                 }
                 break;
             case 3:
-                missionMessage = "Kill " +  (5-alienSpecialKills) + " more suicide aliens to progress";
+                missionMessage = "Kill " +  (5-alienSpecialKills) + " more red aliens to progress";
                 if(alienSpecialKills > 4) {
                     resetKills();
                     zone ++;
@@ -112,19 +113,76 @@ public class ZoneManager {
                 break;
 
             case 4:
-                missionMessage = "Kill " +  (5-alienKills)  + " more aliens and " +  (5-alienSpecialKills) + " more suicide aliens to progress";
+                missionMessage = "Kill " +  (5-greenAlienKills) + " more green aliens to progress";
+                if(greenAlienKills > 4) {
+                    resetKills();
+                    zone ++;
+                }
+                break;
+            case 5:
+                //
+                // BOSS
+                //
+                resetKills();
+                zone ++;
+                break;
+            case 6:
+                missionMessage = "Kill " +  (5-alienKills)  + " more purple aliens and " +  (5-alienSpecialKills) + " more red aliens to progress";
                 if(alienKills > 4 &&
                         alienSpecialKills > 4) {
                     resetKills();
                     zone ++;
                 }
                 break;
-            case 5:
+            case 7:
                 missionMessage = "Collect " +  (10-scorePointsCollected) + " more energy orbs and kill " + (5-alienKills) + " to progress to the next zone";
                 if(scorePointsCollected > 9 &&
                         alienKills > 4) {
                     resetKills();
                     zone++;
+                }
+                break;
+            case 8:
+                missionMessage = "Kill " +  (5-greenAlienKills)  + " more green aliens and " +  (5-alienSpecialKills) + " more red aliens to progress";
+                if(greenAlienKills > 4 &&
+                        alienSpecialKills > 4) {
+                    resetKills();
+                    zone ++;
+                }
+                break;
+            case 9:
+                missionMessage = "Kill " +  (5-alienKills)  + " more purple aliens, " +  (5-alienSpecialKills) + " more red aliens and " +  (5-greenAlienKills) + " more green aliens to progress";
+                if(alienKills > 4 &&
+                        alienSpecialKills > 4 &&
+                        greenAlienKills > 4) {
+                    resetKills();
+                    zone ++;
+                }
+                break;
+            case 10:
+                //
+                // BOSS
+                //
+                resetKills();
+                zone ++;
+                break;
+            default:
+                int purpleAliensToKill = zone - MathUtils.random(1,5);
+                int greenAliensToKill = zone - MathUtils.random(1,5);
+                int redAliensToKill = zone - MathUtils.random(1,5);
+                int bossSpawnChance = MathUtils.random(0,100);
+                if(!(bossSpawnChance>95)) {
+                    missionMessage = "Kill " +  (purpleAliensToKill-alienKills)  + " more purple aliens, " +  (redAliensToKill-alienSpecialKills) + " more red aliens and " +  (greenAliensToKill-greenAlienKills) + " more green aliens to progress";
+                    if(alienKills >= purpleAliensToKill &&
+                            alienSpecialKills >= redAliensToKill &&
+                            greenAlienKills >= greenAliensToKill) {
+                        resetKills();
+                        zone ++;
+                    }
+                } else {
+                    //
+                    // BOSS
+                    //
                 }
                 break;
         }
@@ -137,6 +195,7 @@ public class ZoneManager {
         alienKills = 0;
         alienSpecialKills = 0;
         scorePointsCollected = 0;
+        greenAlienKills = 0;
     }
 
     /**
