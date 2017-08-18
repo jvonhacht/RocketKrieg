@@ -380,6 +380,14 @@ public class RocketKrieg implements Screen {
 	}
 
 	/**
+	 * Get mouse position relative to world, not screen.
+	 * @return
+	 */
+	public static Vector3 getMouseInWorld() {
+		return camera.unproject(new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0));
+	}
+
+	/**
 	 * Called when this screen becomes current screen.
 	 */
 	public void show() {}

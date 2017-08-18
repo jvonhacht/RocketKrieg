@@ -19,7 +19,7 @@ public class DesktopLauncher {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		config.fullscreen = true;
 		config.vSyncEnabled = false;
-		config.foregroundFPS = -1;
+		config.foregroundFPS = 500;
 		config.resizable = false;
 		config.useGL30 = false;
 		config.width = LwjglApplicationConfiguration.getDesktopDisplayMode().width;

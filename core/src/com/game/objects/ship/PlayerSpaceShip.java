@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.game.AssetStorage;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -151,7 +152,7 @@ public class PlayerSpaceShip extends GameEntity implements Entity {
         if(Gdx.input.isKeyPressed(Input.Keys.A)) {
             turnRight(delta);
         }
-        if(Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
+        if(Gdx.input.isButtonPressed(Input.Buttons.LEFT)) {
             fireMissile();
         }
         //reset position to center of the screen.
@@ -166,7 +167,9 @@ public class PlayerSpaceShip extends GameEntity implements Entity {
      */
     public void fireMissile() {
         if(timeElapsed > reloadComponent.getStats()*weaponComponent.getReloadTime()) {
-            weaponComponent.fireMissile(position,velocity,acceleration,angle,angularVelocity);
+            Vector3 mousePos = RocketKrieg.getMouseInWorld();
+            float missileAngle = (float)Math.atan2(mousePos.y - position.y, mousePos.x - position.x);
+            weaponComponent.fireMissile(position,velocity,acceleration,missileAngle,angularVelocity);
             timeElapsed = 0;
         }
     }
