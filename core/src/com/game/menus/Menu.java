@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.game.GameEntry;
@@ -24,6 +25,7 @@ public class Menu{
     protected Sound soundEffect1;
     protected Sound soundEffect2;
     protected float timeElapsed;
+    protected GlyphLayout glyphLayout;
 
     /**
      * Constructor for Menu screen.
@@ -36,6 +38,7 @@ public class Menu{
         soundEffect1 = Gdx.audio.newSound(Gdx.files.internal("sounds/Play_Sound.mp3"));
         soundEffect2 = Gdx.audio.newSound(Gdx.files.internal("sounds/SettingsButtonPress.mp3"));
         timeElapsed = 0;
+        glyphLayout = new GlyphLayout();
     }
 
     /**

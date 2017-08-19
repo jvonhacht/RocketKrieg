@@ -3,6 +3,8 @@ package com.game.menus;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.utils.Base64Coder;
 import com.badlogic.gdx.utils.StringBuilder;
@@ -48,13 +50,15 @@ public class ComponentsMenu extends Menu implements Screen {
     private ComponentWidget speedComp;
     private ComponentWidget boostComp;
     private ComponentWidget turningComp;
+    private int currency;
+    private BitmapFont currencyFont;
 
     /**
      * Constructor for Components screen.
      *
      * @param game SpriteBatch
      */
-    public ComponentsMenu(final GameEntry game) {
+    public ComponentsMenu(final GameEntry game, int currency) {
         super(game);
         background = AssetStorage.background1;
         componentsBox = AssetStorage.componentsBox;
@@ -63,6 +67,8 @@ public class ComponentsMenu extends Menu implements Screen {
         speedComp = new ComponentWidget(3, speedMk, componentsBox);
         boostComp = new ComponentWidget(4, boostMk, componentsBox);
         turningComp = new ComponentWidget(5, turningMk, componentsBox);
+        this.currency = currency;
+        currencyFont = initializeFontMolot(25, Color.WHITE);
     }
 
     /**
@@ -76,6 +82,8 @@ public class ComponentsMenu extends Menu implements Screen {
 
         //Draw menu
         GameEntry.batch.draw(componentsBox, Gdx.graphics.getWidth()/2 - componentsBox.getWidth()/2, Gdx.graphics.getHeight()/2 - componentsBox.getHeight()/2);
+        glyphLayout.setText(currencyFont, "CURRENCY: " + "" + currency);
+        currencyFont.draw(GameEntry.batch, "CURRENCY: " + "" + currency, Gdx.graphics.getWidth() - (Gdx.graphics.getWidth() - componentsBox.getWidth())/2 - glyphLayout.width - 20, Gdx.graphics.getHeight()/2 + componentsBox.getHeight()/2 - 19);
 
         //Render components
         shieldComp.renderComponent(delta);

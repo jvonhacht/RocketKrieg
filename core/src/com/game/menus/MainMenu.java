@@ -38,7 +38,6 @@ public class MainMenu extends Menu implements Screen {
     private BitmapFont fontStatsM;
     private BitmapFont fontStats;
     private BitmapFont fontMolot;
-    private GlyphLayout glyphLayout;
     private String startingText;
     ComponentsMenu menu;
 
@@ -64,15 +63,14 @@ public class MainMenu extends Menu implements Screen {
         fontStatsM = initializeFontMolot(25, Color.WHITE);
         fontMolot = initializeFontMolot(50, Color.WHITE);
         startingText = "Press any key to continue";
-        glyphLayout = new GlyphLayout();
-
-        reloadComponents();
-        //Initialize components menu to add reloaded components for ship.
-        menu = new ComponentsMenu(game);
-        menu.updateComponents();
 
         reloadPlayerStats();
         timeString = convertSeconds();
+
+        reloadComponents();
+        //Initialize components menu to add reloaded components for ship.
+        menu = new ComponentsMenu(game, totalCurrency);
+        menu.updateComponents();
     }
 
     /**
@@ -187,8 +185,8 @@ public class MainMenu extends Menu implements Screen {
         glyphLayout.setText(fontStats, timeString);
         fontStats.draw(GameEntry.batch, timeString, Gdx.graphics.getWidth() - glyphLayout.width - 40, Gdx.graphics.getHeight() - 80f);
         fontStats.draw(GameEntry.batch, "Points collected:", Gdx.graphics.getWidth() - 370f, Gdx.graphics.getHeight() - 113f);
-        glyphLayout.setText(fontStats, "" + totalCurrency);
-        fontStats.draw(GameEntry.batch, "" + totalCurrency, Gdx.graphics.getWidth() - glyphLayout.width - 40, Gdx.graphics.getHeight() - 113f);
+        glyphLayout.setText(fontStats, "N/A");
+        fontStats.draw(GameEntry.batch, "N/A", Gdx.graphics.getWidth() - glyphLayout.width - 40, Gdx.graphics.getHeight() - 113f);
         fontStats.draw(GameEntry.batch, "Aliens eliminated:", Gdx.graphics.getWidth() - 370f, Gdx.graphics.getHeight() - 146f);
         glyphLayout.setText(fontStats, "N/A");
         fontStats.draw(GameEntry.batch, "N/A", Gdx.graphics.getWidth() - glyphLayout.width - 40, Gdx.graphics.getHeight() - 146f);
