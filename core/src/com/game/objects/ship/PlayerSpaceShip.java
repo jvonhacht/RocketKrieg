@@ -152,7 +152,7 @@ public class PlayerSpaceShip extends GameEntity implements Entity {
         if(Gdx.input.isKeyPressed(Input.Keys.A)) {
             turnRight(delta);
         }
-        if(Gdx.input.isButtonPressed(Input.Buttons.LEFT)) {
+        if(Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
             fireMissile();
         }
         //reset position to center of the screen.
@@ -167,9 +167,7 @@ public class PlayerSpaceShip extends GameEntity implements Entity {
      */
     public void fireMissile() {
         if(timeElapsed > reloadComponent.getStats()*weaponComponent.getReloadTime()) {
-            Vector3 mousePos = RocketKrieg.getMouseInWorld();
-            float missileAngle = (float)Math.atan2(mousePos.y - position.y, mousePos.x - position.x);
-            weaponComponent.fireMissile(position,velocity,acceleration,missileAngle,angularVelocity);
+            weaponComponent.fireMissile(position,velocity,acceleration,angle,angularVelocity);
             timeElapsed = 0;
         }
     }
